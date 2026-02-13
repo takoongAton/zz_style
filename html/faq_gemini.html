@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Toss Style FAQ</title>
+    <meta name="description" content="페이지 설명이 들어갑니다. 구어체로 작성.">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover" />
+    <meta name="author" content="aton corp" />
+
+    <!-- 서버 통신이 필요한 주소들 모두 작성-->
+    <link rel="preconnect" href="url" />
+    <link rel="preconnect" href="url" />
+    <link rel="preconnect" href="url" />
+    <link rel="preconnect" href="url" />
+    <!-- // 서버 통신이 필요한 주소들 모두 작성-->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300..700&display=swap" rel="stylesheet" />
+
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+
+    <style>
+        :root {
+            --main-color:#009ddf;
+            --body-bg-color:#fdfdfd;
+            --bg-color:#f2f4f6;
+            --text-color:#333;
+            --toggle-color:#b0b8c1;
+            /* 쫀득한 바운스 효과를 위한 베지어 곡선 */
+            --bounce-bezier:cubic-bezier(0.68, -0.55, 0.265, 1.55);
+		}
+        * {
+            font-family:'Pretendard', serif;
+            font-family:"Pretendard Variable";
+            line-height:1em;
+            font-weight:400;
+        }
+        * {margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+        body {background-color:var(--body-bg-color);}
+
+        .faq_wrap {padding:20px; margin:0 auto; transition:padding 0.2s ease-in-out;}
+        .faq_wrap h2.faq_tit {margin-bottom:20px; font-size:22px; color:var(--text-color);}
+
+        .faq_list {display:flex; flex-direction:column; gap:12px;}
+        
+        .faq_item {position:relative; background-color:var(--bg-color); border-radius:20px; overflow:hidden; transition:background-color 0.3s ease;}
+
+        .faq_question {
+            display:flex; flex-direction:column; gap:7px 0; padding:20px; padding-right:50px; /* 토글 버튼 공간 */
+            cursor:pointer; user-select:none;
+		}
+        
+        .faq_question h2 {width:70px; color:var(--main-color); font-size:15px;}
+        .faq_question p {color:var(--text-color); font-size:17px; line-height:1.3em;}
+
+        /* 토글 아이콘 */
+        .toggle {position:absolute; top:20px; right:20px; width:20px; height:20px; transition:transform 0.4s var(--bounce-bezier);}
+        .toggle svg {width:100%; height:100%; fill:var(--toggle-color);}
+
+        /* 답변 영역 */
+        .faq_answer {
+            height:0; opacity:0; overflow:hidden; padding:0 20px;
+            transition:height 0.4s var(--bounce-bezier), opacity 0.4s ease, padding 0.4s var(--bounce-bezier);
+		}
+
+        .faq_answer p {padding-bottom:20px; color:#4e5968; font-size:15px; line-height:1.4em;}
+        .faq_answer mark {background:none; color:var(--main-color);}
+
+        /* 활성화 상태 (Active) */
+        .faq_item.active {background-color:#ebedf0;}
+        .faq_item.active .toggle {transform:rotate(180deg);}
+        .faq_item.active .faq_answer {opacity:1;}
+		.faq_item:not(.active) .faq_answer {transition:height 0.2s ease-in, opacity 0.4s ease;;}
+
+
+		@media (min-width: 0px) and (max-width: 639px) {
+
+		}
+        @media (min-width: 640px) {
+            .faq_question {align-items:center;}
+        }
+        
+		@media (min-width: 640px) and (max-width: 1023px) {
+			.faq_question {flex-direction:row;}
+			.faq_wrap {padding:20px 40px;}
+		}
+		@media (min-width: 1024px) {
+			.faq_question {flex-direction:row;}
+			.faq_wrap {padding:20px 48px;}
+		}
+
+
+        
+        /* 다크모드 대응 샘플 */
+		@media (prefers-color-scheme: dark) {
+			/* body {background-color: white !important; color: black !important;} */
+			/* 이미지나 기타 요소가 반전되는 경우 방지 */
+			img, video {filter: none !important;}
+
+
+            :root {
+                --main-color:#ff6600;
+                --body-bg-color:#222;
+                --bg-color:#333;
+                --text-color:#fff;
+                --toggle-color:#b0b8c1;
+                /* 쫀득한 바운스 효과를 위한 베지어 곡선 */
+                --bounce-bezier:cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            }
+            .faq_item.active {background-color:#333;} 
+		}
+		/* // 다크모드 대응 샘플 */
+
+
+    </style>
+</head>
+<body>
+
+    <section class="faq_wrap">
+        <h2 class="faq_tit">자주묻는질문</h2>
+        <div class="faq_list">
+            <div class="faq_item">
+                <div class="faq_question" role="button" aria-expanded="false">
+                    <h2>사용 방법</h2>
+                    <p>제목이 들어갑니다.</p>
+                </div>
+                <span class="toggle" aria-hidden="true">
+                    <svg viewBox="0 0 16 16"><path d="m11.34 6.96c-.01 0-.02.01-.02.02l-2.95 2.95c-.11.11-.26.17-.42.17s-.31-.06-.42-.17l-2.95-2.95c-.23-.23-.24-.6-.02-.84.23-.23.6-.24.84-.02 0 .01.01.02.02.02l2.53 2.54 2.53-2.54c.23-.23.6-.24.84-.02.23.23.24.6.02.84z"/></svg>
+                </span>
+                <div class="faq_answer" role="region">
+                    <p>내용이 들어갑니다.<br>여러 줄의 내용이 들어가도 높이를 자동으로 계산합니다.<br><mark>중요 포인트</mark></p>
+                </div>
+            </div>
+
+            <div class="faq_item">
+                <div class="faq_question" role="button" aria-expanded="false">
+                    <h2>저작권</h2>
+                    <p>어떻게 이용하나요?</p>
+                </div>
+                <span class="toggle" aria-hidden="true">
+                    <svg viewBox="0 0 16 16"><path d="m11.34 6.96c-.01 0-.02.01-.02.02l-2.95 2.95c-.11.11-.26.17-.42.17s-.31-.06-.42-.17l-2.95-2.95c-.23-.23-.24-.6-.02-.84.23-.23.6-.24.84-.02 0 .01.01.02.02.02l2.53 2.54 2.53-2.54c.23-.23.6-.24.84-.02.23.23.24.6.02.84z"/></svg>
+                </span>
+                <div class="faq_answer" role="region">
+                    <p>앱을 다운로드한 후 회원가입을 진행해 주세요.</p>
+                </div>
+            </div>
+
+			<div class="faq_item">
+                <div class="faq_question" role="button" aria-expanded="false">
+                    <h2>사용 방법</h2>
+                    <p>제목이 들어갑니다.</p>
+                </div>
+                <span class="toggle" aria-hidden="true">
+                    <svg viewBox="0 0 16 16"><path d="m11.34 6.96c-.01 0-.02.01-.02.02l-2.95 2.95c-.11.11-.26.17-.42.17s-.31-.06-.42-.17l-2.95-2.95c-.23-.23-.24-.6-.02-.84.23-.23.6-.24.84-.02 0 .01.01.02.02.02l2.53 2.54 2.53-2.54c.23-.23.6-.24.84-.02.23.23.24.6.02.84z"/></svg>
+                </span>
+                <div class="faq_answer" role="region">
+                    <p>내용이 들어갑니다.<br>여러 줄의 내용이 들어가도 높이를 자동으로 계산합니다.<br><mark>중요 포인트</mark></p>
+                </div>
+            </div>
+
+            <div class="faq_item">
+                <div class="faq_question" role="button" aria-expanded="false">
+                    <h2>저작권</h2>
+                    <p>어떻게 이용하나요?</p>
+                </div>
+                <span class="toggle" aria-hidden="true">
+                    <svg viewBox="0 0 16 16"><path d="m11.34 6.96c-.01 0-.02.01-.02.02l-2.95 2.95c-.11.11-.26.17-.42.17s-.31-.06-.42-.17l-2.95-2.95c-.23-.23-.24-.6-.02-.84.23-.23.6-.24.84-.02 0 .01.01.02.02.02l2.53 2.54 2.53-2.54c.23-.23.6-.24.84-.02.23.23.24.6.02.84z"/></svg>
+                </span>
+                <div class="faq_answer" role="region">
+                    <p>앱을 다운로드한 후 회원가입을 진행해 주세요.</p>
+                </div>
+            </div>
+        </div>
+		<!-- // faq_list -->
+    </section>
+	<!-- // faq_wrap -->
+
+    <script>
+/**
+ * Toss Style Accordion - Flexible Height Version
+ */
+const initTossAccordion = () => {
+    const faqItems = document.querySelectorAll(".faq_item");
+    if (faqItems.length === 0) return;
+
+    faqItems.forEach((item) => {
+        const question = item.querySelector(".faq_question");
+        const answer = item.querySelector(".faq_answer");
+
+        if (!question || !answer) return;
+
+        // 애니메이션 완료 후 처리 로직
+        answer.addEventListener("transitionend", (e) => {
+            // height 프로퍼티의 트랜지션이 끝났을 때만 실행
+            if (e.propertyName !== 'height') return;
+
+            if (item.classList.contains("active")) {
+                // 열린 상태라면 높이를 auto로 변경하여 유연성 확보
+                answer.style.height = "auto";
+            }
+        });
+
+        const toggleItem = (e) => {
+            if (e.type === 'keydown' && !(e.key === "Enter" || e.key === " ")) return;
+
+            const isActive = item.classList.contains("active");
+            
+            if (!isActive) {
+                // [열기]
+                item.classList.add("active");
+                question.setAttribute("aria-expanded", "true");
+                
+                // 0 -> scrollHeight로 애니메이션 시작
+                answer.style.height = `${answer.scrollHeight}px`;
+            } else {
+                // [닫기]
+                // 현재 auto 상태라면 애니메이션을 위해 px값으로 즉시 고정
+                answer.style.height = `${answer.scrollHeight}px`;
+                
+                // 브라우저가 높이 변화(auto -> px)를 인식할 시간을 줌 (Reflow 강제 발생)
+                answer.offsetHeight; 
+
+                item.classList.remove("active");
+                question.setAttribute("aria-expanded", "false");
+                
+                // 높이를 0으로 변경하여 닫기 애니메이션 시작
+                answer.style.height = "0";
+            }
+        };
+
+        question.addEventListener("click", toggleItem);
+        question.addEventListener("keydown", toggleItem);
+    });
+};
+
+document.addEventListener("DOMContentLoaded", initTossAccordion)
+    </script>
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+	<title>보안키패드 테스트</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+	<!-- <link rel="stylesheet" href="../css/reset.css">
+	<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/slick.css"> -->
+
+	<!-- <link rel="shortcut icon" type="image/x-icon" href="../images/common/favicon.ico"> -->
+
+<style>
+* {margin:0; padding:0; border:0; outline:0; box-sizing:border-box;}
+/* 가상키패드 */
+.keypad_wrap {position:absolute; bottom:0; left:0; width:100%; padding:5px; background-color:#fff;}
+.keypad {display:flex; flex-wrap:wrap;}
+.keypad div {display:flex; justify-content:center; align-items:center; width:33.3%; padding:2px;}
+.keypad button {display:block; width:100%; height:86px; color:#000; font-size:30px; line-height:1em; font-weight:500; transition: all 0.2s;}
+.keypad button.number { /* border:1px solid #ebebeb; */ background-color:#fff; border-radius:4px; color:#333333; font-weight:500; font-family:'Noto Sans KR', Arial, Helvetica, sans-serif;  transition: all 0.2s;}
+.keypad button img {width:auto; height:34px;}
+.keypad button.active {transition:background-color 0.1s ease;
+	animation-name: aniBtnClick;
+	animation-duration: 0.2s;
+}
+@keyframes aniBtnClick {
+	0% {background-color:rgba(255,255,255,1)}
+	50% {background-color:rgba(0,0,0,0.03)}
+	100% {background-color:rgba(255,255,255,1)}
+}
+@media screen and (max-height:667px) {
+	.keypad button {height:62px}
+	.keypad button img {height:25px;}
+}
+
+body {background-color:#f9f9f9;}
+#keypad_form {display:flex; flex-wrap:wrap; gap:10px; background-color:#fff;}
+#keypad_form button {height:50px; background-color:#333; color:#fff;}
+#keypad_form button.btn_number {}
+</style>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="../js/slick.js" type="text/javascript" charset="utf-8"></script> -->
+</head>
+<body>
+
+<div class="wrap">
+
+	<div class="container">
+		<div class="aside">
+			<div class="aside_inner">
+				<!-- <div class="userInfo">
+					<p>홍길동님<br />
+						(010-1234-5678)
+					</p>
+					<button><span>자동연결기기 관리</span></button>
+				</div> -->
+				<!-- <div class="logo"><img src="../images/aton_CI.png" alt="ATON/"></div> -->
+			</div><!-- // aside_inner -->
+			<!-- <button type="button" class="btn_aside"><span>보기</span></button> -->
+		</div><!-- // aside -->
+
+		<section>
+
+			<div class="keypad_new">
+				<!-- <button type="button" class="btn_num"><span>1</span></button>
+				<button type="button" class="btn_num"><span>2</span></button>
+				<button type="button" class="btn_num"><span>3</span></button>
+				<button type="button" class="btn_num"><span>4</span></button>
+				<button type="button" class="btn_num"><span>5</span></button>
+				<button type="button" class="btn_num"><span>6</span></button>
+				<button type="button" class="btn_num"><span>7</span></button>
+				<button type="button" class="btn_num"><span>8</span></button>
+				<button type="button" class="btn_num"><span>9</span></button>
+				<button type="button" class="btn_face"><span>face</span></button>
+				<button type="button" class="btn_num"><span>9</span></button>
+				<button type="button" class="btn_del"><span>del</span></button> -->
+			</div>
+
+			<div class="pagePrev">
+				<button class="btnPrev"><span>이전</span></button>
+			</div>
+
+			<div class="pageTit">
+				<p class="tit">
+					<strong>비밀번호 설정</strong>
+				</p>
+			</div><!-- // pageTit -->
+
+
+			<div class="section_group">
+				<div class="section_top">
+					<div class="lockChkWrap">
+						<div class="lockNum">
+							<span></span>
+							<span></span>
+							<span></span>
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+						<button type="button" class="btnDelAll" style="display:none;"><span>비밀번호를 잊으셨나요?</span></button>
+						<!-- <p class="errorTxt">설정하신 비밀번호와 일치하지 않습니다.</p>
+						<p class="errorTxt">5회 실패 시 삭제후 재설치 해야합니다.</p> -->
+					</div>
+				</div><!-- // section_top -->
+	
+				<div class="section_bottom">
+					<!-- <div class="keypad_wrap">
+						<div class="keypad">
+							<div><button type="button" class="number">1</button></div>
+							
+							<div><button type="button" class="number">2</button></div>
+							<div><button type="button" class="number">3</button></div>
+							<div><button type="button" class="number">4</button></div>
+							<div><button type="button" class="number">5</button></div>
+							<div><button type="button" class="number">6</button></div>
+							<div><button type="button" class="number">7</button></div>
+							<div><button type="button" class="number">8</button></div>
+							<div><button type="button" class="number">9</button></div>
+							
+							<div><button type="button" class="btnRefresh"><span>새로고침</span></button></div>
+							<div><button type="button" class="number">0</button></div>
+							<div><button type="button" class="btnDel"><span>끝자리삭제</span></button></div>
+						</div>
+						
+					</div> -->
+				</div><!-- // section_bottom -->
+			</div>
+
+		</section>
+			
+	</div><!-- // container -->
+
+
+
+	
+
+</div><!-- // wrap -->
+
+
+
+
+
+
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+<!-- <script src="../js/slick.js"></script> -->
+<script src="./js/temp.js"></script>
+
+
+<script>
+/* 키패드 */
+let keypad = document.querySelector(".keypad");
+let keypadBtns;
+if(keypad != null) {
+	let btnNumbers = keypad.querySelectorAll("button.number");
+	btnNumbers.forEach(function(item,index){
+		item.addEventListener("click", function(){
+            fnNumberClick(item,index);
+		})
+	})
+    let btnRefresh = keypad.querySelector("button.btnRefresh");
+    btnRefresh.addEventListener("click", function(){
+        fnRefreshNumber();
+    })
+    let btnDel = keypad.querySelector("button.btnDel");
+    btnDel.addEventListener("click", function(){
+        fnDelNumber();
+    })
+    keypad.querySelectorAll("button");
+}
+
+
+// let keypadBtns = keypad.querySelectorAll("button");
+if(keypadBtns != null) {
+    keypadBtns.forEach(function(item){
+        item.addEventListener("click", function(){
+            item.classList.add("active")
+            setTimeout(function(){
+                item.classList.remove("active")
+            }, 200)
+        })
+    })
+}
+
+
+
+function fnRefreshNumber(){
+    pwNum = '';
+    pwDot.forEach(function(item,index){
+        item.classList.remove("active")
+    })
+}
+
+function fnDelNumber(){
+    pwNum = pwNum.slice(0, pwNum.length-1);
+    pwDot[pwNum.length].classList.remove("active");
+}
+
+
+let pwNum = '';
+let pwDot = document.querySelectorAll(".lockNum span");
+
+function fnNumberClick(btnItem){
+    pwNum += btnItem.innerText;
+    console.log(pwNum);
+
+    for(i=0;i<pwNum.length;i++){
+        pwDot[i].classList.add("active");
+    }
+
+    if(pwNum.length == 6) {
+        if(pwNum == '111111') {
+            setTimeout(function(){ /* 칸이 채워지기 전에 alert이 떠서 시간 딜레이 줌 */
+                alert("성공");
+            }, 100)
+        } else {
+            pwNum = '';
+            setTimeout(function(){
+                alert("실패");
+                document.querySelector(".btnDelAll").style.display = 'inline-block';
+            }, 100)
+        }
+        setTimeout(function(){
+            pwDot.forEach(function(item){
+                item.classList.remove("active");
+            })
+        }, 400)
+        pwNum = '';
+    }
+}
+
+
+
+function getCustomShuffledArray() {
+  // 1부터 10까지 숫자 배열 생성
+  const numbers = Array.from({ length: 10 }, (_, i) => i + 1);
+
+  // Fisher-Yates 방식으로 배열을 무작위로 섞음
+  for (let i = numbers.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+  }
+
+  // 12칸짜리 배열 생성
+  const result = [];
+
+  // 0~11까지 반복 (총 12개)
+  for (let i = 0; i < 12; i++) {
+    if (i === 9) {
+      result.push('a'); // 10번째 (index 9)에 'a'
+    } else if (i === 11) {
+      result.push('b'); // 12번째 (index 11)에 'b'
+    } else {
+      result.push(numbers.shift()); // 나머지는 섞인 숫자 채우기
+    }
+  }
+
+  return result;
+}
+
+console.log(getCustomShuffledArray());
+
+let keypad_new = document.querySelector(".keypad_new");
+function addexe(aaa){
+	const item = document.createElement('div');
+	item = `<div><button type='button' class='number'><span>${aaa}</span></button></div>`
+	keypad_new.appendChild(item);
+	
+	// let xxx = aaa;
+	// let nnn = `<div><button type='button' class='number'><span>${xxx}</span></button></div>`
+}
+
+for(i=0;i<10;i++) {
+	addexe(i);
+}
+
+</script>
+</body>
+</html>

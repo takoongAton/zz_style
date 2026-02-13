@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>Kbank Style join</title>
+    <meta name="description" content="페이지 설명이 들어갑니다. 구어체로 작성.">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover" />
+    <meta name="author" content="aton corp" />
+
+    <!-- 서버 통신이 필요한 주소들 모두 작성-->
+    <link rel="preconnect" href="url" />
+    <link rel="preconnect" href="url" />
+    <link rel="preconnect" href="url" />
+    <link rel="preconnect" href="url" />
+    <!-- // 서버 통신이 필요한 주소들 모두 작성-->
+
+
+    <!-- 폰트 css -->
+     <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" /> -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" />
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300..700&display=swap" />
+
+
+
+</head>
+<body>
+
+    <style>
+/* 기본 변수 설정 */
+:root {
+    --primary-color: #001BA0; /* 이미지의 진한 블루 */
+    --bg-gray: #F8F9FB;
+    --border-gray: #E9ECF0;
+    --text-label: #8E94A1;
+    --text-main: #1A1D23;
+    --text-error: #FF5A5F;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Pretendard', sans-serif; }
+
+.auth-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 0 20px;
+}
+
+/* 헤더 */
+.auth-header {
+    height: 56px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.btn-cancel { border: none; background: none; font-size: 16px; color: #333; cursor: pointer; }
+
+/* 타이틀 */
+.auth-title {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin: 20px 0 40px;
+    color: var(--text-main);
+}
+
+/* 입력 영역 공통 */
+.field-group { margin-bottom: 12px; position: relative; }
+.field-group--split { display: flex; gap: 10px; }
+.field-group--split .input-box { flex: 1; }
+
+.input-box {
+    background: var(--bg-gray);
+    border: 1px solid var(--border-gray);
+    border-radius: 14px;
+    padding: 12px 16px;
+    transition: border-color 0.2s;
+}
+
+.input-box--with-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-label {
+    display: block;
+    font-size: 12px;
+    color: var(--text-label);
+    margin-bottom: 4px;
+}
+
+.input-element {
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-main);
+    width: 100%;
+    outline: none;
+}
+
+/* 통신사 선택 및 행 정렬 */
+.input-row { display: flex; align-items: center; }
+.select-carrier {
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 12px;
+    padding-right: 12px;
+    border-right: 1px solid #D1D5DB;
+    appearance: none; /* 기본 화살표 제거 */
+}
+
+/* 주민번호 뒷자리 마스킹 */
+.rrn-row { display: flex; align-items: center; }
+.rrn-digit { width: 20px; }
+.rrn-masking { font-size: 16px; letter-spacing: 4px; margin-left: 4px; }
+
+/* 인증번호 타이머 및 버튼 */
+.btn-sub-action {background:#EBEEF2; border:none; padding:8px 12px; border-radius:8px; font-size:13px; color:#8E94A1;}
+
+.input-info {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+}
+.timer { color: var(--text-error); font-size: 14px; font-weight: 500; }
+.btn-help {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #D1D5DB;
+    border-radius: 50%;
+    background: none;
+    font-size: 10px;
+    color: #999;
+}
+
+/* 하단 버튼 */
+.auth-footer { margin-top: auto; padding: 20px 0; }
+.btn-primary {
+    width: 100%;
+    height: 56px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+    </style>
+
+
+    
+<div class="auth-wrapper">
+    <header class="auth-header">
+        <button type="button" class="btn-cancel">취소</button>
+    </header>
+
+    <main class="auth-container">
+        <h1 class="auth-title">휴대폰번호를<br>입력해주세요</h1>
+
+        <form class="auth-form">
+            <div class="field-group">
+                <div class="input-box input-box--with-btn">
+                    <div class="input-content">
+                        <label class="input-label">인증번호</label>
+                        <input type="number" class="input-element" value="193485" placeholder="인증번호 입력">
+                    </div>
+                    <button type="button" class="btn-sub-action">재요청</button>
+                </div>
+                <div class="input-info">
+                    <span class="timer">06:54</span>
+                    <button type="button" class="btn-help">?</button>
+                </div>
+            </div>
+
+            <div class="field-group">
+                <div class="input-box">
+                    <label class="input-label">휴대폰번호</label>
+                    <div class="input-row">
+                        <div class="select-wrapper">
+                            <select class="select-carrier">
+                                <option>KT</option>
+                                <option>SKT</option>
+                                <option>LG U+</option>
+                            </select>
+                        </div>
+                        <input type="tel" class="input-element" value="01025427454">
+                    </div>
+                </div>
+            </div>
+
+            <div class="field-group field-group--split">
+                <div class="input-box">
+                    <label class="input-label">앞자리</label>
+                    <input type="number" class="input-element" value="811208">
+                </div>
+                <div class="input-box">
+                    <label class="input-label">뒷자리</label>
+                    <div class="rrn-row">
+                        <input type="password" class="input-element rrn-digit" value="1" maxlength="1">
+                        <span class="rrn-masking">●●●●●●</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field-group">
+                <div class="input-box">
+                    <label class="input-label">이름</label>
+                    <input type="text" class="input-element" value="서강철">
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <footer class="auth-footer">
+        <button type="button" class="btn-primary">본인인증 진행하기</button>
+    </footer>
+</div>
+
+</body>
+</html>

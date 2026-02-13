@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+	<title>테스트</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+	<!-- <link rel="stylesheet" href="../css/reset.css">
+	<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/slick.css"> -->
+
+	<!-- <link rel="shortcut icon" type="image/x-icon" href="../images/common/favicon.ico"> -->
+
+<style>
+:root {
+	--main-color : #ff6600;
+}
+* {margin:0; padding:0; border:0; outline:0; box-sizing:border-box; background-color:transparent;
+-webkit-tap-highlight-color:transparent;
+}
+body {background-color:#fdfdfd;}
+
+.faq_toss {padding:20px;}
+.faq_list {display:flex; flex-direction:column; gap:12px; position:relative; width:100%;}
+.faq_list .faq_item {background-color:#f2f4f6; border-radius:20px;}
+/* .faq_list > *:not(:last-child) {margin-bottom:12px;} */
+.faq_list .faq_item .faq_question {display:flex; flex-direction:column; padding:20px; cursor:pointer;}
+.faq_list .faq_item .faq_question h2 {width:70px; padding-right:20px; font-size:15px;}
+.faq_list .faq_item .faq_question p {}
+.faq_list .faq_item span.toggle {position:absolute; top:20px; right:20px; width:20px; height:20px;}
+.faq_list .faq_item .faq_answer {height:0; padding:0 20px; opacity:0; overflow: hidden; transition:height 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 1s ease;}
+.faq_list .faq_item .faq_answer.active {opacity:1;}
+.faq_list .faq_item .faq_answer p {padding-bottom:20px;}
+.faq_list .faq_item .faq_answer p mark {background-color:transparent; color:var(--main-color);}
+.faq_item:not(.active) .faq_answer { transition: height 0.3s ease-in, opacity 1s ease;; }
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .faq_list .faq_item .faq_question {flex-direction:row;}
+  .faq_list .faq_item .faq_question h2 {width:auto; font-size:17px;}
+}
+@media (min-width: 1024px) {
+
+}
+
+</style>
+
+</head>
+<body>
+
+	<section class="faq_toss">
+		<h2>자주묻는질문</h2>
+		<div class="faq_list">
+			<div class="faq_item">
+				<div class="faq_question">
+					<h2>카테고리명</h2>
+					<p>제목이 들어갑니다.</p>
+				</div>
+				<span class="toggle">
+					<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+						<path d="m11.34 6.96c-.01 0-.02.01-.02.02l-2.95 2.95c-.11.11-.26.17-.42.17s-.31-.06-.42-.17l-2.95-2.95c-.23-.23-.24-.6-.02-.84.23-.23.6-.24.84-.02 0 .01.01.02.02.02l2.53 2.54 2.53-2.54c.23-.23.6-.24.84-.02.23.23.24.6.02.84z" fill="#b0b8c1" fill-rule="evenodd"></path>
+					</svg>
+				</span>
+				<div class="faq_answer">
+					<p class="txt">
+						내용이 들어갑니다.<br />
+						내용이 들어갑니다.<br />
+						내용이 들어갑니다.<br />
+						내용이 들어갑니다.<br />
+						내용이 들어갑니다.<br />
+						<mark>asdfasdf</mark>
+					</p>
+				</div>
+			</div>
+			<div class="faq_item">
+				<div class="faq_question">
+					<h2>카테고리명</h2>
+					<p>제목이 들어갑니다.</p>
+				</div>
+				<span class="toggle">
+					<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+						<path d="m11.34 6.96c-.01 0-.02.01-.02.02l-2.95 2.95c-.11.11-.26.17-.42.17s-.31-.06-.42-.17l-2.95-2.95c-.23-.23-.24-.6-.02-.84.23-.23.6-.24.84-.02 0 .01.01.02.02.02l2.53 2.54 2.53-2.54c.23-.23.6-.24.84-.02.23.23.24.6.02.84z" fill="#b0b8c1" fill-rule="evenodd"></path>
+					</svg>
+				</span>
+				<div class="faq_answer">
+					<p class="txt">
+						내용이 들어갑니다.<br />
+						내용이 들어갑니다.<br />
+						내용이 들어갑니다.<br />
+						내용이 들어갑니다.<br />
+						내용이 들어갑니다.<br />
+						<mark>asdfasdf</mark>
+					</p>
+				</div>
+			</div>
+			<div class="faq_item">
+				<div class="faq_question">
+					<h2>카테고리명</h2>
+					<p>제목이 들어갑니다.</p>
+				</div>
+				<span class="toggle">
+					<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+						<path d="m11.34 6.96c-.01 0-.02.01-.02.02l-2.95 2.95c-.11.11-.26.17-.42.17s-.31-.06-.42-.17l-2.95-2.95c-.23-.23-.24-.6-.02-.84.23-.23.6-.24.84-.02 0 .01.01.02.02.02l2.53 2.54 2.53-2.54c.23-.23.6-.24.84-.02.23.23.24.6.02.84z" fill="#b0b8c1" fill-rule="evenodd"></path>
+					</svg>
+				</span>
+				<div class="faq_answer">
+					<p class="txt">
+						내용이 들어갑니다.<br />
+						내용이 들어갑니다.<br />
+					</p>
+				</div>
+			</div>
+			<div class="faq_item">
+				<div class="faq_question">
+					<h2>카테고리명</h2>
+					<p>제목이 들어갑니다.</p>
+				</div>
+				<span class="toggle">
+					<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+						<path d="m11.34 6.96c-.01 0-.02.01-.02.02l-2.95 2.95c-.11.11-.26.17-.42.17s-.31-.06-.42-.17l-2.95-2.95c-.23-.23-.24-.6-.02-.84.23-.23.6-.24.84-.02 0 .01.01.02.02.02l2.53 2.54 2.53-2.54c.23-.23.6-.24.84-.02.23.23.24.6.02.84z" fill="#b0b8c1" fill-rule="evenodd"></path>
+					</svg>
+				</span>
+				<div class="faq_answer">
+					<p class="txt">
+						내용이 들어갑니다.<br />
+						내용이 들어갑니다.<br />
+						내용이 들어갑니다.<br />
+						내용이 들어갑니다.<br />
+						내용이 들어갑니다.<br />
+						<mark>asdfasdf</mark>
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+
+<script>
+
+// let btns = document.querySelectorAll(".faq_item");
+// btns.forEach(function(item){
+// 	item.addEventListener("click", function(){
+// 		let isOpne
+// 		item.classList.add("active");
+// 		let faq_answer = item.querySelector(".faq_answer");
+// 		faq_answer.classList.add("active")
+// 		let faq_answer_h = faq_answer.querySelector("p").getBoundingClientRect();
+// 		faq_answer.style.height = faq_answer_h.height + "px";
+// 		faq_answer.style.opacity = 1;
+// 		console.log(faq_answer_h);
+// 	})
+// })
+
+
+let btns = document.querySelectorAll(".faq_item");
+
+btns.forEach(function(item) {
+    item.addEventListener("click", function() {
+        let faq_answer = item.querySelector(".faq_answer");
+        let contentHeight = faq_answer.querySelector("p").getBoundingClientRect().height;
+        
+        // 현재 열려있는지 확인 (오타 수정: actvie -> active)
+        let isOpen = item.classList.contains("active");
+
+        if (isOpen) {
+            // 1. 이미 열려있다면 닫기
+            item.classList.remove("active");
+            faq_answer.classList.remove("active");
+            faq_answer.style.height = "0px";
+            faq_answer.style.opacity = 0;
+        } else {
+            // 2. 닫혀있다면 열기
+            item.classList.add("active");
+            faq_answer.classList.add("active");
+            faq_answer.style.height = contentHeight + "px";
+            faq_answer.style.opacity = 1;
+        }
+    });
+});
+
+</script>
+</body>
+</html>

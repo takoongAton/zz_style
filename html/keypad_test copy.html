@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+	<title>테스트</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+	<!-- <link rel="stylesheet" href="../css/reset.css">
+	<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/slick.css"> -->
+
+	<!-- <link rel="shortcut icon" type="image/x-icon" href="../images/common/favicon.ico"> -->
+
+<style>
+* {margin:0; padding:0; border:0; outline:0; box-sizing:border-box;}
+body {background-color:#fdfdfd;}
+
+/* 가상키패드 */
+#keypad_container {display:grid; grid-template-columns:auto auto auto; justify-content:center; gap:14px 20px; padding:10px; background-color:#fdfdfd;}
+#keypad_container button {position:relative; top:0; width:66px; height:66px; background-color:#fff; color:#333; border-radius:100%; box-shadow:0 1px 3px rgba(0,0,0,0.16); z-index:2; transform:scale(1); transform-origin:50% 70%; transition:all 0.1s ease-in-out;}
+#keypad_container button span {display:inline-flex; justify-content:center; align-items:center; position:relative; width:40px; min-width:20px; height:20px; overflow:hidden; overflow:hidden;}
+#keypad_container button.btn_number span {width:40px; color:#333;}
+#keypad_container button.btn_face span,
+#keypad_container button.btn_back span {width:40px; height:40px; border-radius:100%;}
+
+#keypad_container button.active {z-index:1; transform:scale(0.8); box-shadow:0 1px 3px rgba(0,0,0,0.06);}
+#keypad_container button.active::before {content:""; display:block; position:absolute; top:0; right:0; bottom:0; left:0; animation: applyButtonEffect 0.1s 1 ease-in-out; border-radius:100%;}
+#keypad_container button.active span {z-index:1;}
+@keyframes applyButtonEffect {
+	/* 0%, 100% {background-color:rgba(0,0,0,0);}
+	50% {background-color:rgba(0,0,0,0.1);} */
+}
+
+@media screen and (max-height:667px) {
+	/* #keypad_container button {height:62px} */
+	/* #keypad_container button img {height:25px;} */
+}
+
+
+.btnAdd {margin:10px; padding:14px 20px; background-color:#f7f7f7; border-radius:4px;}
+
+</style>
+
+</head>
+<body>
+<button type="button" class="btnAdd">초기화</button>
+<div id="keypad_container">
+	<button type="button" class="btn_number"><span>1</span></button>
+	<button type="button" class="btn_number"><span>2</span></button>
+	<button type="button" class="btn_number"><span>3</span></button>
+	<button type="button" class="btn_number"><span>4</span></button>
+	<button type="button" class="btn_number"><span>5</span></button>
+	<button type="button" class="btn_number"><span>6</span></button>
+	<button type="button" class="btn_number"><span>7</span></button>
+	<button type="button" class="btn_number"><span>8</span></button>
+	<button type="button" class="btn_number"><span>9</span></button>
+	<button type="button" class="btn_face"><span>face</span></button>
+	<button type="button" class="btn_number"><span>0</span></button>
+	<button type="button" class="btn_back"><span>back</span></button>
+</div>
+<!-- // keypad_container -->
+
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+<!-- <script src="../js/slick.js"></script> -->
+<script src="./js/temp.js"></script>
+
+</body>
+</html>
