@@ -51,44 +51,36 @@
         * {margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
         body {background-color:var(--body-bg-color);}
 
-        
-
-		@media (min-width: 0px) and (max-width: 639px) {
-
-		}
-        @media (min-width: 640px) {
-            
-        }
-        
-		@media (min-width: 640px) and (max-width: 1023px) {
-		}
-		@media (min-width: 1024px) {
-		}
-
-
-
-
     </style>
 </head>
 <body>
 <style>
 
-.auth-wrapper {display:flex; flex-direction:column; height:100vh;}
+.auth-wrapper {display:flex; flex-direction:column; height:100dvh;}
 
-.auth-header {height:56px; display:flex; justify-content:flex-end; align-items:center;}
+.auth-header {display:flex; justify-content:center; align-items:center; position:relative; height:56px;}
 .auth-container {flex:1; overflow-y:auto;}
 .auth-footer {position:relative;}
 .auth-footer::before {content:""; display:block; position:absolute; top:0; left:0; width:100%; height:10px;
-background: #FFF;
-background: linear-gradient(180deg,rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
-transform:translateY(-100%);
+    background: #FFF;
+    background: linear-gradient(180deg,rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+    transform:translateY(-100%);
 }
+
+
+.auth-header {}
+.auth-header h1 {font-size:16px; font-weight:bold;}
 
 /* body {padding:20px;} */
 /* .auth-form {display:flex; flex-direction:column; gap:16px; padding:20px;} */
-.auth-form {display:flex; flex-direction:column; gap:16px; padding:20px;}
+.auth-form {display:flex; flex-direction:column; gap:16px;}
 
-/* .auth-form > h2 {color:#000; font-size:24px; font-weight:bold;} */
+
+.auth-container {padding:20px;}
+.auth-container > h2 {color:#000; font-size:24px; font-weight:bold;}
+
+/* 타이틀 */
+.auth-title {font-size:24px; font-weight:700; line-height:1.4; color:var(--text-main);}
 
 /* 입력 영역 공통 */
 .field-group {position:relative; width:100%;}
@@ -144,11 +136,19 @@ transform:translateY(-100%);
 .btn-primary {width:100%; height:56px; background-color:var(--primary-color); color:#fff; border:none; border-radius:12px; font-size:16px; font-weight:600; cursor:pointer;}
 
 
+
+
+/* 인증번호 보일 때 효과 */
 #auth_wrap {height:0; opacity:0; overflow:hidden;
-    /* transition:height 0.4s var(--bounce-bezier), opacity 0.4s ease, padding 0.4s var(--bounce-bezier); */
-    transition:height 0.2s ease-in, opacity 0.4s ease;
+    transition:height 0.4s var(--bounce-bezier), opacity 0.4s ease, padding 0.4s var(--bounce-bezier);
+    /* transition:height 0.24s ease-in, opacity 0.24s ease; */
 }
-#auth_wrap.active {opacity:1; position:relative; top:0; left:0;;}
+#auth_wrap.active {opacity:1;}
+/* #auth_wrap:not(.active) + .field-group {margin-top:-16px; transition:all 0.2s ease-in}
+#auth_wrap.active + .field-group {margin-top:0;} */
+
+
+/* #auth-form.is-active */
 </style>
 
 
@@ -159,14 +159,14 @@ transform:translateY(-100%);
     <!-- // auth-header-->
 
     <main class="auth-container">
-        <h2>휴대폰번호를 입력해주세요.</h2>
+        <h2 class="auth-title">휴대폰번호를 입력해주세요.</h2>
         
         <section class="auth-form">
             <div class="field-group" id="auth_wrap">
                 <div class="input-box">
                     <div class="input-content">
                         <label class="input-label">인증번호</label>
-                        <input type="number" class="input-element" placeholder="이름을 입력해주세요." />
+                        <input type="text" class="input-element" placeholder="인증번호 6자리" maxlength="6" inputmode="numeric" pattern="[0-9]*" />
                     </div>
                     <button type="button" class="btn-sub-action"><span>재요청</span></button>
                 </div>
@@ -188,7 +188,7 @@ transform:translateY(-100%);
                                     <option>LG U+</option>
                                 </select>
                             </div>
-                            <input type="tel" class="input-element" value="01025427454">
+                            <input type="tel" class="input-element" value="01012345678" maxlength="11" inputmode="numeric" pattern="[0-9]*">
                         </div>
                     </div>
                 </div>
@@ -198,7 +198,7 @@ transform:translateY(-100%);
                 <div class="input-box">
                     <div class="input-content">
                         <label class="input-label">앞자리</label>
-                        <input type="number" class="input-element" placeholder="910101" maxlength="6" />
+                        <input type="text" class="input-element" placeholder="6자리" maxlength="6" inputmode="numeric" pattern="[0-9]*" />
                     </div>
                     
                 </div>
@@ -206,7 +206,7 @@ transform:translateY(-100%);
                     <div class="input-content">
                         <label class="input-label">뒷자리</label>
                         <div class="rrn-row">
-                            <input type="text" class="input-element rrn-digit" value="1" maxlength="1">
+                            <input type="text" class="input-element rrn-digit" value="1" maxlength="1" inputmode="numeric" pattern="[0-9]*" />
                             <span class="rrn-masking">●●●●●●</span>
                         </div>
                     </div>
@@ -233,12 +233,6 @@ transform:translateY(-100%);
     
 </div>
 <!-- // auth-wrapper -->
-
-    
-
-    
-
-
 
 <script>
 let auth_wrap = document.querySelector("#auth_wrap");
