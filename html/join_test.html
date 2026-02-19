@@ -57,6 +57,11 @@
 <style>
 
 .auth-wrapper {display:flex; flex-direction:column; height:100svh;}
+.auth-wrapper {padding-top:env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); 
+    /* margin-left: env(safe-area-inset-left); margin-right: env(safe-area-inset-right); */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+}
 
 .auth-header {display:flex; justify-content:center; align-items:center; position:relative; height:56px;}
 .auth-container {flex:1; overflow-y:auto;}
@@ -68,7 +73,6 @@
 }
 
 
-.auth-header {}
 .auth-header h1 {font-size:16px; font-weight:bold;}
 
 /* body {padding:20px;} */
