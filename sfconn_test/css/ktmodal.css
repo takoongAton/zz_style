@@ -1,0 +1,71 @@
+#ktModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    width: 90vw;
+    max-width: 350px;
+    min-width: 280px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow: hidden;
+}
+
+/* 헤더 */
+#ktModal .modal-header {
+    background-color: #f8f9fa;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#ktModal .modal-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.2;
+}
+
+/* 본문 */
+#ktModal .modal-body {
+    padding: 20px;
+    text-align: center;
+}
+
+#ktModal .modal-body p {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.4;
+    word-break: keep-all;
+}
+
+/* 푸터 */
+#ktModal .modal-footer {
+    padding: 16px 20px 20px;
+    text-align: center;
+}
+
+/* 확인 버튼 */
+#ktModal .btn-confirm {
+    background-color: #343a40;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    width: 100%;
+    transition: background-color 0.2s;
+}
+
+#ktModal .btn-confirm:hover {
+    background-color: #495057;
+}

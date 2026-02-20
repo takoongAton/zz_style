@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Cache-Control" content="No-Cache" />
+	<meta http-equiv="Pragma" content="No-Cache" />
+	<meta http-equiv="Expires" content="now" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, viewport-fit=contain, target-densitydpi=medium-dpi" />
+	<!-- <link rel="stylesheet" type="text/css" href="../css/csc_vtest.css" /> -->
+
+	<script type="text/javascript" src="https://www.gstatic.com/recaptcha/releases/v1QHzzN92WdopzN_oD7bUO2P/recaptcha__ko.js" async=""></script>
+	<script type="text/javascript" src="https://www.google-analytics.com/analytics.js" async=""></script>
+	<!-- <script type="text/javascript" src="../sfconn/resources/safeconnect/js/jquery-1.11.1.js"></script> -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+	<!-- <script type="text/javascript" src="../sfconn/resources/safeconnect/js/placeholders.jquery.js"></script> -->
+
+	<!-- google font Noto Sans KR -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400..700&display=swap" rel="stylesheet" />
+
+<style>
+body {background-color: #333;;}
+:root {
+	/* --bounce-bezier:cubic-bezier(0.68, -0.55, 0.265, 1.55); */
+	--bounce-bezier:ease;;
+}
+.testItem {height:0; opacity:0; overflow:hidden; transition:height 0.4s var(--bounce-bezier), opacity 0.6s ease, padding 0.4s var(--bounce-bezier);}
+.testItem.active {opacity:1;}
+
+/* 배경 Dim 처리 */
+.overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none; /* 기본 숨김 */
+  z-index: 999;
+}
+
+
+.bottom-sheet_wrap {
+	position:fixed;
+	bottom:0;
+	left:0;
+	width:100%; height:400px;
+}
+.bottom-sheet_wrap.active {opacity:1;}
+
+
+/* 바텀 시트 스타일 */
+.bottom-sheet {height:inherit; background-color:#fff; border-radius:12px 12px 0 0;}
+
+.bottom-sheet-container {display:flex; flex-direction:column; justify-content:space-between; height:100%;}
+.bottom-sheet-container .sheet-header {position:relative; padding:0 20px;}
+.bottom-sheet-container .sheet-header::after {content:""; display:block; position:absolute; bottom:0; left:0; width:100%; height:8px;
+	background: linear-gradient(180deg, rgba(255, 255, 255, 1) 2%, rgba(255, 255, 255, 0) 100%); transform:translateY(100%);}
+.bottom-sheet-container .sheet-footer::before {content:""; display:block; position:absolute; top:0; left:0; width:100%; height:8px;
+	background: linear-gradient(0deg, rgba(255, 255, 255, 1) 2%, rgba(255, 255, 255, 0) 100%); transform:translateY(-100%);}
+
+.bottom-sheet-container .sheet-body {flex:1; padding:0 20px; overflow-y:auto;}
+.bottom-sheet-container .sheet-body::-webkit-scrollbar {display:none;}
+.bottom-sheet-container .sheet-footer {position:relative; padding:20px;}
+
+/* 활성화 상태 */
+.bottom-sheet.active {
+  transform: translateY(0);
+}
+
+/* 내부 디자인 요소 */
+h3 { font-size: 1.2rem; margin-bottom: 20px; }
+.agree-container { border: 1px solid #eee; border-radius: 12px; padding: 15px; }
+.check-list { list-style: none; padding: 0; margin-top: 15px; }
+.check-list li { display: flex; justify-content: space-between; margin-bottom: 12px; color: #666; font-size: 0.9rem; }
+.submit-btn {
+  width: 100%; height: 56px; border-radius: 10px; border: none;
+  background: #f0f2f5; color: #ccc; font-weight: bold;
+  cursor: pointer;
+}
+.submit-btn.on { background: #007bff; color: #fff; } /* 활성화 시 파란색 */
+</style>
+</head>
+
+
+
+<div id="overlay" class="overlay"></div>
+
+<div class="bottom-sheet_wrap">
+	<div id="bottomSheet" class="bottom-sheet">
+		<div class="bottom-sheet-container">
+			<div class="sheet-header">
+				<h3>본인인증을 위해 동의해주세요</h3>
+			</div>
+			<!-- // sheet-header -->
+
+			<div class="sheet-body">
+				<div class="agree-container">
+					<div class="all-check">
+						<label><input type="checkbox" id="checkAll"> 필수항목 모두동의</label>
+					</div>
+				</div>
+				<ul class="check-list">
+					<li><label><input type="checkbox" class="chk"> 개인정보 수집 및 이용동의</label> <span>&gt;</span></li>
+					<li><label><input type="checkbox" class="chk"> 고유식별정보 처리 동의</label> <span>&gt;</span></li>
+					<li><label><input type="checkbox" class="chk"> 통신사 이용약관 동의</label> <span>&gt;</span></li>
+					<li><label><input type="checkbox" class="chk"> 서비스 이용약관 동의</label> <span>&gt;</span></li>
+					<li><label><input type="checkbox" class="chk"> 개인정보 수집 및 이용동의</label> <span>&gt;</span></li>
+					<li><label><input type="checkbox" class="chk"> 고유식별정보 처리 동의</label> <span>&gt;</span></li>
+					<li><label><input type="checkbox" class="chk"> 통신사 이용약관 동의</label> <span>&gt;</span></li>
+					<li><label><input type="checkbox" class="chk"> 서비스 이용약관 동의</label> <span>&gt;</span></li>
+					<li><label><input type="checkbox" class="chk"> 개인정보 수집 및 이용동의</label> <span>&gt;</span></li>
+					<li><label><input type="checkbox" class="chk"> 고유식별정보 처리 동의</label> <span>&gt;</span></li>
+					<li><label><input type="checkbox" class="chk"> 통신사 이용약관 동의</label> <span>&gt;</span></li>
+					<li><label><input type="checkbox" class="chk"> 서비스 이용약관 동의</label> <span>&gt;</span></li>
+				</ul>
+			</div>
+			<!-- // sheet-body -->
+
+			<div class="sheet-footer">
+				<button id="submitBtn" class="submit-btn" disabled>인증번호 받기</button>
+			</div>
+			<!-- // sheet-footer-->
+		</div>
+	</div>
+</div>
+<button onclick="openSheet()">본인인증 팝업 열기</button>
+
+
+
+</body>
+
+</html>

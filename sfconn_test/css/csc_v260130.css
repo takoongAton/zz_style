@@ -1,0 +1,353 @@
+@charset "utf-8";
+
+* {margin:0; padding:0; list-style:none; font-family:inherit; font-size:inherit; font-style:normal;}
+*,
+*:after,
+*:before {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-text-size-adjust: none;
+	text-size-adjust: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-font-smoothing: antialiased;
+}
+input {
+	-webkit-appearance:none;
+	border-radius: 0px;
+}
+img {max-width:100%;}
+button {border:0 none;}
+body {
+	font-family:-apple-system,'BlinkMacSystemFont', 'Noto Sans KR','Noto Sans CJK','Apple SD Gothic Neo', serif;
+	font-size:1em;
+}
+
+@media screen and (max-width:320px) {
+	body {font-size:14.22222px;}
+}
+
+
+/* 전체 틀 */
+.safeconnect_wrap {min-width:280px; max-width:908px; margin:0 auto; background-color:#fff;}
+/* .signUp_section {} */
+.signUp_aside {padding:0 11%;}
+.signUp_aside picture {display:block; font-size:0;}
+.signUp_aside img {width:100%; height:auto;}
+@media screen and (max-width:720px) {
+	div.signUp_aside {padding:0 16px;}
+}
+
+/* 하단 배너 */
+.service_bnr {margin-top:1em; border-radius:5px; overflow:hidden;}
+/* // 하단 배너 */
+
+.signUp_cont {}
+@media screen and (min-width:720px) {
+	.signUp_cont {flex:1}
+}
+
+
+
+#popupCont01 {/* border-right:1px solid #ddd; border-left:1px solid #ddd */}
+@media screen and (max-width:719px) {
+	#popupCont01 .inwrap {border-right:0 none; border-left:0 none;}
+}
+
+
+/* #popupCont05 {} */
+#popupCont05 .popup_cont {
+	-ms-flex-direction: column;
+	-webkit-flex-direction: column;
+	flex-direction:column;
+}
+/* #popupCont09 {} */
+#popupCont09 .popup_cont {
+	-ms-flex-direction: column;
+	-webkit-flex-direction: column;
+	flex-direction:column;
+}
+
+@media screen and (min-width:720px) {
+	#popupCont05 .inwrap {min-height:536px; justify-content:center;}
+}
+@media screen and (max-width:719px) {
+	#popupCont05 .inwrap {display:table-cell; padding:0 20px 50px;}
+}
+
+
+/* 상단 */
+header {display:flex; justify-content:space-between; align-items:center; position:relative; padding:5px 18px; border:1px solid #ebebeb; background-color:#fff;}
+header h1 {display:flex; justify-content:flex-start; align-items:center; font-size:14px; letter-spacing:-0.025em;}
+header h1 strong {display:block; margin-right:7px; color:#000;}
+header h1 p {color:#ff0000; font-weight:400;}
+header a {display:inline-flex; padding:4px 0; text-decoration:none;}
+header a span {position:relative; display:inline-block; padding-right:10px; color:#999; font-size:9px; line-height:1; font-weight:400;}
+header a span::after {content:""; display:block; position:absolute; right:0; top:50%; width:6px; height:6px; border-top:1px solid #999; border-right:1px solid #999; transform:translateY(-50%) rotate(45deg);}
+@media screen and (max-width:719px) {
+	header a {display:none;}
+}
+@media screen and (max-width:320px) {
+	header h1 {flex-direction:column; align-items:flex-start;}
+}
+
+
+
+/* 중요 텍스트  */
+.notice_wrap {display:flex; width:100%; justify-content:space-between; align-items:center; padding:20px 44px; background-color:#f4f4f4; text-align:center;}
+.notice_wrap p.txt {display:inline-block; max-width:400px; margin:0 auto; color:#545454; font-size:13px; line-height:21px; font-weight:400; word-break:keep-all; letter-spacing:-0.025em;}
+.notice_wrap p.txt strong {font-weight:700;}
+.notice_wrap p.txt em {color:#ff0000; font-weight:700;}
+@media screen and (max-width:719px ) {
+
+}
+
+
+/* 컨텐츠 감쌈 */
+.popup_cont {
+	height:100%;
+}
+.popup_cont .inwrap {display:flex; flex-direction:column; flex:1; justify-content:space-between; height:100%; padding:1.4375em 11%;}
+@media screen and (max-width:719px) {
+	.popup_cont {flex-direction:column;}
+	.popup_cont .inwrap {padding:16px 16px 10px 16px;}
+}
+
+
+
+/* 전화번호 안심로그인 타이틀 PC버전 */
+.tit_wrap h2 {padding:1.875em 0 2.7em; padding:6.12244% 0 8.7755%; text-align:center; color:#000000; font-size:26px; font-weight:800;}
+.tit_wrap dl {padding:2em 0; font-size:1.5em;  text-align:center; }
+.tit_wrap dl dt {color:#ff4343; font-weight:700; letter-spacing:-0.05em; word-break:keep-all;}
+.tit_wrap dl dd {margin-top:1em; color:#000000; font-size:1.1875em; font-size:0.63333em; word-break:keep-all;}
+@media screen and (min-width:720px) {
+	.tit_wrap dl {padding-bottom:2em; font-size:1.875em;}
+	.tit_wrap dl dd {margin-top:2.25em;}
+	i.pc {display:block;}
+}
+
+
+.success_btn {margin-bottom:2.5em;}
+.success_btn button {display:block; min-width:69%; height:56px; height:2.94736em; margin:0 auto 0; background-color:#ff4343; border-radius:5px; color:#fff; font-size:19px; font-size:1.1875em; font-weight:700; text-align:center;}
+
+
+/* 통신사 선택 이하 form */
+.signUp_form {flex:1; display:flex; flex-direction:column; gap:16px 0; width:100%;}
+.signUp_form.typeB .telecom {order:-1; transition:order 0.4s ease;}
+.signUp_form.typeB .terms-agree {order:0; transition:order 0.4s ease;}
+.signUp_form.typeB .phoneNum {order:-1; transition:order 0.4s ease;}
+.signUp_form.typeB #auth_no_section {order:-1; transition:order 0.4s ease;}
+.signUp_form.typeB .confirm_wrap {order:0; transition:order 0.4s ease;}
+
+.signUp_form.typeC .phoneNum {flex-direction:column; gap:16px}
+.signUp_form.typeC .phoneNum div {width:100%;}
+.signUp_form.typeC .phoneNum input,
+.signUp_form.typeC .phoneNum button {width:100%;}
+
+
+
+/* 통신사 선택 */
+.telecom ul.radio {width:100%; margin:0; padding:0; list-style:none;}
+.telecom ul.radio::after {content:""; display:block; height:0; clear:both;}
+.telecom ul.radio li {display:block; float:left; position:relative; width:calc(33.33% + 1px); height:56px; height:3.5em; margin:0 0 0 -1px; padding:0; list-style:none;}
+.telecom ul.radio li:first-child {width:33.33%; margin-left:0;}
+.telecom ul.radio li input {width:0; height:0; margin:0; padding:0; border:0;}
+.telecom ul.radio li input + label {
+	display:flex; justify-content:center; align-items:center;
+	position:absolute; top:0; left:0; width:100%; height:100%;
+	background-repeat:no-repeat;
+	background-position:50%;
+	background-size:100px auto;
+	border:1px solid #ddd; font-size:0; cursor:pointer;
+}
+.telecom ul.radio li:first-child input + label {border-radius:5px 0 0 5px;}
+.telecom ul.radio li:last-child input + label {border-radius:0 5px 5px 0;}
+.telecom ul.radio li input[type=radio]:checked + label {border-color:#ff3245; border-width:2px; z-index:1;}
+.telecom ul.radio li input.telCdRadioSkt + label {background-image:url('../images/common/SKT_OFF.png');} /* 이미지 색상 변경 요청시 _OFF로 교체후 하단 주석 제거 */
+.telecom ul.radio li input.telCdRadioKt + label {background-image:url('../images/common/KT_OFF.png');}
+.telecom ul.radio li input.telCdRadioLgt + label {background-image:url('../images/common/LGT_OFF.png');}
+.telecom ul.radio li input.telCdRadioSkt:checked + label {background-image:url('../images/common/SKT_ON.png');}
+.telecom ul.radio li input.telCdRadioKt:checked + label {background-image:url('../images/common/KT_ON.png');}
+.telecom ul.radio li input.telCdRadioLgt:checked + label {background-image:url('../images/common/LGT_ON.png')}
+@media screen and (max-width:320px) {
+	.telecom ul.radio li input + label {background-size:90px auto;}
+}
+/* 통신사 선택 끝 */
+
+
+
+/* 약관 동의 */
+.safeconnect_wrap .terms-agree {overflow:hidden;}
+.safeconnect_wrap .terms-agree a {display:block; color:#888; text-decoration:none; min-height:17px; line-height:17px; font-size:12px; letter-spacing:-0.025em;}
+.safeconnect_wrap .terms-agree label {display:inline-block; width:auto; color:#fff;}
+
+.safeconnect_wrap .terms-agree input[type="checkbox"] {position:absolute; top:0; left:0; width:0; height:0; margin:0; padding:0; border:0; vertical-align:top;}
+.safeconnect_wrap .terms-agree input[type="checkbox"]::after {display:none !important;}
+.safeconnect_wrap .terms-agree input[type="checkbox"] + label {display:inline-flex; position:relative; top:auto; width:auto; margin:0;}
+
+.safeconnect_wrap .terms-agree input[type="checkbox"] + label span.checkmark {display:block; width:20px; height:20px; border:1px solid #ccc; border-radius:2px; background-color:#f2f2f2;}
+.safeconnect_wrap .terms-agree input[type="checkbox"]:checked + label span.checkmark {border:none; background-color:#2677FF; background-image:url('../images/common/check.png'); background-repeat:no-repeat; background-position:center; background-size:contain;}
+
+.safeconnect_wrap .terms-agree .all_agree {display:flex; align-items:center; position:relative; margin:0; border-radius:5px 5px 0 0; border:1px solid #ddd; background-color:#fafafa;}
+.safeconnect_wrap .terms-agree .all_agree label {position:relative; margin:0;}
+.safeconnect_wrap .terms-agree .all_agree label * {vertical-align:top;}
+
+.safeconnect_wrap .terms-agree .all_agree input[type="checkbox"] + label {display:inline-flex; align-items:center; gap:0 10px; width:100%; padding:14px 16px 15px; border-radius:5px 5px 0 0; color:#222;}
+.safeconnect_wrap .terms-agree .all_agree input[type="checkbox"] + label span.checkmark {position:relative; width:21px; height:21px;}
+.safeconnect_wrap .terms-agree .all_agree span.txt {display:inline-block; font-size:16px; line-height:21px; font-weight:700;}
+
+.safeconnect_wrap .terms-agree .agree {padding:1em; border:1px solid #ddd; border-radius:0 0 5px 5px;}
+.safeconnect_wrap .terms-agree .agree ul {display:flex; flex-wrap:wrap; flex-direction:row; gap:8px 4px;}
+.safeconnect_wrap .terms-agree .agree li {display:flex; position:relative; min-width:calc(50% - 2px); padding:2px 0 1px;}
+/* .safeconnect_wrap .terms-agree .agree li:first-child {margin-top:0;} */
+.safeconnect_wrap .terms-agree .agree li label {gap:0 4px;}
+.safeconnect_wrap .terms-agree .agree input[type="checkbox"] + label span.checkmark {width:17px; height:17px;}
+.safeconnect_wrap .terms-agree .agree label ~ span.txt {display:inline-block; margin-left:21px; line-height:17px; color:#888; cursor:pointer;}
+
+@media screen and (min-width:360px ) {
+	/* .safeconnect_wrap .terms-agree .agree ul {flex-direction:row; gap:15px 4px;} */
+}
+@media screen and (min-width:720px ) {
+	.safeconnect_wrap .terms-agree a {font-size:14px;}
+	.safeconnect_wrap .terms-agree .all_agree input[type="checkbox"] + label {gap:0 12px; padding:14px 32px 13px;}
+	.safeconnect_wrap .terms-agree .all_agree span.txt {font-size:18px; line-height:27px;}
+	.safeconnect_wrap .terms-agree .agree {padding:15px 2em;}
+	.safeconnect_wrap .terms-agree .agree li label {gap:0 6px;}
+	.safeconnect_wrap .terms-agree .agree ul {gap:15px 4px;}
+}
+/* 약관동의 끝 */
+
+
+
+/* 휴대폰 번호 입력 */
+.phoneNum {display:flex; align-items:center; gap:10px;}
+.phoneNum > div:first-of-type {flex:1;}
+.phoneNum input {width:100%; height:56px; padding-left:1em; background-color:#fff; border:1px solid #ddd; border-radius:5px; font-size:18px; font-weight:400; overflow:hidden; outline:0;}
+/* .phoneNum input:focus {border:1px solid #ff6600 !important; }
+.phoneNum input.focus {border:1px solid #ff6600; border-color:#ff6600;} */
+.phoneNum input::placeholder {color:#aaa; font-size:16px; line-height:inherit; font-weight:400;}
+
+
+
+
+
+
+/* 유료 서비스 강조 */
+.safeconnect_wrap .charge_txt {margin-top:10px; color:#ff0000; text-align:center;}
+.safeconnect_wrap .charge_txt p {color:#ff0000; font-size:13px; line-height:19px; font-weight:700; letter-spacing:-0.025em;}
+.safeconnect_wrap .charge_txt button {height:52px;}
+.safeconnect_wrap .charge_txt button span {color:#aaa; font-size:16px; line-height:24px; font-weight:400;}
+@media screen and (min-width:720px) {
+	.safeconnect_wrap .charge_txt p {font-size:15px; line-height:22px;}
+	.safeconnect_wrap .charge_txt button span {font-size:15px; line-height:22px;}
+}
+
+
+
+
+
+
+
+
+
+/* 인증번호 요청 */
+.certify_wrap {} /* .verification_wrap {} */
+.certify_wrap button {width:72px; height:56px; background-color:#222; border-radius:5px;}
+.certify_wrap button span {display:inline-block; color:#fff; font-size:16px; line-height:1.5em; font-weight:700;}
+.certify_wrap button[disabled="disabled"] {background-color:#ccc;}
+@media screen and (min-width:720px ) {
+	.certify_wrap button {width:92px;}
+	.certify_wrap button span {font-size:18px;}
+}
+
+
+#auth_no_section {position:relative;}
+#auth_no_section::after {content:""; display:block; height:0; clear:both;}
+#auth_no_section input {width:100%; height:56px; border:1px solid #ddd; border-radius:5px; padding:0 1em; background-color:#fff; outline:0;}
+#auth_no_section input::placeholder {color:#aaa;}
+#auth_no_section button {float:right; width:calc(30% - 1px); height:56px; height:3.5em; background-color:#fff; color:#aaa; text-decoration:underline; cursor:pointer;}
+#auth_no_section span.timer {display:block; position:absolute; top:50%; right:18px; color:#ff0000; font-size:14px; line-height:20px; letter-spacing:-0.05em; transform:translateY(round(to-zero, -50%, 1px));}
+
+
+
+/* 로그인 버튼 */
+#confirmBtn {width:100%; height:56px; background-color:#2677ff; border-radius:5px; color:#fff; font-size:16px; line-height:1.5em; font-weight:700;}
+#confirmBtn[disabled="disabled"] {opacity:0.5;}
+#confirmBtnbutton[disabled="disabled"] {opacity:0.5}
+#exitBtn {background-color:#fff; cursor:pointer;}
+#exitBtn span {display:inline-block; color:#aaa; line-height:1em;}
+@media screen and (min-width:720px) {
+	#confirmBtn {font-size:18px;}
+}
+
+
+
+
+.checkAuth {padding:0 2em; background-color:#ff4343; color:#fff; margin:0 auto;}
+
+
+/* 오늘 하루 보지 않기 */
+.p_footer_b {margin-top:0.5em; padding:0.5em; border-top:1px solid #ddd; text-align:right;}
+.p_footer_b * {vertical-align:top;}
+.p_footer_b input[type="checkbox"] {position:absolute; top:0; left:0; width:0; height:0; margin:0; padding:0; border:0; vertical-align:top;}
+.p_footer_b input[type="checkbox"]::after {display:none !important;}
+.p_footer_b input[type="checkbox"] + label {display:inline-block; position:relative; top:auto; width:auto; margin:0; padding:0 0 0 1.5em; line-height:20px;}
+.p_footer_b input[type="checkbox"] + label span.checkmark {display:block; position:absolute; top:0; left:0; width:20px; height:20px; border:1px solid #ccc; border-radius:2px; background-color:#f2f2f2;}
+.p_footer_b input[type="checkbox"]:checked + label span.checkmark {border:none; background-color:#ff4343; background-image:url('../img/integrated/common/check.png'); background-repeat:no-repeat; background-position:center; background-size:contain;}
+
+
+/* footer */
+footer {padding:20px 16px; background-color:#eee; color:#888; text-align:left;}
+footer li {position:relative; padding:0 0.75em; font-size:10px; line-height:15px;}
+footer li span.bul {display:inline-block; position:absolute; top:0; left:0; color:inherit; font-size:inherit; line-height:inherit; font-weight:700;}
+@media screen and (min-width:720px) {
+	footer {padding:20 18px;}
+	footer li {font-size:14px; line-height:20px;}
+	footer li + li {margin-top:4px;}
+}
+/* footer 끝 */
+
+
+
+/* 레이어 팝업 */
+div.dim {position:fixed; top:0; right:0; bottom:0; left:0; background-color:rgba(0,0,0,0.5); z-index:1;}
+
+.layer.alert {position:fixed; top:50%; left:50%; width:284px; background-color:#fff; border-radius:6px; overflow:hidden; transform:translate(round(to-zero, -50%, 1px),round(to-zero, -50%, 1px)); z-index:1000;}
+.layer.alert .layer_content {display:flex; flex-direction:column; gap:12px; padding:36px 18px; text-align:center;}
+.layer.alert .layer_content div.tit {color:#000; font-size:18px; line-height:27px; font-weight:700;}
+.layer.alert .layer_content p.txt {color:#000; font-size:14px; line-height:21px; font-weight:400; word-break:keep-all;}
+.layer.alert .btn_group {display:flex;}
+.layer.alert .btn_group button {width:100%; min-height:60px; padding:16px; border-top:0.5px solid #ddd; cursor:pointer;}
+.layer.alert .btn_group button span {font-size:16px; line-height:1em; font-weight:bold;}
+.layer.alert .btn_group button.btn_cancel {background-color:#fff;}
+.layer.alert .btn_group button.btn_cancel span {color:#000;}
+.layer.alert .btn_group button.btn_next {background-color:#000;}
+.layer.alert .btn_group button.btn_next span {color:#fff;}
+/* 레이어 팝업 */
+
+
+
+:root {
+	--primary-color:#2677fa;
+	--danger-color:#ff0000;
+}
+/* 가입 안내 팝업 */
+.layer.signUp_kt .layer_inner {
+	min-width:280px; max-width:420px; width:90%;
+	position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background-color:#fff; border-radius:0.375em; color:inherit; z-index:1000; overflow-y:auto; box-shadow:0 1px 2px rgba(0,0,0,0.2);
+}
+.layer.signUp_kt .layer_inner .layer_content {display:flex; flex-direction:column; gap:10px; padding:36px 18px; text-align:center;}
+.layer.signUp_kt .layer_inner .layer_content strong.tit {color:var(--primary-color); font-size:18px; line-height:28px; font-weight:700;}
+.layer.signUp_kt .layer_inner .layer_content div.tit {color:#000; font-size:16px; line-height:1.55555em; font-weight:700;}
+.layer.signUp_kt .layer_inner .layer_content div.box {margin-top:0.4em; padding:1em; border-radius:12px; background-color:#f2f2f2; border:0.5px solid #ddd;}
+.layer.signUp_kt .layer_inner .layer_content div.txt {color:#000; font-size:14px; line-height:1.3em; font-weight:400; word-break:keep-all; letter-spacing:-0.04em;}
+.layer.signUp_kt .layer_inner .layer_content div.txt em {color:var(--danger-color); font-weight:500;}
+.layer.signUp_kt .btn_group {display:flex; width:100%;}
+.layer.signUp_kt .btn_group div {width:100%;}
+.layer.signUp_kt .btn_group div button {width:100%; height:72px;}
+.layer.signUp_kt .btn_group div button.next {background-color:var(--primary-color); color:#fff; letter-spacing:-0.04em;}
+.layer.signUp_kt .btn_group div button.next strong {display:block; color:#fff; font-size:14px; line-height:1.3em; font-weight:bold;}
+.layer.signUp_kt .btn_group div button.next span {display:block; color:#fff; font-size:14px; line-height:1.3em; font-weight:500;}
+.layer.signUp_kt .btn_group div button.btn_cancel {background-color:#d9d9d9;}
+.layer.signUp_kt .btn_group div button.btn_cancel span {color:#444; font-size:16px; font-weight:500;}
+.layer.signUp_kt .btn_close {position:absolute; top:18px; right:18px; width:24px; height:24px; background-color:transparent;}
+/* // 가입 안내 팝업 */

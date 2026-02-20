@@ -192,7 +192,8 @@
                                     <option>LG U+</option>
                                 </select>
                             </div>
-                            <input type="tel" class="input-element" placeholder="휴대폰번호를 입력해주세요" maxlength="11" inputmode="numeric" pattern="[0-9]*">
+                            <!-- <input type="tel" class="input-element" placeholder="휴대폰번호를 입력해주세요" maxlength="11" inputmode="tel" autocomplete="tel" pattern="[0-9]*"> -->
+                            <input type="tel" class="input-element" placeholder="휴대폰번호를 입력해주세요" maxlength="11" inputmode="numeric" autocomplete="tel" pattern="[0-9]*">
                         </div>
                     </div>
                 </div>
@@ -221,9 +222,16 @@
                 <div class="input-box">
                     <div class="input-content">
                         <label class="input-label">이름</label>
-                        <input type="text" class="input-element" placeholder="이름을 입력해주세요." />
+                        <input type="text" class="input-element" autocomplete="name" placeholder="이름을 입력해주세요." />
                     </div>
                 </div>
+            </div>
+
+            <div class="testItem">
+                show test<br />
+                show test<br />
+                show test<br />
+                show test<br />
             </div>
         </section>
         <!-- // auth-form -->
@@ -237,13 +245,36 @@
     
 </div>
 <!-- // auth-wrapper -->
-
+<style>
+.testItem {height:0; opacity:0; overflow:hidden; transition:height 0.4s var(--bounce-bezier), opacity 0.6s ease, padding 0.4s var(--bounce-bezier);}
+.testItem.active {opacity:1;}
+</style>
 <script>
 let auth_wrap = document.querySelector("#auth_wrap");
 document.querySelector(".btn-primary").addEventListener("click", function(){
     auth_wrap.classList.add("active");
     auth_wrap.style.height = `${auth_wrap.scrollHeight}px`;
+    // boundShowFn(document.querySelector(".testItem"));
+    playVibration();
 })
+
+
+
+function boundShowFn(params) {
+    let targetItem = params;
+    targetItem.classList.add("active");
+    targetItem.style.height = `${targetItem.scrollHeight}px`;
+}
+
+function playVibration() {
+  if ("vibrate" in navigator) {
+    // 200ms 진동, 100ms 쉬고, 200ms 진동
+    navigator.vibrate([200, 100, 200]);
+    console.log("진동이 실행되었습니다.");
+  } else {
+    alert("이 브라우저나 기기는 진동 API를 지원하지 않습니다.");
+  }
+}
 </script>
 
 </body>

@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<style>
+		body {
+			touch-action: manipulation; /* 더블 탭 확대 방지 */
+			margin: 0;
+			padding: 0;
+			font-family: sans-serif;
+			transition: background-color 0.3s ease, color 0.3s ease; /* 다크 모드 전환 애니메이션 */
+		}
+
+		/* 딤(배경) 처리: 팝업과 독립적으로 제어 가능하도록 구성 */
+		.dim {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.5);
+			z-index: 100;
+			opacity: 0;
+			visibility: hidden;
+			transition: none; /* 닫힐 때는 즉시 (애니메이션 없음) */
+		}
+
+		.dim.active {
+			opacity: 1;
+			visibility: visible;
+			transition: opacity 0.15s ease, visibility 0.15s ease; /* 열릴 때만 빠른 페이드 애니메이션 */
+		}
+
+		/* 팝업 컨테이너 (정중앙 위치) */
+		.popup_wrap {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 90%;
+			max-width: 400px;
+			background-color: #fff;
+			border-radius: 8px;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+			z-index: 101;
+			display: none; /* 초기상태 숨김 */
+			overflow: hidden;
+		}
+
+		/* 팝업 구성 요소 */
+		.popup_header {
+			padding: 16px;
+			background-color: #f8f9fa;
+			border-bottom: 1px solid #eee;
+			font-size: 18px;
+			font-weight: bold;
+			text-align: center;
+		}
+
+		.popup_content {
+			padding: 24px 16px;
+			font-size: 15px;
+			color: #333;
+			line-height: 1.5;
+			text-align: center;
+		}
+
+		.popup_footer {
+			display: flex;
+			border-top: 1px solid #eee;
+		}
+
+		.popup_footer button {
+			flex: 1;
+			padding: 14px 0;
+			border: none;
+			background: transparent;
+			font-size: 16px;
+			cursor: pointer;
+			color: #007bff;
+			font-weight: bold;
+		}
+
+		.popup_footer button:not(:last-child) {
+			border-right: 1px solid #eee;
+			color: #666;
+			font-weight: normal;
+		}
+
+		/* 테스트용 버튼 */
+		.test_buttons {
+			padding: 20px;
+			text-align: center;
+		}
+		
+		.test_buttons button {
+			margin: 4px;
+			padding: 8px 16px;
+			border-radius: 6px;
+			border: 1px solid #ddd;
+			background-color: #f8f9fa;
+			color: #333;
+			font-size: 14px;
+			cursor: pointer;
+			transition: all 0.2s;
+		}
+
+		/* 하단 팝업 (Bottom Sheet) */
+		.popup_bottom {
+			position: fixed;
+			bottom: -100%; /* 초기 상태: 화면 아래로 숨기기 */
+			left: 0;
+			width: 100%;
+			background-color: #fff;
+			border-top-left-radius: 16px;
+			border-top-right-radius: 16px;
+			box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
+			z-index: 101;
+			transition: bottom 0.35s cubic-bezier(0.25, 1, 0.5, 1); /* 부드러운 슬라이드 애니메이션 */
+			overflow: hidden;
+		}
+
+		.popup_bottom.active {
+			bottom: 0; /* 활성화 시 하단에 배치 */
+		}
+
+		/* 자주 묻는 질문 (아코디언) */
+		.faq_wrap {
+			max-width: 600px;
+			margin: 20px auto;
+			padding: 0 20px;
+		}
+
+		.faq_title {
+			font-size: 20px;
+			font-weight: bold;
+			margin-bottom: 15px;
+			color: #333;
+		}
+
+		.accordion_item {
+			border-bottom: 1px solid #ddd;
+		}
+
+		.accordion_header {
+			width: 100%;
+			background: none;
+			border: none;
+			padding: 15px 0;
+			text-align: left;
+			font-size: 16px;
+			font-weight: 500;
+			color: #333;
+			cursor: pointer;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			outline: none;
+		}
+
+		/* 활성화 시 질문 색상 변경 */
+		.accordion_header.active {
+			color: #007bff;
+		}
+
+		/* 화살표 아이콘 */
+		.accordion_header::after {
+			content: '\25BC'; /* 아래 화살표 */
+			font-size: 12px;
+			color: #999;
+			transition: transform 0.3s ease;
+		}
+
+		.accordion_header.active::after {
+			transform: rotate(-180deg); /* 위를 향하게 회전 */
+			color: #007bff;
+		}
+
+		.accordion_content {
+			height: 0;
+			overflow: hidden;
+			background-color: #f9f9f9;
+			/* 강한 젤리-바운스 효과 (열리고 닫힐 때 통통 튐) */
+			transition: height 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+		}
+
+		.accordion_inner {
+			padding: 15px 20px;
+			font-size: 14px;
+			color: #555;
+			line-height: 1.6;
+		}
+
+		/* 토스트 팝업 */
+		.toast_popup {
+			position: fixed;
+			bottom: 30px;
+			left: 50%;
+			transform: translateX(-50%);
+			background-color: rgba(50, 50, 50, 0.9);
+			color: #fff;
+			padding: 12px 24px;
+			border-radius: 30px;
+			font-size: 14px;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+			z-index: 1000;
+			opacity: 0;
+			visibility: hidden;
+			transition: opacity 0.3s ease, visibility 0.3s ease, bottom 0.3s ease;
+		}
+
+		.toast_popup.show {
+			opacity: 1;
+			visibility: visible;
+			bottom: 50px; /* 살짝 위로 올라오는 효과 */
+		}
+
+		/* iOS 스타일 상단 토스트 팝업 (Dynamic Island / Banner Style / Swipe) */
+		.toast_ios_top {
+			position: fixed;
+			top: -100px;
+			left: 16px;
+			right: 16px;
+			margin: 0 auto;
+			box-sizing: border-box;
+			max-width: 400px;
+			background-color: rgba(255, 255, 255, 0.75);
+			backdrop-filter: blur(20px);
+			-webkit-backdrop-filter: blur(20px);
+			border-radius: 24px;
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0,0,0,0.05);
+			z-index: 1000;
+			display: flex;
+			align-items: center;
+			padding: 12px 16px;
+			transition: top 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); /* 복귀 애니메이션 분리 */
+			touch-action: none; /* 드래그 중 시스템 스크롤 방지용 */
+			cursor: grab;
+		}
+
+		.toast_ios_top:active {
+			cursor: grabbing;
+		}
+
+		.toast_ios_top.show {
+			top: 25px; /* 활성화 시 안전영역 아래로 내려옴 */
+		}
+
+		.ios_icon {
+			width: 36px;
+			height: 36px;
+			background-color: #007aff;
+			border-radius: 10px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: #fff;
+			font-size: 18px;
+			margin-right: 12px;
+			flex-shrink: 0;
+		}
+
+		.ios_text_wrap {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.ios_title {
+			font-size: 14px;
+			font-weight: 600;
+			color: #1c1c1e;
+			margin-bottom: 2px;
+			font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+		}
+
+		.ios_message {
+			font-size: 13px;
+			color: #3a3a3c;
+			font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+		}
+
+		/* 다크 모드 속성 (OS 설정 자동 감지) */
+		@media (prefers-color-scheme: dark) {
+			body {
+				background-color: #1c1c1e;
+				color: #f5f5f7;
+			}
+			.dim {
+				background-color: rgba(0, 0, 0, 0.7);
+			}
+
+			/* 팝업 공통 */
+			.popup_wrap, .popup_bottom {
+				background-color: #2c2c2e;
+			}
+			.popup_header {
+				background-color: #3a3a3c;
+				border-bottom-color: #48484a;
+				color: #f5f5f7;
+			}
+			.popup_content {
+				color: #f5f5f7;
+			}
+			.popup_footer {
+				border-top-color: #48484a;
+			}
+			.popup_footer button {
+				color: #0a84ff;
+			}
+			.popup_footer button:not(:last-child) {
+				border-right-color: #48484a;
+				color: #aeaeb2;
+			}
+
+			/* FAQ 아코디언 */
+			.faq_title {
+				color: #f5f5f7;
+			}
+			.accordion_item {
+				border-bottom-color: #48484a;
+			}
+			.accordion_header {
+				color: #f5f5f7;
+			}
+			.accordion_header.active {
+				color: #0a84ff;
+			}
+			.accordion_header::after {
+				color: #aeaeb2;
+			}
+			.accordion_header.active::after {
+				color: #0a84ff;
+			}
+			.accordion_content {
+				background-color: #2c2c2e;
+			}
+			.accordion_inner {
+				color: #d1d1d6;
+			}
+
+			/* 토스트 */
+			.toast_popup {
+				background-color: rgba(220, 220, 220, 0.9);
+				color: #1c1c1e;
+			}
+			.toast_ios_top {
+				background-color: rgba(44, 44, 46, 0.75);
+				box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0,0,0,0.2);
+			}
+			.ios_title {
+				color: #ffffff;
+			}
+			.ios_message {
+				color: #ebebf5;
+			}
+
+			/* 테스트용 버튼 패널 */
+			.test_buttons button {
+				background-color: #3a3a3c;
+				color: #f5f5f7;
+				border: 1px solid #48484a;
+			}
+		}
+	</style>
+	<title>Test 2</title>
+</head>
+<body>
+	
+	<!-- 기능을 확인할 테스트용 버튼 영역 -->
+	<div class="test_buttons">
+		<button onclick="openCenterPopup()">중앙 팝업 열기</button>
+		<button onclick="openBottomPopup()">하단 팝업 열기</button>
+		<button onclick="showToast('작업이 완료되었습니다.')">하단 토스트</button>
+		<button onclick="showIosToast('iOS 상단 알림입니다.')">iOS 토스트</button>
+	</div>
+
+	<!-- 자주 묻는 질문 (아코디언) 영역 -->
+	<div class="faq_wrap">
+		<h2 class="faq_title">자주 묻는 질문</h2>
+
+		<div class="accordion_item">
+			<button class="accordion_header">Q1. 서비스 가입은 어떻게 하나요?</button>
+			<div class="accordion_content">
+				<div class="accordion_inner">서비스 가입은 웹사이트나 앱 내의 '가입하기' 메뉴를 통해 본인인증 후 진행하실 수 있습니다. 가입 절차는 약관 동의 후 간단하게 완료됩니다.</div>
+			</div>
+		</div>
+
+		<div class="accordion_item">
+			<button class="accordion_header">Q2. 해지 절차는 어떻게 되나요?</button>
+			<div class="accordion_content">
+				<div class="accordion_inner">해지는 고객센터로 전화(1670-4273) 주시거나, 로그인 후 마이페이지 내의 '서비스 해지' 버튼을 클릭하여 해지하실 수 있습니다.</div>
+			</div>
+		</div>
+
+		<div class="accordion_item">
+			<button class="accordion_header">Q3. 서비스 이용 요금은 얼마인가요?</button>
+			<div class="accordion_content">
+				<div class="accordion_inner">본 서비스는 부가세 포함 월 1,100원의 유료 부가서비스이며, 매월 통신요금에 합산되어 함께 청구됩니다.</div>
+			</div>
+		</div>
+
+		<div class="accordion_item">
+			<button class="accordion_header">Q4. 앱 설치가 되지 않아요.</button>
+			<div class="accordion_content">
+				<div class="accordion_inner">안드로이드의 경우 구글 플레이스토어, iOS의 경우 앱스토어에서 '전화번호안심로그인'을 검색해 주세요. 사용 중인 기기가 지원 단말기인지 홈페이지에서 확인 부탁드립니다.</div>
+			</div>
+		</div>
+
+		<div class="accordion_item">
+			<button class="accordion_header">Q5. 결제수단 변경이 가능한가요?</button>
+			<div class="accordion_content">
+				<div class="accordion_inner">해당 서비스는 통신사 제휴 서비스로 통신요금과 함께 부과되므로, 별도의 결제수단 등록이나 변경은 제공되지 않습니다.</div>
+			</div>
+		</div>
+
+		<div class="accordion_item">
+			<button class="accordion_header">Q6. 아이디/패스워드가 기억나지 않아요.</button>
+			<div class="accordion_content">
+				<div class="accordion_inner">전화번호안심로그인 앱을 실행하신 후 초기화면 하단의 [비밀번호 찾기] 메뉴를 이용하시면, 본인인증 후 새로운 비밀번호를 설정하실 수 있습니다.</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Dim 레이어 (공통 사용) -->
+	<div class="dim" id="dimLayer" onclick="closeAllPopups()"></div>
+
+	<!-- Popup 레이어 (중앙) -->
+	<div class="popup_wrap" id="popupLayer">
+		<div class="popup_header">
+			알림
+		</div>
+		<div class="popup_content">
+			이것은 화면 정중앙에 위치한 팝업입니다.<br />
+			배경(Dim)과 팝업 창이 별도로 제어됩니다.
+		</div>
+		<div class="popup_footer">
+			<button onclick="closeAllPopups()">취소</button>
+			<button onclick="closeAllPopups()">확인</button>
+		</div>
+	</div>
+
+	<!-- 하단 Popup 레이어 (Bottom Sheet) -->
+	<div class="popup_bottom" id="popupBottom">
+		<div class="popup_header">
+			알림
+		</div>
+		<div class="popup_content">
+			이것은 화면 하단에서 부드럽게 올라오는 팝업입니다.<br />
+			구조는 동일하며 배경(Dim)을 기존과 같이 공유합니다.
+		</div>
+		<div class="popup_footer">
+			<button onclick="closeAllPopups()">취소</button>
+			<button onclick="closeAllPopups()">확인</button>
+		</div>
+	</div>
+
+	<!-- 하단 토스트 팝업 레이어 -->
+	<div class="toast_popup" id="toastPopup">토스트 메시지</div>
+
+	<!-- iOS 스타일 상단 토스트 팝업 레이어 -->
+	<div class="toast_ios_top" id="toastIos">
+		<div class="ios_icon">💬</div>
+		<div class="ios_text_wrap">
+			<div class="ios_title">알림</div>
+			<div class="ios_message" id="toastIosMsg">메시지 내용</div>
+		</div>
+	</div>
+
+	<script>
+		const dimLayer = document.getElementById('dimLayer');
+		const popupCenter = document.getElementById('popupLayer');
+		const popupBottom = document.getElementById('popupBottom');
+
+		// 모든 팝업 닫기 (Dim, 중앙, 하단 공통)
+		function closeAllPopups() {
+			dimLayer.classList.remove('active');
+			popupCenter.style.display = 'none';
+			popupBottom.classList.remove('active');
+		}
+
+		// 중앙 팝업 열기
+		function openCenterPopup() {
+			dimLayer.classList.add('active');
+			popupCenter.style.display = 'block';
+		}
+
+		// 하단 팝업 열기
+		function openBottomPopup() {
+			dimLayer.classList.add('active');
+			popupBottom.classList.add('active'); // CSS Transition으로 슬라이드 인
+		}
+
+		// 하단 토스트 팝업 로직
+		const toastPopup = document.getElementById('toastPopup');
+		let toastTimer;
+
+		function showToast(message) {
+			toastPopup.textContent = message; // 전달받은 메시지 세팅
+			toastPopup.classList.add('show');
+			
+			clearTimeout(toastTimer);
+			
+			// 2초 뒤에 서서히 사라짐
+			toastTimer = setTimeout(() => {
+				toastPopup.classList.remove('show');
+			}, 2000);
+		}
+
+		// iOS 스타일 상단 토스트 로직 (스와이프 닫기 포함)
+		const toastIos = document.getElementById('toastIos');
+		const toastIosMsg = document.getElementById('toastIosMsg');
+		let iosToastTimer;
+
+		// 터치/마우스 드래그용 상태 변수
+		let startY = 0;
+		let currentY = 0;
+		let isDragging = false;
+
+		function showIosToast(message) {
+			toastIosMsg.textContent = message; 
+			toastIos.style.transform = 'translateY(0)'; // 열릴 때 변형 초기화
+			toastIos.classList.add('show');
+			
+			clearTimeout(iosToastTimer);
+			iosToastTimer = setTimeout(hideIosToast, 3000); // 3초 뒤 자동 닫힘
+		}
+
+		function hideIosToast() {
+			toastIos.classList.remove('show');
+			toastIos.style.transform = 'translateY(0)';
+			clearTimeout(iosToastTimer);
+		}
+
+		// 드래그(스와이프) 기능 정의 (마우스 & 터치 공용)
+		const onDragStart = (e) => {
+			if (!toastIos.classList.contains('show')) return; // 숨겨진 상태면 무시
+			startY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+			isDragging = true;
+			toastIos.style.transition = 'none'; // 손을 따라오게 하기 위해 즉시 트랜지션 해제
+		};
+
+		const onDragMove = (e) => {
+			if (!isDragging) return;
+			const y = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+			const deltaY = y - startY;
+
+			// 위로 쓸어올리는 동작 위주로 허용하고 아래로는 쫀쫀하고 묵직하게 저항(0.15배)
+			if (deltaY < 0) {
+				toastIos.style.transform = `translateY(${deltaY}px)`;
+				currentY = deltaY;
+			} else if (deltaY > 0) {
+				toastIos.style.transform = `translateY(${deltaY * 0.15}px)`;
+				currentY = deltaY;
+			}
+		};
+
+		const onDragEnd = () => {
+			if (!isDragging) return;
+			isDragging = false;
+			toastIos.style.transition = ''; // 트랜지션 원상복구
+
+			if (currentY <= -15) {
+				// -15px 이상 위로 밀어올렸다면 팝업 즉시 종료하여 없애기
+				hideIosToast();
+			} else {
+				// 덜 밀었다면 제자리로 튕겨서 복귀
+				toastIos.style.transform = 'translateY(0)';
+			}
+			currentY = 0;
+		};
+
+		// 터치 이벤트 연결
+		toastIos.addEventListener('touchstart', onDragStart, { passive: true });
+		toastIos.addEventListener('touchmove', onDragMove, { passive: false });
+		toastIos.addEventListener('touchend', onDragEnd);
+
+		// 마우스 이벤트 연결 (웹 브라우저 테스트 편의용)
+		toastIos.addEventListener('mousedown', onDragStart);
+		window.addEventListener('mousemove', onDragMove, { passive: false });
+		window.addEventListener('mouseup', onDragEnd);
+
+		// 아코디언 메뉴 제어 로직
+		const accordions = document.querySelectorAll('.accordion_header');
+		
+		accordions.forEach(accordion => {
+			accordion.addEventListener('click', function() {
+				// 본인 내용
+				const content = this.nextElementSibling;
+				
+				// 만약 이미 열려있는 상태라면 닫음
+				if (this.classList.contains('active')) {
+					this.classList.remove('active');
+					content.style.height = '0px';
+				} else {
+					// 다른 열려있는 아코디언들을 닫고 싶다면 (원하지 않는다면 이 부분 주석 처리)
+					/* 
+					accordions.forEach(item => {
+						item.classList.remove('active');
+						item.nextElementSibling.style.height = '0px';
+					}); 
+					*/
+
+					// 본인 열기
+					this.classList.add('active');
+					content.style.display = 'block'; // 높이를 재기 위해 잠시 block 처리 방지용
+					content.style.height = content.scrollHeight + "px";
+				}
+			});
+		});
+	</script>
+</body>
+</html>

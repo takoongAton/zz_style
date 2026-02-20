@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<title>iOS Top Toast</title>
+	<style>
+		body {
+			touch-action: manipulation; /* 더블 탭 확대 방지 */
+			margin: 0;
+			padding: 0;
+			font-family: sans-serif;
+			transition: background-color 0.3s ease, color 0.3s ease; /* 다크 모드 전환 애니메이션 */
+		}
+
+		/* 테스트용 버튼 패널 */
+		.test_buttons {
+			padding: 20px;
+			text-align: center;
+		}
+		
+		.test_buttons button {
+			margin: 4px;
+			padding: 8px 16px;
+			border-radius: 6px;
+			border: 1px solid #ddd;
+			background-color: #f8f9fa;
+			color: #333;
+			font-size: 14px;
+			cursor: pointer;
+			transition: all 0.2s;
+		}
+
+		/* iOS 스타일 상단 토스트 팝업 (Dynamic Island / Banner Style / Swipe) */
+		.toast_ios_top {
+			position: fixed;
+			top: -100px;
+			left: 16px;
+			right: 16px;
+			margin: 0 auto;
+			box-sizing: border-box;
+			max-width: 400px;
+			background-color: rgba(255, 255, 255, 0.75);
+			backdrop-filter: blur(20px);
+			-webkit-backdrop-filter: blur(20px);
+			border-radius: 24px;
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0,0,0,0.05);
+			z-index: 1000;
+			display: flex;
+			align-items: center;
+			padding: 12px 16px;
+			transition: top 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); /* 복귀 애니메이션 분리 */
+			touch-action: none; /* 드래그 중 시스템 스크롤 방지용 */
+			will-change: transform; /* 드래그 애니메이션 프레임 드랍 및 버벅임 방지 */
+			cursor: grab;
+		}
+
+		.toast_ios_top:active {
+			cursor: grabbing;
+		}
+
+		.toast_ios_top.show {
+			top: 25px; /* 활성화 시 안전영역 아래로 내려옴 */
+		}
+
+		/* 닫힐 때 사라지는 투명도 및 축소 효과 (스와이프 외 자연 닫힘용) */
+		.toast_ios_top.hiding {
+			opacity: 0;
+			transform: scale(0.8) translateY(-20px);
+			transition: opacity 0.4s ease, transform 0.4s ease, top 0.4s ease;
+		}
+
+		.ios_icon {
+			width: 36px;
+			height: 36px;
+			background-color: #007aff;
+			border-radius: 10px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: #fff;
+			font-size: 18px;
+			margin-right: 12px;
+			flex-shrink: 0;
+		}
+
+		.ios_text_wrap {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.ios_title {
+			font-size: 14px;
+			font-weight: 600;
+			color: #1c1c1e;
+			margin-bottom: 2px;
+			font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+		}
+
+		.ios_message {
+			font-size: 13px;
+			color: #3a3a3c;
+			font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+		}
+
+		/* 다크 모드 속성 (OS 설정 자동 감지) */
+		@media (prefers-color-scheme: dark) {
+			body {
+				background-color: #1c1c1e;
+				color: #f5f5f7;
+			}
+			.test_buttons button {
+				background-color: #3a3a3c;
+				color: #f5f5f7;
+				border: 1px solid #48484a;
+			}
+			.toast_ios_top {
+				background-color: rgba(44, 44, 46, 0.75);
+				box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0,0,0,0.2);
+			}
+			.ios_title {
+				color: #ffffff;
+			}
+			.ios_message {
+				color: #ebebf5;
+			}
+		}
+	</style>
+</head>
+<body>
+	
+	<!-- 기능 테스트 버튼 -->
+	<div class="test_buttons">
+		<button onclick="showIosToast('최신 알림이 도착했습니다.')">iOS 토스트 팝업 띄우기</button>
+	</div>
+
+	<!-- iOS 스타일 상단 토스트 팝업 레이어 -->
+	<div class="toast_ios_top" id="toastIos">
+		<div class="ios_icon">💬</div>
+		<div class="ios_text_wrap">
+			<div class="ios_title">알림</div>
+			<div class="ios_message" id="toastIosMsg">메시지 내용</div>
+		</div>
+	</div>
+
+	<script>
+		// iOS 스타일 상단 토스트 로직 (스와이프 닫기 포함)
+		const toastIos = document.getElementById('toastIos');
+		const toastIosMsg = document.getElementById('toastIosMsg');
+		let iosToastTimer;
+
+		// 터치/마우스 드래그용 상태 변수
+		let startY = 0;
+		let currentY = 0;
+		let isDragging = false;
+		let dragRafId = null; // 최적화용 애니메이션 프레임 ID
+
+		function showIosToast(message) {
+			toastIosMsg.textContent = message; 
+
+			// 기존 닫힘 상태에서 복구
+			toastIos.classList.remove('hiding');
+			toastIos.style.opacity = '1';
+			toastIos.style.transform = 'translateY(0) scale(1)';
+			
+			toastIos.classList.add('show');
+			
+			clearTimeout(iosToastTimer);
+			iosToastTimer = setTimeout(hideIosToast, 3000); // 3초 뒤 자동 닫힘
+		}
+
+		function hideIosToast() {
+			toastIos.style.transition = ''; // 기본 CSS 트랜지션을 다시 활성화
+			toastIos.classList.add('hiding'); // 크기 축소 + 투명도 애니메이션 클래스 
+			
+			// 애니메이션이 끝난 후 완전히 초기화
+			setTimeout(() => {
+				toastIos.classList.remove('show');
+				toastIos.classList.remove('hiding');
+				toastIos.style.transform = 'translateY(0)';
+			}, 400); // hiding CSS의 타이머(0.4s)와 맞춤
+
+			clearTimeout(iosToastTimer);
+		}
+
+		// 드래그(스와이프) 기능 정의 (마우스 & 터치 공용)
+		const onDragStart = (e) => {
+			if (!toastIos.classList.contains('show')) return; // 숨겨진 상태면 무시
+			startY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+			isDragging = true;
+			toastIos.style.transition = 'none'; // 손을 따라오게 하기 위해 즉시 트랜지션 해제
+		};
+
+		const onDragMove = (e) => {
+			if (!isDragging) return;
+			
+			// 기본 브라우저 스크롤 이벤트를 완전히 방어해 화면 흔들림(버벅임)을 예방
+			if (e.cancelable) e.preventDefault(); 
+			
+			const y = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+			const deltaY = y - startY;
+
+			// RequestAnimationFrame을 통해 스마트폰의 60Hz/120Hz 주사율에 맞춰 부드럽게 렌더링하도록 묶기
+			if (dragRafId) cancelAnimationFrame(dragRafId);
+			
+			dragRafId = requestAnimationFrame(() => {
+				// 위로 쓸어올리는 동작 위주로 허용하고 아래로는 쫀쫀하고 묵직하게 저항(0.15배)
+				if (deltaY < 0) {
+					toastIos.style.transform = `translateY(${deltaY}px)`;
+					currentY = deltaY;
+				} else if (deltaY > 0) {
+					toastIos.style.transform = `translateY(${deltaY * 0.15}px)`;
+					currentY = deltaY;
+				}
+			});
+		};
+
+		const onDragEnd = () => {
+			if (!isDragging) return;
+			isDragging = false;
+			if (dragRafId) cancelAnimationFrame(dragRafId);
+			toastIos.style.transition = ''; // 트랜지션 원상복구
+
+			if (currentY <= -15) {
+				// -15px 이상 위로 밀어올렸다면 닫기 애니메이션 실행
+				hideIosToast();
+			} else {
+				// 덜 밀었다면 제자리로 튕겨서 복귀
+				toastIos.style.transform = 'translateY(0) scale(1)';
+			}
+			currentY = 0;
+		};
+
+		// 터치 이벤트 연결
+		toastIos.addEventListener('touchstart', onDragStart, { passive: true });
+		toastIos.addEventListener('touchmove', onDragMove, { passive: false });
+		toastIos.addEventListener('touchend', onDragEnd);
+
+		// 마우스 이벤트 연결 (웹 브라우저 테스트 편의용)
+		toastIos.addEventListener('mousedown', onDragStart);
+		window.addEventListener('mousemove', onDragMove, { passive: false });
+		window.addEventListener('mouseup', onDragEnd);
+	</script>
+</body>
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주가 흐름 그래프 (Chart.js)</title>
+    
+    <!-- Chart.js 및 관련 플러그인 (Candlestick, Luxon time adapter) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
+
+    <style>
+        :root {
+            --up-color: #f23645; /* 상승봉 색상 (빨강) */
+            --down-color: #2962ff; /* 하락봉 색상 (파랑) */
+            --border-color: #e0e3eb;
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --text-muted: #787b86;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f5f7;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .chart-card {
+            background-color: var(--bg-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            width: 100%;
+            max-width: 900px;
+            padding: 24px;
+            box-sizing: border-box;
+        }
+
+        /* 컨트롤 및 툴바 영역 */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .timeframes {
+            display: flex;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .timeframes .tf-item {
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .timeframes .tf-item.active {
+            background-color: #f0f3fa;
+            color: #131722;
+            font-weight: 600;
+        }
+
+        .timeframes .tf-item:hover:not(.active) {
+            background-color: #f8f9fd;
+            color: #131722;
+        }
+
+        .toolbar-icons {
+            display: flex;
+            gap: 16px;
+            color: var(--text-muted);
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .toolbar-icons span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+        }
+
+        .toolbar-icons span:hover {
+            background-color: #f0f3fa;
+            color: #131722;
+        }
+
+        /* 차트 상단 정보 및 범례 */
+        .chart-header {
+            margin-bottom: 12px;
+        }
+
+        .chart-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .ohlc-info {
+            font-size: 13px;
+            font-weight: 400;
+            display: flex;
+            gap: 10px;
+            color: var(--text-color);
+        }
+
+        .ohlc-info b { font-weight: 600; }
+
+        .chart-price-info {
+            color: var(--up-color);
+            font-weight: 500;
+            margin-left: auto; /* Push to the right if there's space */
+        }
+
+        .legend {
+            font-size: 12px;
+            color: var(--text-color);
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+            align-items: center;
+        }
+
+        .legend-title {
+            color: var(--text-muted);
+        }
+
+        .ma-value { font-weight: 600; }
+        .ma-5 { color: #2ecc71; }
+        .ma-20 { color: #e74c3c; }
+        .ma-60 { color: #f39c12; }
+        .ma-120 { color: #9b59b6; }
+
+        /* Chart.js 캔버스 래퍼 영역 */
+        .chart-wrapper {
+            position: relative;
+            width: 100%;
+            height: 500px;
+        }
+
+        @media (max-width: 600px) {
+            .toolbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .chart-wrapper {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="chart-card">
+        <!-- 상단 툴바 -->
+        <div class="toolbar">
+            <div class="timeframes">
+                <div class="tf-item" data-tf="1m">1분</div>
+                <div class="tf-item active" data-tf="1d">일</div>
+                <div class="tf-item" data-tf="1w">주</div>
+                <div class="tf-item" data-tf="1M">월</div>
+                <div class="tf-item" data-tf="1y">년</div>
+            </div>
+            <div class="toolbar-icons">
+                <span>📊</span>
+                <span>🗑️</span>
+                <span>⚙️</span>
+                <span>➕</span>
+                <span>📉</span>
+                <span>⤢</span>
+            </div>
+        </div>
+
+        <!-- 주가 정보 및 이동평균선 범례 -->
+        <div class="chart-header">
+            <div class="chart-title">
+                <span id="date-info" style="color: var(--text-muted); font-size: 13px;"></span>
+                <div class="ohlc-info">
+                    <span>시가 <b id="open-val">0</b></span>
+                    <span>고가 <b id="high-val" style="color: var(--up-color)">0</b></span>
+                    <span>저가 <b id="low-val" style="color: var(--down-color)">0</b></span>
+                    <span>종가 <b id="close-val">0</b></span>
+                </div>
+                <span class="chart-price-info" id="current-price-info">0원</span>
+            </div>
+            <div class="legend">
+                <span class="legend-title">이동평균선</span>
+                <span class="ma-value ma-5" id="ma5-val">5</span>
+                <span class="ma-value ma-20" id="ma20-val">20</span>
+                <span class="ma-value ma-60" id="ma60-val">60</span>
+                <span class="ma-value ma-120" id="ma120-val">120</span>
+            </div>
+        </div>
+
+        <!-- Chart.js 캔버스 구역 -->
+        <div class="chart-wrapper">
+            <canvas id="tvchart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // DOM 요소 캐싱
+        const priceInfoEl = document.getElementById('current-price-info');
+        const dateInfoEl = document.getElementById('date-info');
+        const openValEl = document.getElementById('open-val');
+        const highValEl = document.getElementById('high-val');
+        const lowValEl = document.getElementById('low-val');
+        const closeValEl = document.getElementById('close-val');
+
+        // 전역 상태
+        let currentTf = '1d';
+        let priceData = [];
+        let volumeData = [];
+        let volumeColors = [];
+        let ma5Data = [], ma20Data = [], ma60Data = [], ma120Data = [];
+
+        // 1. 데이터 시뮬레이션
+        function generateData(tf) {
+            const pData = [];
+            const vData = [];
+            const vColors = [];
+            
+            let currentPrice = 90000;
+            let date = luxon.DateTime.fromISO('2025-06-01');
+
+            for (let i = 0; i < 200; i++) {
+                if (tf === '1m') {
+                    date = date.plus({ minutes: 1 });
+                } else if (tf === '1d') {
+                    do { date = date.plus({ days: 1 }); } while (date.weekday === 6 || date.weekday === 7);
+                } else if (tf === '1w') {
+                    date = date.plus({ weeks: 1 });
+                } else if (tf === '1M') {
+                    date = date.plus({ months: 1 });
+                } else if (tf === '1y') {
+                    date = date.plus({ years: 1 });
+                }
+
+                const time = date.valueOf();
+                // 짧은 스케일은 가격 변동성을 작게 설정
+                const volatility = currentPrice * (tf === '1m' ? 0.005 : 0.05); 
+                
+                const direction = (Math.random() > 0.45) ? 1 : -1; 
+                let trend = direction * Math.random() * volatility;
+                
+                // 분봉 차트를 제외하고는 조금씩 우상향 시뮬레이션
+                if (currentPrice < 190000 && tf !== '1m') trend += 500; 
+
+                const open = currentPrice + (Math.random() - 0.5) * (volatility * 0.2);
+                const close = open + trend;
+                const high = Math.max(open, close) + Math.random() * volatility * 0.5;
+                const low = Math.min(open, close) - Math.random() * volatility * 0.5;
+
+                currentPrice = close;
+                const volume = Math.floor(Math.random() * 80000000) + 20000000;
+
+                pData.push({ x: time, o: open, h: high, l: low, c: close });
+                vData.push({ x: time, y: volume });
+                vColors.push(close >= open ? 'rgba(242, 54, 69, 0.7)' : 'rgba(41, 98, 255, 0.7)');
+            }
+            return { pData, vData, vColors };
+        }
+
+        // 2. 이동평균선(MA) 계산
+        function calculateSMA(data, period) {
+            const result = [];
+            for (let i = 0; i < data.length; i++) {
+                if (i < period - 1) {
+                    result.push({ x: data[i].x, y: null });
+                    continue;
+                }
+                let sum = 0;
+                for (let j = 0; j < period; j++) {
+                    sum += data[i - j].c;
+                }
+                result.push({ x: data[i].x, y: sum / period });
+            }
+            return result;
+        }
+
+        function refreshData(tf) {
+            currentTf = tf;
+            const generated = generateData(tf);
+            priceData = generated.pData;
+            volumeData = generated.vData;
+            volumeColors = generated.vColors;
+
+            ma5Data = calculateSMA(priceData, 5);
+            ma20Data = calculateSMA(priceData, 20);
+            ma60Data = calculateSMA(priceData, 60);
+            ma120Data = calculateSMA(priceData, 120);
+        }
+
+        // 처음 1회 데이터 생성
+        refreshData('1d');
+
+        // 3. UI 및 툴팁 업데이트 함수
+        function updateHeader(index) {
+            const dataObj = priceData[index];
+            if (!dataObj) return;
+
+            // 전일 데이터가 있다면 대비 퍼센트 구하기 위해 사용, 없다면 시가 기준
+            const prevClose = priceData[index - 1] ? priceData[index - 1].c : dataObj.o;
+            const diff = dataObj.c - prevClose; 
+            const diffPercent = ((diff / prevClose) * 100).toFixed(2);
+            
+            const closeStr = Math.round(dataObj.c).toLocaleString() + '원';
+            const sign = diff > 0 ? '+' : '';
+            const color = diff >= 0 ? 'var(--up-color)' : 'var(--down-color)';
+            
+            priceInfoEl.textContent = `${closeStr} (${sign}${diffPercent}%)`;
+            priceInfoEl.style.color = color;
+
+            const format = currentTf === '1m' ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd';
+            dateInfoEl.textContent = luxon.DateTime.fromMillis(dataObj.x).toFormat(format);
+            
+            openValEl.textContent = Math.round(dataObj.o).toLocaleString();
+            highValEl.textContent = Math.round(dataObj.h).toLocaleString();
+            lowValEl.textContent = Math.round(dataObj.l).toLocaleString();
+            closeValEl.textContent = Math.round(dataObj.c).toLocaleString();
+
+            closeValEl.style.color = color;
+
+            const maSet = [
+                { id: 'ma5-val', data: ma5Data, period: 5 },
+                { id: 'ma20-val', data: ma20Data, period: 20 },
+                { id: 'ma60-val', data: ma60Data, period: 60 },
+                { id: 'ma120-val', data: ma120Data, period: 120 }
+            ];
+
+            maSet.forEach(ma => {
+                const val = ma.data[index]?.y;
+                document.getElementById(ma.id).textContent = val ? Math.round(val).toLocaleString() : ma.period;
+            });
+        }
+
+        // 4. Chart.js 인스턴스 초기화
+        const ctx = document.getElementById('tvchart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'candlestick', 
+            data: {
+                datasets: [
+                    {
+                        label: 'Price',
+                        data: priceData,
+                        yAxisID: 'y',
+                        color: { up: '#f23645', down: '#2962ff', unchanged: '#999' },
+                        borderColor: { up: '#f23645', down: '#2962ff', unchanged: '#999' },
+                    },
+                    { type: 'line', label: 'MA 5', data: ma5Data, borderColor: '#2ecc71', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y', tension: 0.2 },
+                    { type: 'line', label: 'MA 20', data: ma20Data, borderColor: '#e74c3c', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y', tension: 0.2 },
+                    { type: 'line', label: 'MA 60', data: ma60Data, borderColor: '#f39c12', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y', tension: 0.2 },
+                    { type: 'line', label: 'MA 120', data: ma120Data, borderColor: '#9b59b6', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y', tension: 0.2 },
+                    {
+                        type: 'bar', label: 'Volume', data: volumeData,
+                        backgroundColor: volumeColors, yAxisID: 'volume',
+                        barPercentage: 0.8, categoryPercentage: 0.8
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                onHover: (event, activeElements) => {
+                    if (activeElements.length > 0) {
+                        updateHeader(activeElements[0].index);
+                    } else {
+                        updateHeader(priceData.length - 1);
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false }
+                },
+                scales: {
+                    x: {
+                        type: 'timeseries',
+                        time: {
+                            unit: 'day',
+                            tooltipFormat: 'yyyy-MM-dd'
+                        },
+                        grid: { display: true, color: '#e0e3eb' },
+                        ticks: { maxTicksLimit: 10 }
+                    },
+                    y: {
+                        position: 'right',
+                        grid: { display: true, color: '#e0e3eb' }
+                    },
+                    volume: {
+                        type: 'linear', position: 'right', display: false, min: 0
+                    }
+                }
+            }
+        });
+
+        // 차트 스케일 및 렌더링을 업데이트 하는 함수
+        function applyChartUpdate() {
+            chart.data.datasets[0].data = priceData;
+            chart.data.datasets[1].data = ma5Data;
+            chart.data.datasets[2].data = ma20Data;
+            chart.data.datasets[3].data = ma60Data;
+            chart.data.datasets[4].data = ma120Data;
+            chart.data.datasets[5].data = volumeData;
+            chart.data.datasets[5].backgroundColor = volumeColors;
+
+            let unit = 'day';
+            let tFormat = 'yyyy-MM-dd';
+            if (currentTf === '1m') { unit = 'minute'; tFormat = 'yyyy-MM-dd HH:mm'; }
+            else if (currentTf === '1w') { unit = 'week'; }
+            else if (currentTf === '1M') { unit = 'month'; }
+            else if (currentTf === '1y') { unit = 'year'; }
+
+            chart.options.scales.x.time.unit = unit;
+            chart.options.scales.x.time.tooltipFormat = tFormat;
+            
+            // maxVolume 재계산 (비어있으면 0 처리)
+            const maxVolume = volumeData.length > 0 ? Math.max(...volumeData.map(v => v.y)) : 0;
+            // 거래량 막대가 하단 25%만 채우도록 최대값 4배 트릭 적용
+            chart.options.scales.volume.max = maxVolume * 4;
+
+            chart.update();
+            updateHeader(priceData.length - 1);
+        }
+        
+        // 5. 버튼 클릭 이벤트 바인딩
+        const tfButtons = document.querySelectorAll('.tf-item');
+        tfButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 활성화 스타일(배경색) 변경
+                tfButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // 데이터 재가공 및 UI 적용
+                const targetTf = btn.getAttribute('data-tf');
+                refreshData(targetTf);
+                applyChartUpdate();
+            });
+        });
+
+        // 로드 직후 초기 트릭(볼륨스케일) 및 UI 세팅 완료
+        applyChartUpdate();
+    </script>
+</body>
+</html>

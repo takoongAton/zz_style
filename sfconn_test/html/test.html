@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<title>Test</title>
+	<style>
+		:root {
+			--bg: #f5f5f7;
+			--text: #1d1d1f;
+			--surface: #ffffff;
+			--surface-border: #eee;
+			--text-secondary: #333;
+			--dim: rgba(0, 0, 0, 0.5);
+			--shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+			--btn-primary: #2677ff;
+			--toast-bg: rgba(0, 0, 0, 0.85);
+			--toast-text: #fff;
+			--toast-top-bg: rgba(255, 255, 255, 0.72);
+			--toast-top-text: #000;
+			--btn-bg: #fff;
+			--btn-text: #1d1d1f;
+			--btn-border: #ddd;
+		}
+		@media (prefers-color-scheme: dark) {
+			:root {
+				--bg: #1d1d1f;
+				--text: #f5f5f7;
+				--surface: #2d2d2f;
+				--surface-border: #424245;
+				--text-secondary: #a1a1a6;
+				--dim: rgba(0, 0, 0, 0.7);
+				--shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+				--btn-primary: #0a84ff;
+				--toast-bg: rgba(255, 255, 255, 0.15);
+				--toast-text: #fff;
+				--toast-top-bg: rgba(44, 44, 46, 0.85);
+				--toast-top-text: #fff;
+				--btn-bg: #2d2d2f;
+				--btn-text: #f5f5f7;
+				--btn-border: #424245;
+			}
+		}
+		body {
+			background: var(--bg);
+			color: var(--text);
+			transition: background 0.3s ease, color 0.3s ease;
+		}
+		.popup_dim {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: var(--dim);
+			z-index: 1000;
+			opacity: 0;
+			transition: opacity 0.25s ease;
+		}
+		.popup_dim.dim_show {
+			opacity: 1;
+		}
+		.popup_box {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%) scale(0.9);
+			width: 90%;
+			max-width: 320px;
+			background: var(--surface);
+			border-radius: 8px;
+			overflow: hidden;
+			box-shadow: var(--shadow);
+			z-index: 3001;
+			opacity: 0;
+			transition: transform 0.25s ease-out, opacity 0.25s ease;
+		}
+		.popup_box.popup_open {
+			transform: translate(-50%, -50%) scale(1);
+			opacity: 1;
+		}
+		.popup_box header {
+			padding: 16px 20px;
+			font-size: 18px;
+			font-weight: 700;
+			color: var(--text);
+			border-bottom: 1px solid var(--surface-border);
+		}
+		.popup_box .container {
+			padding: 20px;
+			font-size: 14px;
+			line-height: 1.5;
+			color: var(--text-secondary);
+		}
+		.popup_box footer {
+			padding: 0 20px 20px;
+		}
+		.popup_box footer .btn_confirm {
+			display: block;
+			width: 100%;
+			height: 48px;
+			line-height: 48px;
+			background: var(--btn-primary);
+			color: #fff;
+			border: none;
+			border-radius: 6px;
+			font-size: 16px;
+			font-weight: 600;
+			cursor: pointer;
+			text-align: center;
+		}
+		.popup_box footer .btn_confirm:active {
+			opacity: 0.9;
+		}
+
+		/* 하단 팝업 */
+		.bottom_popup_sheet {
+			position: fixed;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			display: none;
+			max-height: 70vh;
+			background: var(--surface);
+			border-radius: 12px 12px 0 0;
+			overflow: hidden;
+			box-shadow: var(--shadow);
+			z-index: 2001;
+			transform: translateY(100%);
+			transition: transform 0.3s ease-out;
+		}
+		.bottom_popup_sheet.sheet_open {
+			transform: translateY(0);
+		}
+		.bottom_popup_sheet header {
+			padding: 16px 20px;
+			font-size: 18px;
+			font-weight: 700;
+			color: var(--text);
+			border-bottom: 1px solid var(--surface-border);
+		}
+		.bottom_popup_sheet .container {
+			padding: 20px;
+			font-size: 14px;
+			line-height: 1.5;
+			color: var(--text-secondary);
+			max-height: 40vh;
+			overflow-y: auto;
+		}
+		.bottom_popup_sheet footer {
+			padding: 0 20px 20px;
+		}
+		.bottom_popup_sheet footer .btn_confirm {
+			display: block;
+			width: 100%;
+			height: 48px;
+			line-height: 48px;
+			background: var(--btn-primary);
+			color: #fff;
+			border: none;
+			border-radius: 6px;
+			font-size: 16px;
+			font-weight: 600;
+			cursor: pointer;
+			text-align: center;
+		}
+		.bottom_popup_sheet footer .btn_confirm:active {
+			opacity: 0.9;
+		}
+
+		/* 토스트 */
+		.toast {
+			position: fixed;
+			left: 50%;
+			bottom: 24px;
+			transform: translateX(-50%) translateY(100%);
+			max-width: 90%;
+			padding: 12px 20px;
+			background: var(--toast-bg);
+			color: var(--toast-text);
+			font-size: 14px;
+			line-height: 1.4;
+			border-radius: 8px;
+			box-shadow: var(--shadow);
+			z-index: 9999;
+			opacity: 0;
+			transition: transform 0.3s ease-out, opacity 0.3s ease;
+			pointer-events: none;
+		}
+		.toast.toast_show {
+			transform: translateX(-50%) translateY(0);
+			opacity: 1;
+		}
+
+		/* 상단 토스트 (iOS Dynamic Island 스타일) */
+		.toast_top {
+			position: fixed;
+			top: 11px;
+			left: 50%;
+			transform: translateX(-50%) translateY(-150%);
+			width: auto;
+			min-width: 200px;
+			max-width: calc(100% - 24px);
+			height: 48px;
+			padding: 0 18px;
+			background: var(--toast-top-bg);
+			-webkit-backdrop-filter: blur(30px) saturate(180%);
+			backdrop-filter: blur(30px) saturate(180%);
+			color: #000;
+			font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+			font-size: 15px;
+			font-weight: 500;
+			letter-spacing: -0.01em;
+			border-radius: 30px;
+			box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.04);
+			z-index: 9999;
+			opacity: 0;
+			transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+			pointer-events: auto;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			touch-action: none;
+		}
+		.toast_top.toast_top_show {
+			transform: translateX(-50%) translateY(0);
+			opacity: 1;
+		}
+		.toast_top .icon {
+			width: 24px;
+			height: 24px;
+			background: #34c759;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+		}
+		.toast_top .icon::after {
+			content: "";
+			width: 10px;
+			height: 5px;
+			border-left: 2px solid #fff;
+			border-bottom: 2px solid #fff;
+			transform: rotate(-45deg) translate(1px, -1px);
+		}
+
+		/* 테마 토글 버튼 제거됨 */
+		.btn_theme {
+			background: var(--btn-bg);
+			color: var(--btn-text);
+			border: 1px solid var(--btn-border);
+			border-radius: 8px;
+			font-size: 14px;
+			cursor: pointer;
+			transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="popup_dim dim_show" id="popupDim"></div>
+	<div class="popup_box" id="popupBox">
+		<header>팝업 제목</header>
+		<div class="container">여기에 팝업 컨텐츠 내용이 표시됩니다.</div>
+		<footer>
+			<button type="button" class="btn_confirm" id="btnConfirm">확인</button>
+		</footer>
+	</div>
+
+	<div class="toast" id="toast"></div>
+	<div class="toast_top" id="toastTop"></div>
+
+	<button type="button" id="btnOpenBottom" class="btn_theme" style="position:fixed; bottom:20px; left:50%; transform:translateX(-50%); padding:10px 20px; z-index:100;">하단 팝업 열기</button>
+	<button type="button" id="btnShowToast" class="btn_theme" style="position:fixed; bottom:70px; left:50%; transform:translateX(-50%); padding:10px 20px; z-index:100;">토스트 보기</button>
+	<button type="button" id="btnShowToastTop" class="btn_theme" style="position:fixed; bottom:120px; left:50%; transform:translateX(-50%); padding:10px 20px; z-index:100;">상단 토스트 보기</button>
+
+	<div class="bottom_popup_sheet" id="bottomPopupSheet">
+		<header>하단 팝업 제목</header>
+		<div class="container">
+			여기에 하단 팝업 컨텐츠 내용이 표시됩니다.
+			<button type="button" id="btnOpenCenterFromBottom" style="display:block; margin-top:12px; padding:10px 16px; background:var(--btn-primary); color:#fff; border:none; border-radius:6px; font-size:14px; cursor:pointer;">중앙 팝업 열기</button>
+		</div>
+		<footer>
+			<button type="button" class="btn_confirm" id="btnBottomConfirm">확인</button>
+		</footer>
+	</div>
+
+	<script>
+		var centerPopupOpenedFromBottom = false;
+		var toastTimer = null;
+		var toastTopTimer = null;
+
+		function showToast(message) {
+			var toast = document.getElementById("toast");
+			if (toastTimer) clearTimeout(toastTimer);
+			toast.textContent = message || "토스트 메시지";
+			toast.classList.remove("toast_show");
+			requestAnimationFrame(function () {
+				toast.classList.add("toast_show");
+			});
+			toastTimer = setTimeout(function () {
+				toast.classList.remove("toast_show");
+				toastTimer = null;
+			}, 2500);
+		}
+
+		function showToastTop(message) {
+			var toastTop = document.getElementById("toastTop");
+			if (toastTopTimer) clearTimeout(toastTopTimer);
+			
+			// 아이콘과 메시지 구조 생성
+			toastTop.innerHTML = '<div class="icon"></div><span>' + (message || "알림") + '</span>';
+			
+			// 초기화
+			toastTop.classList.remove("toast_top_show");
+			toastTop.style.transform = "";
+			toastTop.style.transition = "";
+			
+			requestAnimationFrame(function () {
+				toastTop.classList.add("toast_top_show");
+			});
+			
+			// 드래그 로직 추가
+			var startY = 0;
+			var currentY = 0;
+			var isDragging = false;
+
+			function handleTouchStart(e) {
+				startY = e.touches[0].clientY;
+				isDragging = true;
+				toastTop.style.transition = "none"; // 드래그 중에는 트랜지션 제거
+				if (toastTopTimer) clearTimeout(toastTopTimer); // 드래그 중 자동 닫힘 방지
+			}
+
+			function handleTouchMove(e) {
+				if (!isDragging) return;
+				currentY = e.touches[0].clientY;
+				var deltaY = currentY - startY;
+				
+				// 위로만 드래그 허용 (아래로는 저항감)
+				if (deltaY < 0) {
+					toastTop.style.transform = "translateX(-50%) translateY(" + deltaY + "px)";
+				} else {
+					toastTop.style.transform = "translateX(-50%) translateY(" + (deltaY * 0.2) + "px)";
+				}
+			}
+
+			function handleTouchEnd(e) {
+				if (!isDragging) return;
+				isDragging = false;
+				var deltaY = currentY - startY;
+				
+				toastTop.style.transition = "transform 0.3s ease-out, opacity 0.3s ease"; // 트랜지션 복구
+
+				if (deltaY < -20) { // 20px 이상 위로 올리면 닫기
+					toastTop.classList.remove("toast_top_show");
+					toastTop.style.transform = ""; // 클래스 제거 후 CSS 트랜지션 따르도록
+				} else {
+					// 원위치 복귀
+					toastTop.style.transform = "";
+					// 타이머 재설정
+					toastTopTimer = setTimeout(function () {
+						toastTop.classList.remove("toast_top_show");
+						toastTopTimer = null;
+					}, 2500);
+				}
+				
+				// 이벤트 리스너 정리 (일회성)
+				toastTop.removeEventListener("touchstart", handleTouchStart);
+				toastTop.removeEventListener("touchmove", handleTouchMove);
+				toastTop.removeEventListener("touchend", handleTouchEnd);
+			}
+
+			toastTop.addEventListener("touchstart", handleTouchStart, {passive: true});
+			toastTop.addEventListener("touchmove", handleTouchMove, {passive: true});
+			toastTop.addEventListener("touchend", handleTouchEnd);
+
+			toastTopTimer = setTimeout(function () {
+				toastTop.classList.remove("toast_top_show");
+				toastTopTimer = null;
+			}, 2500);
+		}
+
+		document.getElementById("btnShowToast").addEventListener("click", function () {
+			showToast("토스트가 표시됩니다.");
+		});
+		document.getElementById("btnShowToastTop").addEventListener("click", function () {
+			showToastTop("상단 토스트가 표시됩니다.");
+		});
+
+		requestAnimationFrame(function () {
+			document.getElementById("popupBox").classList.add("popup_open");
+		});
+
+		document.getElementById("btnOpenBottom").addEventListener("click", function () {
+			var dim = document.getElementById("popupDim");
+			var sheet = document.getElementById("bottomPopupSheet");
+			dim.style.display = "block";
+			sheet.style.display = "block";
+			requestAnimationFrame(function () {
+				dim.classList.add("dim_show");
+				sheet.classList.add("sheet_open");
+			});
+		});
+		document.getElementById("btnOpenCenterFromBottom").addEventListener("click", function () {
+			var popupBox = document.getElementById("popupBox");
+			centerPopupOpenedFromBottom = true;
+			document.getElementById("popupDim").style.zIndex = "2500";
+			popupBox.style.display = "block";
+			popupBox.classList.remove("popup_open");
+			requestAnimationFrame(function () {
+				popupBox.classList.add("popup_open");
+			});
+		});
+		document.getElementById("btnConfirm").addEventListener("click", function () {
+			var popupBox = document.getElementById("popupBox");
+			if (centerPopupOpenedFromBottom) {
+				popupBox.classList.remove("popup_open");
+				popupBox.style.display = "none";
+				document.getElementById("popupDim").style.zIndex = "1000";
+				centerPopupOpenedFromBottom = false;
+			} else {
+				document.getElementById("popupDim").classList.remove("dim_show");
+				document.getElementById("popupDim").style.display = "none";
+				popupBox.classList.remove("popup_open");
+				popupBox.style.display = "none";
+			}
+		});
+		document.getElementById("btnBottomConfirm").addEventListener("click", function () {
+			var dim = document.getElementById("popupDim");
+			var sheet = document.getElementById("bottomPopupSheet");
+			dim.classList.remove("dim_show");
+			sheet.classList.remove("sheet_open");
+			dim.style.zIndex = "1000";
+			setTimeout(function () {
+				dim.style.display = "none";
+				sheet.style.display = "none";
+				document.getElementById("popupBox").classList.remove("popup_open");
+				document.getElementById("popupBox").style.display = "none";
+			}, 300);
+			centerPopupOpenedFromBottom = false;
+		});
+	</script>
+
+</body>
+</html>

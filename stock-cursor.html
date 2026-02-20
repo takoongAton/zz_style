@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Chart Example (Chart.js)</title>
+    <!-- Chart.js 및 관련 라이브러리 로드 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial/dist/chartjs-chart-financial.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .chart-container {
+            width: 100%;
+            max-width: 800px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .price-info h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .price-info .current-price {
+            font-size: 32px;
+            font-weight: 700;
+            color: #d24f45; /* 상승색 */
+            margin: 4px 0;
+        }
+
+        .price-info .change {
+            font-size: 14px;
+            color: #d24f45;
+            font-weight: 500;
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .period-btn {
+            border: none;
+            background: none;
+            padding: 6px 12px;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .period-btn.active {
+            background-color: #f1f3f5;
+            color: #333;
+            font-weight: 700;
+        }
+
+        #chartWrapper {
+            position: relative;
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="chart-container">
+        <div class="header">
+            <div class="price-info">
+                <h1>삼성전자</h1>
+                <div class="current-price">190,100</div>
+                <div class="change">▲ 1,100 (+0.58%)</div>
+            </div>
+            <div class="controls">
+                <button class="period-btn">1분</button>
+                <button class="period-btn active">일</button>
+                <button class="period-btn">주</button>
+                <button class="period-btn">월</button>
+                <button class="period-btn">년</button>
+            </div>
+        </div>
+
+        <div id="chartWrapper">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // 더미 데이터 생성 함수 (Chart.js Financial 포맷에 맞춤)
+        function generateData(period) {
+            const candlestickData = [];
+            const volumeData = [];
+            const ma5 = [];
+            const ma20 = [];
+            const ma60 = [];
+            const ma120 = [];
+            
+            let date = new Date();
+            let price = 145000;
+            let count = 120;
+            let unit = 'day';
+            let volatility = 0.015;
+            let trendFactor = 0.003;
+            let timeIncrement = (d) => d.setDate(d.getDate() + 1);
+
+            // 기간별 설정
+            switch(period) {
+                case '1min':
+                    count = 60; // 60분
+                    unit = 'minute';
+                    date = new Date();
+                    date.setHours(9, 0, 0, 0); // 오늘 9시부터
+                    timeIncrement = (d) => d.setMinutes(d.getMinutes() + 1);
+                    volatility = 0.002; // 분봉은 변동성 적음
+                    trendFactor = 0.0005;
+                    break;
+                case 'day':
+                    count = 120; // 약 6개월
+                    unit = 'day';
+                    date = new Date();
+                    date.setMonth(date.getMonth() - 6);
+                    timeIncrement = (d) => d.setDate(d.getDate() + 1);
+                    break;
+                case 'week':
+                    count = 104; // 2년 (52주 * 2)
+                    unit = 'week';
+                    date = new Date();
+                    date.setFullYear(date.getFullYear() - 2);
+                    timeIncrement = (d) => d.setDate(d.getDate() + 7);
+                    break;
+                case 'month':
+                    count = 60; // 5년 (12개월 * 5)
+                    unit = 'month';
+                    date = new Date();
+                    date.setFullYear(date.getFullYear() - 5);
+                    timeIncrement = (d) => d.setMonth(d.getMonth() + 1);
+                    break;
+                case 'year':
+                    count = 20; // 20년
+                    unit = 'year';
+                    date = new Date();
+                    date.setFullYear(date.getFullYear() - 20);
+                    timeIncrement = (d) => d.setFullYear(d.getFullYear() + 1);
+                    break;
+            }
+            
+            // 이동평균 계산을 위한 임시 배열
+            const closes = [];
+
+            for (let i = 0; i < count; i++) {
+                timeIncrement(date);
+                
+                // 주말 체크 (일간 데이터일 때만)
+                if (period === 'day') {
+                    if (date.getDay() === 0 || date.getDay() === 6) continue;
+                }
+                
+                const time = date.valueOf(); // timestamp for Chart.js
+
+                const trend = price * trendFactor;
+                const randomChange = (Math.random() - 0.45) * 2 * price * volatility;
+                
+                const change = trend + randomChange;
+                const open = price;
+                const close = price + change;
+                const high = Math.max(open, close) + Math.random() * price * (volatility * 0.5);
+                const low = Math.min(open, close) - Math.random() * price * (volatility * 0.5);
+                
+                price = close;
+                closes.push(close);
+
+                candlestickData.push({
+                    x: time,
+                    o: open,
+                    h: high,
+                    l: low,
+                    c: close
+                });
+
+                const isUp = close >= open;
+                volumeData.push({
+                    x: time,
+                    y: Math.floor(Math.random() * 1000000) + 500000,
+                    isUp: isUp // 색상 결정을 위한 플래그
+                });
+
+                // MA 계산
+                if (closes.length >= 5) ma5.push({ x: time, y: closes.slice(-5).reduce((a,b)=>a+b)/5 });
+                if (closes.length >= 20) ma20.push({ x: time, y: closes.slice(-20).reduce((a,b)=>a+b)/20 });
+                if (closes.length >= 60) ma60.push({ x: time, y: closes.slice(-60).reduce((a,b)=>a+b)/60 });
+                if (closes.length >= 120) ma120.push({ x: time, y: closes.slice(-120).reduce((a,b)=>a+b)/120 });
+            }
+            return { candlestickData, volumeData, ma5, ma20, ma60, ma120, unit };
+        }
+
+        let currentPeriod = 'day';
+        const { candlestickData, volumeData, ma5, ma20, ma60, ma120, unit } = generateData(currentPeriod);
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        
+        const myChart = new Chart(ctx, {
+            type: 'candlestick',
+            data: {
+                datasets: [
+                    {
+                        label: '삼성전자',
+                        data: candlestickData,
+                        color: {
+                            up: '#d24f45',
+                            down: '#1261c4',
+                            unchanged: '#999',
+                        },
+                        borderColor: {
+                            up: '#d24f45',
+                            down: '#1261c4',
+                            unchanged: '#999',
+                        },
+                        wickColor: {
+                            up: '#d24f45',
+                            down: '#1261c4',
+                            unchanged: '#999',
+                        },
+                        order: 1,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'MA5',
+                        type: 'line',
+                        data: ma5,
+                        borderColor: '#26a69a',
+                        borderWidth: 1,
+                        pointRadius: 0,
+                        order: 2,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'MA20',
+                        type: 'line',
+                        data: ma20,
+                        borderColor: '#ef5350',
+                        borderWidth: 1,
+                        pointRadius: 0,
+                        order: 2,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'MA60',
+                        type: 'line',
+                        data: ma60,
+                        borderColor: '#ff9800',
+                        borderWidth: 1,
+                        pointRadius: 0,
+                        order: 2,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'MA120',
+                        type: 'line',
+                        data: ma120,
+                        borderColor: '#9c27b0',
+                        borderWidth: 1,
+                        pointRadius: 0,
+                        order: 2,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: '거래량',
+                        type: 'bar',
+                        data: volumeData,
+                        backgroundColor: (ctx) => {
+                            const raw = ctx.raw;
+                            if (!raw) return 'rgba(0,0,0,0.1)';
+                            return raw.isUp ? 'rgba(210, 79, 69, 0.3)' : 'rgba(18, 97, 196, 0.3)';
+                        },
+                        yAxisID: 'y_volume',
+                        order: 3,
+                        barPercentage: 0.8
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            boxWidth: 10,
+                            usePointStyle: true,
+                            pointStyle: 'circle'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                if (context.dataset.type === 'candlestick') {
+                                    const v = context.raw;
+                                    return [
+                                        ` 시가: ${v.o.toLocaleString()}`,
+                                        ` 고가: ${v.h.toLocaleString()}`,
+                                        ` 저가: ${v.l.toLocaleString()}`,
+                                        ` 종가: ${v.c.toLocaleString()}`
+                                    ];
+                                }
+                                return context.dataset.label + ': ' + (context.raw.y ? context.raw.y.toLocaleString() : context.parsed.y.toLocaleString());
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'day',
+                            displayFormats: {
+                                minute: 'HH:mm',
+                                day: 'MM-dd',
+                                week: 'MM-dd',
+                                month: 'yyyy-MM',
+                                year: 'yyyy'
+                            }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        position: 'right',
+                        grid: {
+                            color: '#f0f0f0'
+                        }
+                    },
+                    y_volume: {
+                        position: 'left',
+                        display: false, // 축 숨김
+                        min: 0,
+                        max: 5000000, // 거래량 막대가 너무 높게 올라오지 않도록 최대값 조정
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // 버튼 이벤트 리스너 추가
+        const buttons = document.querySelectorAll('.period-btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // 활성 상태 변경
+                buttons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // 기간 설정
+                const periodMap = {
+                    '1분': '1min',
+                    '일': 'day',
+                    '주': 'week',
+                    '월': 'month',
+                    '년': 'year'
+                };
+                const period = periodMap[this.innerText];
+                
+                // 데이터 재생성 및 차트 업데이트
+                updateChart(period);
+            });
+        });
+
+        function updateChart(period) {
+            const newData = generateData(period);
+            
+            // 데이터셋 업데이트
+            myChart.data.datasets[0].data = newData.candlestickData;
+            myChart.data.datasets[1].data = newData.ma5;
+            myChart.data.datasets[2].data = newData.ma20;
+            myChart.data.datasets[3].data = newData.ma60;
+            myChart.data.datasets[4].data = newData.ma120;
+            myChart.data.datasets[5].data = newData.volumeData;
+
+            // X축 단위 업데이트
+            myChart.options.scales.x.time.unit = newData.unit;
+
+            myChart.update();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<title>iOS Top Toast</title>
+	<style>
+		body {
+			touch-action: manipulation; /* 더블 탭 확대 방지 */
+			margin: 0;
+			padding: 0;
+			font-family: sans-serif;
+			transition: background-color 0.3s ease, color 0.3s ease; /* 다크 모드 전환 애니메이션 */
+			background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); /* 글래스 효과 확인을 위한 배경 */
+			min-height: 100vh;
+		}
+
+		/* 테스트용 버튼 패널 */
+		.test_buttons {
+			padding: 20px;
+			text-align: center;
+		}
+		
+		.test_buttons button {
+			margin: 4px;
+			padding: 8px 16px;
+			border-radius: 6px;
+			border: 1px solid #ddd;
+			background-color: #f8f9fa;
+			color: #333;
+			font-size: 14px;
+			cursor: pointer;
+			transition: all 0.2s;
+		}
+
+		/* 상단 토스트 (iOS Liquid Glass 스타일) */
+		.toast_top {
+			position: fixed;
+			top: 11px;
+			left: 50%;
+			transform: translateX(-50%) translateY(-150%) scale(0.8);
+			width: auto;
+			min-width: 200px;
+			max-width: calc(100% - 24px);
+			height: 50px;
+			padding: 0 20px;
+			
+			/* Liquid Glass Effect */
+			background: rgba(255, 255, 255, 0.65);
+			-webkit-backdrop-filter: blur(20px) saturate(180%);
+			backdrop-filter: blur(20px) saturate(180%);
+			border: 1px solid rgba(255, 255, 255, 0.5);
+			box-shadow: 
+				0 8px 32px 0 rgba(31, 38, 135, 0.1),
+				inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+			
+			color: #1d1d1f;
+			font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+			font-size: 15px;
+			font-weight: 600;
+			letter-spacing: -0.01em;
+			border-radius: 25px;
+			z-index: 9999;
+			opacity: 0;
+			transition: transform 0.3s ease-in, opacity 0.3s ease-in;
+			pointer-events: auto;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 12px;
+			touch-action: none;
+		}
+		.toast_top.toast_top_show {
+			transform: translateX(-50%) translateY(0) scale(1);
+			opacity: 1;
+			transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease-out;
+		}
+		.toast_top .icon {
+			width: 24px;
+			height: 24px;
+			background: #34c759;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+		}
+		.toast_top .icon::after {
+			content: "";
+			width: 10px;
+			height: 5px;
+			border-left: 2px solid #fff;
+			border-bottom: 2px solid #fff;
+			transform: rotate(-45deg) translate(1px, -1px);
+		}
+	</style>
+</head>
+<body>
+	
+	<div class="toast_top" id="toastTop"></div>
+
+	<button type="button" id="btnShowToastTop" class="btn_theme" style="position:fixed; bottom:120px; left:50%; transform:translateX(-50%); padding:10px 20px; z-index:100;">상단 토스트 보기</button>
+
+	<script>
+		var toastTopTimer = null;
+
+		function showToastTop(message) {
+			var toastTop = document.getElementById("toastTop");
+			if (toastTopTimer) clearTimeout(toastTopTimer);
+			
+			// 아이콘과 메시지 구조 생성
+			toastTop.innerHTML = '<div class="icon"></div><span>' + (message || "알림") + '</span>';
+			
+			// 초기화
+			toastTop.classList.remove("toast_top_show");
+			toastTop.style.transform = "";
+			toastTop.style.transition = "";
+			
+			requestAnimationFrame(function () {
+				toastTop.classList.add("toast_top_show");
+			});
+			
+			// 드래그 로직 추가
+			var startY = 0;
+			var currentY = 0;
+			var isDragging = false;
+
+			function handleTouchStart(e) {
+				startY = e.touches[0].clientY;
+				isDragging = true;
+				toastTop.style.transition = "none"; // 드래그 중에는 트랜지션 제거
+				if (toastTopTimer) clearTimeout(toastTopTimer); // 드래그 중 자동 닫힘 방지
+			}
+
+			function handleTouchMove(e) {
+				if (!isDragging) return;
+				currentY = e.touches[0].clientY;
+				var deltaY = currentY - startY;
+				
+				// 위로만 드래그 허용 (아래로는 저항감)
+				if (deltaY < 0) {
+					toastTop.style.transform = "translateX(-50%) translateY(" + deltaY + "px)";
+				} else {
+					toastTop.style.transform = "translateX(-50%) translateY(" + (deltaY * 0.2) + "px)";
+				}
+			}
+
+			function handleTouchEnd(e) {
+				if (!isDragging) return;
+				isDragging = false;
+				var deltaY = currentY - startY;
+				
+				toastTop.style.transition = "transform 0.3s ease-out, opacity 0.3s ease"; // 트랜지션 복구
+
+				if (deltaY < -20) { // 20px 이상 위로 올리면 닫기
+					toastTop.classList.remove("toast_top_show");
+					toastTop.style.transform = ""; // 클래스 제거 후 CSS 트랜지션 따르도록
+				} else {
+					// 원위치 복귀
+					toastTop.style.transform = "";
+					// 타이머 재설정
+					toastTopTimer = setTimeout(function () {
+						toastTop.classList.remove("toast_top_show");
+						toastTopTimer = null;
+					}, 2500);
+				}
+				
+				// 이벤트 리스너 정리 (일회성)
+				toastTop.removeEventListener("touchstart", handleTouchStart);
+				toastTop.removeEventListener("touchmove", handleTouchMove);
+				toastTop.removeEventListener("touchend", handleTouchEnd);
+			}
+
+			toastTop.addEventListener("touchstart", handleTouchStart, {passive: true});
+			toastTop.addEventListener("touchmove", handleTouchMove, {passive: true});
+			toastTop.addEventListener("touchend", handleTouchEnd);
+
+			toastTopTimer = setTimeout(function () {
+				toastTop.classList.remove("toast_top_show");
+				toastTopTimer = null;
+			}, 2500);
+		}
+
+		document.getElementById("btnShowToastTop").addEventListener("click", function () {
+			showToastTop("상단 토스트가 표시됩니다.");
+		});
+	</script>
+</body>
+</html>
