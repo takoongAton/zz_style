@@ -115,7 +115,11 @@ header h1 span {color:#ff0000; font-weight:500; line-height:1em;}
 
 .input-label {display:block; font-size:12px; color:var(--text-label); margin-bottom:4px;}
 
-.input-element {min-height:21px; border:none; background:transparent; /* font-size:18px; */ font-size:16px; font-weight:500; color:var(--text-main); width:100%; outline:none;}
+.input-element {height:21px; border:none; background:transparent; /* font-size:18px; */ font-size:16px; font-weight:500; color:var(--text-main); width:100%; outline:none;}
+input.input-element:focus {color:transparent; text-shadow:0 0 0 #000; transition:all 0.1s ease;}
+input.input-element::placeholder {color:inherit; font-size:inherit; opacity:0.3; transition:all 0.1s ease;}
+input.input-element:focus::placeholder {color:transparent; opacity:0;}
+
 
 /* 인증번호 타이머 및 버튼 */
 .btn-sub-action {background:#EBEEF2; border:none; padding:8px 12px; border-radius:8px; font-size:13px; color:#8E94A1;}
@@ -188,7 +192,7 @@ header h1 span {color:#ff0000; font-weight:500; line-height:1em;}
 							<div class="input-box input-box--with-btn">
 								<div class="input-content">
 									<label class="input-label">인증번호</label>
-									<input type="number" class="input-element" value="193485" placeholder="인증번호 입력">
+									<input type="number" class="input-element" value="" placeholder="인증번호 입력">
 								</div>
 								<button type="button" class="btn-sub-action">재요청</button>
 							</div>
@@ -202,7 +206,7 @@ header h1 span {color:#ff0000; font-weight:500; line-height:1em;}
 							<div class="input-box">
 								<label class="input-label">휴대폰번호</label>
 								<div class="input-row">
-									<input type="tel" class="input-element" value="01025427454">
+									<input type="tel" class="input-element" placeholder="휴대폰번호 입력" value="">
 								</div>
 							</div>
 						</div>
