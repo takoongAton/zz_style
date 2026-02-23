@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- End Google Tag Manager -->
+	<meta http-equiv="Content-Type"    content="text/html; charset=utf-8" />
+	<meta http-equiv="Cache-Control"   content="No-Cache" />
+	<meta http-equiv="Pragma" 		   content="No-Cache" />
+	<meta http-equiv="Expires" 		   content="now" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, viewport-fit=contain, target-densitydpi=medium-dpi">
+	<link rel="stylesheet" type="text/css" href="../css/sfconn_design.css" />
+
+	<style>
+		.grecaptcha-badge {display: none;}
+	</style>
+
+<style>
+/* 기본 변수 설정 */
+:root {
+    --primary-color: #009ddf; /* 이미지의 진한 블루 */
+    --bg-gray: #F8F9FB;
+    --border-gray: #E9ECF0;
+    --text-label: #8E94A1;
+    --text-main: #1A1D23;
+    --text-error: #FF5A5F;
+	--bounce-bezier:cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* 입력 영역 공통 */
+.field-group {position:relative;}
+.field-group--split { display: flex; gap: 10px; }
+.field-group--split .input-box { flex: 1; }
+
+.input-box {
+    background: var(--bg-gray);
+    border: 1px solid var(--border-gray);
+    border-radius: 14px;
+    padding: 12px 16px;
+    transition: border-color 0.2s;
+}
+
+.input-box--with-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-label {
+    display: block;
+    font-size: 12px;
+    color: var(--text-label);
+    margin-bottom: 4px;
+}
+
+.input-element {
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-main);
+    width: 100%;
+    outline: none;
+}
+
+/* 인증번호 타이머 및 버튼 */
+.btn-sub-action {background:#EBEEF2; border:none; padding:8px 12px; border-radius:8px; font-size:13px; color:#8E94A1;}
+
+/* 인증번호 타이머 */
+.input-info {display:flex; justify-content:flex-end; align-items:center; gap:4px; margin-top:8px; margin-bottom:10px;}
+.timer {color:var(--text-error); font-size:14px; font-weight:500;}
+.btn-help {width:16px; height:16px; border:1px solid #D1D5DB; border-radius:50%; background:none; font-size:10px; color:#999;}
+
+
+/* 하단 버튼 */
+.auth-footer {margin-top:auto; padding:20px; }
+.btn-primary {width:100%; height:56px; background-color:var(--primary-color); color:#fff; border:none; border-radius:12px; font-size:16px; font-weight:600; cursor:pointer;}
+
+
+/* 인증번호 보일 때 효과 */
+#auth_wrap {height:0; opacity:0; overflow:hidden;
+    transition:height 0.4s var(--bounce-bezier), opacity 0.4s ease, padding 0.4s var(--bounce-bezier);
+    /* transition:height 0.24s ease-in, opacity 0.24s ease; */
+}
+#auth_wrap.active {opacity:1;}
+</style>
+</head>
+<body oncontextmenu="return false;">
+
+
+	<!-- End Google Tag Manager (noscript) -->
+	<div class="safeconnect_wrap_new">
+		<div class="safeconnect_container">
+			<header>
+				<div class="pTop">
+					<h1><strong>전화번호 안심로그인</strong> <span id="serviceTypeText" style="color : red;">통신사 제휴 유료 부가서비스</span></h1>
+				</div>
+			</header>
+
+			<section>
+				<!--GDN 배너-->
+				<div class="signUp_bnr">
+					<picture>
+						<source srcset="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_web_260204.png" media="(min-width:720px)" />
+						<img src="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_mobile_260204.png" alt="배너" />
+					</picture>
+				</div>
+				<!-- // signUp_bnr -->
+<style>
+.signUp_form {padding:20px;}
+</style>
+				<div class="signUp_form">
+					<div class="telecom">
+						<!-- <p>통신사</p> -->
+						<ul class="radio">
+							<li class="w20 mR0">
+								<input type="radio" id="divide01" name="telCdRadio" checked="" value="SKT" class="telCdRadioSkt">
+								<label class="fs20" for="divide01"><span>SKT</span></label>
+							</li>
+							<li class="mR0">
+								<input type="radio" id="divide02" name="telCdRadio" value="KT" class="telCdRadioKt">
+								<label class="fs20" for="divide02"><span>KT</span></label>
+							</li>
+							<li>
+								<input type="radio" id="divide03" name="telCdRadio" value="LGT" class="telCdRadioLgt">
+								<label class="fs20" for="divide03"><span>LG U+</span></label>
+							</li>
+						</ul>
+					</div>
+					<!-- // telecom -->
+
+					<div class="auth-form">
+						<div class="field-group" id="auth_wrap">
+							<div class="input-box input-box--with-btn">
+								<div class="input-content">
+									<label class="input-label">인증번호</label>
+									<input type="number" class="input-element" value="193485" placeholder="인증번호 입력">
+								</div>
+								<button type="button" class="btn-sub-action">재요청</button>
+							</div>
+							<div class="input-info">
+								<span class="timer">06:54</span>
+								<button type="button" class="btn-help">?</button>
+							</div>
+						</div>
+
+						<div class="field-group">
+							<div class="input-box">
+								<label class="input-label">휴대폰번호</label>
+								<div class="input-row">
+									<input type="tel" class="input-element" value="01025427454">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- // auth-form -->
+
+					<!-- 기본: 약관 먼저 -->
+
+<style>
+/* 약관 동의 */
+.terms-agree {border:1px solid var(--border-gray); border-radius:14px; overflow:hidden;}
+.terms-agree a {display:block; color:#888; text-decoration:none; min-height:17px; line-height:17px; font-size:12px; letter-spacing:-0.025em;}
+.terms-agree label {display:inline-block; width:auto; color:#fff;}
+
+.terms-agree input[type="checkbox"] {position:absolute; top:0; left:0; width:0; height:0; margin:0; padding:0; border:0; vertical-align:top;}
+.terms-agree input[type="checkbox"]::after {display:none !important;}
+.terms-agree input[type="checkbox"] + label {display:inline-flex; position:relative; top:auto; width:auto; margin:0;}
+
+.terms-agree input[type="checkbox"] + label span.checkmark {display:block; width:20px; height:20px; border:1px solid #ccc; border-radius:2px; background-color:#f2f2f2;}
+.terms-agree input[type="checkbox"]:checked + label span.checkmark {border:none; background-color:#2677FF; background-image:url('../images/common/check.png'); background-repeat:no-repeat; background-position:center; background-size:contain;}
+
+.terms-agree .all_agree {display:flex; align-items:center; position:relative; margin:0; border-radius:5px 5px 0 0; border-bottom:1px solid var(--border-gray); background-color:var(--bg-gray);}
+.terms-agree .all_agree label {position:relative; margin:0;}
+.terms-agree .all_agree label * {vertical-align:top;}
+
+.terms-agree .all_agree input[type="checkbox"] + label {display:inline-flex; align-items:center; gap:0 10px; width:100%; padding:14px 16px 15px; border-radius:5px 5px 0 0; color:#222;}
+.terms-agree .all_agree input[type="checkbox"] + label span.checkmark {position:relative; width:21px; height:21px;}
+.terms-agree .all_agree span.txt {display:inline-block; font-size:16px; line-height:21px; font-weight:700;}
+
+.terms-agree .agree {padding:1em;}
+.terms-agree .agree ul {display:flex; flex-wrap:wrap; flex-direction:row;}
+.terms-agree .agree li {display:flex; position:relative; min-width:calc(50% - 2px);}
+.terms-agree .agree li:first-child {margin-top:0;} */
+.terms-agree .agree li label {gap:0 4px;}
+.terms-agree .agree input[type="checkbox"] + label span.checkmark {width:17px; height:17px;}
+.terms-agree .agree label ~ span.txt {display:inline-block; margin-left:21px; line-height:17px; color:#888; cursor:pointer;}
+
+@media screen and (min-width:360px ) {
+	.terms-agree .agree ul {flex-direction:row;}
+}
+@media screen and (min-width:720px ) {
+	.terms-agree a {font-size:14px;}
+	.terms-agree .all_agree input[type="checkbox"] + label {gap:0 12px; padding:14px 32px 13px;}
+	.terms-agree .all_agree span.txt {font-size:18px; line-height:27px;}
+	.terms-agree .agree {padding:15px 2em;}
+	.terms-agree .agree li label {gap:0 6px;}
+	.terms-agree .agree ul {}
+}
+/* 약관동의 끝 */
+</style>
+					<div class="terms-agree">
+						<div class="all_agree" id="all_agree">
+							<input type="checkbox" id="chk6" name="chk6" class="agreeAll">
+							<label for="chk6" class="bold ftS19"><span class="checkmark"></span><span class="txt">약관 전체 동의하기</span></label><!-- 필요시 span.checkmark -->
+						</div>
+
+						<div class="agree">
+							<ul class="check">
+								<li>
+									<input type="checkbox" id="chk1" name="chk1" class="agree">
+									<label for="chk1">
+										<span class="checkmark"></span>
+										<a href="javascript:privacyPopOpen('0001');">이용약관</a>
+									</label>
+								</li>
+								<li id="stplat2">
+									<input type="checkbox" id="chk2" name="chk2" class="agree">
+									<label for="chk2">
+										<span class="checkmark"></span>
+										<a href="javascript:privacyPopOpen('0003');">개인정보 제3자 제공동의</a>
+									</label>
+								</li>
+								<li>
+									<input type="checkbox" id="chk3" name="chk3" class="agree">
+									<label for="chk3">
+										<span class="checkmark"></span>
+										<a href="javascript:privacyPopOpen('0002');">개인정보수집 및 이용동의</a>
+									</label>
+								</li>
+								<li id="stplat4">
+									<input type="checkbox" id="chk4" name="chk4" class="agree">
+									<label for="chk4">
+										<span class="checkmark"></span>
+										<a href="javascript:privacyPopOpen('0006');">
+											<cl id="stplat4Text">SKT개인정보 제3자 제공동의</cl>
+										</a>
+									</label>
+								</li>
+								<li id="stplat5">
+									<input type="checkbox" id="chk5" name="chk5" class="agree">
+									<label for="chk5">
+										<span class="checkmark"></span>
+										<a href="javascript:privacyPopOpen('0009');">
+											<cl id="stplat5Text">고객 혜택 제공을 위한 정보 수집 및 이용 동의(선택)</cl>
+										</a>
+									</label>
+								</li>
+								<li id="stplat7">
+									<input type="checkbox" id="chk7" name="chk7" class="agree">
+									<label for="chk7">
+										<span class="checkmark"></span>
+										<a href="javascript:privacyPopOpen('0036');">
+											<cl id="stplat7Text">혜택 정보 · 광고 수신 동의(선택)</cl>
+										</a>
+									</label>
+								</li>
+							</ul>
+						</div>
+						<div class="g-recaptcha" id="greCaptcha"></div>
+					</div>
+				</div>
+				<!-- // signUp_form -->
+
+				
+
+				<div class="service_bnr" id="serviceBnr">
+					<picture>
+						<source srcset="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_web_bottom.png" media="(min-width:720px)" />
+						<img src="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_mobile_bottom.png" alt="배너" />
+					</picture>
+				</div>
+
+				<div class="charge_txt">
+					<p><strong>매월 부가세 포함 1,100원이 휴대전화 요금에 합산 청구됩니다.</strong></p>
+					<div><button type="button" id="exitBtn"><span>취소</span></button></div>
+				</div>
+<style>
+.charge_txt {text-align:center;}
+.charge_txt p {letter-spacing:-0.05em;}
+.charge_txt p strong {display:block; color:#ff0000; font-size:13px;}
+.charge_txt div {}
+.charge_txt div button { height:48px; padding:0 20px; border:none; background:transparent;}
+.charge_txt div button span {display:inline-block; border-bottom:1px solid var(--text-label); color:var(--text-label); font-size:13px;}
+
+.marketing {}
+.marketing ul li {position:relative; padding-left:0.75em; color:var(--text-label); font-size:12px; letter-spacing:-0.05em;}
+.marketing ul li::before {content:"⋅"; display:inline-block; position:absolute; top:0; left:0; color:inherit; font-size:inherit; line-height:inherit; font-weight:700; text-align:center;}
+.marketing ul li a {color:inherit;}
+</style>
+				<footer class="marketing"><!-- marketing :text-align:left -->
+					<ul>
+						<li>본 서비스는 <strong>SKT,KT,LGU+</strong>와 제휴하여 <span class="blueHighlight">㈜아톤</span>이 운영합니다.</li>
+						<li>고객센터(이용/해지) : 1670-4273 / <a href="#" class="email">safeconnect@atoncorp.com</a></li>
+					</ul>
+				</footer>
+
+			</section>
+
+			<footer class="auth-footer" style="position:sticky; bottom:0; left:0; width:100%;">
+				<button type="button" class="btn-primary">본인인증 진행하기</button>
+			</footer>
+
+		</div>
+		<!-- // safeconnect_container -->
+	</div>
+	<!-- // safeconnect_wrap_new -->
+
+	<div class="safeconnect_wrap"><!-- strict, flexible -->
+
+		<section class="content_wrap">
+
+			<div class="signUp_wrap">
+
+
+				<!-- KT 가입완료전 모달 -->
+				<div id="ktModal" style="display: none;">
+					<div class="modal-header">
+						<h3>전화번호안심로그인 서비스 가입 안내</h3>
+					</div>
+					<div class="modal-body">
+						<p>사이트의 아이디/비밀번호를 스마트폰 USIM에 보관하고, 전화번호로 인증하여 안전하게 로그인할 수 있는 유료 부가서비스에 가입되었습니다.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="ktModalConfirm" class="btn-confirm">확인</button>
+					</div>
+				</div>
+
+				<!-- 웹가입 완료 -->
+				<div class="signUp_section" id="popupCont05" style="display:none;">
+					<div class="popup_cont">
+						<div class="eventBannerDiv" style="height:0%;">
+							<img src="https://safeconnect.co.kr/sfconn/resources/safeconnect/img/integrated/temp/bnr_sample_complate.png" alt="">
+						</div>
+						<div class="inwrap">
+							<div class="tit_wrap">
+								<dl class="txt">
+									<dt>전화번호안심로그인 서비스 가입이 완료되었습니다.</dt>
+									<dd>전화번호안심로그인은 이통사 유료 부가서비스로 <i class="pc"></i>매월 부가세포함 1,100원이 이통신사 요금에 포함하여 청구 됩니다.</dd>
+									<dd>전화번호로 안전하게 로그인하시려면<i class="pc"></i>구글플레이스토어 또는 앱스토어에서 전화번호안심로그인 앱을 설치하세요.</dd>
+								</dl>
+							</div>
+							<div class="success_btn"><button type="button" class="exitBtn_complete">페이지 나가기</button></div>
+						</div>
+					</div><!-- // #popupCont05 -->
+
+				</div><!-- // signUp_section -->
+
+				<!-- 웹가입 완료2-->
+				<div class="signUp_section" id="popupCont09" style="display:none;">
+					<div class="popup_cont">
+						<div class="eventBannerDiv" style="height:0%;">
+							<img src="https://safeconnect.co.kr/sfconn/resources/safeconnect/img/integrated/temp/bnr_sample_complate.png" alt="">
+						</div>
+						<div class="inwrap">
+							<div class="tit_wrap">
+								<dl class="txt">
+									<dt>서비스 가입이 완료 되었습니다.</dt>
+									<dd><i class="pc"></i></dd>
+								</dl>
+							</div>
+							<div class="success_btn"><button type="button" class="exitBtn_complete">페이지 나가기</button></div>
+						</div>
+					</div><!-- // #popupCont09 -->
+
+				</div>
+
+				<!-- 웹가입개선 Android -->
+				<div class="signUp_section" id="popupCont06" style="display:none;">
+					<div class="popup_cont">
+						<div class="inwrap">
+
+							<div class="tit_wrap">
+								<dl class="txt2">
+									<dt>문자를 발송하였습니다.</dt>
+									<dd><span>URL을 클릭</span>하고 인증을 계속 진행하세요!</dd>
+								</dl>
+							</div>
+
+							<div class="step">
+								<div><span>1단계</span><p>발송된 문자의 URL 클릭</p><button type="button" class="btn_sms sendSMS">문자 다시 받기</button></div>
+								<div><span>2단계</span><p>앱 설치 후 아래 인증번호 입력</p></div>
+							</div>
+
+							<div class="cont3">
+								<p class="auth2_text">*앱 실행 후 아래 가입 인증번호를 입력하세요.</p>
+								<div class="auth2">
+									<p class="num_text">인증번호</p>
+									<p class="num" id="authNo5"></p>
+								</div>
+							</div>
+
+							<div class="success_btn"><button type="button" class="checkAuth">전화번호 안심 로그인 유료가입</button></div>
+
+							<div class="charge_txt">
+								<dl>
+									<dt>매월 부가세포함 1,100원</dt>
+									<dd><p>전화번호안심로그인은 SKT, KT, LGU+ 통신요금에 매월 자동으로 부과됩니다.</p></dd>
+								</dl>
+							</div><!-- // charge_txt -->
+						</div>
+					</div><!-- // #popupCont06 -->
+				</div><!-- // signUp_section -->
+
+				<!-- 웹가입개선 iOS -->
+				<div class="signUp_section" id="popupCont07" style="display:none;">
+					<div class="popup_cont">
+						<div class="inwrap">
+							<div class="tit_wrap">
+								<dl class="txt2">
+									<dt>문자를 발송하였습니다.</dt>
+									<dd><span>URL을 클릭</span>하고 인증을 계속 진행하세요!</dd>
+								</dl>
+							</div>
+
+							<div class="step">
+								<div><span>1단계</span><p>발송된 문자의 URL 클릭</p><button type="button" class="btn_sms sendSMS">문자 다시 받기</button></div>
+								<div><span>2단계</span><p>앱 설치 후 안내에 따라 가입 완료</p></div>
+							</div>
+
+							<div class="success_btn"><button type="button" class="checkAuth">전화번호 안심 로그인 유료가입</button></div>
+
+							<div class="charge_txt">
+								<dl>
+									<dt>매월 부가세포함 1,100원</dt>
+									<dd><p>전화번호안심로그인은 SKT, KT, LGU+ 통신요금에 매월 자동으로 부과됩니다.</p></dd>
+								</dl>
+							</div><!-- // charge_txt -->
+						</div>
+					</div><!-- // #popupCont07 -->
+
+				</div><!-- // signUp_section -->
+
+			</div><!-- // signUp_wrap -->
+
+		</section><!-- // content_wrap -->
+
+
+
+		
+	</div><!-- // safeconnect_wrap -->
+
+	<!-- 레이어팝업 샘플 -->
+	<div class="dim"></div>
+
+	<!-- 1. 확인만 있는 alert -->
+	<div class="layer alert" id="alert">
+		<div class="layer_content">
+			<p class="txt">팝업 내용</p>
+		</div>
+		<div class="btn_group">
+			<button type="button" class="btn_next"><span>확인</span></button>
+		</div>
+	</div>
+
+	<!-- 2. 취소/확인 있는 confirm -->
+	<div class="layer alert" id="confirm">
+		<div class="layer_content">
+			<p class="txt">팝업 내용</p>
+		</div>
+		<div class="btn_group">
+			<button type="button" class="btn_cancel"><span>취소</span></button>
+			<button type="button" class="btn_next"><span>확인</span></button>
+		</div>
+	</div>
+
+	<!-- 3. 타이틀 있는 alert -->
+	<div class="layer alert" id="title">
+		<div class="layer_content">
+			<div class="tit">팝업 타이틀</div>
+			<p class="txt">팝업 내용</p>
+		</div>
+		<div class="btn_group">
+			<button type="button" class="btn_next"><span>확인</span></button>
+		</div>
+	</div>
+	<!-- // 레이어팝업 샘플 -->
+
+
+<script>
+	let auth_wrap = document.querySelector("#auth_wrap");
+document.querySelector(".btn-primary").addEventListener("click", function(){
+    auth_wrap.classList.add("active");
+    auth_wrap.style.height = `${auth_wrap.scrollHeight}px`;
+    // boundShowFn(document.querySelector(".testItem"));
+    playVibration();
+})
+</script>
+</body>
+</html>

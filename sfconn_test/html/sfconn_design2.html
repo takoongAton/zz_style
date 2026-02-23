@@ -1,0 +1,1545 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- End Google Tag Manager -->
+	<meta http-equiv="Content-Type"    content="text/html; charset=utf-8" />
+	<meta http-equiv="Cache-Control"   content="No-Cache" />
+	<meta http-equiv="Pragma" 		   content="No-Cache" />
+	<meta http-equiv="Expires" 		   content="now" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, viewport-fit=contain, target-densitydpi=medium-dpi">
+	<link rel="stylesheet" type="text/css" href="../css/sfconn_design.css" />
+	
+			<script type="text/javascript" src="https://safeconnect.co.kr/sfconn/resources/safeconnect/js/popupIntegrated.js?20260223103420"></script>
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		
+		ga('create', 'UA-100705426-2', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+	<!-- Google Tag Manager 11/09 김수빈P 요청-->
+	<script>
+		(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+					new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+				j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+				'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-NSLJJG7');
+	</script>
+		
+	<!-- Global site tag (gtag.js) - Google Ads: 866875027 START (2021.07.27 전차은 프로 요청사항으로 추가)-->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=AW-866875027"></script>
+	<script>
+		//var et = "gdn2_1";
+		//if(et == "gdn_pc_01" || et == "gdn2_1"){
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'AW-866875027');
+		//} 
+	</script>
+	<!-- Global site tag (gtag.js) - Google Ads: 866875027 END -->
+	<script type="text/javascript">
+
+		var et = "gdn2_1";
+		if(et == "psn222R01") {
+			function event1(depth) {
+				$.ajax({
+					url: "https://mobile.midas-i.com/roianal.mezzo/tracking?cmp_no=2306&depth=" + depth,
+					dataType: "jsonp",
+					async: true,
+					timeout: 500,
+					success: function (data) {
+
+					},
+					error: function (e) {
+
+					}
+				});
+				return false;
+			}
+		}
+
+	</script>
+	<!-- Enliple Tracker Start 모비온 가입창 반응형-->
+    
+    <!-- Enliple Tracker End -->
+    
+	<script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit' async defer></script>
+	<style>
+		.grecaptcha-badge {display: none;}
+	</style>
+</head>
+<body oncontextmenu="return false;" style="font-family:NanumBarunGothic, Malgun Gothic;">
+<!-- Google Tag Manager (noscript) 11/09 김수빈P 요청-->
+<noscript>
+	<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSLJJG7"
+				  height="0" width="0" style="display:none;visibility:hidden">
+	</iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+	<div>
+		
+
+
+
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<!-- google font Noto Sans KR -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400..700&display=swap" rel="stylesheet" />
+<script src="https://safeconnect.co.kr/sfconn/resources/safeconnect/js/common.js;jsessionid=F34984C3F13DDD1986CDDABCD956EC2F"></script>
+<script type="text/javascript">
+var authNo;
+var count        = 0;
+var ptrSvcSn     = null;
+var mdn          = null;
+var telCd        = null;
+var customerType = null;
+var timer        = null;
+var progressFlag = null;
+var mkt_type     = "gdn2_1";
+var doubleSubmitFlag = false;
+let signPopRequest = false;
+let lgtPopupOpen = false;
+let lgtRequestId = 0;
+let saveCstJoinCnt;
+
+document.addEventListener("DOMContentLoaded", function() {
+	console.log("direction  : " + "0");
+	console.log("isSwitchOn : " + "0");
+
+	progressFlag = "";
+
+	// 신규광고 추적 스크립트 요청 가입창 조회(depth1) 김수빈P
+	if("gdn2_1" == "psn222R01"){
+		event1(1);
+	}
+
+
+	if(progressFlag == "1") {
+		progressFlag = 1;
+	} else {
+		progressFlag = null;
+	}
+
+	// 옥션, G마켓 전용
+	fnAuctionAndGmarketSetEventTxt("gdn2_1");
+
+	// 스마트캐시 이벤트
+	fnSetCscPcLeftImg();
+
+	setResizePopupWindow();
+	fnSetFooterVisible();
+
+    if(getCookie("dis7ds") != '' ) {
+    	window.open("about:blank","_self").close();
+    }
+
+	// 휴대폰번호 포커스, 백그라운드 색상 처리
+    setMdnEventCss();
+
+	// cstKey, telCd에 따른 처리
+	if( ("" != null) && ("" != "")
+		&& ("" != null) && ("" != "") ) {
+		ptrSvcSn = "psn001".substring(1, "psn001".length-1);
+
+		var _mdn = "".substring(1, 12);
+		_mdn = fnReplaceMdn(_mdn);
+
+	    if(_mdn.length != 11 || _mdn == "" ) {
+			showAlert("휴대폰번호가 정확하지 않습니다.");
+	    	return;
+	    } else {
+			$("#mdn02").val(_mdn);
+	    }
+
+		var _telCd = "".substring(1, "".length - 1);
+		$("input[name=telCdRadio][value="+_telCd+"]").attr('checked', 'checked');
+
+		if(_telCd == "SKT" || _telCd == "KT" || _telCd == "LGT") {
+			$("#authNo, #authNoLayer").attr("maxlength", "6");
+
+			if(_telCd == "SKT") {
+				//SKT
+				//$("#stplat2Text").html(_telCd + "개인정보 제3자 제공");
+				$("#stplat2>label>a").attr("href", "javascript:privacyPopOpen('0003')");
+
+				$("#stplat4Text").html(_telCd + "통신사 개인정보 제3자 제공동의");
+				$("#stplat4>label>a").attr("href", "javascript:privacyPopOpen('0006')");
+				$("#stplat4").show();
+			} else if (_telCd == "KT"){
+				//KT
+				//$("#stplat2Text").html(_telCd + "개인정보 제3자 제공");
+				$("#stplat2>label>a").attr("href", "javascript:privacyPopOpen('0004')");
+
+				$("#stplat4Text").html(_telCd + "통신사 개인정보 제3자 제공동의");
+				$("#stplat4>label>a").attr("href", "javascript:privacyPopOpen('0007')");
+				$("#stplat4").show();
+			} else if (_telCd == "LGT"){
+				//LGT
+				//$("#stplat2Text").html(_telCd + "개인정보 제3자 제공");
+				$("#stplat2>label>a").attr("href", "javascript:privacyPopOpen('0005')");
+
+				$("#stplat4Text").html("LGU+ 및 LGU+ MVNO 개인정보 제3자 제공동의");
+				$("#stplat4>label>a").attr("href", "javascript:privacyPopOpen('0008')");
+				$("#stplat4").show();
+				//$("#stplat4").hide();
+			}
+		}
+
+		setTelCdRadioChange("1");
+
+	} else {
+		if( "" != null && "" != "" ) {
+			// LGT 전용
+			var _telCd = ""
+			$("input[name=telCdRadio][value="+_telCd+"]").attr('checked', 'checked');
+
+			$("input[name=telCdRadio][value=SKT]").attr('disabled', true);
+			$("input[name=telCdRadio][value=KT]").attr('disabled', true);
+
+			if(_telCd == "LGT") {
+				$("#authNo, #authNoLayer").attr("maxlength","6");
+				//$("#stplat4").hide();
+				ptrSvcSn = "psn001";
+			}
+		} else {
+			ptrSvcSn = "psn001";
+	    	setTelCdRadioChange("2");
+		}
+	}
+
+	// 개별약관동의 클릭
+	setEachCheckBoxClick();
+
+	// 전체약관동의 클릭
+	setAllCheckBoxClick();
+
+    // 인증번호 받기 클릭, 재전송버튼 클릭
+    $("#submitBtn, #re_submitBtn").click(function(e) {
+    	e.preventDefault();
+
+    	var isGdnEt = "gdn2_1";
+       	var isKtFlag = $("input[name=telCdRadio]:checked").val();
+       	var isAuthNoFlag = "Y";
+
+		try {
+			if(e.currentTarget != undefined && e.currentTarget != null) {
+				var currentTargetId = e.currentTarget.id;
+
+				if(currentTargetId == "submitBtn") {
+					ga('send', 'event', 'btn_agree00', 'click');	// 인증번호 요청
+					// 신규광고 추적 스크립트 요청 인증번호요청(depth2) 김수빈P
+					if("gdn2_1" == "psn222R01"){
+						event1(2);
+					}
+				} else if(currentTargetId == "re_submitBtn") {
+					ga('send', 'event', 'btn_agree00_again', 'click');	// 인증번호 재발송
+				}
+			}
+
+	       	if(isGdnEt == "gdn06" && isKtFlag != "KT") {
+	       		var tempSktInfo ="";
+	    		var tempLgtInfo = "";
+
+	    		var tempSktInfoArr = tempSktInfo.split(",");
+	    		var tempLgtInfoArr = tempLgtInfo.split(",");
+
+	    		var tempSktAuthNoFlag = tempSktInfoArr[3];
+	    		var tempLgtAuthNoFlag = tempLgtInfoArr[3];
+
+	    		if(isKtFlag == "SKT") {
+	    			isAuthNoFlag = tempSktAuthNoFlag;
+	    		} else if(isKtFlag == "LGT") {
+	    			isAuthNoFlag = tempLgtAuthNoFlag;
+	    		}
+	       	}
+
+		} catch(err) {
+			console.log("ga....");
+			isAuthNoFlag = "Y";
+		}
+
+		if(isAuthNoFlag == "Y") {
+			// 약관 체크
+			var vbTermsResult = checkTermsClick();
+			if(vbTermsResult == false) {
+				return false;
+			}
+		}
+
+    	if("false" == "true") {
+    		grecaptcha.execute();
+    	} else {
+    		onGetAuthNoBtnClick("");
+    	}
+    });
+
+    // 가입버튼 클릭
+    $("#confirmBtn").click(function(e) {
+    	setConfirmBtnClick();
+    });
+
+    // PC 프로그램 설치하기 클릭
+    $("#programDownBtn").click(function(e) {
+    	e.preventDefault();
+    	ga('send', 'event', 'btn_mdown', 'click');
+
+    	safeconnectProgramDownload();
+    });
+
+    // 앱 다운로드 문자받기 클릭
+    $("#sendSmsBtn").click(function(e) {
+    	e.preventDefault();
+    	ga('send', 'event', 'btn_psns', 'click');
+
+    	$.ajax({
+    		url: "/sfconn/login/sendDownSmsAjax;jsessionid=F34984C3F13DDD1986CDDABCD956EC2F",
+    	    "type": "POST",
+    		"data": {
+    			"mdn"        : mdn,
+    			"authSvcUid" : "10",
+    			"ptrSvcSn"   : ptrSvcSn || null,
+    			"telCd"      : telCd
+    		},
+    		success : function(datas){
+				showAlert("링크가 전송되었습니다.");
+    			fnCloseWindow();
+    		}
+    	});
+    });
+
+    // 7일간 보이지 않기 클릭
+   	$("#ignoreChk").click(function(e) {
+   		ga('send', 'event', 'btn_seven00', 'click');	// 7일간 보이지 않기
+
+   		var chk = $(this).is(":checked");
+
+   		if(chk) {
+   			setCookie("dis7ds", true, 7);
+   		} else {
+   			eraseCookie("dis7ds");
+   		}
+   	});
+
+    // 가입완료 후 페이지 나가기
+	$(".exitBtn_complete").each(function() {
+		$(this).click(function(e) {
+			fnCloseWindow();
+		});
+	});
+
+   	// 취소 버튼 클릭
+    $("#exitBtn").click(function(e) {
+    	e.preventDefault();
+    	ga('send', 'event', 'btn_cancel00', 'click');	// 취소 버튼 클릭
+
+    	// 기존요청건 취소 - 로직추가!!!
+    	$.ajax({
+			url: "/sfconn/login/cancelScdAuthLogAjax;jsessionid=F34984C3F13DDD1986CDDABCD956EC2F",
+		    "type": "POST",
+			"data": {
+				"mdn" : mdn,
+				"reqTp" : "02"
+			},
+			success : function(datas){
+				clearInterval(timer);
+			}, error: function(jqXHR, textStatus, errorThrown) {
+				clearInterval(timer);
+		    }
+		});
+
+    	fnCloseWindow();
+    });
+
+   	// 문자 다시 받기 클릭
+    $(".sendSMS").click(function(e) {
+    	e.preventDefault();
+    	fnSnedJoinDownSmsAjax();
+    });
+
+    // 확인 버튼 클릭(SKT 가입프로세스 변경)
+    $(".checkAuth").click(function(e) {
+    	e.preventDefault();
+
+    	if(progressFlag == 1) {
+    		setLoadingHtmlDiv(1);
+    	} else {
+    		setLoadingHtmlDiv();
+    	}
+
+    	$.ajax({
+			url: "/sfconn/login/checkAuthYn;jsessionid=F34984C3F13DDD1986CDDABCD956EC2F",
+		    "type": "POST",
+		    "data": {
+				"mdn"        : mdn,
+				"authNo"     : authNo,
+				"telCd"      : telCd,
+				"authSvcUid" : "10",
+				"ptrSvcSn"   : ptrSvcSn || null,
+				"reqTp"      : "02",
+				"regChlCd"   : "gdn2_1"
+		    },
+			success: function(data) {
+				setloadingBoxDivRemove();
+
+				if(data.resultCd == '0000') {
+					fnCloseWindow();
+
+				} else if(data.resultCd == '7001') {
+					clearInterval(timer);
+					showAlert("문자로 발송된 링크를 통해 앱을 설치 후 가입인증을 완료하세요.");
+
+				} else {
+					clearInterval(timer);
+					showAlert(data.resultMsg);
+				}
+			}, error: function(jqXHR, textStatus, errorThrown) {
+				clearInterval(timer);
+		    }
+    	});
+    });
+
+    $("div.telecom .radio li input[type='radio']").on("click", function(){
+		$(this).parents("li").siblings().removeClass("on");
+		$(this).parent("li").addClass("on");
+	});
+
+	$("div.telecom .radio li input[type='radio']").each(function(){
+		if( $(this).prop('checked') ) {
+			$(this).parent("li").addClass("on");
+		} else {
+			$(this).parent("li").removeClass("on");
+		}
+	});
+
+	$("#pageClose").click(function(event) {
+		try {
+			fnCloseWindow();
+		} catch(err) {}
+	});
+
+	// 가입완료 시 이벤트 팝업 배너 클릭
+	$(".eventBannerDiv").each(function() {
+		$(this).click(function(event) {
+			ga('send', 'event', 'btn_endupbanner_001', 'click');
+			window.open("https://atstockplus.co.kr:8090/marketing/event/join?joinPath=B1");
+		});
+	});
+
+	//kt mvno 팝업 닫힘 시 버튼 초기화
+	$(document).on('modalClosed',function (){
+		$('#submitBtn').prop('disabled', false);
+	})
+
+	//kt 가입완료전 모달
+	$("#ktModalConfirm").click(function() {
+		$("#ktModal").hide();
+		$("#popupCont01").hide();
+		$("#popupCont09").show();
+	});
+});
+
+function setMdnEventCss() {
+	$("#mdn02").focus();
+
+    $("#mdn02").keydown(function(e) {
+		var key = e.charCode || e.keyCode || 0;
+
+	    $text = $(this);
+
+	    if (key !== 8 && key !== 9) {
+	        if( $text.val().length === 3 ) {
+	            $text.val($text.val() + '-');
+	        }
+	        if( $text.val().length === 8 ) {
+	            $text.val($text.val() + '-');
+	        }
+	    }
+
+	    return (key == 8 || key == 9 || key == 46 || key == 116 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));
+	});
+}
+
+function setTelCdRadioChange(psType) {
+	if(psType == "1") {
+		$("input[name=telCdRadio]").trigger('change', function(e) {
+			$("#authNo, #authNoLayer").attr("maxlength", "6");
+
+			var chgTriggerTelCd = $("input[name=telCdRadio]:checked").val();
+			if(chgTriggerTelCd == "SKT") {
+				//SKT
+				$("#serviceTypeText").html("통신사 제휴 유료 부가서비스");
+				$("#stplat2>label>a").attr("href", "javascript:privacyPopOpen('0003')");
+
+				$("#stplat4Text").html(chgTriggerTelCd + "개인정보 제3자 제공동의");
+				$("#stplat4>label>a").attr("href", "javascript:privacyPopOpen('0006')");
+				$("#stplat4").show();
+				$("#serviceBnr").show();
+			} else if (chgTriggerTelCd == "KT"){
+				//KT
+				$("#serviceTypeText").html("이통사 제휴 유료 부가서비스");
+				$("#stplat2>label>a").attr("href", "javascript:privacyPopOpen('0004')");
+				$("#stplat4Text").html(chgTriggerTelCd + "개인정보 제3자 제공동의");
+				$("#stplat4>label>a").attr("href", "javascript:privacyPopOpen('0007')");
+				$("#stplat4").show();
+				$("#serviceBnr").hide();
+			} else if (chgTriggerTelCd == "LGT"){
+				//LGT
+				$("#serviceTypeText").html("이통사유료부가서비스");
+				$("#stplat2>label>a").attr("href", "javascript:privacyPopOpen('0005')");
+				$("#stplat4Text").html("LGU+ 및 LGU+ MVNO 개인정보 제3자 제공동의");
+				$("#stplat4>label>a").attr("href", "javascript:privacyPopOpen('0008')");
+				$("#stplat4").show();
+				$("#serviceBnr").show();
+			}
+		});
+	}
+
+	if(psType == "1" || psType == "2") {
+		$("input[name=telCdRadio]").change(function(e){
+			$("#authNo, #authNoLayer").attr("maxlength", "6");
+
+			var chgFunctionTelCd = $("input[name=telCdRadio]:checked").val();
+			if(chgFunctionTelCd == "SKT") {
+				//SKT
+				$("#serviceTypeText").html("통신사 제휴 유료 부가서비스");
+				$("#stplat2>label>a").attr("href", "javascript:privacyPopOpen('0003')");
+				$("#stplat4Text").html(chgFunctionTelCd + "개인정보 제3자 제공동의");
+				$("#stplat4>label>a").attr("href", "javascript:privacyPopOpen('0006')");
+				$("#stplat4").show();
+				$("#serviceBnr").show();
+			} else if (chgFunctionTelCd == "KT"){
+				//KT
+				$("#serviceTypeText").html("이통사 제휴 유료 부가서비스");
+				$("#stplat2>label>a").attr("href", "javascript:privacyPopOpen('0004')");
+				$("#stplat4Text").html(chgFunctionTelCd + "개인정보 제3자 제공동의");
+				$("#stplat4>label>a").attr("href", "javascript:privacyPopOpen('0007')");
+				$("#stplat4").show();
+				$("#serviceBnr").hide();
+			} else if (chgFunctionTelCd == "LGT"){
+				//LGT
+				$("#serviceTypeText").html("이통사유료부가서비스");
+				$("#stplat2>label>a").attr("href", "javascript:privacyPopOpen('0005')");
+				$("#stplat4Text").html("LGU+ 및 LGU+ MVNO 개인정보 제3자 제공동의");
+				$("#stplat4>label>a").attr("href", "javascript:privacyPopOpen('0008')");
+				$("#stplat4").show();
+				$("#serviceBnr").show();
+			}
+		});
+	}
+}
+
+function setEachCheckBoxClick() {
+	$("#chk1,#chk2,#chk3,#chk4,#chk5,#chk7").click(function() {
+		var checkedAll = true;
+		$("#chk1,#chk2,#chk3,#chk4").each(function() {
+			if( !$(this).prop('checked') ) {
+				checkedAll = false;
+			}
+		});
+
+		if(checkedAll) {
+			$("#chk6").prop("checked", true);
+		} else {
+			$("#chk6").prop("checked", false);
+		}
+	});
+}
+
+function setAllCheckBoxClick() {
+	$("#chk6").click(function() {
+		var isPopupType = "0";
+
+		if( $("#chk6").prop("checked") ) {
+			ga('send', 'event', 'btn_agree02', 'click');	// 약관 전체 동의 하기
+			if(isPopupType == 0) {
+				$("#chk1, #chk2, #chk3, #chk4").prop("checked", true);
+			} else {
+				$("#chk1, #chk2, #chk3, #chk4, #chk5, #chk7").prop("checked", true);
+			}
+		} else {
+			$("#chk1, #chk2, #chk3, #chk4, #chk5, #chk7").prop("checked", false);
+		}
+	});
+}
+
+function checkTermsClick() {
+	var telCd = $("input[name=telCdRadio]:checked").val();
+	var isSwitchType = "0";
+
+	if(isSwitchType == "0") {
+		if( !( $("#chk1").prop("checked") == true &&
+			$("#chk2").prop("checked") == true &&
+			$("#chk3").prop("checked") == true &&
+			$("#chk4").prop("checked") == true) ) {
+			ConfirmAlert("서비스 이용을 위하여 약관 동의가 필요합니다. 필수약관에 모두 동의하시겠습니까?", function() {
+				$("#chk1, #chk2, #chk3, #chk4, #chk6").prop("checked", true);
+			});
+			return false;
+		}
+
+	} else {
+		var allChk6Msg = "서비스 이용을 위하여 약관동의는 필수입니다. 약관 전체 동의하기(선택약관 포함)하시겠습니까?";
+
+		if( !($("#chk1").prop("checked") == true && $("#chk2").prop("checked") == true &&
+			$("#chk3").prop("checked") == true && $("#chk4").prop("checked") == true) ) {
+
+			if( !$("#chk6").prop("checked") ) {
+				if( !confirm(allChk6Msg) ) {
+					return false;
+				}
+				$("#chk1, #chk2, #chk3, #chk4, #chk5, #chk6 ,#chk7").prop("checked", true);
+			}
+		}
+	}
+
+	return true;
+}
+
+function setConfirmBtnClick() {
+	ga('send', 'event', 'btn_num00', 'click');
+
+	var authNo = $("#authNo").val();
+
+	if (authNo == "") {
+		showAlert("인증번호를 확인해주세요.");
+		$("#authNo").focus();
+		return;
+	}
+
+	if (!authNo.match(/^\d{6}/)) {
+		showAlert("인증번호를 확인해주세요.");
+		$("#authNo").focus();
+		return;
+	}
+
+	telCd = $("input[name=telCdRadio]:checked").val();
+
+	// 약관 체크
+	var vbTermsResult = checkTermsClick();
+	if (vbTermsResult == false) {
+		return false;
+	}
+	checkAuthNoAjax();
+}
+
+function checkAuthNoAjax(){
+	if(doubleSubmitFlag){
+		console.log("더블 써밋 방지");
+		return;
+	}
+	console.log("더블 써밋 세팅");
+	doubleSubmitFlag = true;
+
+	if(progressFlag == 1) {
+		setLoadingHtmlDiv(1);
+	} else {
+		setLoadingHtmlDiv();
+	}
+	$("#confirmBtn").prop('disabled', true);
+
+	$.ajax({
+		url: "/sfconn/login/checkAuthNoAjax;jsessionid=F34984C3F13DDD1986CDDABCD956EC2F",
+		"type": "POST",
+		"data": {
+			"mdn"             : mdn,
+			"authNo"          : $("#authNo").val(),
+			"telCd"           : telCd,
+			"authSvcUid"      : "10",
+			"ptrSvcSn"        : ptrSvcSn || null,
+			"reqTp"           : "02",
+			"regChlCd"        : "gdn2_1",
+			"stplatChoiceYn1" : $("#chk5").prop("checked") == true ? "Y" : "N",
+			"stplatChoiceYn2" : $("#chk7").prop("checked") == true ? "Y" : "N",
+			"customerType"    : customerType
+		},
+		success: function(data) {
+			if(data.resultCd == '0000') {
+
+				setloadingBoxDivRemove();
+				clearInterval(timer);
+
+				//gtag 2021-09-14 전차은P 요청 - 가입완료 시 호출
+				gtag('event', 'conversion', {'send_to': 'AW-866875027/FvfECKT18eIBEJPtrZ0D'});
+				ga('send', 'event', 'btn_num01', 'click');
+
+				// 신규광고 추적 스크립트 요청 가입완료(depth3) 김수빈P
+				if("gdn2_1" == "psn222R01"){
+					event1(3);
+				}
+				//가입 완료 김수빈P 요청
+				pushDataLayer("sign_up_complete", data.cstJoinCnt);
+
+				$("#popupCont01").hide();
+				$("#authNo").attr("disabled", true);
+				if(telCd == 'LGT') {
+					$("#popupCont01").show();
+					TitleAlert(
+							"전화번호안심로그인 서비스 가입이 완료되었습니다.",
+							"전화번호안심로그인은 이통사 유료 부가서비스로 매월 부가세 포함 월 1,100원이 이통사 요금에 포함하여 청구됩니다."
+					);
+					$('#title').find('.btn_next').off('click').on('click', function() {
+						hideAlert();
+						$("#popupCont01").hide();
+						$("#popupCont05").show();
+					});
+				}else if(telCd == 'KT') {
+					$("#popupCont01").show();
+					TitleAlert(
+							"전화번호안심로그인 서비스 가입 안내",
+							"사이트의 아이디/비밀번호를 스마트폰 USIM에 보관하고, 전화번호로 인증하여 안전하게 로그인할 수 있는 유료 부가서비스에 가입되었습니다."
+					);
+					$('#title').find('.btn_next').off('click').on('click', function() {
+						hideAlert();
+						$("#popupCont01").hide();
+						$("#popupCont05").show();
+					});
+				}else{
+					$("#popupCont09").show();
+				}
+
+			} else {
+				//실패했을시 sign up fail 김수빈P 요청
+				pushDataLayerF(data);
+				$('#loading').remove();
+				if(data.resultCd == "7002") {
+					setloadingBoxDivRemove();
+					ga('send', 'event', 'btn_num00_error', 'click');
+					$('#loading').remove();
+					showAlert("인증번호를 확인해주세요.", function() {
+						location.reload();
+					});
+				} else if (data.resultCd == "7012") {
+					if(confirm("무료체험을 가입하신 이력이 있습니다. 무료체험은 1회만 가능합니다. 유료가입으로 계속 진행 하시겠습니까?")) {
+						$.ajax({
+							url: "/sfconn/login/joinAccountAjax;jsessionid=F34984C3F13DDD1986CDDABCD956EC2F",
+
+							"type": "POST",
+							"data": {
+								"mdn"        : mdn,
+								"authNo"     : $("#authNo").val(),
+								"telCd"      : telCd,
+								"authSvcUid" : "10",
+								"ptrSvcSn"   : ptrSvcSn || null,
+								"reqTp"      : "02",
+								"regChlCd"   : "nofree"
+							},
+							success: function(data) {
+								setloadingBoxDivRemove();
+
+								if(data.resultCd == '0000') {
+
+									//gtag 2021-09-14 전차은P 요청 - 가입완료 시 호출
+									gtag('event', 'conversion', {'send_to': 'AW-866875027/FvfECKT18eIBEJPtrZ0D'});
+									ga('send', 'event', 'btn_num01', 'click');
+									clearInterval(timer);
+
+									// 신규광고 추적 스크립트 요청 가입완료(depth3) 김수빈P
+									if("gdn2_1" == "psn222R01"){
+										event1(3);
+									}
+
+									$("#popupCont01").hide();
+									$("#authNo").attr("disabled", true);
+									$("#popupCont09").show();
+								} else {
+									if(data.resultCd == "7002") {
+										ga('send', 'event', 'btn_num00_error', 'click');
+									} else {
+										ga('send', 'event', 'btn_num00_etc', 'click');
+									}
+									showAlert(data.resultMsg);
+								}
+								$("#confirmBtn").prop('disabled', false);
+							}, error: function(jqXHR, textStatus, errorThrown) {
+								ga('send', 'event', 'btn_num00_etc', 'click');
+								clearInterval(timer);
+							}
+						});
+					} else {
+						setloadingBoxDivRemove();
+						clearInterval(timer);
+						ga('send', 'event', 'btn_num00_etc', 'click');
+						showAlert("서비스 가입에 실패하였습니다.\n알뜰폰, 선불요금제, 법인, 외국인, 미성년 고객은 가입하실 수 없습니다.");
+					}
+				} else {
+					setloadingBoxDivRemove();
+					ga('send', 'event', 'btn_num00_etc', 'click');
+					clearInterval(timer);
+					showAlert("서비스 가입에 실패하였습니다.\n알뜰폰, 선불요금제, 법인, 외국인, 미성년 고객은 가입하실 수 없습니다.", function() {
+						location.reload();
+					});
+				}
+			}
+			$("#confirmBtn").prop('disabled', false);
+		}, error: function(jqXHR, textStatus, errorThrown) {
+			ga('send', 'event', 'btn_num00_etc', 'click');
+			clearInterval(timer);
+		}, complete: function (){
+			console.log("더블 써밋 초기화");
+			doubleSubmitFlag = false;
+		}
+	});
+}
+
+
+function onGetAuthNoBtnClick(token)	{
+   	mdn = $("#mdn02").val();
+   	mdn = fnReplaceMdn(mdn);
+
+	var mdnFront = mdn.substring(0, 3);
+
+	if (mdnFront != "010") {
+		showAlert("010으로 시작하는 휴대폰번호만 입력 가능합니다.");
+		$("#mdn02").focus();
+		return;
+	}
+
+   	if("" == mdn) {
+   		showAlert("휴대폰번호를 확인해주세요.");
+    	return;
+   	}
+
+	if (mdn.length != 11) {
+		showAlert("휴대폰번호를 확인해주세요.");
+		$("#mdn02").focus();
+		return;
+	}
+   	// greCaptcha
+   	if("false" == "true" && token == "") {
+   		showAlert("화면을 다시 로드합니다.");
+   		location.reload();
+   		return;
+   	}
+
+	ga('send', 'event', 'btn_agr_captcha_01', 'click');
+
+   	telCd = $("input[name=telCdRadio]:checked").val();
+
+	var threeMinutes = 60 * 3;
+
+	startTimer(threeMinutes);
+
+	if(progressFlag == 1) {
+		setLoadingHtmlDiv(1);
+	} else {
+		setLoadingHtmlDiv();
+	}
+
+	$('#submitBtn, #re_submitBtn').prop('disabled', true);
+
+	$.ajax({
+		url: "/sfconn/login/checkUserMvnoAjax;jsessionid=F34984C3F13DDD1986CDDABCD956EC2F",
+		"type": "POST",
+		"data": {
+			"mdn"      : mdn,
+			"telCd"    : telCd
+		},
+		success : function (data){
+			setloadingBoxDivRemove();
+			if(telCd == 'KT' && data.customerType == 'M') {
+				customerType = data.customerType;
+				popup_mvno(data, token);
+			}else{
+				sendAuthSmsAjax(mdn,telCd, ptrSvcSn, token, customerType);
+			}
+		},
+		error : function (jqXHR, textStatus, errorThrown){
+			ga('send', 'event', 'btn_agree00_etc', 'click');
+			clearInterval(timer);
+			showAlert("error ::" + textStatus);
+
+			if("false" == "true") {
+				grecaptcha.reset();
+			}
+			$('#submitBtn, #re_submitBtn').prop('disabled', false);
+		}
+	})
+}
+
+function sendAuthSmsAjax(mdn, telCd, ptrSvcSn, token, customerType, callback = function(){}){
+	if(doubleSubmitFlag){
+		console.log("더블 써밋 방지");
+		return;
+	}
+	console.log("더블 써밋 세팅");
+	doubleSubmitFlag = true;
+	$.ajax({
+		url: "/sfconn/login/sendAuthSmsAjax;jsessionid=F34984C3F13DDD1986CDDABCD956EC2F",
+		"type": "POST",
+		"data": {
+			"mdn"             : mdn,
+			"telCd"           : telCd,
+			"authSvcUid"      : "10",
+			"ptrSvcSn"        : ptrSvcSn || null,
+			"regChlCd"        : "gdn2_1",
+			"useCaptcha"      : "false",
+			"captChaResponse" : token,
+			"customerType"    : customerType
+		},
+		success: function(data) {
+			setloadingBoxDivRemove();
+			callback();
+
+			if(data.resultCd == "0000") {
+				ga('send', 'event', 'btn_agree01', 'click');
+
+				//인증번호 요청시 김수빈P 요청
+				pushDataLayer("ctn_request", data.cstJoinCnt);
+
+				showAlert("입력하신 휴대폰번호로 인증번호가 발송되었습니다.\n인증번호를 입력해주세요.");
+
+				// Android - SKT 가입개선
+				if(telCd == "SKT" && data.isTgl == false) {
+					authNo = data.authNo;
+
+					$("#authNo5").text(authNo);
+					$("#popupCont01").hide();
+					$("#authNo").attr("disabled", true);
+					$("#popupCont06").show();
+				} else {
+					$("#authNo").attr("disabled", false);
+				}
+
+				setConfirmBtnText(); //인증번호 입력 노출
+
+				$("#mdn02").attr("readonly", true);  // 휴대폰번호 수정 방지
+				$("#chk1, #chk2, #chk3, #chk4, #chk5, #chk6, #chk7").attr("disabled", true);  // 약관 체크박스 비활성화
+				$("input[name=telCdRadio]").attr("disabled", true);  // 통신사 변경 방지
+				$("#confirmBtn").prop('disabled', false); //가입 버튼 활성화
+
+			} else if(data.resultCd == "7011") {
+				ga('send', 'event', 'btn_agree01', 'click');
+
+				showAlert("입력하신 휴대폰번호로 인증번호가 발송되었습니다.\n인증번호를 입력해주세요.");
+
+				// iOS - SKT 가입개선
+				if(telCd == "SKT" && data.isTgl == false) {
+					authNo = data.authNo;
+
+					$("#popupCont01").hide();
+					$("#authNo").attr("disabled", true);
+					$("#popupCont07").show();
+				} else {
+					$("#authNo").attr("disabled", false);
+				}
+
+				setConfirmBtnText(); //인증번호 입력 노출
+
+				//인증번호 요청시 김수빈P 요청
+				pushDataLayer("ctn_request", data.cstJoinCnt);
+
+				$("#mdn02").attr("readonly", true);  // 휴대폰번호 수정 방지
+				$("#chk1, #chk2, #chk3, #chk4, #chk5, #chk6, #chk7").attr("disabled", true);  // 약관 체크박스 비활성화
+				$("input[name=telCdRadio]").attr("disabled", true);  // 통신사 변경 방지
+				$("#confirmBtn").prop('disabled', false); // 가입 버튼 활성화
+
+			} else {
+				if(data.resultCd == "2710") {
+					ga('send', 'event', 'btn_agree00_teen', 'click');	// 미성년자
+				} else if(data.resultCd == "1007") {
+					ga('send', 'event', 'btn_agree00_black', 'click');	// 블랙리스트
+					showAlert("고객 요청으로 가입 제한 된 번호입니다.", function() {
+						location.reload();
+					});
+					clearInterval(timer);
+					if("false" == "true") {
+						grecaptcha.reset();
+					}
+					$('#submitBtn, #re_submitBtn').prop('disabled', false);
+
+				} else if(data.resultCd == "2713" || data.resultCd == "2714") {
+					ga('send', 'event', 'btn_agree00_etc', 'click');
+					showAlert("선택하신 통신사에 가입되지 않은 사용자입니다.");
+
+					clearInterval(timer);
+					if("false" == "true") {
+						grecaptcha.reset();
+					}
+					$('#submitBtn, #re_submitBtn').prop('disabled', false);
+
+				} else if(data.resultCd == "7004") {
+					ga('send', 'event', 'btn_agree00_member', 'click');	// 기가입자
+				} else if(data.resultCd == "7006") {
+					ga('send', 'event', 'btn_agree00_member', 'click');	// 기가입자 (앱미설치)
+				} else {
+					ga('send', 'event', 'btn_agree00_etc', 'click');	// 기타
+				}
+
+				//인증번호 요청시 김수빈P 요청
+				pushDataLayer("ctn_request", data.cstJoinCnt);
+
+				//실패했을시 sign up fail 김수빈P 요청
+				pushDataLayerF(data);
+
+				if(data.resultCd == "7004" || data.resultCd == "7006") {
+					showAlert(data.resultMsg, function() {
+						location.reload();
+					});
+				} else {
+					showAlert(data.resultMsg);
+				}
+				clearInterval(timer);
+
+				if("false" == "true") {
+					grecaptcha.reset();
+				}
+
+				$('#submitBtn, #re_submitBtn').prop('disabled', false);
+
+				if(data.resultCd == "9007") {
+					location.reload();
+				}
+
+				//2713 ATON, 2714 SDC 솔루션 사용했을때
+				if(data.resultCd == "2713" || data.resultCd == "2714") {
+					if(data.resultTelCd == "SKT") {
+						$("input[name=telCdRadio][value=SKT]").prop('checked', true);
+						$("input[name=telCdRadio][value=SKT]").parent("li").addClass("on");
+						$("input[name=telCdRadio][value=SKT]").parent("li").siblings().removeClass("on");
+					} else if(data.resultTelCd == "KT") {
+						$("input[name=telCdRadio][value=KT]").prop('checked', true);
+						$("input[name=telCdRadio][value=KT]").parent("li").addClass("on");
+						$("input[name=telCdRadio][value=KT]").parent("li").siblings().removeClass("on");
+					} else if(data.resultTelCd == "LGU" || data.resultTelCd == "LGT") {
+						$("input[name=telCdRadio][value=LGT]").prop('checked', true);
+						$("input[name=telCdRadio][value=LGT]").parent("li").addClass("on");
+						$("input[name=telCdRadio][value=LGT]").parent("li").siblings().removeClass("on");
+					}
+					$("#chk1, #chk2, #chk3, #chk4, #chk5, #chk6, #chk7").prop("checked", false);
+					$("input[name=telCdRadio]:checked").trigger('change');
+				}
+
+			}
+			saveCstJoinCnt = data.cstJoinCnt;
+		}, error: function(jqXHR, textStatus, errorThrown) {
+			console.log("error");
+
+			ga('send', 'event', 'btn_agree00_etc', 'click');
+			clearInterval(timer);
+			showAlert("error ::" + textStatus);
+
+			if("false" == "true") {
+				grecaptcha.reset();
+			}
+			$('#submitBtn, #re_submitBtn').prop('disabled', false);
+		}, complete: function(){
+				console.log("더블 써밋 초기화");
+				doubleSubmitFlag = false;
+		}
+	});
+}
+
+function popup_mvno(data, token){
+	const url = "https://www.safeconnect.co.kr/sfconn/hp/popup/ktMvno";
+
+	CommonModal.open(url, {
+		id: 'mvnoModal',
+		onLoad: function(iframe){
+			window.addEventListener('message', function(event) {
+				if (event.origin !== new URL(url).origin) return;
+
+				if (event.data.type === 'submitClicked') {
+					sendAuthSmsAjax(data.mdn, data.telCd, ptrSvcSn, token, data.customerType, function(){
+						CommonModal.close();
+					});
+				}
+			}, false);
+
+			iframe.contentWindow.postMessage({type: 'init', data: data, token: token}, url);
+		}
+	});
+}
+
+function setConfirmBtnText() {
+   	$("#auth_no_btn_section").hide();
+   	$("#auth_no_section").show();
+}
+
+function startTimer(duration) {
+   	var t = duration, minutes, seconds;
+
+   	timer = setInterval(function () {
+		minutes = parseInt(t / 60, 10);
+		seconds = parseInt(t % 60, 10);
+
+		minutes = minutes < 10 ? "0" + minutes : minutes;
+		seconds = seconds < 10 ? "0" + seconds : seconds;
+
+		$('.timer').text(minutes + ":" + seconds);
+
+		if(--t < 0) {
+			clearInterval(timer);
+			showAlert("유효시간이 초과되었습니다.\n인증번호를 재발송해주세요.");
+
+			// 인증번호 입력칸 숨기기
+			$("#auth_no_section").hide();
+			$("#auth_no_btn_section").show();
+
+			$('#submitBtn, #re_submitBtn').prop('disabled', false);
+			return;
+		}
+	}, 1000);
+}
+
+var onloadCallback = function() {
+	if("false" == "true") {
+    	ga('send', 'event', 'btn_agr_captcha_00', 'click');
+
+		grecaptcha.render(
+			greCaptcha, {
+				'sitekey'    : "6LfQHq4UAAAAALRMMx1RbrsoU_XdapEc8Ocv5fHM"
+				, 'size'     : 'invisible'
+				, 'callback' : onGetAuthNoBtnClick
+				, 'badge'    : 'inline'
+			}
+		);
+	}
+};
+
+function fnSetCscPcLeftImg() {
+	var vsCurrentDate = parseInt(getCurrentYmdHms());
+
+	var vsEvent = "gdn2_1";
+
+	if(vsEvent == "auction01_csc_pc" ) {
+		// 옥션
+		if (vsCurrentDate > 20210217000000) {
+			$("#csc_pc_left_img").attr("src", "https://safeconnect.co.kr/sfconn/resources/safeconnect/img/integrated/temp/img_auction01_banner.png");
+		}
+	} else if(vsEvent == "gmarket01_csc_pc") {
+		// 지마켓
+		if(vsCurrentDate > 20210217000000) {
+			$("#csc_pc_left_img").attr("src", "https://safeconnect.co.kr/sfconn/resources/safeconnect/img/integrated/temp/img_gmarket01_banner.png");
+		}
+	} else {
+		//나중에 추가되면 사용
+	}
+}
+/**
+ * 1. 확인만 있는 Alert
+ */
+function showAlert(message, callback) {
+	$('#alert').find('.txt').text(message);
+
+	// dim과 팝업 보이기
+	$('.dim').show();
+	$('#alert').show();
+
+	// 확인 버튼 클릭 시 팝업 닫기
+	$('#alert').find('.btn_next').off('click').on('click', function() {
+		hideAlert();
+		if (callback && typeof callback === 'function') {
+			callback();
+		}
+	});
+}
+
+/**
+ * 2. 취소/확인 있는 Confirm
+ */
+function ConfirmAlert(message, callback) {
+	$('#confirm').find('.txt').text(message);
+
+	// dim과 팝업 보이기
+	$('.dim').show();
+	$('#confirm').show();
+
+	// 취소 버튼 클릭 시 팝업 닫기
+	$('#confirm').find('.btn_cancel').off('click').on('click', function() {
+		hideAlert();
+	});
+
+	// 확인 버튼 클릭 시 콜백 실행 후 팝업 닫기
+	$('#confirm').find('.btn_next').off('click').on('click', function() {
+		if (callback && typeof callback === 'function') {
+			callback();
+		}
+		hideAlert();
+	});
+}
+
+/**
+ * 3. 타이틀 있는 Alert
+ */
+function TitleAlert(title, message) {
+	$('#title').find('.tit').text(title);
+	$('#title').find('.txt').text(message);
+
+	// dim과 팝업 보이기
+	$('.dim').show();
+	$('#title').show();
+
+	// 확인 버튼 클릭 시 팝업 닫기
+	$('#title').find('.btn_next').off('click').on('click', function() {
+		hideAlert();
+	});
+}
+
+/**
+ * 팝업 닫기
+ */
+function hideAlert() {
+	$('.dim').hide();
+	$('.layer.alert').hide();
+}
+</script>
+
+<div class="safeconnect_wrap"><!-- strict, flexible -->
+	<header>
+		<div class="pTop">
+				<h1><strong>전화번호 안심로그인</strong> <span id="serviceTypeText" style="color : red;">통신사 제휴 유료 부가서비스</span></h1>
+		</div>
+	</header>
+
+	<section class="content_wrap">
+
+		<div class="signUp_wrap">
+
+			<div class="signUp_section" id="popupCont01" style="display:block;">
+
+				
+
+				<!-- cont1 -->
+				<div class="popup_cont">
+
+					<!--GDN 배너-->
+					
+						
+							<div class="signUp_bnr">
+								<picture>
+									<source srcset="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_web_260204.png" media="(min-width:720px)" />
+									<img src="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_mobile_260204.png" alt="배너" />
+								</picture>
+							</div>
+						
+						
+						
+						
+					
+
+					<div class="signUp_cont">
+
+						<div class="inwrap">
+
+							<div class="signUp_form">
+								<div class="telecom">
+									<!-- <p>통신사</p> -->
+									<ul class="radio">
+										<li class="w20 mR0">
+											<input type="radio" id="divide01" name="telCdRadio" checked="" value="SKT" class="telCdRadioSkt">
+											<label class="fs20" for="divide01"><span>SKT</span></label>
+										</li>
+										<li class="mR0">
+											<input type="radio" id="divide02" name="telCdRadio" value="KT" class="telCdRadioKt">
+											<label class="fs20" for="divide02"><span>KT</span></label>
+										</li>
+										<li>
+											<input type="radio" id="divide03" name="telCdRadio" value="LGT" class="telCdRadioLgt">
+											<label class="fs20" for="divide03"><span>LG U+</span></label>
+										</li>
+									</ul>
+								</div>
+
+								
+									
+									
+										<!-- 기본: 약관 먼저 -->
+										<div class="terms-agree">
+											<div class="all_agree" id="all_agree">
+												<input type="checkbox" id="chk6" name="chk6" class="agreeAll">
+												<label for="chk6" class="bold ftS19"><span class="checkmark"></span><span class="txt">약관 전체 동의하기</span></label><!-- 필요시 span.checkmark -->
+											</div>
+
+											<div class="agree">
+												<ul class="check">
+													<li>
+														<input type="checkbox" id="chk1" name="chk1" class="agree">
+														<label for="chk1">
+															<span class="checkmark"></span>
+															<a href="javascript:privacyPopOpen('0001');">이용약관</a>
+														</label>
+													</li>
+													<li id="stplat2">
+														<input type="checkbox" id="chk2" name="chk2" class="agree">
+														<label for="chk2">
+															<span class="checkmark"></span>
+															<a href="javascript:privacyPopOpen('0003');">개인정보 제3자 제공동의</a>
+														</label>
+													</li>
+													<li>
+														<input type="checkbox" id="chk3" name="chk3" class="agree">
+														<label for="chk3">
+															<span class="checkmark"></span>
+															<a href="javascript:privacyPopOpen('0002');">개인정보수집 및 이용동의</a>
+														</label>
+													</li>
+													<li id="stplat4">
+														<input type="checkbox" id="chk4" name="chk4" class="agree">
+														<label for="chk4">
+															<span class="checkmark"></span>
+															<a href="javascript:privacyPopOpen('0006');">
+																<cl id="stplat4Text">SKT개인정보 제3자 제공동의</cl>
+															</a>
+														</label>
+													</li>
+													<li id="stplat5">
+														<input type="checkbox" id="chk5" name="chk5" class="agree">
+														<label for="chk5">
+															<span class="checkmark"></span>
+															<a href="javascript:privacyPopOpen('0009');">
+																<cl id="stplat5Text">고객 혜택 제공을 위한 정보 수집 및 이용 동의(선택)</cl>
+															</a>
+														</label>
+													</li>
+													<li id="stplat7">
+														<input type="checkbox" id="chk7" name="chk7" class="agree">
+														<label for="chk7">
+															<span class="checkmark"></span>
+															<a href="javascript:privacyPopOpen('0036');">
+																<cl id="stplat7Text">혜택 정보 · 광고 수신 동의(선택)</cl>
+															</a>
+														</label>
+													</li>
+												</ul>
+											</div>
+											<div class="g-recaptcha" id="greCaptcha"></div>
+										</div>
+
+										<div class="phoneNum">
+											<div><input type="tel" title="핸드폰 번호" class="inputMdn" maxlength="13" id="mdn02" placeholder="휴대폰번호를 입력하세요."></div>
+
+											<div class="certify_wrap">
+												<button type="button" id="submitBtn"><span>확인</span></button>
+											</div>
+										</div>
+
+										<div id="auth_no_section" style="display:none;">
+											<input type="text" title="인증번호" id="authNo" onfocus="this.value=''" class="inputMdn" maxlength="6" disabled="">
+											<span class="timer"></span>
+										</div>
+									
+								
+
+								<div class="confirm_wrap">
+									<button type="button" class="pointer" id="confirmBtn" disabled="disabled">전화번호 안심 로그인 유료 가입</button>
+								</div>
+
+							</div><!-- // signUp_form -->
+
+							
+								<div class="service_bnr" id="serviceBnr">
+									<picture>
+										<source srcset="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_web_bottom.png" media="(min-width:720px)" />
+										<img src="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_mobile_bottom.png" alt="배너" />
+									</picture>
+								</div>
+							
+
+							<div class="charge_txt">
+								<p>매월 부가세 포함 1,100원이 휴대전화 요금에 합산 청구됩니다.</p>
+								<div><button type="button" id="exitBtn"><span>취소</span></button></div>
+							</div>
+
+						</div><!-- // inwrap -->
+					</div>
+
+				</div><!-- // popup_cont #popupCont01-->
+
+			</div><!-- // signUp_section -->
+
+			<!-- KT 가입완료전 모달 -->
+			<div id="ktModal" style="display: none;">
+				<div class="modal-header">
+					<h3>전화번호안심로그인 서비스 가입 안내</h3>
+				</div>
+				<div class="modal-body">
+					<p>사이트의 아이디/비밀번호를 스마트폰 USIM에 보관하고, 전화번호로 인증하여 안전하게 로그인할 수 있는 유료 부가서비스에 가입되었습니다.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="ktModalConfirm" class="btn-confirm">확인</button>
+				</div>
+			</div>
+
+			<!-- 웹가입 완료 -->
+			<div class="signUp_section" id="popupCont05" style="display:none;">
+				<div class="popup_cont">
+					<div class="eventBannerDiv" style="height:0%;">
+						<img src="https://safeconnect.co.kr/sfconn/resources/safeconnect/img/integrated/temp/bnr_sample_complate.png" alt="">
+					</div>
+					<div class="inwrap">
+						<div class="tit_wrap">
+							<dl class="txt">
+								<dt>전화번호안심로그인 서비스 가입이 완료되었습니다.</dt>
+								<dd>전화번호안심로그인은 이통사 유료 부가서비스로 <i class="pc"></i>매월 부가세포함 1,100원이 이통신사 요금에 포함하여 청구 됩니다.</dd>
+								<dd>전화번호로 안전하게 로그인하시려면<i class="pc"></i>구글플레이스토어 또는 앱스토어에서 전화번호안심로그인 앱을 설치하세요.</dd>
+							</dl>
+						</div>
+						<div class="success_btn"><button type="button" class="exitBtn_complete">페이지 나가기</button></div>
+					</div>
+				</div><!-- // #popupCont05 -->
+
+			</div><!-- // signUp_section -->
+
+			<!-- 웹가입 완료2-->
+			<div class="signUp_section" id="popupCont09" style="display:none;">
+				<div class="popup_cont">
+					<div class="eventBannerDiv" style="height:0%;">
+						<img src="https://safeconnect.co.kr/sfconn/resources/safeconnect/img/integrated/temp/bnr_sample_complate.png" alt="">
+					</div>
+					<div class="inwrap">
+						<div class="tit_wrap">
+							<dl class="txt">
+								<dt>서비스 가입이 완료 되었습니다.</dt>
+								<dd><i class="pc"></i></dd>
+							</dl>
+						</div>
+						<div class="success_btn"><button type="button" class="exitBtn_complete">페이지 나가기</button></div>
+					</div>
+				</div><!-- // #popupCont09 -->
+
+			</div>
+
+			<!-- 웹가입개선 Android -->
+			<div class="signUp_section" id="popupCont06" style="display:none;">
+				<div class="popup_cont">
+					<div class="inwrap">
+
+						<div class="tit_wrap">
+							<dl class="txt2">
+								<dt>문자를 발송하였습니다.</dt>
+								<dd><span>URL을 클릭</span>하고 인증을 계속 진행하세요!</dd>
+							</dl>
+						</div>
+
+						<div class="step">
+							<div><span>1단계</span><p>발송된 문자의 URL 클릭</p><button type="button" class="btn_sms sendSMS">문자 다시 받기</button></div>
+							<div><span>2단계</span><p>앱 설치 후 아래 인증번호 입력</p></div>
+						</div>
+
+						<div class="cont3">
+							<p class="auth2_text">*앱 실행 후 아래 가입 인증번호를 입력하세요.</p>
+							<div class="auth2">
+								<p class="num_text">인증번호</p>
+								<p class="num" id="authNo5"></p>
+							</div>
+						</div>
+
+						<div class="success_btn"><button type="button" class="checkAuth">전화번호 안심 로그인 유료가입</button></div>
+
+						<div class="charge_txt">
+							<dl>
+								<dt>매월 부가세포함 1,100원</dt>
+								<dd><p>전화번호안심로그인은 SKT, KT, LGU+ 통신요금에 매월 자동으로 부과됩니다.</p></dd>
+							</dl>
+						</div><!-- // charge_txt -->
+					</div>
+				</div><!-- // #popupCont06 -->
+			</div><!-- // signUp_section -->
+
+			<!-- 웹가입개선 iOS -->
+			<div class="signUp_section" id="popupCont07" style="display:none;">
+				<div class="popup_cont">
+					<div class="inwrap">
+						<div class="tit_wrap">
+							<dl class="txt2">
+								<dt>문자를 발송하였습니다.</dt>
+								<dd><span>URL을 클릭</span>하고 인증을 계속 진행하세요!</dd>
+							</dl>
+						</div>
+
+						<div class="step">
+							<div><span>1단계</span><p>발송된 문자의 URL 클릭</p><button type="button" class="btn_sms sendSMS">문자 다시 받기</button></div>
+							<div><span>2단계</span><p>앱 설치 후 안내에 따라 가입 완료</p></div>
+						</div>
+
+						<div class="success_btn"><button type="button" class="checkAuth">전화번호 안심 로그인 유료가입</button></div>
+
+						<div class="charge_txt">
+							<dl>
+								<dt>매월 부가세포함 1,100원</dt>
+								<dd><p>전화번호안심로그인은 SKT, KT, LGU+ 통신요금에 매월 자동으로 부과됩니다.</p></dd>
+							</dl>
+						</div><!-- // charge_txt -->
+					</div>
+				</div><!-- // #popupCont07 -->
+
+			</div><!-- // signUp_section -->
+
+		</div><!-- // signUp_wrap -->
+
+	</section><!-- // content_wrap -->
+
+
+
+	<footer class="marketing"><!-- marketing :text-align:left -->
+		<ul>
+			
+				
+				
+				
+				
+
+				
+					<li>본 서비스는 <strong>SKT,KT,LGU+</strong>와 제휴하여 <span class="blueHighlight">㈜아톤</span>이 운영합니다.</li>
+					<li>고객센터(이용/해지) : 1670-4273 / <a href="#" class="email">safeconnect@atoncorp.com</a></li>
+				
+			
+		</ul>
+	</footer>
+
+	<div class="p_footer_b">
+		<input type="checkbox" id="ignoreChk" name="ignoreChk"> <label for="ignoreChk"><span class="checkmark"></span>7일간 보이지 않기</label>
+	</div>
+</div><!-- // safeconnect_wrap -->
+
+<!-- 레이어팝업 샘플 -->
+<div class="dim"></div>
+
+<!-- 1. 확인만 있는 alert -->
+<div class="layer alert" id="alert">
+	<div class="layer_content">
+		<p class="txt">팝업 내용</p>
+	</div>
+	<div class="btn_group">
+		<button type="button" class="btn_next"><span>확인</span></button>
+	</div>
+</div>
+
+<!-- 2. 취소/확인 있는 confirm -->
+<div class="layer alert" id="confirm">
+	<div class="layer_content">
+		<p class="txt">팝업 내용</p>
+	</div>
+	<div class="btn_group">
+		<button type="button" class="btn_cancel"><span>취소</span></button>
+		<button type="button" class="btn_next"><span>확인</span></button>
+	</div>
+</div>
+
+<!-- 3. 타이틀 있는 alert -->
+<div class="layer alert" id="title">
+	<div class="layer_content">
+		<div class="tit">팝업 타이틀</div>
+		<p class="txt">팝업 내용</p>
+	</div>
+	<div class="btn_group">
+		<button type="button" class="btn_next"><span>확인</span></button>
+	</div>
+</div>
+<!-- // 레이어팝업 샘플 -->
+	</div>
+</body>
+</html>
