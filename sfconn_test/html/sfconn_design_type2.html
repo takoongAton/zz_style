@@ -8,13 +8,32 @@
 	<meta http-equiv="Expires" 		   content="now" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, viewport-fit=contain, target-densitydpi=medium-dpi">
-	<link rel="stylesheet" type="text/css" href="../css/sfconn_design.css" />
+	<!-- <link rel="stylesheet" type="text/css" href="../css/sfconn_design.css" /> -->
 
 	<style>
 		.grecaptcha-badge {display: none;}
 	</style>
 
 <style>
+* {margin:0; padding:0; box-sizing:border-box; font-family:inherit; list-style:none; font-style:normal;}
+*,
+*:after,
+*:before {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-text-size-adjust: none;
+	text-size-adjust: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-font-smoothing: antialiased;
+}
+input {
+	-webkit-appearance:none;
+	border-radius: 0px;
+}
+img {max-width:100%;}
+button {border:0 none;}
+
+
 /* 기본 변수 설정 */
 :root {
     --primary-color: #009ddf; /* 이미지의 진한 블루 */
@@ -26,43 +45,77 @@
 	--bounce-bezier:cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
+body {font-family:-apple-system,'BlinkMacSystemFont', 'Noto Sans KR','Noto Sans CJK','Apple SD Gothic Neo', serif;}
+
+/* 상단 */
+header {display:flex; justify-content:space-between; align-items:center; position:relative; padding:6px 12px; border-bottom:1px solid #ebebeb;}
+header h1 {display:flex; justify-content:flex-start; align-items:center; gap:0 6px; font-size:13px;}
+header h1 strong {display:inline-block; color:#000; line-height:1em;}
+header h1 span {color:#ff0000; font-weight:500; line-height:1em;}
+@media screen and (max-width:320px) {
+	header h1 {flex-direction:column; align-items:flex-start;}
+}
+
+
+/* 상단 배너 */
+.signUp_bnr picture {display:block; font-size:0;}
+.signUp_bnr img {width:100%; height:auto;}
+@media screen and (min-width:720px) {
+	.signUp_cont {flex:1}
+}
+/* // 상단 배너 */
+
+/* 하단 배너 */
+.service_bnr {border-radius:5px; overflow:hidden;}
+.service_bnr picture {display:block; font-size:0;}
+.service_bnr img {width:100%; height:auto;}
+/* // 하단 배너 */
+
+
+/* 통신사 선택 */
+.telecom ul.radio {display:flex; justify-content:space-between; gap:6px; width:100%; margin:0; padding:0; list-style:none;}
+.telecom ul.radio li {display:block; position:relative; width:100%; height:48px; padding:0; list-style:none;}
+/* .telecom ul.radio li:first-child {width:33.33%; margin-left:0;} */
+
+.telecom ul.radio li input {width:0; height:0; margin:0; padding:0; border:0;}
+.telecom ul.radio li input + label {
+	display:flex; justify-content:center; align-items:center;
+	position:absolute; top:0; left:0; width:100%; height:100%;
+	background-repeat:no-repeat;
+	background-position:50%;
+	background-size:86px auto;
+	border:1px solid #ddd;
+	border-radius:10px;
+	font-size:0; cursor:pointer;
+}
+.telecom ul.radio li input[type=radio]:checked + label {border-color:#ff3245; border-width:1.5px; z-index:1;}
+.telecom ul.radio li input.telCdRadioSkt + label {background-image:url('../images/common/SKT_ON.png');} /* 이미지 색상 변경 요청시 _OFF로 교체후 하단 주석 제거 */
+.telecom ul.radio li input.telCdRadioKt + label {background-image:url('../images/common/KT_ON.png');}
+.telecom ul.radio li input.telCdRadioLgt + label {background-image:url('../images/common/LGT_ON.png');}
+
+.telecom ul.radio li input + label {filter: grayscale(100%);}
+.telecom ul.radio li input:checked + label {filter: grayscale(0%);}
+
+@media screen and (max-width:320px) {
+	.telecom ul.radio li input + label {background-size:80px auto;}
+}
+/* 통신사 선택 끝 */
+
+
+
+
 /* 입력 영역 공통 */
 .field-group {position:relative;}
 .field-group--split { display: flex; gap: 10px; }
 .field-group--split .input-box { flex: 1; }
 
-.input-box {
-    background: var(--bg-gray);
-    border: 1px solid var(--border-gray);
-    border-radius: 14px;
-    padding: 12px 16px;
-    transition: border-color 0.2s;
-}
+.input-box {background:var(--bg-gray); border:1px solid var(--border-gray); border-radius:14px; padding:12px 16px; transition:border-color 0.2s;}
 
-.input-box--with-btn {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+.input-box--with-btn {display:flex; justify-content:space-between; align-items:center;}
 
-.input-label {
-    display: block;
-    font-size: 12px;
-    color: var(--text-label);
-    margin-bottom: 4px;
-}
+.input-label {display:block; font-size:12px; color:var(--text-label); margin-bottom:4px;}
 
-.input-element {
-	min-height:21px;
-    border: none;
-    background: transparent;
-    /* font-size: 18px; */
-	font-size: 16px;
-    font-weight: 500;
-    color: var(--text-main);
-    width: 100%;
-    outline: none;
-}
+.input-element {min-height:21px; border:none; background:transparent; /* font-size:18px; */ font-size:16px; font-weight:500; color:var(--text-main); width:100%; outline:none;}
 
 /* 인증번호 타이머 및 버튼 */
 .btn-sub-action {background:#EBEEF2; border:none; padding:8px 12px; border-radius:8px; font-size:13px; color:#8E94A1;}
@@ -94,7 +147,7 @@
 		<div class="safeconnect_container">
 			<header>
 				<div class="pTop">
-					<h1><strong>전화번호 안심로그인</strong> <span id="serviceTypeText" style="color : red;">통신사 제휴 유료 부가서비스</span></h1>
+					<h1><strong>전화번호 안심로그인</strong> <span id="serviceTypeText">통신사 제휴 유료 부가서비스</span></h1>
 				</div>
 			</header>
 
@@ -108,7 +161,7 @@
 				</div>
 				<!-- // signUp_bnr -->
 <style>
-.signUp_form {padding:20px;}
+.signUp_form {display:flex; flex-direction:column; gap:16px; padding:20px;}
 </style>
 				<div class="signUp_form">
 					<div class="telecom">
@@ -161,7 +214,7 @@
 <style>
 /* 약관 동의 */
 .terms-agree {border:1px solid var(--border-gray); border-radius:14px; overflow:hidden;}
-.terms-agree a {display:block; color:#888; text-decoration:none; min-height:17px; line-height:17px; font-size:12px; letter-spacing:-0.025em;}
+.terms-agree a {display:block; color:#888; text-decoration:none; min-height:17px; line-height:17px; font-size:12px;}
 .terms-agree label {display:inline-block; width:auto; color:#fff;}
 
 .terms-agree input[type="checkbox"] {position:absolute; top:0; left:0; width:0; height:0; margin:0; padding:0; border:0; vertical-align:top;}
@@ -196,9 +249,25 @@
 	.terms-agree .all_agree span.txt {font-size:18px; line-height:27px;}
 	.terms-agree .agree {padding:15px 2em;}
 	.terms-agree .agree li label {gap:0 6px;}
-	.terms-agree .agree ul {}
 }
 /* 약관동의 끝 */
+
+
+
+
+/* 서비스 요금 안내 */
+.charge_txt {padding:20px; text-align:center; letter-spacing:-0.05em;}
+.charge_txt p strong {display:block; color:#ff0000; font-size:13px; font-weight:600;}
+.charge_txt div button {height:36px; padding:0 20px; border:none; background:transparent;}
+.charge_txt div button span {display:inline-block; color:var(--text-label); font-size:13px; text-decoration:underline;}
+/* // 서비스 요금 안내 */
+
+/* 마케팅 정보 */
+.marketing {padding:0 20px; letter-spacing:-0.05em;}
+.marketing ul li {position:relative; padding-left:0.75em; color:var(--text-label); font-size:11px; letter-spacing:-0.05em;}
+.marketing ul li::before {content:"⋅"; display:inline-block; position:absolute; top:0; left:0; color:inherit; font-size:inherit; line-height:inherit; font-weight:700; text-align:center;}
+.marketing ul li a {color:inherit;}
+/* // 마케팅 정보 */
 </style>
 					<div class="terms-agree">
 						<div class="all_agree" id="all_agree">
@@ -277,22 +346,10 @@
 					<p><strong>매월 부가세 포함 1,100원이 휴대전화 요금에 합산 청구됩니다.</strong></p>
 					<div><button type="button" id="exitBtn"><span>취소</span></button></div>
 				</div>
-<style>
-.charge_txt {text-align:center;}
-.charge_txt p {letter-spacing:-0.05em;}
-.charge_txt p strong {display:block; color:#ff0000; font-size:13px;}
-.charge_txt div {}
-.charge_txt div button { height:48px; padding:0 20px; border:none; background:transparent;}
-.charge_txt div button span {display:inline-block; border-bottom:1px solid var(--text-label); color:var(--text-label); font-size:13px;}
 
-.marketing {}
-.marketing ul li {position:relative; padding-left:0.75em; color:var(--text-label); font-size:12px; letter-spacing:-0.05em;}
-.marketing ul li::before {content:"⋅"; display:inline-block; position:absolute; top:0; left:0; color:inherit; font-size:inherit; line-height:inherit; font-weight:700; text-align:center;}
-.marketing ul li a {color:inherit;}
-</style>
 				<footer class="marketing"><!-- marketing :text-align:left -->
 					<ul>
-						<li>본 서비스는 <strong>SKT,KT,LGU+</strong>와 제휴하여 <span class="blueHighlight">㈜아톤</span>이 운영합니다.</li>
+						<li>본 서비스는 <strong>SKT,KT,LGU+</strong>와 제휴하여 ㈜아톤이 운영합니다.</li>
 						<li>고객센터(이용/해지) : 1670-4273 / <a href="#" class="email">safeconnect@atoncorp.com</a></li>
 					</ul>
 				</footer>
@@ -441,6 +498,32 @@
 
 		
 	</div><!-- // safeconnect_wrap -->
+
+
+
+
+
+	<!-- <div id="overlay" class="overlay"></div> -->
+
+
+<style>
+/* 레이어 팝업 */
+div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; background-color:rgba(0,0,0,0.5); z-index:1;}
+
+.layer.alert {display: none; position:fixed; top:50%; left:50%; width:284px; background-color:#fff; border-radius:6px; overflow:hidden; transform:translate(round(to-zero, -50%, 1px),round(to-zero, -50%, 1px)); z-index:1000;}
+.layer.alert .layer_content {display:flex; flex-direction:column; gap:12px; padding:36px 18px; text-align:center;}
+.layer.alert .layer_content div.tit {color:#000; font-size:18px; line-height:27px; font-weight:700;}
+.layer.alert .layer_content p.txt {color:#000; font-size:14px; line-height:21px; font-weight:400; word-break:keep-all;}
+.layer.alert .btn_group {display:flex;}
+.layer.alert .btn_group button {width:100%; min-height:60px; padding:16px; border-top:0.5px solid #ddd; cursor:pointer;}
+.layer.alert .btn_group button span {font-size:16px; line-height:1em; font-weight:bold;}
+.layer.alert .btn_group button.btn_cancel {background-color:#fff;}
+.layer.alert .btn_group button.btn_cancel span {color:#000;}
+.layer.alert .btn_group button.btn_next {background-color:#000;}
+.layer.alert .btn_group button.btn_next span {color:#fff;}
+/* 레이어 팝업 */
+</style>
+
 
 	<!-- 레이어팝업 샘플 -->
 	<div class="dim"></div>

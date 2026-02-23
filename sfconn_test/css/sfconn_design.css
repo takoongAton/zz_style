@@ -93,9 +93,10 @@ body {
 
 /* 상단 */
 header {display:flex; justify-content:space-between; align-items:center; position:relative; padding:5px 18px; border:1px solid #ebebeb; background-color:#fff;}
-header h1 {display:flex; justify-content:flex-start; align-items:center; font-size:14px; letter-spacing:-0.025em;}
-header h1 strong {display:inline-block; color:#000;}
-header h1 p {color:#ff0000; font-weight:400;}
+header h1 {display:flex; justify-content:flex-start; align-items:center; gap:6px; font-size:13px; letter-spacing:-0.025em;}
+header h1 strong {display:inline-block; color:#000; line-height:1em;}
+header h1 p {color:#ff0000; font-weight:400; line-height:1em;}
+header h1 span {color:#ff0000; font-weight:500; line-height:1em;}
 header a {display:inline-flex; padding:4px 0; text-decoration:none;}
 header a span {position:relative; display:inline-block; padding-right:10px; color:#999; font-size:9px; line-height:1; font-weight:400;}
 header a span::after {content:""; display:block; position:absolute; right:0; top:50%; width:6px; height:6px; border-top:1px solid #999; border-right:1px solid #999; transform:translateY(-50%) rotate(45deg);}
@@ -167,10 +168,9 @@ header a span::after {content:""; display:block; position:absolute; right:0; top
 
 
 /* 통신사 선택 */
-.telecom ul.radio {width:100%; margin:0; padding:0; list-style:none;}
-.telecom ul.radio::after {content:""; display:block; height:0; clear:both;}
-.telecom ul.radio li {display:block; float:left; position:relative; width:calc(33.33% + 1px); height:48px; margin:0 0 0 -1px; padding:0; list-style:none;}
-.telecom ul.radio li:first-child {width:33.33%; margin-left:0;}
+.telecom ul.radio {display:flex; justify-content:space-between; gap:6px; width:100%; margin:0; padding:0; list-style:none;}
+.telecom ul.radio li {display:block; position:relative; width:100%; height:48px; padding:0; list-style:none;}
+/* .telecom ul.radio li:first-child {width:33.33%; margin-left:0;} */
 
 .telecom ul.radio li input {width:0; height:0; margin:0; padding:0; border:0;}
 .telecom ul.radio li input + label {
@@ -179,19 +179,21 @@ header a span::after {content:""; display:block; position:absolute; right:0; top
 	background-repeat:no-repeat;
 	background-position:50%;
 	background-size:86px auto;
-	border:1px solid #ddd; font-size:0; cursor:pointer;
+	border:1px solid #ddd;
+	border-radius:10px;
+	font-size:0; cursor:pointer;
 }
-.telecom ul.radio li:first-child input + label {border-radius:5px 0 0 5px;}
-.telecom ul.radio li:last-child input + label {border-radius:0 5px 5px 0;}
-.telecom ul.radio li input[type=radio]:checked + label {border-color:#ff3245; border-width:2px; z-index:1;}
-.telecom ul.radio li input.telCdRadioSkt + label {background-image:url('../images/common/SKT_ON.png');} /* 이미지 색상 변경 요청시 _OFF로 교체후 하단 주석 제거 */
-.telecom ul.radio li input.telCdRadioKt + label {background-image:url('../images/common/KT_ON.png');}
-.telecom ul.radio li input.telCdRadioLgt + label {background-image:url('../images/common/LGT_ON.png');}
-/*.telecom ul.radio li input.telCdRadioSkt:checked + label {background-image:url('./resources/safeconnect/img/integrated/common/SKT_ON.png');}
-.telecom ul.radio li input.telCdRadioKt:checked + label {background-image:url('./resources/safeconnect/img/integrated/common/KT_ON.png');}
-.telecom ul.radio li input.telCdRadioLgt:checked + label {background-image:url('./resources/safeconnect/img/integrated/common/LGT_ON.png')}*/
+.telecom ul.radio li:first-child input + label {}
+.telecom ul.radio li:last-child input + label {}
+.telecom ul.radio li input[type=radio]:checked + label {border-color:#ff3245; border-width:1.5px; z-index:1;}
+.telecom ul.radio li input.telCdRadioSkt + label {background-image:url('../images/common/SKT_OFF.png');} /* 이미지 색상 변경 요청시 _OFF로 교체후 하단 주석 제거 */
+.telecom ul.radio li input.telCdRadioKt + label {background-image:url('../images/common/KT_OFF.png');}
+.telecom ul.radio li input.telCdRadioLgt + label {background-image:url('../images/common/LGT_OFF.png');}
+.telecom ul.radio li input.telCdRadioSkt:checked + label {background-image:url('../images/common/SKT_ON.png');}
+.telecom ul.radio li input.telCdRadioKt:checked + label {background-image:url('../images/common/KT_ON.png');}
+.telecom ul.radio li input.telCdRadioLgt:checked + label {background-image:url('../images/common/LGT_ON.png')}
 @media screen and (max-width:320px) {
-	.telecom ul.radio li input + label {background-size:90px auto;}
+	.telecom ul.radio li input + label {background-size:80px auto;}
 }
 /* 통신사 선택 끝 */
 
