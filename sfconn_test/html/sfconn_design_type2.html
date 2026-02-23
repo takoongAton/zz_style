@@ -141,7 +141,7 @@ input.input-element:-webkit-autofill:active {
 
 
 /* 하단 버튼 */
-.auth-footer {margin-top:auto; padding:20px; }
+.auth-footer {position:sticky; bottom:0; left:0; width:100%; margin-top:auto; padding:20px; }
 .btn-primary {width:100%; height:56px; background-color:var(--primary-color); color:#fff; border:none; border-radius:12px; font-size:16px; font-weight:600; cursor:pointer;}
 
 
@@ -347,19 +347,24 @@ input.input-element:-webkit-autofill:active {
 				</div>
 				<!-- // signUp_form -->
 
-				
-
 				<div class="service_bnr" id="serviceBnr">
 					<picture>
 						<source srcset="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_web_bottom.png" media="(min-width:720px)" />
 						<img src="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_mobile_bottom.png" alt="배너" />
 					</picture>
 				</div>
+				<!-- // service_bnr -->
+
+				<footer class="auth-footer">
+					<button type="button" class="btn-primary">본인인증 진행하기</button>
+				</footer>
+				<!-- // auth-footer -->
 
 				<div class="charge_txt">
 					<p><strong>매월 부가세 포함 1,100원이 휴대전화 요금에 합산 청구됩니다.</strong></p>
 					<div><button type="button" id="exitBtn"><span>취소</span></button></div>
 				</div>
+				<!-- // charge_txt -->
 
 				<footer class="marketing"><!-- marketing :text-align:left -->
 					<ul>
@@ -370,9 +375,7 @@ input.input-element:-webkit-autofill:active {
 
 			</section>
 
-			<footer class="auth-footer" style="position:sticky; bottom:0; left:0; width:100%;">
-				<button type="button" class="btn-primary">본인인증 진행하기</button>
-			</footer>
+			
 
 		</div>
 		<!-- // safeconnect_container -->
@@ -581,9 +584,9 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 document.querySelector(".btn-primary").addEventListener("click", function(){
     auth_wrap.classList.add("active");
     auth_wrap.style.height = `${auth_wrap.scrollHeight}px`;
-	auth_wrap.addEventListener("transitionend", function(){
-		auth_wrap.querySelector("input").focus();
-	})
+	// auth_wrap.addEventListener("transitionend", function(){
+	// 	auth_wrap.querySelector("input").focus();
+	// })
     // boundShowFn(document.querySelector(".testItem"));
     // playVibration();
 })
