@@ -115,10 +115,20 @@ header h1 span {color:#ff0000; font-weight:500; line-height:1em;}
 
 .input-label {display:block; font-size:12px; color:var(--text-label); margin-bottom:4px;}
 
-.input-element {height:21px; border:none; background:transparent; /* font-size:18px; */ font-size:16px; font-weight:500; color:var(--text-main); width:100%; outline:none;}
+input.input-element {height:21px; border:none; background:transparent; /* font-size:18px; */ font-size:16px; font-weight:500; color:var(--text-main); width:100%; outline:none;}
 input.input-element:focus {color:transparent; text-shadow:0 0 0 #000; transition:all 0.1s ease;}
 input.input-element::placeholder {color:inherit; font-size:inherit; opacity:0.3; transition:all 0.1s ease;}
 input.input-element:focus::placeholder {color:transparent; opacity:0;}
+
+input.input-element:-webkit-autofill,
+input.input-element:-webkit-autofill:hover, 
+input.input-element:-webkit-autofill:focus, 
+input.input-element:-webkit-autofill:active {
+    /* 배경색을 흰색으로 고정 (원하는 색상으로 변경 가능) */
+    -webkit-box-shadow: 0 0 0 1000px var(--bg-gray) inset !important;
+    /* 텍스트 색상을 검정색으로 고정 */
+    /* -webkit-text-fill-color: #000 !important; */
+}
 
 
 /* 인증번호 타이머 및 버튼 */
