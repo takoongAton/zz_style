@@ -150,9 +150,22 @@ input.input-element:-webkit-autofill:active {
 /* 인증번호 보일 때 효과 */
 #auth_wrap {height:0; opacity:0; overflow:hidden;
     transition:height 0.4s var(--bounce-bezier), opacity 0.4s ease, padding 0.4s var(--bounce-bezier);
-    /* transition:height 0.24s ease-in, opacity 0.24s ease; */
 }
 #auth_wrap.active {opacity:1;}
+
+/* 풀페이지 팝업 */
+.fullpage-popup {
+	position:fixed; top:0; left:0; right:0; bottom:0; background:#fff; z-index:2000;
+	transform:translateX(100%); 
+	transition:transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+	display:flex; flex-direction:column;
+	box-shadow: -8px 0 20px rgba(0,0,0,0.15); /* 현재 화면을 입체적으로 덮도록 그림자 추가 */
+}
+.fullpage-popup.active {transform:translateX(0);}
+.fullpage-popup .popup-header {display:flex; align-items:center; padding:16px 20px; border-bottom:1px solid var(--border-gray); background:#fff;}
+.fullpage-popup .popup-header .btn-back {background:none; border:none; padding:8px; margin:-8px 8px -8px -8px; cursor:pointer; display:flex;}
+.fullpage-popup .popup-header h2 {font-size:18px; font-weight:600; color:var(--text-main);}
+.fullpage-popup .popup-content {flex:1; padding:20px; overflow-y:auto;}
 </style>
 </head>
 <body oncontextmenu="return false;">
@@ -199,31 +212,63 @@ input.input-element:-webkit-autofill:active {
 					</div>
 					<!-- // telecom -->
 
-					<div class="auth-form">
-						<div class="field-group" id="auth_wrap">
-							<div class="input-box input-box--with-btn">
-								<div class="input-content">
-									<label class="input-label">인증번호</label>
-									<input type="text" class="input-element" placeholder="인증번호 6자리" maxlength="6" inputmode="numeric" pattern="[0-9]*" />
-								</div>
-								<button type="button" class="btn-sub-action">재요청</button>
-							</div>
-							<div class="input-info">
-								<span class="timer">06:54</span>
-								<button type="button" class="btn-help">?</button>
-							</div>
+					<div class="terms-agree">
+						<div class="all_agree" id="all_agree">
+							<input type="checkbox" id="chk6" name="chk6" class="agreeAll">
+							<label for="chk6" class="bold ftS19">
+								<span class="checkmark"></span>
+								<span class="txt">약관 전체 동의하기</span>
+							</label><!-- 필요시 span.checkmark -->
 						</div>
 
-						<div class="field-group">
-							<div class="input-box">
-								<label class="input-label">휴대폰번호</label>
-								<div class="input-row">
-									<input type="tel" class="input-element" placeholder="휴대폰번호 입력" value="" maxlength="11" inputmode="numeric" autocomplete="tel" pattern="[0-9]*">
-								</div>
-							</div>
+						<div class="agree">
+							<ul class="check">
+								<li>
+									<input type="checkbox" id="chk1" name="chk1" class="agree">
+									<label for="chk1">
+										<span class="checkmark"></span>
+										<a href="javascript:privacyPopOpen('0001');">이용약관</a>
+									</label>
+								</li>
+								<li>
+									<input type="checkbox" id="chk2" name="chk2" class="agree">
+									<label for="chk2">
+										<span class="checkmark"></span>
+										<a href="javascript:privacyPopOpen('0003');">개인정보 제3자 제공동의</a>
+									</label>
+								</li>
+								<li>
+									<input type="checkbox" id="chk3" name="chk3" class="agree">
+									<label for="chk3">
+										<span class="checkmark"></span>
+										<a href="javascript:privacyPopOpen('pre0002');">개인정보수집 및 이용동의</a>
+									</label>
+								</li>
+								<li id="stplat4">
+									<input type="checkbox" id="chk4" name="chk4" class="agree">
+									<label for="chk4">
+										<span class="checkmark"></span>
+										<a href="javascript:privacyPopOpen('0004');">
+											<cl id="stplat4Text">SKT개인정보 제3자 제공동의</cl>
+										</a>
+									</label>
+								</li>
+								<li id="stplat5">
+									<input type="checkbox" id="chk5" name="chk5" class="agree">
+									<label for="chk5">
+										<span class="checkmark"></span>
+										<a href="javascript:privacyPopOpen('0007');">
+											<cl id="stplat5Text">마케팅 활용동의(선택)</cl>
+										</a>
+									</label>
+								</li>
+							</ul>
 						</div>
+						<div class="g-recaptcha" id="greCaptcha"></div>
 					</div>
-					<!-- // auth-form -->
+					<!-- // terms-agree -->
+
+					<!-- auth-form removed completely into fullpage popup -->
 
 					<!-- 기본: 약관 먼저 -->
 
@@ -298,7 +343,7 @@ input.input-element:-webkit-autofill:active {
 				<!-- // service_bnr -->
 
 				<footer class="auth-footer">
-					<button type="button" class="btn-primary">본인인증 진행하기</button>
+					<button type="button" class="btn-primary" id="btnGoFullpage">다음</button>
 				</footer>
 				<!-- // auth-footer -->
 
@@ -460,157 +505,66 @@ input.input-element:-webkit-autofill:active {
 
 
 
-<style>
-
-/* 배경 Dim 처리 */
-.overlay {position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0, 0, 0, 0.5); display:none; /* 기본 숨김 */ z-index:999;}
-
-.bottom-sheet_wrap {
-	position:fixed;
-	bottom:0;
-	left:0;
-	width:100%; height:400px;
-	z-index:1000;
-	display:none;
-}
-.bottom-sheet_wrap.active {opacity:1;}
-
-/* 바텀 시트 스타일 */
-.bottom-sheet {height:inherit; background-color:#fff; border-radius:12px 12px 0 0; transform: translateY(50%); opacity: 0; transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;}
-
-.bottom-sheet-container {display:flex; flex-direction:column; justify-content:space-between; height:100%;}
-.bottom-sheet-container .sheet-header {position:relative; padding:27px 20px;}
-/* .bottom-sheet-container .sheet-header::after {content:""; display:block; position:absolute; bottom:0; left:0; width:100%; height:8px; background: linear-gradient(180deg, rgba(255, 255, 255, 1) 2%, rgba(255, 255, 255, 0) 100%); transform:translateY(100%);}
-.bottom-sheet-container .sheet-footer::before {content:""; display:block; position:absolute; top:0; left:0; width:100%; height:8px; background: linear-gradient(0deg, rgba(255, 255, 255, 1) 2%, rgba(255, 255, 255, 0) 100%); transform:translateY(-100%);} */
-
-.bottom-sheet-container .sheet-body {flex:1; padding:0 20px; overflow-y:auto;}
-.bottom-sheet-container .sheet-body::-webkit-scrollbar {display:none;}
-.bottom-sheet-container .sheet-footer {position:relative; padding:20px;}
-
-/* 활성화 상태 */
-.bottom-sheet.active {
-  transform: translateY(0);
-  opacity: 1;
-}
 
 
-/* 내부 디자인 요소 */
-.agree-container {border: 1px solid #eee; border-radius: 12px; padding: 15px; }
-.check-list {list-style: none; padding: 0; margin-top: 15px; }
-.check-list li {display: flex; justify-content: space-between; margin-bottom: 12px; color: #666; font-size: 0.9rem; }
-.submit-btn {width:100%; height:56px; border-radius:10px; border:none; background:#f0f2f5; font-weight:bold; cursor:pointer;}
-.submit-btn span {font-size:18px; color:#ccc;}
-.submit-btn.on {background: #007bff;} /* 활성화 시 파란색 */
-.submit-btn.on span {color:#fff;}
-</style>
-<div class="bottom-sheet_wrap">
-	<div id="bottomSheet" class="bottom-sheet">
-		<div class="bottom-sheet-container">
-			<div class="sheet-header">
-				<h3>본인인증을 위해 동의해주세요</h3>
-			</div>
-			<!-- // sheet-header -->
 
-			<div class="sheet-body">
-				<!-- <div class="agree-container">
-					<div class="all-check">
-						<label><input type="checkbox" id="checkAll"> 필수항목 모두동의</label>
+
+	<!-- 풀페이지 팝업: 휴대폰 번호 및 인증번호 입력 -->
+	<div id="fullpageAuth" class="fullpage-popup">
+		<div class="popup-header">
+			<button type="button" class="btn-back" id="btnBackFullpage">
+				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--text-main)" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><polyline points="15 18 9 12 15 6"></polyline></svg>
+			</button>
+			<h2>휴대폰 본인인증</h2>
+		</div>
+		<div class="popup-content">
+			<div class="auth-form" style="display:flex; flex-direction:column; gap:16px;">
+				<div class="field-group" id="auth_wrap">
+					<div class="input-box input-box--with-btn">
+						<div class="input-content">
+							<label class="input-label">인증번호</label>
+							<input type="text" class="input-element" placeholder="인증번호 6자리" maxlength="6" inputmode="numeric" pattern="[0-9]*" />
+						</div>
+						<button type="button" class="btn-sub-action">재요청</button>
+					</div>
+					<div class="input-info">
+						<span class="timer">06:54</span>
+						<button type="button" class="btn-help">?</button>
 					</div>
 				</div>
-				<ul class="check-list">
-					<li><label><input type="checkbox" class="chk"> 개인정보 수집 및 이용동의</label> <span>&gt;</span></li>
-					<li><label><input type="checkbox" class="chk"> 고유식별정보 처리 동의</label> <span>&gt;</span></li>
-					<li><label><input type="checkbox" class="chk"> 통신사 이용약관 동의</label> <span>&gt;</span></li>
-					<li><label><input type="checkbox" class="chk"> 서비스 이용약관 동의</label> <span>&gt;</span></li>
-					<li><label><input type="checkbox" class="chk"> 개인정보 수집 및 이용동의</label> <span>&gt;</span></li>
-					<li><label><input type="checkbox" class="chk"> 고유식별정보 처리 동의</label> <span>&gt;</span></li>
-					<li><label><input type="checkbox" class="chk"> 통신사 이용약관 동의</label> <span>&gt;</span></li>
-					<li><label><input type="checkbox" class="chk"> 서비스 이용약관 동의</label> <span>&gt;</span></li>
-					<li><label><input type="checkbox" class="chk"> 개인정보 수집 및 이용동의</label> <span>&gt;</span></li>
-					<li><label><input type="checkbox" class="chk"> 고유식별정보 처리 동의</label> <span>&gt;</span></li>
-					<li><label><input type="checkbox" class="chk"> 통신사 이용약관 동의</label> <span>&gt;</span></li>
-					<li><label><input type="checkbox" class="chk"> 서비스 이용약관 동의</label> <span>&gt;</span></li>
-				</ul> -->
 
-				<div class="terms-agree">
-						<div class="all_agree" id="all_agree">
-							<input type="checkbox" id="chk6" name="chk6" class="agreeAll">
-							<label for="chk6" class="bold ftS19"><span class="checkmark"></span><span class="txt">약관 전체 동의하기</span></label><!-- 필요시 span.checkmark -->
+				<div class="field-group">
+					<div class="input-box">
+						<label class="input-label">휴대폰번호</label>
+						<div class="input-row">
+							<input type="tel" class="input-element" placeholder="휴대폰번호 입력" value="" maxlength="11" inputmode="numeric" autocomplete="tel" pattern="[0-9]*">
 						</div>
-
-						<div class="agree">
-							<ul class="check">
-								<li>
-									<input type="checkbox" id="chk1" name="chk1" class="agree">
-									<label for="chk1">
-										<span class="checkmark"></span>
-										<a href="javascript:privacyPopOpen('0001');">이용약관</a>
-									</label>
-								</li>
-								<li id="stplat2">
-									<input type="checkbox" id="chk2" name="chk2" class="agree">
-									<label for="chk2">
-										<span class="checkmark"></span>
-										<a href="javascript:privacyPopOpen('0003');">개인정보 제3자 제공동의</a>
-									</label>
-								</li>
-								<li>
-									<input type="checkbox" id="chk3" name="chk3" class="agree">
-									<label for="chk3">
-										<span class="checkmark"></span>
-										<a href="javascript:privacyPopOpen('0002');">개인정보수집 및 이용동의</a>
-									</label>
-								</li>
-								<li id="stplat4">
-									<input type="checkbox" id="chk4" name="chk4" class="agree">
-									<label for="chk4">
-										<span class="checkmark"></span>
-										<a href="javascript:privacyPopOpen('0006');">
-											<cl id="stplat4Text">SKT개인정보 제3자 제공동의</cl>
-										</a>
-									</label>
-								</li>
-								<li id="stplat5">
-									<input type="checkbox" id="chk5" name="chk5" class="agree">
-									<label for="chk5">
-										<span class="checkmark"></span>
-										<a href="javascript:privacyPopOpen('0009');">
-											<cl id="stplat5Text">고객 혜택 제공을 위한 정보 수집 및 이용 동의(선택)</cl>
-										</a>
-									</label>
-								</li>
-								<li id="stplat7">
-									<input type="checkbox" id="chk7" name="chk7" class="agree">
-									<label for="chk7">
-										<span class="checkmark"></span>
-										<a href="javascript:privacyPopOpen('0036');">
-											<cl id="stplat7Text">혜택 정보 · 광고 수신 동의(선택)</cl>
-										</a>
-									</label>
-								</li>
-							</ul>
-						</div>
-						<div class="g-recaptcha" id="greCaptcha"></div>
 					</div>
-					<!-- // terms-agree -->
+				</div>
 			</div>
-			<!-- // sheet-body -->
-
-			<div class="sheet-footer">
-				<button id="submitBtn" class="submit-btn" disabled><span>인증번호 받기</span></button>
-			</div>
-			<!-- // sheet-footer-->
 		</div>
-		<!-- // bottom-sheet-container -->
+		<footer class="auth-footer">
+			<button type="button" class="btn-primary" id="primaryBtn">본인인증 진행하기</button>
+		</footer>
 	</div>
-	<!-- // bottom-sheet -->
-</div>
-<!-- // bottom-sheet_wrap -->
 
-
-
-
-	<div id="overlay" class="overlay" style="display:none;"></div>
+	<!-- 풀페이지 팝업: 가입 완료 화면 -->
+	<div id="fullpageComplete" class="fullpage-popup">
+		<div class="popup-header">
+			<h2>가입 완료</h2>
+		</div>
+		<div class="popup-content" style="display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; height:100%;">
+			<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:20px;">
+				<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+				<polyline points="22 4 12 14.01 9 11.01"></polyline>
+			</svg>
+			<h3 style="font-size:22px; font-weight:700; color:var(--text-main); margin-bottom:12px;">서비스 가입이<br/>완료되었습니다.</h3>
+			<p style="font-size:14px; color:var(--text-label); line-height:1.5;">매월 부가세포함 1,100원이<br/>이동통신사 요금에 포함하여 청구됩니다.</p>
+		</div>
+		<footer class="auth-footer">
+			<button type="button" class="btn-primary" id="btnExitComplete">확인</button>
+		</footer>
+	</div>
 
 
 <style>
@@ -671,25 +625,42 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 
 <script>
 	let auth_wrap = document.querySelector("#auth_wrap");
-	const bottomSheetWrap = document.querySelector(".bottom-sheet_wrap");
-	const bottomSheet = document.querySelector("#bottomSheet");
-	const overlay = document.querySelector("#overlay");
-
 	const phoneInput = document.querySelector('input[type="tel"]');
 	const authInput = document.querySelector('#auth_wrap input');
-	const primaryBtn = document.querySelector('.btn-primary');
-	
-	let isTermsAgreed = false; // 약관동의 완료 여부
+	const primaryBtn = document.querySelector('#primaryBtn');
 
-	// 초기 설정 (휴대폰 번호가 없으면 비활성화)
-	primaryBtn.disabled = phoneInput.value.length < 10;
+	const btnGoFullpage = document.querySelector("#btnGoFullpage");
+	const fullpageAuth = document.querySelector("#fullpageAuth");
+	const btnBackFullpage = document.querySelector("#btnBackFullpage");
+
+	const fullpageComplete = document.querySelector("#fullpageComplete");
+	const btnExitComplete = document.querySelector("#btnExitComplete");
+
+	let isAuthRequested = false; // 인증번호 요청 여부
+
+	// 초기 설정 (메인 페이지 다음 버튼 비활성화)
+	btnGoFullpage.disabled = true;
+	primaryBtn.disabled = true;
+
+	btnGoFullpage.addEventListener("click", function() {
+		fullpageAuth.classList.add("active");
+	});
+
+	btnBackFullpage.addEventListener("click", function() {
+		fullpageAuth.classList.remove("active");
+	});
+
+	btnExitComplete.addEventListener("click", function() {
+		// 완료 팝업 내리면서 초기화 또는 페이지 이동
+		fullpageComplete.classList.remove("active");
+		fullpageAuth.classList.remove("active");
+	});
 
 	// 휴대폰 번호 입력 이벤트
 	phoneInput.addEventListener('input', function() {
 		// 숫자 이외의 문자 제거
 		this.value = this.value.replace(/[^0-9]/g, '');
-		if (!isTermsAgreed) {
-			// 약관 동의 전: 휴대폰 번호가 10~11자리이면 활성화
+		if (!isAuthRequested) {
 			primaryBtn.disabled = this.value.length < 10;
 		}
 	});
@@ -698,59 +669,14 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 	authInput.addEventListener('input', function() {
 		// 숫자 이외의 문자 제거
 		this.value = this.value.replace(/[^0-9]/g, '');
-		if (isTermsAgreed) {
-			// 약관 동의 후: 인증번호가 6자리이면 활성화
+		if (isAuthRequested) {
 			primaryBtn.disabled = this.value.length < 6;
 		}
 	});
 
-	// 팝업 닫기 공통 이벤트
-	const alertPopup = document.querySelector("#alert");
-	const dimBg = document.querySelector(".dim");
-
-	if (alertPopup) {
-		alertPopup.querySelector(".btn_next").addEventListener("click", function() {
-			alertPopup.style.display = "none";
-			dimBg.style.display = "none";
-		});
-	}
-
-	// 1. 본인인증 진행하기 / 유료 가입 클릭 시 동작
-	primaryBtn.addEventListener("click", function(){
-		if (isTermsAgreed) {
-			// 약관 동의 후: 실제 가입 처리 로직 실행
-			// API 호출 또는 다음 페이지 이동 등의 처리 삽입
-			
-			// 가입 완료 팝업 노출
-			if (alertPopup && dimBg) {
-				alertPopup.querySelector(".txt").textContent = "가입이 완료되었습니다";
-				dimBg.style.display = "block";
-				alertPopup.style.display = "block";
-			}
-			return;
-		}
-
-		// 약관 동의 전: 바텀시트 열기
-		overlay.style.display = "block";
-		bottomSheetWrap.style.display = "block";
-		setTimeout(() => {
-			bottomSheet.classList.add("active");
-		}, 10);
-	});
-
-	// 오버레이 클릭 시 바텀시트 닫기
-	overlay.addEventListener("click", function(){
-		bottomSheet.classList.remove("active");
-		setTimeout(() => {
-			bottomSheetWrap.style.display = "none";
-			overlay.style.display = "none";
-		}, 300);
-	});
-
-	// 2. 약관 동의 동작 구현
+	// 약관 동의 동작 구현 (메인 페이지의 약관)
 	const agreeAll = document.querySelector(".agreeAll");
 	const agrees = document.querySelectorAll(".agree");
-	const submitBtn = document.querySelector("#submitBtn");
 
 	// 필수 약관 (chk1 ~ chk4)
 	const requiredAgrees = [
@@ -766,13 +692,8 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 		
 		agreeAll.checked = allChecked;
 
-		if (requiredChecked) {
-			submitBtn.disabled = false;
-			submitBtn.classList.add("on");
-		} else {
-			submitBtn.disabled = true;
-			submitBtn.classList.remove("on");
-		}
+		// 필수 약관 모두 동의 시 '다음' 버튼 활성화
+		btnGoFullpage.disabled = !requiredChecked;
 	}
 
 	agreeAll.addEventListener("change", function() {
@@ -782,25 +703,33 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 
 	agrees.forEach(chk => chk.addEventListener("change", updateSubmitBtn));
 
-	// 3. 인증번호 받기 클릭 시 바텀시트 닫고 인증번호 창 보여주기
-	submitBtn.addEventListener("click", function() {
-		if (!this.disabled) {
-			isTermsAgreed = true; // 약관 동의 완료 상태 저장
+	// 팝업 닫기 공통 이벤트
+	const alertPopup = document.querySelector("#alert");
+	const dimBg = document.querySelector(".dim");
+
+	if (alertPopup) {
+		alertPopup.querySelector(".btn_next").addEventListener("click", function() {
+			alertPopup.style.display = "none";
+			dimBg.style.display = "none";
+		});
+	}
+
+	// 1. 본인인증 진행하기 클릭 시 동작 (휴대폰 번호 입력 팝업)
+	primaryBtn.addEventListener("click", function(){
+		if (isAuthRequested) {
+			// 인증번호 입력 후 가입 완료 처리
+			fullpageComplete.classList.add("active");
+		} else {
+			// 처음 본인인증 진행하기(휴대폰 번호 입력완료) 클릭 시
+			isAuthRequested = true;
+			
+			// 인증번호 창 펼치기
+			auth_wrap.classList.add("active");
+			auth_wrap.style.height = `${auth_wrap.scrollHeight}px`;
 			
 			// 메인 버튼 텍스트 변경 및 비활성화 처리
 			primaryBtn.innerText = "전화번호 안심로그인 유료가입";
 			primaryBtn.disabled = authInput.value.length < 6;
-
-			// 바텀 시트 닫기
-			bottomSheet.classList.remove("active");
-			setTimeout(() => {
-				bottomSheetWrap.style.display = "none";
-				overlay.style.display = "none";
-				
-				// 인증번호 창 펼치기
-				auth_wrap.classList.add("active");
-				auth_wrap.style.height = `${auth_wrap.scrollHeight}px`;
-			}, 300);
 		}
 	});
 </script>
