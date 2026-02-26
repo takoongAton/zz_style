@@ -169,14 +169,41 @@ input.input-element:-webkit-autofill:active {
 .terms-agree input[type="checkbox"] + label span.checkmark svg {width:100%; height:100%; fill:var(--border-gray);}
 .terms-agree input[type="checkbox"]:checked + label span.checkmark svg {fill:var(--primary-color);}
 
-.terms-agree .all_agree {display:flex; align-items:center; position:relative; margin:0; border-radius:5px 5px 0 0; border-bottom:1px solid var(--border-gray); background-color:var(--bg-gray);}
+.terms-agree .all_agree {display:flex; align-items:center; position:relative; margin:0; border-radius:5px 5px 0 0; background-color:var(--bg-gray);}
 .terms-agree .all_agree label {position:relative; margin:0;}
 
-.terms-agree .all_agree input[type="checkbox"] + label {display:inline-flex; align-items:center; gap:0 4px; width:100%; padding:14px 16px 15px; border-radius:5px 5px 0 0; color:#222;}
+.terms-agree .all_agree input[type="checkbox"] + label {display:inline-flex; align-items:center; gap:0 4px; flex:1; padding:14px 16px 15px; border-radius:5px 5px 0 0; color:#222;}
 .terms-agree .all_agree input[type="checkbox"] + label span.checkmark {display:flex; justify-content:center; align-items:center; position:relative; width:22px; height:22px; background:#fff; border-radius:100%; box-shadow:inset 0 0 0 1px var(--border-gray);}
 .terms-agree .all_agree span.txt {display:inline-block; font-size:16px; line-height:21px; font-weight:700;}
 
-.terms-agree .agree {padding:1em;}
+.btn-toggle-agree {
+	width:40px; height:40px; margin-right:8px;
+	display:flex; justify-content:center; align-items:center;
+	background: transparent;
+	transition: transform 0.3s ease;
+	cursor: pointer;
+	transform: rotate(180deg);
+}
+.btn-toggle-agree svg {
+	width: 24px; height: 24px;
+	fill: #666;
+}
+.btn-toggle-agree.collapsed {
+	transform: rotate(0deg);
+}
+
+.terms-agree .list-agree {
+	overflow:hidden;
+	transition: height 0.26s ease-in-out, opacity 0.26s ease;
+}
+.terms-agree .list-agree.collapsed {
+	height:0 !important;
+	opacity:0;
+}
+.terms-agree .agree {
+	padding:1em;
+	border-top:1px solid var(--border-gray);
+}
 .terms-agree .agree ul {display:flex; flex-wrap:wrap; flex-direction:row; gap:6px;}
 .terms-agree .agree li {display:flex; position:relative; min-width:calc(50% - 3px);}
 .terms-agree .agree li label {gap:0 4px;}
@@ -335,38 +362,8 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 					</div>
 					<!-- // telecom -->
 
-					<div class="auth-form">
-						<div class="field-group" id="auth_wrap">
-							<div class="input-box input-box--with-btn">
-								<div class="input-content">
-									<label class="input-label">인증번호</label>
-									<input type="text" class="input-element" placeholder="인증번호 6자리" maxlength="6" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" />
-								</div>
-								<button type="button" class="btn-sub-action">재요청</button>
-							</div>
-							<div class="input-info" style="position:relative;">
-								<span class="timer">03:00</span>
-								<button type="button" class="btn-help">?</button>
-								<div class="help-tooltip">
-									수신된 인증번호 6자리를 입력해 주세요.<br>인증번호가 오지 않는다면 '재요청' 버튼을 눌러주세요.
-								</div>
-							</div>
-						</div>
-
-						<div class="field-group">
-							<div class="input-box">
-								<label class="input-label">휴대폰번호</label>
-								<div class="input-row">
-									<input type="tel" class="input-element" placeholder="휴대폰번호 입력" value="" maxlength="11" inputmode="numeric" autocomplete="tel" pattern="[0-9]*">
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- // auth-form -->
 
 					<!-- 기본: 약관 먼저 -->
-
-
 					<div class="terms-agree">
 						<div class="all_agree" id="all_agree">
 							<input type="checkbox" id="chk6" name="chk6" class="agreeAll">
@@ -378,10 +375,14 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 								</span>
 								<span class="txt">약관 전체 동의하기</span>
 							</label><!-- 필요시 span.checkmark -->
+							<button type="button" class="btn-toggle-agree" aria-label="약관 리스트 토글">
+								<svg viewBox="0 0 16 16"><path d="m11.34 6.96c-.01 0-.02.01-.02.02l-2.95 2.95c-.11.11-.26.17-.42.17s-.31-.06-.42-.17l-2.95-2.95c-.23-.23-.24-.6-.02-.84.23-.23.6-.24.84-.02 0 .01.01.02.02.02l2.53 2.54 2.53-2.54c.23-.23.6-.24.84-.02.23.23.24.6.02.84z"></path></svg>
+							</button>
 						</div>
 
-						<div class="agree">
-							<ul class="check">
+						<div class="list-agree">
+							<div class="agree">
+								<ul class="check">
 								<li>
 									<input type="checkbox" id="chk1" name="chk1" class="agree">
 									<label for="chk1">
@@ -454,11 +455,53 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 										</a>
 									</label>
 								</li>
-							</ul>
+								</ul>
+							</div>
 						</div>
 						<div class="g-recaptcha" id="greCaptcha"></div>
 					</div>
 					<!-- // terms-agree -->
+					 
+
+					<div class="auth-form">
+						<div class="field-group" id="auth_wrap">
+							<div class="input-box input-box--with-btn">
+								<div class="input-content">
+									<label class="input-label">인증번호</label>
+									<input type="text" class="input-element" placeholder="인증번호 6자리" maxlength="6" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" />
+								</div>
+								<button type="button" class="btn-sub-action">재요청</button>
+							</div>
+							<div class="input-info" style="position:relative;">
+								<span class="timer">03:00</span>
+								<button type="button" class="btn-help">?</button>
+								<div class="help-tooltip">
+									수신된 인증번호 6자리를 입력해 주세요.<br>인증번호가 오지 않는다면 '재요청' 버튼을 눌러주세요.
+								</div>
+							</div>
+						</div>
+
+						<div class="field-group" id="juminFieldGroup" style="display:none; margin-bottom:16px;">
+							<div class="input-box">
+								<label class="input-label">주민등록번호</label>
+								<div class="input-row">
+									<input type="tel" id="juminInput" class="input-element" placeholder="900101-1" value="" maxlength="8" inputmode="numeric" pattern="[0-9]*">
+								</div>
+							</div>
+						</div>
+
+						<div class="field-group">
+							<div class="input-box">
+								<label class="input-label">휴대폰번호</label>
+								<div class="input-row">
+									<input type="tel" class="input-element" placeholder="휴대폰번호 입력" value="" maxlength="11" inputmode="numeric" autocomplete="tel" pattern="[0-9]*">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- // auth-form -->
+
+					
 				</div>
 				<!-- // signUp_form -->
 
@@ -683,7 +726,8 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 
 <script>
 	let auth_wrap = document.querySelector("#auth_wrap");
-	const phoneInput = document.querySelector('input[type="tel"]');
+	const phoneInput = document.querySelector('input[type="tel"]:not(#juminInput)');
+	const juminInput = document.querySelector('#juminInput');
 	const authInput = document.querySelector('#auth_wrap input');
 	const primaryBtn = document.querySelector('.btn-primary');
 	const timerDisplay = document.querySelector('.timer');
@@ -705,6 +749,38 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 		this.value = this.value.replace(/[^0-9]/g, '');
 	});
 
+	// 통신사 라디오 버튼 선택 이벤트 (주민등록번호 필드 표시/숨김)
+	const telecomRadios = document.querySelectorAll('input[name="telCdRadio"]');
+	const juminFieldGroup = document.getElementById('juminFieldGroup');
+	
+	function toggleJuminField() {
+		const selectedTelecom = document.querySelector('input[name="telCdRadio"]:checked');
+		if (selectedTelecom && selectedTelecom.value === 'SKT') {
+			juminFieldGroup.style.display = 'block';
+		} else {
+			juminFieldGroup.style.display = 'none';
+		}
+	}
+	
+	telecomRadios.forEach(radio => radio.addEventListener('change', toggleJuminField));
+	// 초기 상태 설정
+	toggleJuminField();
+
+	// 주민등록번호 입력 이벤트 (자동 하이픈 추가)
+	if (juminInput) {
+		juminInput.addEventListener('input', function() {
+			// 숫자만 추출
+			let val = this.value.replace(/[^0-9]/g, '');
+			
+			// 6자리 초과 시 '-' 추가
+			if (val.length > 6) {
+				val = val.substring(0, 6) + '-' + val.substring(6, 7);
+			}
+			
+			this.value = val;
+		});
+	}
+
 	// 인증번호 입력 이벤트
 	authInput.addEventListener('input', function() {
 		this.value = this.value.replace(/[^0-9]/g, '');
@@ -718,9 +794,10 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 		}
 	});
 
-	// 약관 동의 동작 구현
 	const agreeAll = document.querySelector(".agreeAll");
-	const agrees = document.querySelectorAll(".agree");
+	const agrees = document.querySelectorAll(".terms-agree .agree input[type='checkbox']");
+	const agreeContainer = document.querySelector(".terms-agree .list-agree");
+	const btnToggleAgree = document.querySelector(".btn-toggle-agree");
 
 	const requiredAgrees = [
 		document.getElementById("chk1"),
@@ -729,14 +806,41 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 		document.getElementById("chk4")
 	];
 
+	function setAgreeContainerCollapse(collapse) {
+		const isCurrentlyCollapsed = agreeContainer.classList.contains("collapsed");
+		if (collapse && !isCurrentlyCollapsed) {
+			agreeContainer.style.height = `${agreeContainer.scrollHeight}px`;
+			void agreeContainer.offsetWidth; // Force reflow
+			agreeContainer.classList.add("collapsed");
+			btnToggleAgree.classList.add("collapsed");
+		} else if (!collapse && isCurrentlyCollapsed) {
+			agreeContainer.classList.remove("collapsed");
+			agreeContainer.style.height = `${agreeContainer.scrollHeight}px`;
+			btnToggleAgree.classList.remove("collapsed");
+		}
+	}
+
+	btnToggleAgree.addEventListener('click', function() {
+		setAgreeContainerCollapse(!agreeContainer.classList.contains("collapsed"));
+	});
+
+	agreeContainer.addEventListener('transitionend', function(e) {
+		if (e.propertyName === 'height' && !this.classList.contains('collapsed')) {
+			this.style.height = 'auto'; // 원래 높이로 복귀
+		}
+	});
+
 	function updateSubmitBtn() {
 		const allChecked = Array.from(agrees).every(chk => chk.checked);
-		agreeAll.checked = allChecked;
+		if (agreeAll.checked !== allChecked) {
+			agreeAll.checked = allChecked;
+			setAgreeContainerCollapse(allChecked);
+		}
 	}
 
 	agreeAll.addEventListener("change", function() {
 		agrees.forEach(chk => chk.checked = this.checked);
-		updateSubmitBtn();
+		setAgreeContainerCollapse(this.checked);
 	});
 
 	agrees.forEach(chk => chk.addEventListener("change", updateSubmitBtn));
@@ -759,6 +863,12 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 			// 가로형 가입완료 레이어 오픈
 			document.getElementById('popupCont05').style.display = 'block';
 		} else {
+			const isSktSelected = document.querySelector('input[name="telCdRadio"]:checked').value === 'SKT';
+			
+			if (isSktSelected && juminInput && juminInput.value.length < 8) {
+				showToast("주민등록번호를 정확히 입력해 주세요.");
+				return;
+			}
 			if (phoneInput.value.length < 11) {
 				showToast("휴대폰 번호를 정확히 입력해 주세요.");
 				return;
