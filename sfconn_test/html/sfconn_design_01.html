@@ -48,6 +48,9 @@ button {border:0 none;}
 
 body {font-family:-apple-system,'BlinkMacSystemFont', 'Noto Sans KR','Noto Sans CJK','Apple SD Gothic Neo', serif;}
 
+
+.safeconnect_wrap_new {max-width:720px; margin:0 auto;}
+
 /* 상단 */
 header {display:flex; justify-content:space-between; align-items:center; position:relative; padding:6px 12px; border-bottom:1px solid #ebebeb;}
 header h1 {display:flex; justify-content:flex-start; align-items:center; gap:0 6px; font-size:13px;}
@@ -134,7 +137,7 @@ input.input-element:-webkit-autofill:active {
 
 /* 인증번호 타이머 및 버튼 */
 .btn-sub-action {background:#EBEEF2; border:none; padding:8px 12px; border-radius:8px; font-size:13px; color:#8E94A1;}
-.btn-sub-action.active {background-color:var(--primary-color); color:#fff; cursor:pointer;}
+.btn-sub-action.active {background-color:var(--primary-color); color:#fff; font-weight:bold; cursor:pointer;}
 
 /* 인증번호 타이머 */
 .input-info {display:flex; justify-content:flex-end; align-items:center; gap:4px; padding-top:8px; padding-bottom:10px;}
@@ -203,7 +206,7 @@ input.input-element:-webkit-autofill:active {
 	opacity:0;
 }
 .terms-agree .agree {
-	padding:1em;
+	padding:0.875em 1em;
 	border-top:1px solid var(--border-gray);
 }
 .terms-agree .agree ul {display:flex; flex-wrap:wrap; flex-direction:row; gap:6px;}
