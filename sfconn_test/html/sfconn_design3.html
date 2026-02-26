@@ -15,6 +15,9 @@
 	</style>
 
 <style>
+
+
+
 * {margin:0; padding:0; box-sizing:border-box; font-family:inherit; list-style:none; font-style:normal;}
 *,
 *:after,
@@ -36,6 +39,12 @@ button {border:0 none;}
 
 /* 기본 변수 설정 */
 :root {
+	/* Safe Area Inset을 변수로 정의 */
+	--safe-top: env(safe-area-inset-top, 0px);
+	--safe-right: env(safe-area-inset-right, 0px);
+	--safe-bottom: env(safe-area-inset-bottom, 0px);
+	--safe-left: env(safe-area-inset-left, 0px);
+
     --primary-color: #009ddf; /* 이미지의 진한 블루 */
     --bg-gray: #F8F9FB;
     --border-gray: #E9ECF0;
@@ -49,12 +58,13 @@ button {border:0 none;}
 body {font-family:-apple-system,'BlinkMacSystemFont', 'Noto Sans KR','Noto Sans CJK','Apple SD Gothic Neo', serif;}
 
 /* 상단 */
-header {display:flex; justify-content:space-between; align-items:center; position:relative; padding:6px 12px; border-bottom:1px solid #ebebeb;}
-header h1 {display:flex; justify-content:flex-start; align-items:center; gap:0 6px; font-size:13px;}
-header h1 strong {display:inline-block; color:#000; line-height:1em;}
-header h1 span {color:#ff0000; font-weight:500; line-height:1em;}
+header {padding-top: var(--safe-top);}
+header .pTop {display:flex; justify-content:space-between; align-items:center; position:relative; padding:6px 12px; border-bottom:1px solid #ebebeb;}
+header .pTop h1 {display:flex; justify-content:flex-start; align-items:center; gap:0 6px; font-size:13px;}
+header .pTop h1 strong {display:inline-block; color:#000; line-height:1em;}
+header .pTop h1 span {color:#ff0000; font-weight:500; line-height:1em;}
 @media screen and (max-width:320px) {
-	header h1 {flex-direction:column; align-items:flex-start;}
+	header .pTop h1 {flex-direction:column; align-items:flex-start;}
 }
 
 
@@ -94,8 +104,8 @@ header h1 span {color:#ff0000; font-weight:500; line-height:1em;}
 .telecom ul.radio li input.telCdRadioKt + label {background-image:url('../images/common/KT_ON.png');}
 .telecom ul.radio li input.telCdRadioLgt + label {background-image:url('../images/common/LGT_ON.png');}
 
-.telecom ul.radio li input + label {filter: grayscale(100%) brightness(100%);}
-.telecom ul.radio li input:checked + label {filter: grayscale(0%);}
+/* .telecom ul.radio li input + label {filter: grayscale(100%) brightness(100%);}
+.telecom ul.radio li input:checked + label {filter: grayscale(0%);} */
 
 @media screen and (max-width:320px) {
 	.telecom ul.radio li input + label {background-size:80px auto;}
@@ -133,12 +143,79 @@ input.input-element:-webkit-autofill:active {
 
 
 /* 인증번호 타이머 및 버튼 */
-.btn-sub-action {background:#EBEEF2; border:none; padding:8px 12px; border-radius:8px; font-size:13px; color:#8E94A1;}
+.btn-sub-action {background:var(--primary-color); border:none; padding:8px 12px; border-radius:8px; font-size:13px; color:#fff; cursor:pointer;}
+.btn-sub-action.disabled {background-color:var(--border-gray); color:var(--text-label); cursor:default;}
+
+/* 토스트 팝업 (iOS style) */
+.toast-popup {
+	position: fixed;
+	top: 50px;
+	left: 50%;
+	transform: translateX(-50%) translateY(-20px) scale(0.95);
+	background: rgba(40, 40, 40, 0.85);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	color: #fff;
+	padding: 12px 20px;
+	border-radius: 50px;
+	font-size: 14px;
+	font-weight: 500;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+	z-index: 9999;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Springy iOS-like effect */
+	white-space: nowrap;
+}
+.toast-popup.show {
+	transform: translateX(-50%) translateY(0) scale(1);
+	opacity: 1;
+	visibility: visible;
+}
 
 /* 인증번호 타이머 */
-.input-info {display:flex; justify-content:flex-end; align-items:center; gap:4px; margin-top:8px; margin-bottom:10px;}
+.input-info {display:flex; justify-content:flex-end; align-items:center; gap:4px; margin-top:8px; margin-bottom:10px; position:relative;}
 .timer {color:var(--text-error); font-size:14px; font-weight:500;}
-.btn-help {width:16px; height:16px; border:1px solid #D1D5DB; border-radius:50%; background:none; font-size:10px; color:#999;}
+.btn-help {width:16px; height:16px; border:1px solid #D1D5DB; border-radius:50%; background:none; font-size:10px; color:#999; cursor:pointer;}
+
+/* 툴팁 팝업 */
+.help-tooltip {
+	position: absolute;
+	top: calc(100% + 8px);
+	right: 0;
+	width: 200px;
+	background: #fff;
+	border: 1px solid var(--border-gray);
+	border-radius: 8px;
+	padding: 12px;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+	font-size: 12px;
+	color: var(--text-main);
+	line-height: 1.4;
+	z-index: 10;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(-8px);
+	transition: all 0.2s ease;
+}
+.help-tooltip.active {
+	opacity: 1;
+	visibility: visible;
+	transform: translateY(0);
+}
+/* 툴팁 화살표 */
+.help-tooltip::before {
+	content: "";
+	position: absolute;
+	top: -5px;
+	right: 12px;
+	width: 8px;
+	height: 8px;
+	background: #fff;
+	border-top: 1px solid var(--border-gray);
+	border-left: 1px solid var(--border-gray);
+	transform: rotate(45deg);
+}
 
 
 /* 하단 버튼 */
@@ -148,7 +225,7 @@ input.input-element:-webkit-autofill:active {
 
 
 /* 인증번호 보일 때 효과 */
-#auth_wrap {height:0; opacity:0; overflow:hidden;
+#auth_wrap {height:0; opacity:0;
     transition:height 0.4s var(--bounce-bezier), opacity 0.4s ease, padding 0.4s var(--bounce-bezier);
 }
 #auth_wrap.active {opacity:1;}
@@ -176,26 +253,29 @@ input.input-element:-webkit-autofill:active {
 .terms-agree label {display:inline-block; width:auto; color:#fff;}
 
 .terms-agree input[type="checkbox"] {position:absolute; top:0; left:0; width:0; height:0; margin:0; padding:0; border:0; vertical-align:top;}
-.terms-agree input[type="checkbox"]::after {display:none !important;}
 .terms-agree input[type="checkbox"] + label {display:inline-flex; gap:4px; position:relative; top:auto; width:auto; margin:0;}
 
-.terms-agree input[type="checkbox"] + label span.checkmark {display:block; width:20px; height:20px; border:1px solid #ccc; border-radius:2px; background-color:#f2f2f2;}
-.terms-agree input[type="checkbox"]:checked + label span.checkmark {border:none; background-color:#2677FF; background-image:url('../images/common/check.png'); background-repeat:no-repeat; background-position:center; background-size:contain;}
+.terms-agree input[type="checkbox"] + label span.checkmark {display:block; width:20px; height:20px;}
+.terms-agree input[type="checkbox"]:checked + label span.checkmark {border:none;}
+
+.terms-agree input[type="checkbox"] + label span.checkmark svg {width:17px; height:17px; fill:var(--border-gray);}
+.terms-agree input[type="checkbox"]:checked + label span.checkmark svg {fill:var(--primary-color);}
 
 .terms-agree .all_agree {display:flex; align-items:center; position:relative; margin:0; border-radius:5px 5px 0 0; border-bottom:1px solid var(--border-gray); background-color:var(--bg-gray);}
 .terms-agree .all_agree label {position:relative; margin:0;}
-.terms-agree .all_agree label * {vertical-align:top;}
 
-.terms-agree .all_agree input[type="checkbox"] + label {display:inline-flex; align-items:center; gap:0 10px; width:100%; padding:14px 16px 15px; border-radius:5px 5px 0 0; color:#222;}
-.terms-agree .all_agree input[type="checkbox"] + label span.checkmark {position:relative; width:21px; height:21px;}
+.terms-agree .all_agree input[type="checkbox"] + label {display:inline-flex; align-items:center; gap:0 4px; width:100%; padding:14px 16px 15px; border-radius:5px 5px 0 0; color:#222;}
+.terms-agree .all_agree input[type="checkbox"] + label span.checkmark {display:flex; justify-content:center; align-items:center; position:relative; width:21px; height:21px; background:#fff; box-shadow:inset 0 0 0 1px var(--border-gray); border-radius:100%;}
 .terms-agree .all_agree span.txt {display:inline-block; font-size:16px; line-height:21px; font-weight:700;}
 
 .terms-agree .agree {padding:1em;}
 .terms-agree .agree ul {display:flex; flex-wrap:wrap; flex-direction:row; gap:6px;}
-.terms-agree .agree li {display:flex; position:relative; min-width:calc(50% - 2px);}
+.terms-agree .agree li {display:flex; position:relative; min-width:calc(50% - 3px);}
 .terms-agree .agree li:first-child {margin-top:0;}
 .terms-agree .agree li label {gap:0 4px;}
 .terms-agree .agree input[type="checkbox"] + label span.checkmark {width:17px; height:17px;}
+.terms-agree .agree input[type="checkbox"] + label span.checkmark svg {fill:var(--border-gray)}
+.terms-agree .agree input[type="checkbox"]:checked + label span.checkmark svg {fill:var(--primary-color)}
 .terms-agree .agree label ~ span.txt {display:inline-block; margin-left:21px; line-height:17px; color:#888; cursor:pointer;}
 
 @media screen and (min-width:360px ) {
@@ -290,7 +370,11 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 						<div class="all_agree" id="all_agree">
 							<input type="checkbox" id="chk6" name="chk6" class="agreeAll">
 							<label for="chk6" class="bold ftS19">
-								<span class="checkmark"></span>
+								<span class="checkmark">
+											<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
+												<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
+											</svg>
+										</span>
 								<span class="txt">약관 전체 동의하기</span>
 							</label><!-- 필요시 span.checkmark -->
 						</div>
@@ -300,28 +384,44 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 								<li>
 									<input type="checkbox" id="chk1" name="chk1" class="agree">
 									<label for="chk1">
-										<span class="checkmark"></span>
+										<span class="checkmark">
+											<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
+												<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
+											</svg>
+										</span>
 										<a href="javascript:privacyPopOpen('0001');">이용약관</a>
 									</label>
 								</li>
 								<li>
 									<input type="checkbox" id="chk2" name="chk2" class="agree">
 									<label for="chk2">
-										<span class="checkmark"></span>
+										<span class="checkmark">
+											<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
+												<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
+											</svg>
+										</span>
 										<a href="javascript:privacyPopOpen('0003');">개인정보 제3자 제공동의</a>
 									</label>
 								</li>
 								<li>
 									<input type="checkbox" id="chk3" name="chk3" class="agree">
 									<label for="chk3">
-										<span class="checkmark"></span>
+										<span class="checkmark">
+											<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
+												<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
+											</svg>
+										</span>
 										<a href="javascript:privacyPopOpen('pre0002');">개인정보수집 및 이용동의</a>
 									</label>
 								</li>
 								<li id="stplat4">
 									<input type="checkbox" id="chk4" name="chk4" class="agree">
 									<label for="chk4">
-										<span class="checkmark"></span>
+										<span class="checkmark">
+											<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
+												<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
+											</svg>
+										</span>
 										<a href="javascript:privacyPopOpen('0004');">
 											<cl id="stplat4Text">SKT개인정보 제3자 제공동의</cl>
 										</a>
@@ -330,7 +430,11 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 								<li id="stplat5">
 									<input type="checkbox" id="chk5" name="chk5" class="agree">
 									<label for="chk5">
-										<span class="checkmark"></span>
+										<span class="checkmark">
+											<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
+												<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
+											</svg>
+										</span>
 										<a href="javascript:privacyPopOpen('0007');">
 											<cl id="stplat5Text">마케팅 활용동의(선택)</cl>
 										</a>
@@ -546,6 +650,9 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 					<div class="input-info">
 						<span class="timer">06:54</span>
 						<button type="button" class="btn-help">?</button>
+						<div class="help-tooltip">
+							수신된 인증번호 6자리를 입력해 주세요.<br>인증번호가 오지 않는다면 '재요청' 버튼을 눌러주세요.
+						</div>
 					</div>
 				</div>
 
@@ -563,6 +670,9 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 			<button type="button" class="btn-primary" id="primaryBtn">본인인증 진행하기</button>
 		</footer>
 	</div>
+
+	<!-- 토스트 팝업 -->
+	<div id="toastPopup" class="toast-popup">남은 시간을 확인해주세요.</div>
 
 	<!-- 풀페이지 팝업: 가입 완료 화면 -->
 	<div id="fullpageComplete" class="fullpage-popup">
@@ -627,6 +737,10 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 	const phoneInput = document.querySelector('input[type="tel"]');
 	const authInput = document.querySelector('#auth_wrap input');
 	const primaryBtn = document.querySelector('#primaryBtn');
+	const timerDisplay = document.querySelector('.timer');
+	const btnRetry = document.querySelector('.btn-sub-action');
+	const btnHelp = document.querySelector('.btn-help');
+	const helpTooltip = document.querySelector('.help-tooltip');
 
 	const btnGoFullpage = document.querySelector("#btnGoFullpage");
 	const fullpageAuth = document.querySelector("#fullpageAuth");
@@ -636,12 +750,18 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 	const btnExitComplete = document.querySelector("#btnExitComplete");
 
 	let isAuthRequested = false; // 인증번호 요청 여부
+	let timerInterval = null;
+	let timeLeft = 180; // 3분
 
-	// 초기 설정 (메인 페이지 다음 버튼 비활성화)
-	btnGoFullpage.disabled = true;
-	primaryBtn.disabled = true;
+	// 초기 설정 (재요청 버튼 비활성화)
+	btnRetry.classList.add('disabled');
 
 	btnGoFullpage.addEventListener("click", function() {
+		const requiredChecked = requiredAgrees.every(chk => chk && chk.checked);
+		if (!requiredChecked) {
+			showToast("필수 약관에 동의해 주세요.");
+			return;
+		}
 		fullpageAuth.classList.add("active");
 	});
 
@@ -659,18 +779,12 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 	phoneInput.addEventListener('input', function() {
 		// 숫자 이외의 문자 제거
 		this.value = this.value.replace(/[^0-9]/g, '');
-		if (!isAuthRequested) {
-			primaryBtn.disabled = this.value.length < 10;
-		}
 	});
 
 	// 인증번호 입력 이벤트
 	authInput.addEventListener('input', function() {
 		// 숫자 이외의 문자 제거
 		this.value = this.value.replace(/[^0-9]/g, '');
-		if (isAuthRequested) {
-			primaryBtn.disabled = this.value.length < 6;
-		}
 	});
 
 	// 약관 동의 동작 구현 (메인 페이지의 약관)
@@ -690,9 +804,6 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 		const requiredChecked = requiredAgrees.every(chk => chk && chk.checked);
 		
 		agreeAll.checked = allChecked;
-
-		// 필수 약관 모두 동의 시 '다음' 버튼 활성화
-		btnGoFullpage.disabled = !requiredChecked;
 	}
 
 	agreeAll.addEventListener("change", function() {
@@ -716,19 +827,93 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 	// 1. 본인인증 진행하기 클릭 시 동작 (휴대폰 번호 입력 팝업)
 	primaryBtn.addEventListener("click", function(){
 		if (isAuthRequested) {
+			if (authInput.value.length < 6) {
+				showToast("인증번호 6자리를 입력해 주세요.");
+				return;
+			}
 			// 인증번호 입력 후 가입 완료 처리
+			clearInterval(timerInterval); // 가입 완료 시 타이머 멈춤
 			fullpageComplete.classList.add("active");
 		} else {
+			if (phoneInput.value.length < 11) {
+				showToast("휴대폰 번호를 정확히 입력해 주세요.");
+				return;
+			}
 			// 처음 본인인증 진행하기(휴대폰 번호 입력완료) 클릭 시
 			isAuthRequested = true;
 			
 			// 인증번호 창 펼치기
 			auth_wrap.classList.add("active");
-			auth_wrap.style.height = `${auth_wrap.scrollHeight}px`;
 			
-			// 메인 버튼 텍스트 변경 및 비활성화 처리
+			// 툴팁이 높이 계산(scrollHeight)에 영향을 줘서 하단 영역을 밀어내는 현상 방지
+			const tempDisplay = helpTooltip.style.display;
+			helpTooltip.style.display = "none";
+			auth_wrap.style.height = `${auth_wrap.scrollHeight}px`;
+			helpTooltip.style.display = tempDisplay;
+			
+			// 메인 버튼 텍스트 변경
 			primaryBtn.innerText = "전화번호 안심로그인 유료가입";
-			primaryBtn.disabled = authInput.value.length < 6;
+
+			// 타이머 시작
+			startTimer();
+		}
+	});
+
+	// 타이머 시작 함수
+	function startTimer() {
+		clearInterval(timerInterval);
+		timeLeft = 180; // 3분 초기화
+		updateTimerDisplay();
+		btnRetry.classList.add("disabled"); // 클릭 이벤트를 받기 위해 속성 대신 클래스 사용
+		
+		timerInterval = setInterval(() => {
+			timeLeft--;
+			updateTimerDisplay();
+			
+			if (timeLeft <= 0) {
+				clearInterval(timerInterval);
+				btnRetry.classList.remove("disabled"); // 시간이 다 되면 재요청 버튼 활성화
+			}
+		}, 1000);
+	}
+
+	function updateTimerDisplay() {
+		const m = Math.floor(timeLeft / 60);
+		const s = timeLeft % 60;
+		timerDisplay.textContent = `0${m}:${s < 10 ? '0' : ''}${s}`;
+	}
+
+	let toastTimeout;
+	function showToast(message) {
+		const toast = document.getElementById('toastPopup');
+		if(message) toast.textContent = message;
+		toast.classList.add('show');
+		clearTimeout(toastTimeout);
+		toastTimeout = setTimeout(() => {
+			toast.classList.remove('show');
+		}, 2000); // 2초 뒤 사라짐
+	}
+
+	// 재요청 버튼 클릭 이벤트
+	btnRetry.addEventListener("click", function() {
+		if (this.classList.contains("disabled")) {
+			showToast("재요청 시간이 지나지 않았습니다.");
+		} else {
+			startTimer(); // 타이머 재시작
+			// 필요한 경우 API 재호출 로직 추가
+		}
+	});
+
+	// 도움말 버튼 툴팁 이벤트
+	btnHelp.addEventListener('click', function(e) {
+		e.stopPropagation();
+		helpTooltip.classList.toggle('active');
+	});
+
+	// 툴팁 외부 클릭 시 닫기
+	document.addEventListener('click', function(e) {
+		if (!helpTooltip.contains(e.target) && e.target !== btnHelp) {
+			helpTooltip.classList.remove('active');
 		}
 	});
 </script>
