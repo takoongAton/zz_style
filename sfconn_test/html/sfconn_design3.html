@@ -657,7 +657,7 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 					<div class="input-box input-box--with-btn">
 						<div class="input-content">
 							<label class="input-label">인증번호</label>
-							<input type="text" class="input-element" placeholder="인증번호 6자리" maxlength="6" inputmode="numeric" pattern="[0-9]*" />
+							<input type="text" class="input-element" placeholder="인증번호 6자리" maxlength="6" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" />
 						</div>
 						<button type="button" class="btn-sub-action">재요청</button>
 					</div>
@@ -803,6 +803,14 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 	authInput.addEventListener('input', function() {
 		// 숫자 이외의 문자 제거
 		this.value = this.value.replace(/[^0-9]/g, '');
+	});
+
+	// [TEST용] 인증번호 창 클릭 시 가상 인증번호 삽입
+	authInput.addEventListener('focus', function() {
+		if (this.value === '') {
+			this.value = '123456';
+			showToast("테스트용 인증번호가 입력되었습니다.");
+		}
 	});
 
 	// 약관 동의 동작 구현 (메인 페이지의 약관)
