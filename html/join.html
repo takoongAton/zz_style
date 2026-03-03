@@ -245,20 +245,51 @@
     
 </div>
 <!-- // auth-wrapper -->
+
+<!-- 토스트 팝업 -->
+<div id="toastPopup" class="toast-popup"></div>
 <style>
 .testItem {height:0; opacity:0; overflow:hidden; transition:height 0.4s var(--bounce-bezier), opacity 0.6s ease, padding 0.4s var(--bounce-bezier);}
 .testItem.active {opacity:1;}
+
+/* 토스트 팝업 (iOS style) */
+.toast-popup {
+    position: fixed;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px) scale(0.95);
+    background: rgba(40, 40, 40, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    white-space: nowrap;
+}
+.toast-popup.show {
+    transform: translateX(-50%) translateY(0) scale(1);
+    opacity: 1;
+    visibility: visible;
+}
 </style>
 <script>
 let auth_wrap = document.querySelector("#auth_wrap");
+let toastTimeout;
+
 document.querySelector(".btn-primary").addEventListener("click", function(){
     auth_wrap.classList.add("active");
     auth_wrap.style.height = `${auth_wrap.scrollHeight}px`;
-    // boundShowFn(document.querySelector(".testItem"));
-    playVibration();
+    
+    // 토스트 팝업 예시 및 진동 실행
+    showToast("본인인증을 진행합니다.");
 })
-
-
 
 function boundShowFn(params) {
     let targetItem = params;
@@ -266,13 +297,34 @@ function boundShowFn(params) {
     targetItem.style.height = `${targetItem.scrollHeight}px`;
 }
 
-function playVibration() {
+/**
+ * 상단 알림 토스트 팝업 표시 함수
+ * @param {string} message - 표시할 메시지
+ */
+function showToast(message) {
+    const toast = document.getElementById('toastPopup');
+    if(message) toast.textContent = message;
+    toast.classList.add('show');
+
+    // 토스트가 뜰 때 50ms 진동 1회 실행
+    playVibration(50);
+
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+    }, 2500);
+}
+
+/**
+ * 진동 실행 함수
+ * @param {number} duration - 진동 시간 (ms)
+ */
+function playVibration(duration = 50) {
   if ("vibrate" in navigator) {
-    // 200ms 진동, 100ms 쉬고, 200ms 진동
-    navigator.vibrate([50, 100, 50]);
-    console.log("진동이 실행되었습니다.");
+    navigator.vibrate(duration);
+    console.log(`진동이 ${duration}ms 동안 실행되었습니다.`);
   } else {
-    alert("이 브라우저나 기기는 진동 API를 지원하지 않습니다.");
+    // console.log("이 브라우저나 기기는 진동 API를 지원하지 않습니다.");
   }
 }
 </script>
