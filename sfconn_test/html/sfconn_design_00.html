@@ -7,7 +7,8 @@
 	<meta http-equiv="Pragma" 		   content="No-Cache" />
 	<meta http-equiv="Expires" 		   content="now" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, viewport-fit=contain, target-densitydpi=medium-dpi">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, viewport-fit=contain" />
+	<!-- <link rel="icon" href="favicon.ico" type="image/x-icon" sizes="any" /> -->
 	<!-- <link rel="stylesheet" type="text/css" href="../css/sfconn_design.css" /> -->
 
 	<style>
@@ -27,7 +28,8 @@
 	-webkit-font-smoothing: antialiased;
 }
 input {
-	-webkit-appearance:none;
+	/* -webkit-appearance:none; */
+	appearance:none;
 	border-radius: 0px;
 }
 img {max-width:100%;}
@@ -57,7 +59,7 @@ body {font-family:-apple-system, "BlinkMacSystemFont", "Roboto", sans-serif, sys
 header {display:flex; justify-content:space-between; align-items:center; position:relative; border-bottom:1px solid #ebebeb;}
 header h1 {display:flex; justify-content:flex-start; align-items:center; width:100%; padding:0.65em 1em; gap:0 0.5em; font-size:12px; font-weight:700; letter-spacing:-0.025em;}
 header h1 strong {display:inline-block; color:#000; line-height:1em;}
-header h1 span {color:#ff0000; line-height:1em; transition: opacity 0.25s ease;}
+header h1 span {color:#ff0000; line-height:1em;}
 @media screen and (max-width:320px) {
 	header h1 {flex-direction:column; align-items:flex-start;}
 }
@@ -131,7 +133,7 @@ input.input-element:-webkit-autofill:hover,
 input.input-element:-webkit-autofill:focus, 
 input.input-element:-webkit-autofill:active {
     /* 배경색을 흰색으로 고정 (원하는 색상으로 변경 가능) */
-    -webkit-box-shadow: 0 0 0 1000px var(--bg-gray) inset !important;
+    -webkit-box-shadow: 0 0 0 1000px #fff inset !important;
     /* 텍스트 색상을 검정색으로 고정 */
     /* -webkit-text-fill-color: #000 !important; */
 }
@@ -507,15 +509,6 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 							</div>
 						</div>
 
-						<div class="field-group" id="juminFieldGroup" style="display:none; margin-bottom:16px;">
-							<div class="input-box">
-								<label class="input-label">주민등록번호 7자리</label>
-								<div class="input-row">
-									<input type="tel" id="juminInput" class="input-element" placeholder="720101-1●●●●●●" value="" maxlength="8" inputmode="numeric" pattern="[0-9]*">
-								</div>
-							</div>
-						</div>
-
 						<div class="field-group">
 							<div class="input-box input-box--with-btn">
 								<div class="input-content">
@@ -523,6 +516,15 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 									<input type="tel" class="input-element" placeholder="휴대폰번호 입력" value="" maxlength="11" inputmode="numeric" autocomplete="tel" pattern="[0-9]*">
 								</div>
 								<button type="button" class="btn-sub-action btn-phone-confirm"><span>확인</span></button>
+							</div>
+						</div>
+
+						<div class="field-group" id="juminFieldGroup" style="display:none; margin-top:16px;">
+							<div class="input-box">
+								<label class="input-label">주민등록번호 7자리</label>
+								<div class="input-row">
+									<input type="tel" id="juminInput" class="input-element" placeholder="710304-0●●●●●●" value="" maxlength="8" inputmode="numeric" pattern="[0-9]*">
+								</div>
 							</div>
 						</div>
 					</div>
@@ -827,32 +829,18 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 	const telecomRadios = document.querySelectorAll('input[name="telCdRadio"]');
 	const juminFieldGroup = document.getElementById('juminFieldGroup');
 	
-	// 통신사 변경에 따른 UI 처리 (주민번호 필드 토글 및 서비스명 텍스트 업데이트)
+	// 통신사 변경에 따른 주민번호 필드 노출 제어
 	function handleCarrierChange() {
 		const selectedTelecom = document.querySelector('input[name="telCdRadio"]:checked');
 		if (!selectedTelecom) return;
 
 		const carrierValue = selectedTelecom.value;
-		const serviceTypeText = document.getElementById('serviceTypeText');
 		
-		// 1. 주민번호 필드 제어
 		if (carrierValue === 'SKT') {
 			juminFieldGroup.style.display = 'block';
 		} else {
 			juminFieldGroup.style.display = 'none';
 		}
-
-		// 2. 서비스 텍스트 업데이트 (Fade 효과)
-		// 통신사 표시 이름 매핑 (LGT -> LG U+)
-		const carrierDisplayName = carrierValue === 'LGT' ? 'LG U+' : carrierValue;
-		const newText = `${carrierDisplayName} 통신사 제휴 유료 부가서비스`;
-
-		serviceTypeText.style.opacity = '0';
-		
-		setTimeout(() => {
-			serviceTypeText.textContent = newText;
-			serviceTypeText.style.opacity = '1';
-		}, 250);
 	}
 	
 	telecomRadios.forEach(radio => radio.addEventListener('change', handleCarrierChange));
