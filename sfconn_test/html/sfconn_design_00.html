@@ -113,6 +113,7 @@ header h1 span {color:#ff0000; line-height:1em;}
 @media screen and (max-width:320px) {
 	.telecom ul.radio li input + label {background-size:80px auto;}
 }
+.telecom.disabled {opacity:0.5; pointer-events:none; filter:grayscale(100%);}
 /* 통신사 선택 끝 */
 
 
@@ -150,7 +151,7 @@ input.input-element:-webkit-autofill:active {
 /* .btn-sub-action.active {background-color:var(--primary-color); color:#fff; font-weight:bold; cursor:pointer; text-shadow:0 0 1px rgba(0, 0, 0, 0.16);} */
 
 /* 인증번호 타이머 */
-.input-info {display:flex; justify-content:flex-end; align-items:center; gap:4px; padding-top:8px; padding-bottom:10px;}
+.input-info {display:flex; justify-content:flex-end; align-items:center; gap:4px; /* padding-top:8px; padding-bottom:10px; */}
 .timer {color:var(--text-error); font-size:14px; font-weight:500;}
 .btn-help {width:16px; height:16px; border:1px solid #D1D5DB; border-radius:50%; background:none; font-size:10px; color:#999;}
 
@@ -510,9 +511,11 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 
 						<div class="field-group" id="juminFieldGroup" style="display:none; margin-top:16px;">
 							<div class="input-box">
-								<label class="input-label" for="juminNumber">주민등록번호 7자리</label>
-								<div class="input-row">
-									<input type="tel" id="juminNumber" class="input-element" placeholder="710304-0●●●●●●" value="" maxlength="8" inputmode="numeric" pattern="[0-9]*">
+								<div class="input-content">
+									<label class="input-label" for="juminNumber">주민등록번호 7자리</label>
+									<div class="input-row">
+										<input type="tel" id="juminNumber" class="input-element" placeholder="710304-0●●●●●●" value="" maxlength="8" inputmode="numeric" pattern="[0-9]*">
+									</div>
 								</div>
 							</div>
 						</div>
@@ -523,15 +526,17 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 									<label class="input-label" for="authNumber">인증번호</label>
 									<input type="text" class="input-element" id="authNumber" placeholder="인증번호 6자리" maxlength="6" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" />
 								</div>
-								<button type="button" class="btn-sub-action">재요청</button>
-							</div>
-							<div class="input-info" style="position:relative;">
-								<span class="timer">03:00</span>
-								<button type="button" class="btn-help">?</button>
-								<div class="help-tooltip">
-									수신된 인증번호 6자리를 입력해 주세요.<br>인증번호가 오지 않는다면 '재요청' 버튼을 눌러주세요.
+								<!-- <button type="button" class="btn-sub-action">재요청</button> -->
+								<div class="input-info" style="position:relative;">
+									<span class="timer">03:00</span>
+									<button type="button" class="btn-help">?</button>
+									<div class="help-tooltip">
+										수신된 인증번호 6자리를 입력해 주세요.
+									</div>
 								</div>
+								<!-- // input-info -->
 							</div>
+							
 						</div>
 					</div>
 					<!-- // auth-form -->
@@ -912,7 +917,7 @@ table, td, th {
 	 * 초기 상태 설정
 	 */
 	// 인증번호 재요청 버튼 초기 비활성화
-	btnRetry.classList.add('disabled');
+	if (btnRetry) btnRetry.classList.add('disabled');
 
 	/**
 	 * 입력 필드 이벤트 핸들링 (휴대폰 번호, 주민등록번호, 인증번호)
@@ -943,16 +948,7 @@ table, td, th {
 		this.value = this.value.replace(/[^0-9]/g, '');
 	});
 
-	// [개발/테스트용] 인증번호 입력창 클릭 시 가공의 인증번호 자동 입력
-	authInput.addEventListener('focus', function() {
-		if (this.value === '') {
-			this.value = String(Math.floor(Math.random() * 1000000)).padStart(6, '0');
-			showToast("테스트용 인증번호가 입력되었습니다.");
-			
-			// 자동 입력된 경우에만 포커스 아웃 (blur)
-			this.blur();
-		}
-	});
+
 
 	/**
 	 * 통신사 선택 관련 로직
@@ -1050,6 +1046,17 @@ table, td, th {
 			return;
 		}
 
+		// 재요청 모드인 경우 (인증번호가 이미 발송된 상태)
+		if (isAuthRequested) {
+			if (timeLeft > 0) {
+				showToast("재요청 가능 시간이 아닙니다.");
+			} else {
+				startTimer();
+				showToast("인증번호가 재발송되었습니다.");
+			}
+			return;
+		}
+
 		// 필수 약관 동의 여부 확인
 		const requiredChecked = requiredAgrees.every(chk => chk && chk.checked);
 		if (!requiredChecked) {
@@ -1079,6 +1086,12 @@ table, td, th {
 
 		// 인증 상태 초기화 및 인증번호 입력창 표시
 		isAuthRequested = true;
+		btnPhoneConfirm.querySelector('span').textContent = '재요청'; // 버튼 텍스트 변경
+		
+		// 통신사 선택 비활성화
+		telecomRadios.forEach(radio => radio.disabled = true);
+		document.querySelector('.telecom').classList.add('disabled');
+
 		auth_wrap.classList.add("active");
 		
 		const tempDisplay = helpTooltip.style.display;
@@ -1148,16 +1161,12 @@ table, td, th {
 		timeLeft = 180; // 3분으로 초기화
 		updateTimerDisplay();
 		
-		btnRetry.classList.add("disabled");
-		
 		timerInterval = setInterval(() => {
 			timeLeft--;
 			updateTimerDisplay();
 			
 			if (timeLeft <= 0) {
 				clearInterval(timerInterval);
-				// 시간 만료 시 재요청 버튼 활성화
-				btnRetry.classList.remove("disabled");
 			}
 		}, 1000);
 	}
@@ -1169,15 +1178,7 @@ table, td, th {
 		timerDisplay.textContent = `0${m}:${s < 10 ? '0' : ''}${s}`;
 	}
 
-	// 인증번호 재요청 버튼 클릭 이벤트
-	btnRetry.addEventListener("click", function() {
-		if (this.classList.contains("disabled")) {
-			showToast("재요청 시간이 지나지 않았습니다.");
-		} else {
-			startTimer();
-			showToast("인증번호가 재발송되었습니다.");
-		}
-	});
+
 
 	/**
 	 * 기타 UI 유틸리티 (토스트, 도움말 툴팁, 팝업 닫기)
