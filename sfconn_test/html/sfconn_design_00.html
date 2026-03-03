@@ -39,6 +39,11 @@ button {border:0 none;}
 
 /* 기본 변수 설정 */
 :root {
+	/* Safe Area Inset을 변수로 정의 */
+	--safe-top: env(safe-area-inset-top, 0px);
+	--safe-right: env(safe-area-inset-right, 0px);
+	--safe-bottom: env(safe-area-inset-bottom, 0px);
+	--safe-left: env(safe-area-inset-left, 0px);
 	--primary-color: #009ddf; /* 아톤 메인 컬러 */
     --primary-color: #00a397; /* 인포세이프박스 메인 컬러 */
 	/* --primary-color: #0069ff; 휴대폰안심 메인 컬러 */
@@ -806,7 +811,7 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 .layer.privacy .layer_content div.select_wrap select {width:100%; height:48px; padding:0 20px; background-color:transparent; border:0 none; font-size:0.875em; line-height:2.4em; font-family:'Noto Sans KR';}
 
 .layer.privacy .layer_content .txt_content {margin-top:24px; padding:0 36px 36px; flex:1; color:#555; font-size:20px; line-height:1.6; overflow-y:auto;}
-.layer.privacy .layer_footer {display:flex; width:100%; padding:16px 20px;}
+.layer.privacy .layer_footer {display:flex; width:100%; padding:16px 20px calc(var(--safe-bottom) + 16px);}
 .layer.privacy .layer_footer button.btn_next {width:100%; height:56px; border-radius:12px; background-color:var(--primary-color); color: #fff; font-size:16px; font-weight:600;}
 .layer.privacy .layer_footer button.btn_next span {display:block; color:inherit; font-size:inherit; font-weight:inherit; line-height:1em;}
 @media screen and (max-width:786px) {
@@ -1255,14 +1260,22 @@ table, td, th {
 
 	// 약관 팝업 닫기 이벤트
 	const privacyCloseBtn = document.querySelector('#privacy01 .btn_close');
+	const privacyConfirmBtn = document.querySelector('#privacy01 .layer_footer .btn_next');
+
+	function closePrivacyPopup() {
+		document.getElementById('privacy01').style.display = 'none';
+		// 만약 사이드 팝업이나 다른 알럿이 떠있는 상태가 아니라면 dim도 같이 닫기
+		if (!sidePopup.classList.contains('active')) {
+			document.querySelector('.dim').style.display = 'none';
+		}
+	}
+
 	if (privacyCloseBtn) {
-		privacyCloseBtn.addEventListener('click', function() {
-			document.getElementById('privacy01').style.display = 'none';
-			// 만약 사이드 팝업이나 다른 알럿이 떠있는 상태가 아니라면 dim도 같이 닫기
-			if (!sidePopup.classList.contains('active')) {
-				document.querySelector('.dim').style.display = 'none';
-			}
-		});
+		privacyCloseBtn.addEventListener('click', closePrivacyPopup);
+	}
+
+	if (privacyConfirmBtn) {
+		privacyConfirmBtn.addEventListener('click', closePrivacyPopup);
 	}
 </script>
 </body>
