@@ -162,11 +162,11 @@ input.input-element:-webkit-autofill:active {
 
 
 /* 인증번호 보일 때 효과 */
-#auth_wrap {height:0; opacity:0;
-    transition:height 0.4s var(--bounce-bezier), opacity 0.4s ease, padding 0.4s var(--bounce-bezier);
+#auth_wrap {height:0; opacity:0; margin-top:0;
+    transition:height 0.4s var(--bounce-bezier), opacity 0.4s ease, margin 0.4s var(--bounce-bezier);
     /* transition:height 0.24s ease-in, opacity 0.24s ease; */
 }
-#auth_wrap.active {opacity:1;}
+#auth_wrap.active {opacity:1; margin-top:16px;}
 
 .signUp_form {display:flex; flex-direction:column; gap:16px; padding:20px;}
 
@@ -517,7 +517,7 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 							</div>
 						</div>
 
-						<div class="field-group" id="auth_wrap" style="display:none; margin-top:16px;">
+						<div class="field-group" id="auth_wrap">
 							<div class="input-box input-box--with-btn">
 								<div class="input-content">
 									<label class="input-label" for="authNumber">인증번호</label>
