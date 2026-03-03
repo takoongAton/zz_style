@@ -785,9 +785,13 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 		});
 	}
 
-	// 인증번호 입력: 숫자만 허용
+	// 인증번호 입력: 숫자만 허용 및 6자리 입력 시 포커스 이동
 	authInput.addEventListener('input', function() {
 		this.value = this.value.replace(/[^0-9]/g, '');
+		if (this.value.length === 6) {
+			this.blur();
+			primaryBtn.focus();
+		}
 	});
 
 	// [개발/테스트용] 인증번호 입력창 클릭 시 가공의 인증번호 자동 입력
@@ -795,6 +799,12 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 		if (this.value === '') {
 			this.value = String(Math.floor(Math.random() * 1000000)).padStart(6, '0');
 			showToast("테스트용 인증번호가 입력되었습니다.");
+			
+			// 자동 입력 시에도 6자리가 충족되면 즉시 포커스 이동
+			if (this.value.length === 6) {
+				this.blur();
+				primaryBtn.focus();
+			}
 		}
 	});
 
