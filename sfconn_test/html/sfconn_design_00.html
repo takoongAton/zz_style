@@ -146,8 +146,8 @@ input.input-element:-webkit-autofill:active {
 
 
 /* 인증번호 타이머 및 버튼 */
-.btn-sub-action {min-width:60px; min-height:36px; padding:8px 12px; background:#EBEEF2; border:none; border-radius:10px; font-size:13px; color:#8E94A1;}
-.btn-sub-action.active {background-color:var(--primary-color); color:#fff; font-weight:bold; cursor:pointer; text-shadow:0 0 1px rgba(0, 0, 0, 0.16);}
+.btn-sub-action {min-width:60px; min-height:36px; padding:8px 12px; background-color:var(--primary-color); border:none; border-radius:10px; font-size:13px; color:#fff; font-weight:bold; cursor:pointer; text-shadow:0 0 1px rgba(0, 0, 0, 0.16);}
+/* .btn-sub-action.active {background-color:var(--primary-color); color:#fff; font-weight:bold; cursor:pointer; text-shadow:0 0 1px rgba(0, 0, 0, 0.16);} */
 
 /* 인증번호 타이머 */
 .input-info {display:flex; justify-content:flex-end; align-items:center; gap:4px; padding-top:8px; padding-bottom:10px;}
@@ -277,7 +277,7 @@ input.input-element:-webkit-autofill:active {
 	z-index: 9998; /* 토스트(9999) 바로 아래 */
 	opacity: 0;
 	visibility: hidden;
-	transition: opacity 0.4s ease, visibility 0.4s ease, height 0.4s ease;
+	transition: opacity 0.4s ease, visibility 0.4s ease;
 	pointer-events: none;
 }
 .toast-dim.show {
@@ -498,23 +498,6 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 					 
 
 					<div class="auth-form">
-						<div class="field-group" id="auth_wrap">
-							<div class="input-box input-box--with-btn">
-								<div class="input-content">
-									<label class="input-label" for="authNumber">인증번호</label>
-									<input type="text" class="input-element" id="authNumber" placeholder="인증번호 6자리" maxlength="6" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" />
-								</div>
-								<button type="button" class="btn-sub-action">재요청</button>
-							</div>
-							<div class="input-info" style="position:relative;">
-								<span class="timer">03:00</span>
-								<button type="button" class="btn-help">?</button>
-								<div class="help-tooltip">
-									수신된 인증번호 6자리를 입력해 주세요.<br>인증번호가 오지 않는다면 '재요청' 버튼을 눌러주세요.
-								</div>
-							</div>
-						</div>
-
 						<div class="field-group">
 							<div class="input-box input-box--with-btn">
 								<div class="input-content">
@@ -530,6 +513,23 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 								<label class="input-label" for="juminNumber">주민등록번호 7자리</label>
 								<div class="input-row">
 									<input type="tel" id="juminNumber" class="input-element" placeholder="710304-0●●●●●●" value="" maxlength="8" inputmode="numeric" pattern="[0-9]*">
+								</div>
+							</div>
+						</div>
+
+						<div class="field-group" id="auth_wrap" style="display:none; margin-top:16px;">
+							<div class="input-box input-box--with-btn">
+								<div class="input-content">
+									<label class="input-label" for="authNumber">인증번호</label>
+									<input type="text" class="input-element" id="authNumber" placeholder="인증번호 6자리" maxlength="6" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" />
+								</div>
+								<button type="button" class="btn-sub-action">재요청</button>
+							</div>
+							<div class="input-info" style="position:relative;">
+								<span class="timer">03:00</span>
+								<button type="button" class="btn-help">?</button>
+								<div class="help-tooltip">
+									수신된 인증번호 6자리를 입력해 주세요.<br>인증번호가 오지 않는다면 '재요청' 버튼을 눌러주세요.
 								</div>
 							</div>
 						</div>
@@ -913,8 +913,6 @@ table, td, th {
 	 */
 	// 인증번호 재요청 버튼 초기 비활성화
 	btnRetry.classList.add('disabled');
-	btnRetry.style.cursor = 'default';
-	btnRetry.style.opacity = '0.5';
 
 	/**
 	 * 입력 필드 이벤트 핸들링 (휴대폰 번호, 주민등록번호, 인증번호)
@@ -1119,7 +1117,7 @@ table, td, th {
 	primaryBtn.addEventListener("click", function(){
 		// 먼저 번호 확인 과정을 거쳤는지 확인
 		if (!isAuthRequested) {
-			showToast(`휴대폰 번호 입력 후 확인 버튼을 눌러 인증번호를 발송해 주세요.`);
+			showToast(`휴대폰 번호를 입력해주세요.`);
 			return;
 		}
 
@@ -1151,8 +1149,6 @@ table, td, th {
 		updateTimerDisplay();
 		
 		btnRetry.classList.add("disabled");
-		btnRetry.style.opacity = '0.5';
-		btnRetry.style.cursor = 'default';
 		
 		timerInterval = setInterval(() => {
 			timeLeft--;
@@ -1162,8 +1158,6 @@ table, td, th {
 				clearInterval(timerInterval);
 				// 시간 만료 시 재요청 버튼 활성화
 				btnRetry.classList.remove("disabled");
-				btnRetry.style.opacity = '1';
-				btnRetry.style.cursor = 'pointer';
 			}
 		}, 1000);
 	}
@@ -1205,7 +1199,7 @@ table, td, th {
 			setTimeout(() => {
 				const toastRect = toast.getBoundingClientRect();
 				// 상단 여백(toastRect.top)만큼 하단에도 추가하여 전체 높이 설정
-				const dimHeight = toastRect.bottom + toastRect.top + toastRect.height;
+				const dimHeight = toastRect.bottom + toastRect.top + toastRect.height / 2;
 				toastDim.style.height = dimHeight + 'px';
 			}, 0);
 		}
