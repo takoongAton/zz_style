@@ -757,67 +757,14 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 
 
 <style>
-.type-side-by-side {
-	display: none; /* 기본 숨김 */
-	flex-direction: column;
-	gap: 10px;
-	align-items: flex-start;
-	justify-content: flex-start;
-	position: fixed; /* 고정 위치 */
-	top: 50%;
-	left: 50%;
-	width:298px;
-	padding:14px;
-	transform: translate(-50%, -50%);
-	z-index: 10001;
-	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-	border-radius: 34px;
-	background-color: #fff;
-}
-.type-side-by-side.active {
-  display: flex;
-}
-.type-side-by-side .bg {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  border-radius: 34px;
-  overflow: hidden;
-  z-index: -1;
-}
-.a-short-title-is-best {
-  color: var(--labels-primary, #000000);
-  text-align: left;
-  font-family: "SfPro-Semibold", sans-serif;
-  font-size: 1.0625rem;
-  line-height: 1.375rem;
-  letter-spacing: -0.026875rem;
-  font-weight: 600;
-  position: relative;
-  align-self: stretch;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-.a-description-should-be-a-short-complete-sentence {
-  color: var(--labels-primary, #000000);
-  text-align: left;
-  font-size: 16px;
-  line-height: 1.29411em;
-  letter-spacing:-0.025em;
-}
-.buttons {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  align-items: flex-start;
-  justify-content: flex-start;
-  align-self: stretch;
-  flex-shrink: 0;
-  position: relative;
-}
+.type-side-by-side {display:none; /* 기본 숨김 */ flex-direction:column; align-items:flex-start; justify-content:flex-start; gap:10px; position:fixed; /* 고정 위치 */ top:50%; left:50%; width:298px; padding:14px; border-radius:34px; background-color:#fff; transform:translate(-50%, -50%); z-index:10001; box-shadow:0 4px 4px rgba(0, 0, 0, 0.25);}
+.type-side-by-side.active {display:flex;}
+.type-side-by-side .bg {position:absolute; top:0; left:0; right:0; bottom:0; border-radius:34px; overflow:hidden; z-index:-1;}
+.a-short-title-is-best {color:var(--labels-primary, #000000); text-align:left; font-family:"SfPro-Semibold", sans-serif; font-size:1.0625rem; line-height:1.375rem; letter-spacing:-0.026875rem; font-weight:600; position:relative; align-self:stretch; display:flex; align-items:center; justify-content:flex-start;}
+.a-description-should-be-a-short-complete-sentence {color:var(--labels-primary, #000000); text-align:left; font-size:16px; line-height:1.29411em; letter-spacing:-0.025em;}
 .title-and-description {display:flex; flex-direction:column; gap:10px; width:100%; padding:8px 8px 14px;}
-.buttons {display:flex; flex-direction:row; gap:16px; width:100%;}
-.buttons button {width:100%; height:48px; border-radius: 6.25rem;}
+.buttons {display:flex; flex-direction:row; gap:16px; width:100%; justify-content:space-between; align-items:center;}
+.buttons button {width:100%; height:48px; border-radius:100px; font-family:inherit;}
 .buttons button span {display:inline-block; color:inherit; font-size:17px; line-height:1em; font-weight:500;}
 .buttons button.btn_cancel {background-color:rgba(120,120,128,0.16); color: #000;}
 .buttons button.btn_next {background-color: #0088FF; color: #fff;}
