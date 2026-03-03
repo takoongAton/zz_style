@@ -269,7 +269,7 @@ function boundShowFn(params) {
 function playVibration() {
   if ("vibrate" in navigator) {
     // 200ms 진동, 100ms 쉬고, 200ms 진동
-    navigator.vibrate([200, 100, 200]);
+    navigator.vibrate([50, 100, 50]);
     console.log("진동이 실행되었습니다.");
   } else {
     alert("이 브라우저나 기기는 진동 API를 지원하지 않습니다.");
