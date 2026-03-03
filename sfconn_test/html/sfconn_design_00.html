@@ -756,6 +756,179 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 	<!-- // 레이어팝업 샘플 -->
 
 
+<style>
+.type-side-by-side,
+.type-side-by-side * {
+  box-sizing: border-box;
+}
+.type-side-by-side {
+  padding: 0.875rem;
+  display: none; /* 기본 숨김 */
+  flex-direction: column;
+  gap: 0.625rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 18.75rem;
+  position: fixed; /* 고정 위치 */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10001;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border-radius: 34px;
+  background-color: #fff;
+}
+.type-side-by-side.active {
+  display: flex;
+}
+.type-side-by-side .bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 34px;
+  overflow: hidden;
+  z-index: -1;
+}
+.type-side-by-side .glass-effect {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.a-short-title-is-best {
+  color: var(--labels-primary, #000000);
+  text-align: left;
+  font-family: "SfPro-Semibold", sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.375rem;
+  letter-spacing: -0.026875rem;
+  font-weight: 600;
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.a-description-should-be-a-short-complete-sentence {
+  color: var(--labels-primary, #000000);
+  text-align: left;
+  font-family: "SfPro-Regular", sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.375rem;
+  letter-spacing: -0.026875rem;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.button-1 {
+  border-radius: 6.25rem;
+  padding: 0.8125rem 1rem 0.8125rem 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0.625rem;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 3rem;
+  position: relative;
+}
+.bg2 {
+  background: var(--fills-secondary, rgba(120, 120, 128, 0.16));
+  border-radius: 6.25rem;
+  flex-shrink: 0;
+  position: absolute;
+  right: 0rem;
+  left: 0rem;
+  bottom: 0rem;
+  top: 0rem;
+  mix-blend-mode: plus-darker;
+}
+.label {
+  color: var(--labels-primary, #000000);
+  text-align: left;
+  font-family: "SfPro-Medium", sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.375rem;
+  letter-spacing: -0.026875rem;
+  font-weight: 500;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.button-2 {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 6.25rem;
+  padding: 0.8125rem 1rem 0.8125rem 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0.625rem;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  position: relative;
+}
+.bg3 {
+  background: var(--accents-blue, #0088ff);
+  border-radius: 6.25rem;
+  flex-shrink: 0;
+  position: absolute;
+  right: 0rem;
+  left: 0rem;
+  bottom: 0rem;
+  top: 0rem;
+  mix-blend-mode: plus-darker;
+}
+.label2 {
+  color: var(--grays-white, #ffffff);
+  text-align: left;
+  font-family: "SfPro-Medium", sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.375rem;
+  letter-spacing: -0.026875rem;
+  font-weight: 500;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+</style>
+
+<div class="type-side-by-side" id="sidePopup">
+	<div class="bg">
+		<div class="fill-shadow"></div>
+		<div class="glass-effect"></div>
+	</div>
+	<div class="title-and-description">
+		<div class="a-short-title-is-best">안내</div>
+		<div class="a-description-should-be-a-short-complete-sentence">
+			필수 약관에 동의 후<br />다음 단계를 진행하겠습니까?
+		</div>
+	</div>
+	<div class="buttons">
+		<button type="button" class="button-1" id="btnSideCancel" style="cursor:pointer;">
+			<span>취소</span>
+		</button>
+		<button type="button" class="button-2" id="btnSideConfirm" style="cursor:pointer;">
+			<span>확인</span>
+		</button>
+	</div>
+</div>
+
+
 <script>
 	/**
 	 * 요소 선택 및 전역 변수 설정
@@ -922,10 +1095,17 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 		// 필수 약관 동의 여부 확인
 		const requiredChecked = requiredAgrees.every(chk => chk && chk.checked);
 		if (!requiredChecked) {
-			showToast("필수 약관에 동의해 주세요.");
+			// 필수 약관 미동의 시 커스텀 팝업 노출
+			document.getElementById('sidePopup').classList.add('active');
+			document.querySelector('.dim').style.display = 'block';
 			return;
 		}
 
+		processPhoneAuth();
+	});
+
+	// 실제 인증번호 발송 프로세스 분리
+	function processPhoneAuth() {
 		// SKT 선택 시 주민등록번호 유효성 확인
 		const isSktSelected = document.querySelector('input[name="telCdRadio"]:checked').value === 'SKT';
 		if (isSktSelected && juminInput && juminInput.value.length < 8) {
@@ -950,6 +1130,29 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 		
 		startTimer(); // 타이머 시작
 		showToast("입력하신 번호로 인증번호가 발송되었습니다.");
+	}
+
+	// 사이드 팝업 (약관동의 유도) 이벤트 핸들링
+	const sidePopup = document.getElementById('sidePopup');
+	const btnSideCancel = document.getElementById('btnSideCancel');
+	const btnSideConfirm = document.getElementById('btnSideConfirm');
+
+	btnSideCancel.addEventListener('click', function() {
+		sidePopup.classList.remove('active');
+		document.querySelector('.dim').style.display = 'none';
+	});
+
+	btnSideConfirm.addEventListener('click', function() {
+		// 1. 모든 약관 체크 처리
+		agreeAll.checked = true;
+		agrees.forEach(chk => chk.checked = true);
+		
+		// 2. 팝업 및 딤 닫기
+		sidePopup.classList.remove('active');
+		document.querySelector('.dim').style.display = 'none';
+		
+		// 3. 인증 프로세스 진행
+		processPhoneAuth();
 	});
 
 	// 하단 최종 '전화번호 안심로그인 유료가입' 버튼 클릭 이벤트
