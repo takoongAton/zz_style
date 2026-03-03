@@ -41,7 +41,7 @@ button {border:0 none;}
 	/* --primary-color: #0069ff; 휴대폰안심 메인 컬러 */
 	/* --primary-color: #2677ff; 전화번호안심로그인 메인 컬러 */
     --bg-gray: #fafafa;
-    --border-gray: #f0f0f0;
+    --border-gray: #e5e5e5;
     --text-label: #666;
     --text-main: #242424;
     --text-error: #FF5A5F;
@@ -57,7 +57,7 @@ body {font-family:-apple-system, "BlinkMacSystemFont", "Roboto", sans-serif, sys
 header {display:flex; justify-content:space-between; align-items:center; position:relative; border-bottom:1px solid #ebebeb;}
 header h1 {display:flex; justify-content:flex-start; align-items:center; width:100%; padding:0.65em 1em; gap:0 0.5em; font-size:12px; font-weight:700; letter-spacing:-0.025em;}
 header h1 strong {display:inline-block; color:#000; line-height:1em;}
-header h1 span {color:#ff0000; line-height:1em;}
+header h1 span {color:#ff0000; line-height:1em; transition: opacity 0.25s ease;}
 @media screen and (max-width:320px) {
 	header h1 {flex-direction:column; align-items:flex-start;}
 }
@@ -827,18 +827,36 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 	const telecomRadios = document.querySelectorAll('input[name="telCdRadio"]');
 	const juminFieldGroup = document.getElementById('juminFieldGroup');
 	
-	// 선택된 통신사가 SKT인 경우에만 주민등록번호 입력란 표시
-	function toggleJuminField() {
+	// 통신사 변경에 따른 UI 처리 (주민번호 필드 토글 및 서비스명 텍스트 업데이트)
+	function handleCarrierChange() {
 		const selectedTelecom = document.querySelector('input[name="telCdRadio"]:checked');
-		if (selectedTelecom && selectedTelecom.value === 'SKT') {
+		if (!selectedTelecom) return;
+
+		const carrierValue = selectedTelecom.value;
+		const serviceTypeText = document.getElementById('serviceTypeText');
+		
+		// 1. 주민번호 필드 제어
+		if (carrierValue === 'SKT') {
 			juminFieldGroup.style.display = 'block';
 		} else {
 			juminFieldGroup.style.display = 'none';
 		}
+
+		// 2. 서비스 텍스트 업데이트 (Fade 효과)
+		// 통신사 표시 이름 매핑 (LGT -> LG U+)
+		const carrierDisplayName = carrierValue === 'LGT' ? 'LG U+' : carrierValue;
+		const newText = `${carrierDisplayName} 통신사 제휴 유료 부가서비스`;
+
+		serviceTypeText.style.opacity = '0';
+		
+		setTimeout(() => {
+			serviceTypeText.textContent = newText;
+			serviceTypeText.style.opacity = '1';
+		}, 250);
 	}
 	
-	telecomRadios.forEach(radio => radio.addEventListener('change', toggleJuminField));
-	toggleJuminField(); // 초기 실행으로 상태 반영
+	telecomRadios.forEach(radio => radio.addEventListener('change', handleCarrierChange));
+	handleCarrierChange(); // 초기 실행으로 상태 반영
 
 	/**
 	 * 약관 동의 관련 로직 (전체 동의, 개별 동의, 상세 리스트 토글)
