@@ -757,26 +757,22 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 
 
 <style>
-.type-side-by-side,
-.type-side-by-side * {
-  box-sizing: border-box;
-}
 .type-side-by-side {
-  padding: 0.875rem;
-  display: none; /* 기본 숨김 */
-  flex-direction: column;
-  gap: 0.625rem;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: 18.75rem;
-  position: fixed; /* 고정 위치 */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10001;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  border-radius: 34px;
-  background-color: #fff;
+	display: none; /* 기본 숨김 */
+	flex-direction: column;
+	gap: 10px;
+	align-items: flex-start;
+	justify-content: flex-start;
+	position: fixed; /* 고정 위치 */
+	top: 50%;
+	left: 50%;
+	width:298px;
+	padding:14px;
+	transform: translate(-50%, -50%);
+	z-index: 10001;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+	border-radius: 34px;
+	background-color: #fff;
 }
 .type-side-by-side.active {
   display: flex;
@@ -787,13 +783,6 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
   border-radius: 34px;
   overflow: hidden;
   z-index: -1;
-}
-.type-side-by-side .glass-effect {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
 }
 .a-short-title-is-best {
   color: var(--labels-primary, #000000);
@@ -812,16 +801,9 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 .a-description-should-be-a-short-complete-sentence {
   color: var(--labels-primary, #000000);
   text-align: left;
-  font-family: "SfPro-Regular", sans-serif;
-  font-size: 1.0625rem;
-  line-height: 1.375rem;
-  letter-spacing: -0.026875rem;
-  font-weight: 400;
-  position: relative;
-  align-self: stretch;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  font-size: 16px;
+  line-height: 1.29411em;
+  letter-spacing:-0.025em;
 }
 .buttons {
   display: flex;
@@ -833,85 +815,15 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
   flex-shrink: 0;
   position: relative;
 }
-.button-1 {
-  border-radius: 6.25rem;
-  padding: 0.8125rem 1rem 0.8125rem 1rem;
-  display: flex;
-  flex-direction: row;
-  gap: 0.625rem;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  height: 3rem;
-  position: relative;
-}
-.bg2 {
-  background: var(--fills-secondary, rgba(120, 120, 128, 0.16));
-  border-radius: 6.25rem;
-  flex-shrink: 0;
-  position: absolute;
-  right: 0rem;
-  left: 0rem;
-  bottom: 0rem;
-  top: 0rem;
-  mix-blend-mode: plus-darker;
-}
-.label {
-  color: var(--labels-primary, #000000);
-  text-align: left;
-  font-family: "SfPro-Medium", sans-serif;
-  font-size: 1.0625rem;
-  line-height: 1.375rem;
-  letter-spacing: -0.026875rem;
-  font-weight: 500;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-.button-2 {
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 6.25rem;
-  padding: 0.8125rem 1rem 0.8125rem 1rem;
-  display: flex;
-  flex-direction: row;
-  gap: 0.625rem;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  position: relative;
-}
-.bg3 {
-  background: var(--accents-blue, #0088ff);
-  border-radius: 6.25rem;
-  flex-shrink: 0;
-  position: absolute;
-  right: 0rem;
-  left: 0rem;
-  bottom: 0rem;
-  top: 0rem;
-  mix-blend-mode: plus-darker;
-}
-.label2 {
-  color: var(--grays-white, #ffffff);
-  text-align: left;
-  font-family: "SfPro-Medium", sans-serif;
-  font-size: 1.0625rem;
-  line-height: 1.375rem;
-  letter-spacing: -0.026875rem;
-  font-weight: 500;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
+.title-and-description {display:flex; flex-direction:column; gap:10px; width:100%; padding:8px 8px 14px;}
+.buttons {display:flex; flex-direction:row; gap:16px; width:100%;}
+.buttons button {width:100%; height:48px; border-radius: 6.25rem;}
+.buttons button span {display:inline-block; color:inherit; font-size:17px; line-height:1em; font-weight:500;}
+.buttons button.btn_cancel {background-color:rgba(120,120,128,0.16); color: #000;}
+.buttons button.btn_next {background-color: #0088FF; color: #fff;}
 </style>
 
 <div class="type-side-by-side" id="sidePopup">
-	<div class="bg">
-		<div class="fill-shadow"></div>
-		<div class="glass-effect"></div>
-	</div>
 	<div class="title-and-description">
 		<div class="a-short-title-is-best">안내</div>
 		<div class="a-description-should-be-a-short-complete-sentence">
@@ -919,10 +831,10 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 		</div>
 	</div>
 	<div class="buttons">
-		<button type="button" class="button-1" id="btnSideCancel" style="cursor:pointer;">
+		<button type="button" class="btn btn_cancel" id="btnSideCancel">
 			<span>취소</span>
 		</button>
-		<button type="button" class="button-2" id="btnSideConfirm" style="cursor:pointer;">
+		<button type="button" class="btn btn_next" id="btnSideConfirm">
 			<span>확인</span>
 		</button>
 	</div>
