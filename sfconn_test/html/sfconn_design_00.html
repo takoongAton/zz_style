@@ -157,7 +157,7 @@ input.input-element:-webkit-autofill:active {
 
 
 /* 하단 버튼 */
-.auth-footer {margin-top:auto; padding:0 20px;}
+.auth-footer {position:relative; margin-top:auto; padding:0 20px; z-index:1;}
 .btn-primary {width:100%; height:56px; background-color:var(--primary-color); color:#fff; border:none; border-radius:12px; font-size:16px; font-weight:600; cursor:pointer;}
 .btn-primary span {display:block; line-height:1em; font-weight:bold; text-shadow:0 0 1px rgba(0, 0, 0, 0.16);}
 
@@ -165,9 +165,10 @@ input.input-element:-webkit-autofill:active {
 /* 인증번호 보일 때 효과 */
 #auth_wrap {height:0; opacity:0; margin-top:0;
     transition:height 0.4s var(--bounce-bezier), opacity 0.4s ease, margin 0.4s var(--bounce-bezier);
+	overflow:hidden;
     /* transition:height 0.24s ease-in, opacity 0.24s ease; */
 }
-#auth_wrap.active {opacity:1; margin-top:16px;}
+#auth_wrap.active {opacity:1; margin-top:16px; overflow:visible;}
 
 .signUp_form {display:flex; flex-direction:column; gap:16px; padding:20px;}
 
@@ -247,7 +248,7 @@ input.input-element:-webkit-autofill:active {
 	top: 50px;
 	left: 50%;
 	transform: translateX(-50%) translateY(-20px) scale(0.95);
-	background: rgba(40, 40, 40, 0.85);
+	background: rgba(40, 40, 40, 1);
 	backdrop-filter: blur(10px);
 	-webkit-backdrop-filter: blur(10px);
 	color: #fff;
@@ -1050,7 +1051,7 @@ table, td, th {
 		// 재요청 모드인 경우 (인증번호가 이미 발송된 상태)
 		if (isAuthRequested) {
 			if (timeLeft > 0) {
-				showToast("재요청 가능 시간이 아닙니다.");
+				showToast("인증번호(3분) 만료 후 인증번호 재요청이 가능합니다.");
 			} else {
 				startTimer();
 				showToast("인증번호가 재발송되었습니다.");
