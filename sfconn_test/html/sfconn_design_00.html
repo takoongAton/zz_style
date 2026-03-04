@@ -770,7 +770,7 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 
 
 <style>
-.type-side-by-side {display:none; /* 기본 숨김 */ flex-direction:column; align-items:flex-start; justify-content:flex-start; gap:10px; position:fixed; /* 고정 위치 */ top:50%; left:50%; width:298px; padding:14px; border-radius:34px; background-color:#fff; transform:translate(-50%, -50%); z-index:10001; box-shadow:0 4px 4px rgba(0, 0, 0, 0.25);}
+.type-side-by-side {display:none; /* 기본 숨김 */ flex-direction:column; align-items:flex-start; justify-content:flex-start; gap:10px; position:fixed; /* 고정 위치 */ top:50%; left:50%; width:298px; padding:14px; border-radius:29px; background-color:#fff; transform:translate(-50%, -50%); z-index:10001; box-shadow:0 4px 4px rgba(0, 0, 0, 0.25);}
 .type-side-by-side.active {display:flex;}
 .type-side-by-side .bg {position:absolute; top:0; left:0; right:0; bottom:0; border-radius:34px; overflow:hidden; z-index:-1;}
 .a-short-title-is-best {display:flex; align-items:center; justify-content:flex-start; position:relative; color:var(--labels-primary, #000000); text-align:left; font-family:"SfPro-Semibold", sans-serif; font-size:17px; line-height:1.375rem; letter-spacing:-0.026875rem; font-weight:700;}
@@ -787,7 +787,8 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 	<div class="title-and-description">
 		<div class="a-short-title-is-best">안내</div>
 		<div class="a-description-should-be-a-short-complete-sentence">
-			필수 약관에 동의 후<br />다음 단계를 진행하겠습니까?
+			<strong>필수 약관</strong> 동의 후<br />다음 단계를 진행하겠습니까?
+			<!-- 서비스 이용을 위하여 약관 동의가 필요합니다. 모두 동의하시겠습니까? -->
 		</div>
 	</div>
 	<div class="buttons">
@@ -1137,7 +1138,7 @@ table, td, th {
 	primaryBtn.addEventListener("click", function(){
 		// 먼저 번호 확인 과정을 거쳤는지 확인
 		if (!isAuthRequested) {
-			showToast(`휴대폰 번호를 입력해주세요.`);
+			showToast(`휴대폰번호를 입력해서 인증을 해주세요.`);
 			return;
 		}
 
