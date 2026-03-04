@@ -45,7 +45,7 @@ button {border:0 none;}
 	--safe-bottom: env(safe-area-inset-bottom, 0px);
 	--safe-left: env(safe-area-inset-left, 0px);
 	--primary-color: #009ddf; /* 아톤 메인 컬러 */
-    --primary-color: #00a397; /* 인포세이프박스 메인 컬러 */
+	--primary-color: #00a397; /* 인포세이프박스 메인 컬러 */
 	/* --primary-color: #0069ff; 휴대폰안심 메인 컬러 */
 	/* --primary-color: #2677ff; 전화번호안심로그인 메인 컬러 */
     --bg-gray: #fafafa;
@@ -53,6 +53,8 @@ button {border:0 none;}
     --text-label: #666;
     --text-main: #242424;
     --text-error: #FF5A5F;
+    --text-error-red: #ff0000;
+	--text-gray: #999;
 	--bounce-bezier:cubic-bezier(0.68, -0.55, 0.265, 1.55);
 	/* --bounce-bezier:cubic-bezier(0.62, 0.04, 0.84, 0.49); */
 }
@@ -293,7 +295,7 @@ input.input-element:-webkit-autofill:active {
 	position: absolute;
 	top: calc(100% + 8px);
 	right: 0;
-	width: 200px;
+	width: 180px;
 	background: #fff;
 	border: 1px solid var(--border-gray);
 	border-radius: 8px;
@@ -330,7 +332,7 @@ input.input-element:-webkit-autofill:active {
 .charge_txt {display:flex; flex-direction:column; gap:10px; width:100%; padding:0 10px 10px; text-align:center; letter-spacing:-0.025em;}
 .charge_txt p strong {display:block; color:#ff0000; font-size:13px; font-weight:700;}
 .charge_txt div button {padding:0.5em 20px; border:none; background:transparent;}
-.charge_txt div button span {display:inline-block; color:var(--text-label); font-size:13px; line-height:1em; text-decoration:underline;}
+.charge_txt div button span {display:inline-block; color:var(--text-gray); font-size:11px; line-height:1em;}
 /* // 서비스 요금 안내 */
 
 /* 마케팅 정보 */
@@ -349,7 +351,7 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 .layer.alert .layer_content p.txt {color:#000; font-size:14px; line-height:21px; font-weight:400; word-break:keep-all;}
 .layer.alert .btn_group {display:flex;}
 .layer.alert .btn_group button {width:100%; min-height:60px; padding:16px; border-top:0.5px solid #ddd; cursor:pointer;}
-.layer.alert .btn_group button span {font-size:16px; line-height:1em; font-weight:bold;}
+.layer.alert .btn_group button span {display:block; font-size:16px; line-height:1em; font-weight:bold;}
 .layer.alert .btn_group button.btn_cancel {background-color:#fff;}
 .layer.alert .btn_group button.btn_cancel span {color:#000;}
 .layer.alert .btn_group button.btn_next {background-color:#000;}
@@ -563,7 +565,7 @@ div.dim {display: none; position:fixed; top:0; right:0; bottom:0; left:0; backgr
 
 					<div class="charge_txt">
 						<p><strong>매월 부가세 포함 1,100원이 휴대전화 요금에 합산 청구됩니다.</strong></p>
-						<div><button type="button" id="exitBtn"><span>취소</span></button></div>
+						<div><button type="button" id="exitBtn"><span>다음에 이용하기</span></button></div>
 					</div>
 					<!-- // charge_txt -->
 				</div>
@@ -897,6 +899,71 @@ table, td, th {
 </div>
 
 
+
+<style>
+/* 가입 안내 팝업 */
+.layer.signUp_kt .layer_inner {
+	min-width:280px; max-width:420px; width:90%;
+	position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background-color:#fff; border-radius:0.375em; color:inherit; z-index:1000; overflow-y:auto; box-shadow:0 1px 2px rgba(0,0,0,0.2);
+}
+.layer.signUp_kt .layer_inner .layer_content {display:flex; flex-direction:column; gap:10px; padding:36px 18px; text-align:center;}
+.layer.signUp_kt .layer_inner .layer_content strong.tit {color:var(--primary-color); font-size:18px; line-height:28px; font-weight:700;}
+.layer.signUp_kt .layer_inner .layer_content div.tit {color:#000; font-size:16px; line-height:1.55555em; font-weight:700;}
+.layer.signUp_kt .layer_inner .layer_content div.box {margin-top:0.4em; padding:1em; border-radius:12px; background-color:#f2f2f2; border:0.5px solid #ddd;}
+.layer.signUp_kt .layer_inner .layer_content div.txt {color:#000; font-size:14px; line-height:1.3em; font-weight:400; word-break:keep-all; letter-spacing:-0.04em;}
+.layer.signUp_kt .layer_inner .layer_content div.txt em {color:var(--text-error-red); font-weight:500;}
+.layer.signUp_kt .btn_group {display:flex; width:100%;}
+.layer.signUp_kt .btn_group div {width:100%;}
+.layer.signUp_kt .btn_group div button {width:100%; height:72px;}
+.layer.signUp_kt .btn_group div button.next {background-color:var(--primary-color); color:#fff; letter-spacing:-0.04em;}
+.layer.signUp_kt .btn_group div button.next strong {display:block; color:#fff; font-size:14px; line-height:1.3em; font-weight:bold;}
+.layer.signUp_kt .btn_group div button.next span {display:block; color:#fff; font-size:14px; line-height:1.3em; font-weight:500;}
+.layer.signUp_kt .btn_group div button.btn_cancel {background-color:#d9d9d9;}
+.layer.signUp_kt .btn_group div button.btn_cancel span {color:#444; font-size:16px; font-weight:500;}
+.layer.signUp_kt .btn_close {position:absolute; top:18px; right:18px; width:24px; height:24px; background-color:transparent;}
+.layer.signUp_kt .btn_close span {display:block; width:100%; height:100%; color:transparent;}
+.layer.signUp_kt .btn_close::before,
+.layer.signUp_kt .btn_close::after {content:""; display:block; position:absolute; top:50%; left:50%; width:1.5px; height:90%; background-color:var(--text-label);}
+.layer.signUp_kt .btn_close::before {transform:translate(-50%,-50%) rotate(45deg);}
+.layer.signUp_kt .btn_close::after {transform:translate(-50%,-50%) rotate(-45deg);}
+/* // 가입 안내 팝업 */
+</style>
+<!-- 통신사가 kt인 경우에는 최종 가입 전에 팝업 띄움 -->
+<div class="layer signUp_kt" style="display: none;">
+	<div class="layer_inner">
+		<div class="layer_content">
+			<strong class="tit">알림</strong>
+			<div class="tit">휴대폰안심 부가서비스 가입 안내</div>
+			<div class="box">
+				<div class="txt">
+					보이스피싱, 스미싱의 위협으로부터 내 휴대폰을 안전하게 보호하여 개인정보 유출을 사전에 방지할 수 있는 <br><br>
+					<em>월 3,300원(VAT 포함) 유료부가서비스</em>입니다. <br><br>
+					가입 진행하시겠습니까?
+				</div>
+			</div>
+			<!-- // box -->
+		</div>
+		<!-- // layer_content -->
+		<div class="btn_group row">
+			<div>
+				<button type="button" class="btn_cancel">
+					<span>취소</span>
+				</button>
+			</div>
+			<div>
+				<button type="button" class="next">
+					<strong>휴대폰안심 유료가입</strong>
+					<span>(월 3,300원)</span>
+				</button>
+			</div>
+		</div>
+
+		<button class="btn_close"><span>닫기</span></button>
+	</div>
+	<!-- // layer_inner -->
+</div>
+
+
 <script>
 	/**
 	 * 요소 선택 및 전역 변수 설정
@@ -1155,10 +1222,40 @@ table, td, th {
 			return;
 		}
 
-		// 가입 절차 완료 처리
-		clearInterval(timerInterval);
-		document.getElementById('popupCont05').style.display = 'block'; // 가입 완료 팝업 표시
-		alert("가입이 완료되었습니다. (가입완료창은 따로 작업중)");
+		// 가입 절차 완료 로직 분리
+		function completeJoin() {
+			clearInterval(timerInterval);
+			document.getElementById('popupCont05').style.display = 'block'; // 가입 완료 팝업 표시
+			alert("가입이 완료되었습니다. (가입완료창은 따로 작업중)");
+		}
+
+		// 통신사 확인
+		const selectedTelecom = document.querySelector('input[name="telCdRadio"]:checked').value;
+		
+		if (selectedTelecom === 'KT') {
+			// KT인 경우 안내 팝업 노출
+			const ktPopup = document.querySelector('.layer.signUp_kt');
+			ktPopup.style.display = 'block';
+			document.querySelector('.dim').style.display = 'block';
+
+			// 팝업 내 확인 버튼(유료가입) 클릭 시
+			ktPopup.querySelector('.next').onclick = function() {
+				ktPopup.style.display = 'none';
+				document.querySelector('.dim').style.display = 'none';
+				completeJoin();
+			};
+
+			// 팝업 내 취소/닫기 버튼 클릭 시
+			const closeKtPopup = function() {
+				ktPopup.style.display = 'none';
+				document.querySelector('.dim').style.display = 'none';
+			};
+			ktPopup.querySelector('.btn_cancel').onclick = closeKtPopup;
+			ktPopup.querySelector('.btn_close').onclick = closeKtPopup;
+		} else {
+			// KT가 아닌 경우 바로 완료 처리
+			completeJoin();
+		}
 	});
 
 	/**
@@ -1249,6 +1346,32 @@ table, td, th {
 			this.closest('.signUp_section').style.display = 'none';
 		});
 	});
+
+	// 취소 버튼(exitBtn) 클릭 시 종료 확인 팝업
+	const exitBtn = document.getElementById('exitBtn');
+	if (exitBtn) {
+		exitBtn.addEventListener('click', function() {
+			const confirmPopup = document.getElementById('confirm');
+			const confirmTxt = confirmPopup.querySelector('.txt');
+			confirmTxt.innerHTML = "가입 진행을 종료하시겠습니까?";
+			
+			confirmPopup.style.display = 'block';
+			document.querySelector('.dim').style.display = 'block';
+			
+			// 확인 버튼 클릭 시
+			confirmPopup.querySelector('.btn_next').onclick = function() {
+				confirmPopup.style.display = 'none';
+				document.querySelector('.dim').style.display = 'none';
+				// 여기에 실제 종료 또는 이전 페이지 이동 로직 추가 가능
+			};
+			
+			// 취소 버튼 클릭 시
+			confirmPopup.querySelector('.btn_cancel').onclick = function() {
+				confirmPopup.style.display = 'none';
+				document.querySelector('.dim').style.display = 'none';
+			};
+		});
+	}
 
 	/**
 	 * 약관 상세 팝업 오픈 함수 (글로벌)
