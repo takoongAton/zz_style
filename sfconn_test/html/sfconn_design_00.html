@@ -902,6 +902,22 @@ div.dim {display:none; position:fixed; top:0; right:0; bottom:0; left:0; width:1
 	</div>
 </div>
 
+<div class="modal-side" id="authSuccessPopup">
+	<div class="modal-side__content">
+		<div class="modal-side__title"><span>인증번호 발송 완료</span></div>
+		<div class="modal-side__desc">
+			<p class="txt">
+				<strong>입력하신 번호로 인증번호가 발송되었습니다.</strong>
+			</p>
+		</div>
+	</div>
+	<div class="modal-side__footer">
+		<button type="button" class="btn modal-side__btn-confirm" id="btnAuthSuccessConfirm">
+			<span>확인</span>
+		</button>
+	</div>
+</div>
+
 
 
 
@@ -1295,7 +1311,13 @@ table, td, th {
 		helpTooltip.style.display = tempDisplay;
 		
 		startTimer(); // 타이머 시작
-		showToast("입력하신 번호로 인증번호가 발송되었습니다.");
+		
+		// 인증번호 발송 완료 팝업 노출
+		const authSuccessPopup = document.getElementById('authSuccessPopup');
+		if (authSuccessPopup) {
+			authSuccessPopup.classList.add('active');
+			document.querySelector('.dim').style.display = 'block';
+		}
 	}
 
 	// 사이드 팝업 (약관동의 유도) 이벤트 핸들링
@@ -1326,6 +1348,15 @@ table, td, th {
 	if (btnAuthFailConfirm) {
 		btnAuthFailConfirm.addEventListener('click', function() {
 			document.getElementById('authFailPopup').classList.remove('active');
+			document.querySelector('.dim').style.display = 'none';
+		});
+	}
+
+	// 인증번호 발송 완료 팝업 닫기
+	const btnAuthSuccessConfirm = document.getElementById('btnAuthSuccessConfirm');
+	if (btnAuthSuccessConfirm) {
+		btnAuthSuccessConfirm.addEventListener('click', function() {
+			document.getElementById('authSuccessPopup').classList.remove('active');
 			document.querySelector('.dim').style.display = 'none';
 		});
 	}
