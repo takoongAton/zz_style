@@ -44,11 +44,18 @@ button {border:0 none;}
 	--safe-right: env(safe-area-inset-right, 0px);
 	--safe-bottom: env(safe-area-inset-bottom, 0px);
 	--safe-left: env(safe-area-inset-left, 0px);
-	--primary-color: #00a397; /* 인포세이프박스 메인 컬러 */
-	/* --primary-color: #0069ff; 휴대폰안심 메인 컬러 */
-	/* --primary-color: #2677ff; 전화번호안심로그인 메인 컬러 */
+	
+	/* 인포세이프박스 메인 컬러 */
+	--service-color: #00a397;
+	
+	/* 휴대폰안심 메인 컬러 */
+	/* --service-color: #0069ff;  */
+	
+	/* 전화번호안심로그인 메인 컬러 */
+	/* --service-color: #2677ff; */
 
-	/* --var-color:var(--primary-color, #ff6600); */
+	--primary-color: var(--service-color, #000000); 
+
     --bg-gray: #fafafa;
     --border-gray: #e5e5e5;
     --text-label: #666;
@@ -116,7 +123,7 @@ header h1 span {color:#ff0000; line-height:1em;}
 @media screen and (max-width:320px) {
 	.telecom ul.radio li input + label {background-size:80px auto;}
 }
-.telecom.disabled {opacity:0.5; pointer-events:none; filter:grayscale(100%);}
+.telecom.disabled {opacity:0.6; /* pointer-events:none; */ filter:grayscale(100%); transition:opacity 0.3s ease;}
 /* 통신사 선택 끝 */
 
 
@@ -176,7 +183,7 @@ input.input-element:-webkit-autofill:active {
 .signUp_form {display:flex; flex-direction:column; gap:16px; padding:20px;}
 
 /* 약관 동의 */
-.terms-agree {border:1px solid var(--border-gray); border-radius:14px; overflow:hidden;}
+.terms-agree {border:1px solid var(--border-gray); border-radius:14px; overflow:hidden; opacity:1;}
 .terms-agree a {display:block; padding:1px 0; color:#888; text-decoration:none; min-height:17px; line-height:17px; font-size:12px; letter-spacing:-0.025em;}
 .terms-agree label {display:inline-block; width:auto; color:#fff;}
 
@@ -242,7 +249,7 @@ input.input-element:-webkit-autofill:active {
 	.terms-agree .agree {padding:15px 2em;}
 	.terms-agree .agree li label {gap:0 6px;}
 }
-.terms-agree.disabled {opacity:0.5; pointer-events:none; filter:grayscale(100%);}
+.terms-agree.disabled {opacity:0.6; /* pointer-events:none; */ filter:grayscale(100%); transition:opacity 0.3s ease;}
 /* 약관동의 끝 */
 
 /* 토스트 팝업 (iOS style) */
@@ -336,12 +343,22 @@ input.input-element:-webkit-autofill:active {
 .charge_txt div button span {display:inline-block; color:var(--text-gray); font-size:11px; line-height:1em;}
 /* // 서비스 요금 안내 */
 
-/* 마케팅 정보 */
-.marketing {padding:0 20px 20px; letter-spacing:-0.05em;}
-.marketing ul li {position:relative; padding-left:0.75em; color:var(--text-label); font-size:11px; letter-spacing:-0.05em;}
-.marketing ul li::before {content:"⋅"; display:inline-block; position:absolute; top:0; left:0; color:inherit; font-size:inherit; line-height:inherit; font-weight:700; text-align:center;}
-.marketing ul li a {color:inherit; text-decoration:none; border-bottom:1px solid var(--text-label);}
-/* // 마케팅 정보 */
+/* 하위 정보 */
+.footer_info {padding:0 20px 20px; letter-spacing:-0.05em;}
+.footer_info ul li {position:relative; padding-left:0.75em; color:var(--text-label); font-size:11px; letter-spacing:-0.05em;}
+.footer_info ul li::before {content:"⋅"; display:inline-block; position:absolute; top:0; left:0; color:inherit; font-size:inherit; line-height:inherit; font-weight:700; text-align:center;}
+.footer_info ul li a {color:inherit; text-decoration:none; border-bottom:1px solid var(--text-label);}
+/* // 하위 정보 */
+
+/* 7일간 보이지 않기 */
+.hide-setting {display:flex; justify-content:flex-end; align-items:center; gap:8px; padding:0 20px 20px;}
+.hide-setting label {display:inline-flex; align-items:center; cursor:pointer; -webkit-user-select:none; user-select:none;}
+.hide-setting input[type="checkbox"] {display:none;}
+.hide-setting .checkmark {display:block; width:20px; height:20px; border:1px solid #ddd; border-radius:6px; background:#fff; transition:all 0.2s;}
+.hide-setting .checkmark svg {width:100%; height:100%; fill:none; transition: all 0.2s;}
+.hide-setting input[type="checkbox"]:checked + label .checkmark {background-color:var(--primary-color); border-color:var(--primary-color);}
+.hide-setting input[type="checkbox"]:checked + label .checkmark svg {fill:#fff;}
+.hide-setting .txt {font-size:13px; color:var(--text-gray); font-weight:500; cursor:pointer; -webkit-user-select:none; user-select:none;}
 
 /* 레이어 팝업 */
 div.dim {display:none; position:fixed; top:0; right:0; bottom:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:1;}
@@ -571,12 +588,24 @@ div.dim {display:none; position:fixed; top:0; right:0; bottom:0; left:0; width:1
 					<!-- // charge_txt -->
 				</div>
 
-				<footer class="marketing"><!-- marketing :text-align:left -->
+				<div class="footer_info"><!-- footer_info :text-align:left -->
 					<ul>
 						<li>본 서비스는 <strong>SKT,KT,LGU+</strong>와 제휴하여 ㈜아톤이 운영합니다.</li>
 						<li>고객센터(이용/해지) : 1670-4273 / <a href="#" class="email">safeconnect@atoncorp.com</a></li>
 					</ul>
-				</footer>
+				</div>
+
+				<div class="hide-setting">
+					<input type="checkbox" id="chkHide7">
+					<label for="chkHide7">
+						<span class="checkmark">
+							<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+								<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
+							</svg>
+						</span>
+					</label>
+					<span class="txt" id="btnHide7Action">7일간 보이지 않기</span>
+				</div>
 
 			</section>
 
@@ -815,6 +844,25 @@ div.dim {display:none; position:fixed; top:0; right:0; bottom:0; left:0; width:1
 	</div>
 	<div class="modal-side__footer">
 		<button type="button" class="btn modal-side__btn-confirm" id="btnSideConfirm2">
+			<span>확인</span>
+		</button>
+	</div>
+</div>
+
+
+
+<div class="modal-side" id="exitPopup">
+	<div class="modal-side__content">
+		<div class="modal-side__title">안내</div>
+		<div class="modal-side__desc">
+			가입 진행을 종료하시겠습니까?
+		</div>
+	</div>
+	<div class="modal-side__footer">
+		<button type="button" class="btn modal-side__btn-cancel" id="btnExitCancel">
+			<span>취소</span>
+		</button>
+		<button type="button" class="btn modal-side__btn-confirm" id="btnExitConfirm">
 			<span>확인</span>
 		</button>
 	</div>
@@ -1381,25 +1429,24 @@ table, td, th {
 	const exitBtn = document.getElementById('exitBtn');
 	if (exitBtn) {
 		exitBtn.addEventListener('click', function() {
-			const confirmPopup = document.getElementById('confirm');
-			const confirmTxt = confirmPopup.querySelector('.txt');
-			confirmTxt.innerHTML = "가입 진행을 종료하시겠습니까?";
-			
-			confirmPopup.style.display = 'block';
-			document.querySelector('.dim').style.display = 'block';
-			
-			// 확인 버튼 클릭 시
-			confirmPopup.querySelector('.btn_next').onclick = function() {
-				confirmPopup.style.display = 'none';
-				document.querySelector('.dim').style.display = 'none';
-				// 여기에 실제 종료 또는 이전 페이지 이동 로직 추가 가능
-			};
-			
-			// 취소 버튼 클릭 시
-			confirmPopup.querySelector('.btn_cancel').onclick = function() {
-				confirmPopup.style.display = 'none';
-				document.querySelector('.dim').style.display = 'none';
-			};
+			const exitPopup = document.getElementById('exitPopup');
+			if (exitPopup) {
+				exitPopup.classList.add('active');
+				document.querySelector('.dim').style.display = 'block';
+				
+				// 확인 버튼 클릭 시
+				document.getElementById('btnExitConfirm').onclick = function() {
+					exitPopup.classList.remove('active');
+					document.querySelector('.dim').style.display = 'none';
+					// 여기에 실제 종료 또는 이전 페이지 이동 로직 추가 가능
+				};
+				
+				// 취소 버튼 클릭 시
+				document.getElementById('btnExitCancel').onclick = function() {
+					exitPopup.classList.remove('active');
+					document.querySelector('.dim').style.display = 'none';
+				};
+			}
 		});
 	}
 
@@ -1434,6 +1481,52 @@ table, td, th {
 	if (privacyConfirmBtn) {
 		privacyConfirmBtn.addEventListener('click', closePrivacyPopup);
 	}
+
+	/**
+	 * 7일간 보이지 않기 기능 로직
+	 */
+	const chkHide7 = document.getElementById('chkHide7');
+	const STORAGE_KEY_HIDE = 'safeconnect_hide_until';
+
+	// 초기 체크: 숨김 기간이 남아있는지 확인
+	function checkInitialVisibility() {
+		const hideUntil = localStorage.getItem(STORAGE_KEY_HIDE);
+		if (hideUntil) {
+			const now = new Date().getTime();
+			if (now < parseInt(hideUntil)) {
+				// 숨김 처리 (전체 래퍼를 숨기거나 페이지를 이탈시킴)
+				document.querySelector('.safeconnect_wrap_new').style.display = 'none';
+				console.log("7일간 보이지 않기 기능이 활성화되어 있습니다.");
+			} else {
+				// 기간 만료 시 데이터 삭제
+				localStorage.removeItem(STORAGE_KEY_HIDE);
+			}
+		}
+	}
+
+	// 텍스트 클릭 시 (체크박스가 체크된 경우에만) localStorage 저장
+	const btnHide7Action = document.getElementById('btnHide7Action');
+	if (btnHide7Action && chkHide7) {
+		btnHide7Action.addEventListener('click', function() {
+			if (chkHide7.checked) {
+				const sevenDaysInMs = 7 * 24 * 60 * 60 * 1000;
+				const expireTime = new Date().getTime() + sevenDaysInMs;
+				localStorage.setItem(STORAGE_KEY_HIDE, expireTime);
+				
+				showToast("7일간 이 페이지를 보이지 않도록 설정했습니다.");
+				
+				// 설정 즉시 페이지 숨김 처리 (사용자 경험에 따라 다를 수 있음)
+				setTimeout(() => {
+					document.querySelector('.safeconnect_wrap_new').style.display = 'none';
+				}, 1500);
+			} else {
+				showToast("먼저 체크박스를 선택해 주세요.");
+			}
+		});
+	}
+
+	// 실행
+	checkInitialVisibility();
 </script>
 </body>
 </html>
