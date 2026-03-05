@@ -158,7 +158,9 @@ input.input-element:-webkit-autofill:active {
 
 
 /* 인증번호 타이머 및 버튼 */
-.btn-sub-action {min-width:60px; min-height:36px; padding:8px 12px; background-color:var(--primary-color); border:none; border-radius:10px; font-size:13px; color:#fff; font-weight:bold; cursor:pointer; text-shadow:0 0 1px rgba(0, 0, 0, 0.16);}
+.btn-sub-action {min-width:62px; min-height:38px; padding:8px 12px; background-color:var(--primary-color); border:none; border-radius:12px; font-size:13px; color:#fff; font-weight:bold; cursor:pointer; text-shadow:0 0 1px rgba(0, 0, 0, 0.16);
+background-color:var(--text-main);
+}
 /* .btn-sub-action.active {background-color:var(--primary-color); color:#fff; font-weight:bold; cursor:pointer; text-shadow:0 0 1px rgba(0, 0, 0, 0.16);} */
 
 /* 인증번호 타이머 */
@@ -522,7 +524,7 @@ div.dim {display:none; position:fixed; top:0; right:0; bottom:0; left:0; width:1
 					 
 
 					<div class="auth-form">
-						<div class="field-group">
+						<div class="field-group" id="phoneFieldGroup">
 							<div class="input-box input-box--with-btn">
 								<div class="input-content">
 									<label class="input-label" for="cellNumber">휴대폰번호</label>
@@ -559,8 +561,11 @@ div.dim {display:none; position:fixed; top:0; right:0; bottom:0; left:0; width:1
 								</div>
 								<!-- // input-info -->
 							</div>
-							
 						</div>
+
+						<!-- <div class="field-group" id="btn-confirm_test" style="width:100%; margin-top:16px;">
+							<button type="button" class="btn-sub-action btn-phone-confirm" style="width:100%; height:56px;"><span style="font-size:16px;">확인</span></button>
+						</div> -->
 					</div>
 					<!-- // auth-form -->
 
