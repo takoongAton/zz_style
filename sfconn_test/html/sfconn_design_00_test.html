@@ -8,374 +8,20 @@
 	<meta http-equiv="Expires" 		   content="now" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, viewport-fit=contain" />
-	<!-- <link rel="icon" href="favicon.ico" type="image/x-icon" sizes="any" /> -->
-	<!-- <link rel="stylesheet" type="text/css" href="../css/sfconn_design.css" /> -->
+
+	<title>부가서비스 가입</title>
+
+	<link rel="icon" href="favicon.ico" type="image/x-icon" sizes="any" />
+	<link rel="stylesheet" type="text/css" href="../css/sfconn_design.css" />
+	
+	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 
 	<style>
 		.grecaptcha-badge {display: none;}
 	</style>
 
 <style>
-* {margin:0; padding:0; box-sizing:border-box; font-family:inherit; list-style:none; font-style:normal;}
-p {margin:0; padding:0;}
-*,
-*:after,
-*:before {
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	-webkit-text-size-adjust: none;
-	text-size-adjust: none;
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-	-webkit-font-smoothing: antialiased;
-}
-input {
-	/* -webkit-appearance:none; */
-	appearance:none;
-	border-radius: 0px;
-}
-img {max-width:100%;}
-button {border:0 none;}
 
-
-/* 기본 변수 설정 */
-:root {
-	/* Safe Area Inset을 변수로 정의 */
-	--safe-top: env(safe-area-inset-top, 0px);
-	--safe-right: env(safe-area-inset-right, 0px);
-	--safe-bottom: env(safe-area-inset-bottom, 0px);
-	--safe-left: env(safe-area-inset-left, 0px);
-	
-	/* 인포세이프박스 메인 컬러 */
-	--service-color: #00a397;
-	
-	/* 휴대폰안심 메인 컬러 */
-	/* --service-color: #0069ff;  */
-	
-	/* 전화번호안심로그인 메인 컬러 */
-	/* --service-color: #2677ff; */
-
-	--primary-color: var(--service-color, #000000); 
-
-    --bg-gray: #fafafa;
-    --border-gray: #e5e5e5;
-    --text-label: #666;
-    --text-main: #242424;
-    --text-error: #FF5A5F;
-    --text-error-red: #ff0000;
-	--text-gray: #999;
-	--bounce-bezier:cubic-bezier(0.68, -0.55, 0.265, 1.55);
-	
-	/* --bounce-bezier:cubic-bezier(0.62, 0.04, 0.84, 0.49); */
-}
-
-body {font-family:-apple-system, "BlinkMacSystemFont", "Roboto", sans-serif, system-ui, "Noto Sans KR","Noto Sans CJK","Apple SD Gothic Neo";}
-
-.safeconnect_wrap_new {max-width:720px; margin:0 auto;}
-
-/* 상단 */
-header {display:flex; justify-content:space-between; align-items:center; position:relative; border-bottom:1px solid #ebebeb;}
-header h1 {display:flex; justify-content:flex-start; align-items:center; width:100%; padding:0.65em 1em; gap:0 0.5em; font-size:12px; font-weight:700; letter-spacing:-0.025em;}
-header h1 strong {display:inline-block; color:#000; line-height:1em;}
-header h1 span {color:#ff0000; line-height:1em;}
-@media screen and (max-width:320px) {
-	header h1 {flex-direction:column; align-items:flex-start;}
-}
-
-
-/* 상단 배너 */
-.signUp_bnr picture {display:block; font-size:0;}
-.signUp_bnr img {width:100%; height:auto;}
-@media screen and (min-width:720px) {
-	.signUp_cont {flex:1}
-}
-/* // 상단 배너 */
-
-/* 하단 배너 */
-.service_bnr {border-radius:5px; overflow:hidden;}
-.service_bnr picture {display:block; font-size:0;}
-.service_bnr img {width:100%; height:auto;}
-/* // 하단 배너 */
-
-
-/* 통신사 선택 */
-.telecom ul.radio {display:flex; justify-content:space-between; gap:6px; width:100%; margin:0; padding:0; list-style:none;}
-.telecom ul.radio li {display:block; position:relative; width:100%; height:48px; padding:0; list-style:none;}
-/* .telecom ul.radio li:first-child {width:33.33%; margin-left:0;} */
-
-.telecom ul.radio li input {width:0; height:0; margin:0; padding:0; border:0;}
-.telecom ul.radio li input + label {
-	display:flex; justify-content:center; align-items:center;
-	position:absolute; top:0; left:0; width:100%; height:100%;
-	background-repeat:no-repeat;
-	background-position:50%;
-	background-size:84px auto;
-	border:1px solid #ddd;
-	border-radius:10px;
-	font-size:0; cursor:pointer;
-}
-.telecom ul.radio li input[type=radio]:checked + label {border-color:#ff3245; border-width:1.4px; z-index:1;}
-.telecom ul.radio li input.telCdRadioSkt + label {background-image:url('../images/common/SKT_ON.png');} /* 이미지 색상 변경 요청시 _OFF로 교체후 하단 주석 제거 */
-.telecom ul.radio li input.telCdRadioKt + label {background-image:url('../images/common/KT_ON.png');}
-.telecom ul.radio li input.telCdRadioLgt + label {background-image:url('../images/common/LGT_ON.png');}
-
-/* .telecom ul.radio li input + label {filter: grayscale(100%) brightness(100%);}
-.telecom ul.radio li input:checked + label {filter: grayscale(0%);} */
-
-@media screen and (max-width:320px) {
-	.telecom ul.radio li input + label {background-size:80px auto;}
-}
-.telecom.disabled {opacity:0.6; /* pointer-events:none; */ filter:grayscale(100%); transition:opacity 0.3s ease;}
-/* 통신사 선택 끝 */
-
-
-
-
-/* 입력 영역 공통 */
-.field-group {position:relative;}
-.field-group--split { display: flex; gap: 10px; }
-.field-group--split .input-box { flex: 1; }
-
-.input-box {/* background:var(--bg-gray); */ background-color:#fff; border:1px solid var(--border-gray); border-radius:14px; padding:12px 16px; transition:border-color 0.2s;}
-
-.input-box--with-btn {display:flex; justify-content:space-between; align-items:center;}
-
-.input-label {display:block; font-size:12px; color:var(--text-label); margin-bottom:4px;}
-
-input.input-element {height:21px; border:none; background:transparent; /* font-size:18px; */ font-size:16px; font-weight:500; color:var(--text-main); width:100%; outline:none;}
-input.input-element:focus {color:transparent; text-shadow:0 0 0 #000; transition:all 0.1s ease;}
-input.input-element::placeholder {color:inherit; font-size:inherit; opacity:0.3; transition:all 0.1s ease;}
-input.input-element:focus::placeholder {color:transparent; opacity:0;}
-
-input.input-element:-webkit-autofill,
-input.input-element:-webkit-autofill:hover, 
-input.input-element:-webkit-autofill:focus, 
-input.input-element:-webkit-autofill:active {
-    /* 배경색을 흰색으로 고정 (원하는 색상으로 변경 가능) */
-    -webkit-box-shadow: 0 0 0 1000px #fff inset !important;
-    /* 텍스트 색상을 검정색으로 고정 */
-    /* -webkit-text-fill-color: #000 !important; */
-}
-
-
-/* 인증번호 타이머 및 버튼 */
-.btn-sub-action {min-width:60px; min-height:36px; padding:8px 12px; background-color:var(--primary-color); border:none; border-radius:10px; font-size:13px; color:#fff; font-weight:bold; cursor:pointer; text-shadow:0 0 1px rgba(0, 0, 0, 0.16);}
-/* .btn-sub-action.active {background-color:var(--primary-color); color:#fff; font-weight:bold; cursor:pointer; text-shadow:0 0 1px rgba(0, 0, 0, 0.16);} */
-
-/* 인증번호 타이머 */
-.input-info {display:flex; justify-content:flex-end; align-items:center; gap:4px; /* padding-top:8px; padding-bottom:10px; */}
-.timer {color:var(--text-error); font-size:14px; font-weight:500;}
-.btn-help {width:16px; height:16px; border:1px solid #D1D5DB; border-radius:50%; background:none; font-size:10px; color:#999;}
-
-
-/* 하단 버튼 */
-.auth-footer {position:relative; margin-top:auto; padding:0 20px; z-index:1;}
-.btn-primary {width:100%; height:56px; background-color:var(--primary-color); color:#fff; border:none; border-radius:12px; font-size:16px; font-weight:600; cursor:pointer;}
-.btn-primary span {display:block; line-height:1em; font-weight:bold; text-shadow:0 0 1px rgba(0, 0, 0, 0.16);}
-
-
-/* 인증번호 보일 때 효과 */
-#auth_wrap {height:0; opacity:0; margin-top:0;
-    transition:height 0.4s var(--bounce-bezier), opacity 0.4s ease, margin 0.4s var(--bounce-bezier);
-	overflow:hidden;
-    /* transition:height 0.24s ease-in, opacity 0.24s ease; */
-}
-#auth_wrap.active {opacity:1; margin-top:16px; overflow:visible;}
-
-.signUp_form {display:flex; flex-direction:column; gap:16px; padding:20px;}
-
-/* 약관 동의 */
-.terms-agree {border:1px solid var(--border-gray); border-radius:14px; overflow:hidden; opacity:1;}
-.terms-agree a {display:block; padding:1px 0; color:#888; text-decoration:none; min-height:17px; line-height:17px; font-size:12px; letter-spacing:-0.025em;}
-.terms-agree label {display:inline-block; width:auto; color:#fff;}
-
-.terms-agree input[type="checkbox"] {position:absolute; top:0; left:0; width:0; height:0; margin:0; padding:0; border:0; vertical-align:top;}
-.terms-agree input[type="checkbox"] + label {display:inline-flex; gap:4px; position:relative; top:auto; width:auto; margin:0;}
-
-.terms-agree input[type="checkbox"] + label span.checkmark {display:block; width:20px; height:20px;}
-.terms-agree input[type="checkbox"]:checked + label span.checkmark {border:none;}
-
-.terms-agree input[type="checkbox"] + label span.checkmark svg {width:100%; height:100%; fill:var(--border-gray);}
-.terms-agree input[type="checkbox"]:checked + label span.checkmark svg {fill:var(--primary-color);}
-
-.terms-agree .all_agree {display:flex; align-items:center; position:relative; margin:0; border-radius:5px 5px 0 0; background-color:var(--bg-gray);}
-.terms-agree .all_agree label {position:relative; margin:0;}
-
-.terms-agree .all_agree input[type="checkbox"] + label {display:inline-flex; align-items:center; gap:0 4px; flex:1; padding:14px 16px 15px 13px; border-radius:5px 5px 0 0; color:var(--text-main);}
-.terms-agree .all_agree input[type="checkbox"] + label span.checkmark {display:flex; justify-content:center; align-items:center; position:relative; width:22px; height:22px; background:#fff; border-radius:100%; box-shadow:inset 0 0 0 1px var(--border-gray);}
-.terms-agree .all_agree span.txt {display:inline-block; font-size:16px; line-height:21px; font-weight:700;}
-
-.btn-toggle-agree {
-	width:40px; height:40px; margin-right:8px;
-	display:flex; justify-content:center; align-items:center;
-	background: transparent;
-	transition: transform 0.3s ease;
-	cursor: pointer;
-	transform: rotate(180deg);
-}
-.btn-toggle-agree svg {
-	width: 24px; height: 24px;
-	fill: var(--text-label);
-}
-.btn-toggle-agree.collapsed {
-	transform: rotate(0deg);
-}
-
-.terms-agree .list-agree {
-	overflow:hidden;
-	transition: height 0.26s ease-in-out, opacity 0.26s ease;
-}
-.terms-agree .list-agree.collapsed {
-	height:0 !important;
-	opacity:0;
-}
-.terms-agree .agree {
-	padding:0.75em 1em;
-	border-top:1px solid var(--border-gray);
-}
-.terms-agree .agree ul {display:flex; flex-wrap:wrap; flex-direction:row; gap:4px 6px;}
-.terms-agree .agree li {display:flex; position:relative; min-width:calc(50% - 3px);}
-.terms-agree .agree li label {gap:0 4px;}
-.terms-agree .agree input[type="checkbox"] + label span.checkmark {width:17px; height:17px;}
-.terms-agree .agree input[type="checkbox"] + label span.checkmark svg {fill:var(--border-gray)}
-.terms-agree .agree input[type="checkbox"]:checked + label span.checkmark svg {fill:var(--primary-color)}
-.terms-agree .agree label ~ span.txt {display:inline-block; margin-left:21px; line-height:17px; color:#888; cursor:pointer;}
-
-@media screen and (min-width:360px ) {
-	.terms-agree .agree ul {flex-direction:row;}
-}
-@media screen and (min-width:720px ) {
-	.terms-agree a {font-size:14px;}
-	.terms-agree .all_agree input[type="checkbox"] + label {gap:0 12px; padding:14px 32px 13px;}
-	.terms-agree .all_agree span.txt {font-size:18px; line-height:27px;}
-	.terms-agree .agree {padding:15px 2em;}
-	.terms-agree .agree li label {gap:0 6px;}
-}
-.terms-agree.disabled {opacity:0.6; /* pointer-events:none; */ filter:grayscale(100%); transition:opacity 0.3s ease;}
-/* 약관동의 끝 */
-
-/* 토스트 팝업 (iOS style) */
-.toast-popup {
-	position: fixed;
-	top: 50px;
-	left: 50%;
-	transform: translateX(-50%) translateY(-20px) scale(0.95);
-	background: rgba(40, 40, 40, 1);
-	backdrop-filter: blur(10px);
-	-webkit-backdrop-filter: blur(10px);
-	color: #fff;
-	padding: 12px 20px;
-	border-radius: 50px;
-	font-size: 14px;
-	font-weight: 500;
-	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-	z-index: 9999;
-	opacity: 0;
-	visibility: hidden;
-	transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-	white-space: nowrap;
-}
-.toast-popup.show {
-	transform: translateX(-50%) translateY(0) scale(1);
-	opacity: 1;
-	visibility: visible;
-}
-
-/* 토스트용 Dim (상단 흰색 그라데이션) */
-.toast-dim {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 0;
-	background: linear-gradient(180deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.5) 75%, rgba(255, 255, 255, 0) 100%);
-	z-index: 9998; /* 토스트(9999) 바로 아래 */
-	opacity: 0;
-	visibility: hidden;
-	transition: opacity 0.4s ease, visibility 0.4s ease;
-	pointer-events: none;
-}
-.toast-dim.show {
-	opacity: 1;
-	visibility: visible;
-}
-
-/* 툴팁 팝업 */
-.help-tooltip {
-	position: absolute;
-	top: calc(100% + 8px);
-	right: 0;
-	width: 180px;
-	background: #fff;
-	border: 1px solid var(--border-gray);
-	border-radius: 8px;
-	padding: 12px;
-	box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-	font-size: 12px;
-	color: var(--text-main);
-	line-height: 1.4;
-	z-index: 10;
-	opacity: 0;
-	visibility: hidden;
-	transform: translateY(-8px);
-	transition: all 0.2s ease;
-}
-.help-tooltip.active {
-	opacity: 1;
-	visibility: visible;
-	transform: translateY(0);
-}
-.help-tooltip::before {
-	content: "";
-	position: absolute;
-	top: -5px;
-	right: 12px;
-	width: 8px;
-	height: 8px;
-	background: #fff;
-	border-top: 1px solid var(--border-gray);
-	border-left: 1px solid var(--border-gray);
-	transform: rotate(45deg);
-}
-
-/* 서비스 요금 안내 */
-.charge_txt {display:flex; flex-direction:column; gap:10px; width:100%; padding:0 10px 10px; text-align:center; letter-spacing:-0.025em;}
-.charge_txt p strong {display:block; color:#ff0000; font-size:13px; font-weight:700;}
-.charge_txt div button {padding:0.5em 20px; border:none; background:transparent;}
-.charge_txt div button span {display:inline-block; color:var(--text-gray); font-size:11px; line-height:1em;}
-/* // 서비스 요금 안내 */
-
-/* 하위 정보 */
-.footer_info {padding:0 20px 20px; letter-spacing:-0.05em;}
-.footer_info ul li {position:relative; padding-left:0.75em; color:var(--text-label); font-size:11px; letter-spacing:-0.05em;}
-.footer_info ul li::before {content:"⋅"; display:inline-block; position:absolute; top:0; left:0; color:inherit; font-size:inherit; line-height:inherit; font-weight:700; text-align:center;}
-.footer_info ul li a {color:inherit; text-decoration:none; border-bottom:1px solid var(--text-label);}
-/* // 하위 정보 */
-
-/* 7일간 보이지 않기 */
-.hide-setting {display:flex; justify-content:flex-end; align-items:center; gap:8px; padding:0 20px 20px;}
-.hide-setting label {display:inline-flex; align-items:center; cursor:pointer; -webkit-user-select:none; user-select:none;}
-.hide-setting input[type="checkbox"] {display:none;}
-.hide-setting .checkmark {display:block; width:20px; height:20px; border:1px solid #ddd; border-radius:6px; background:#fff; transition:all 0.2s;}
-.hide-setting .checkmark svg {width:100%; height:100%; fill:none; transition: all 0.2s;}
-.hide-setting input[type="checkbox"]:checked + label .checkmark {background-color:var(--primary-color); border-color:var(--primary-color);}
-.hide-setting input[type="checkbox"]:checked + label .checkmark svg {fill:#fff;}
-.hide-setting .txt {font-size:13px; color:var(--text-gray); font-weight:500; cursor:pointer; -webkit-user-select:none; user-select:none;}
-
-/* 레이어 팝업 */
-div.dim {display:none; position:fixed; top:0; right:0; bottom:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:1;}
-
-.layer.alert {display: none; position:fixed; top:50%; left:50%; width:284px; background-color:#fff; border-radius:6px; overflow:hidden; transform:translate(round(to-zero, -50%, 1px),round(to-zero, -50%, 1px)); z-index:1000;}
-.layer.alert .layer_content {display:flex; flex-direction:column; gap:12px; padding:36px 18px; text-align:center;}
-.layer.alert .layer_content div.tit {color:#000; font-size:18px; line-height:27px; font-weight:700;}
-.layer.alert .layer_content p.txt {color:#000; font-size:14px; line-height:21px; font-weight:400; word-break:keep-all;}
-.layer.alert .btn_group {display:flex;}
-.layer.alert .btn_group button {width:100%; min-height:60px; padding:16px; border-top:0.5px solid #ddd; cursor:pointer;}
-.layer.alert .btn_group button span {display:block; font-size:16px; line-height:1em; font-weight:bold;}
-.layer.alert .btn_group button.btn_cancel {background-color:#fff;}
-.layer.alert .btn_group button.btn_cancel span {color:#000;}
-.layer.alert .btn_group button.btn_next {background-color:#000;}
-.layer.alert .btn_group button.btn_next span {color:#fff;}
-/* 레이어 팝업 */
 </style>
 </head>
 <body oncontextmenu="return false;">
@@ -522,7 +168,7 @@ div.dim {display:none; position:fixed; top:0; right:0; bottom:0; left:0; width:1
 					 
 
 					<div class="auth-form">
-						<div class="field-group">
+						<div class="field-group" id="phoneFieldGroup">
 							<div class="input-box input-box--with-btn">
 								<div class="input-content">
 									<label class="input-label" for="cellNumber">휴대폰번호</label>
@@ -559,8 +205,11 @@ div.dim {display:none; position:fixed; top:0; right:0; bottom:0; left:0; width:1
 								</div>
 								<!-- // input-info -->
 							</div>
-							
 						</div>
+
+						<!-- <div class="field-group" id="btn-confirm_test" style="width:100%; margin-top:16px;">
+							<button type="button" class="btn-sub-action btn-phone-confirm" style="width:100%; height:56px;"><span style="font-size:16px;">확인</span></button>
+						</div> -->
 					</div>
 					<!-- // auth-form -->
 
@@ -768,6 +417,11 @@ div.dim {display:none; position:fixed; top:0; right:0; bottom:0; left:0; width:1
 	<!-- 레이어팝업 샘플 -->
 	<div class="dim"></div>
 
+	<!-- 로딩 화면 -->
+	<div class="loading-overlay" id="loadingOverlay">
+		<div class="spinner"></div>
+	</div>
+
 	<!-- 1. 확인만 있는 alert -->
 	<div class="layer alert" id="alert">
 		<div class="layer_content">
@@ -802,20 +456,7 @@ div.dim {display:none; position:fixed; top:0; right:0; bottom:0; left:0; width:1
 	<!-- // 레이어팝업 샘플 -->
 
 
-<style>
-.modal-side {display:none; /* 기본 숨김 */ flex-direction:column; align-items:flex-start; justify-content:flex-start; gap:10px; position:fixed; /* 고정 위치 */ top:50%; left:50%; width:298px; padding:16px; border-radius:24px; background-color:#fff; transform:translate(-50%, -50%); z-index:10001; box-shadow:0 4px 4px rgba(0, 0, 0, 0.25); overflow:hidden;}
-.modal-side.active {display:flex;}
-.modal-side__title {display:flex; align-items:center; justify-content:flex-start; position:relative; color:var(--text-main, #000000); text-align:left; font-family:"SfPro-Semibold", sans-serif; line-height:1.29411em; letter-spacing:-0.026875rem; font-weight:700; word-break:keep-all;}
-.modal-side__title span {display:block; color:var(--text-label, #666666); font-size:14px; line-height:inherit; letter-spacing:inherit; font-weight:500;}
-.modal-side__title strong {display:block; color:var(--text-main, #000000); font-size:17px; line-height:inherit; letter-spacing:inherit; font-weight:700;}
-.modal-side__desc {color:var(--text-main, #000000); text-align:left; font-size:15px; line-height:1.29411em; letter-spacing:-0.025em; word-break:keep-all;}
-.modal-side__content {display:flex; flex-direction:column; gap:8px; width:100%; padding:8px 8px 14px;}
-.modal-side__footer {display:flex; flex-direction:row; gap:10px; width:100%; justify-content:space-between; align-items:center;}
-.modal-side__footer button {width:100%; height:48px; border-radius:100px; font-family:inherit;}
-.modal-side__footer button span {display:inline-block; color:inherit; font-size:17px; line-height:1em; font-weight:500;}
-.modal-side__btn-cancel {background-color:rgba(120,120,128,0.16); color: #000;}
-.modal-side__btn-confirm {background-color:var(--primary-color); color: #fff;}
-</style>
+
 
 <div class="modal-side" id="sidePopup">
 	<div class="modal-side__content">
@@ -886,7 +527,7 @@ div.dim {display:none; position:fixed; top:0; right:0; bottom:0; left:0; width:1
 		<div class="modal-side__title"><span>인증번호 발송 실패</span></div>
 		<div class="modal-side__desc">
 			<p class="txt">
-				<strong>통신사 또는 휴대폰 번호를 확인해 주세요.</strong>
+				<strong>통신사 또는 휴대폰 번호를 확인해주세요.</strong>
 			</p>
 		</div>
 	</div>
@@ -897,50 +538,26 @@ div.dim {display:none; position:fixed; top:0; right:0; bottom:0; left:0; width:1
 	</div>
 </div>
 
+<div class="modal-side" id="authSuccessPopup">
+	<div class="modal-side__content">
+		<div class="modal-side__title"><span>인증번호 발송 완료</span></div>
+		<div class="modal-side__desc">
+			<p class="txt">
+				<strong>입력하신 번호로 인증번호가 발송되었습니다.</strong>
+			</p>
+		</div>
+	</div>
+	<div class="modal-side__footer">
+		<button type="button" class="btn modal-side__btn-confirm" id="btnAuthSuccessConfirm">
+			<span>확인</span>
+		</button>
+	</div>
+</div>
 
 
 
-<style>
-/* 서비스 이용약관, 개인정보 처리방침용 팝업 */
-.layer.privacy {position:fixed; top:50%; left:50%; width:100%; max-width:960px; transform:translate(-50%,-50%); background-color:#fff; z-index:11;}
-.layer.privacy .layer_header {display:flex; justify-content:space-between; align-items:center; position:relative; background-color:#333;}
-.layer.privacy .layer_header h2 {height:72px; padding:0 24px; color:#fff; font-size:20px; line-height:72px; text-align:left;}
-.layer.privacy .layer_header button.btn_close {position:absolute; top:50%; right:24px; width:36px; height:36px; background-color:transparent; color:transparent; transform:translateY(-50%); cursor:pointer;}
-.layer.privacy .layer_header button.btn_close::before,
-.layer.privacy .layer_header button.btn_close::after {content:""; position:absolute; top:50%; left:50%; width:60%; height:1.5px; background-color:#fff;}
-.layer.privacy .layer_header button.btn_close::before {transform:translate(-50%,-50%) rotate(45deg);}
-.layer.privacy .layer_header button.btn_close::after {transform:translate(-50%,-50%) rotate(-45deg);}
 
-.layer.privacy .layer_content {flex:1; display:flex; flex-direction:column; width:100%; height:100%; max-height:70.09259vh; padding:36px 0;}
-.layer.privacy .layer_content div.select_wrap {margin:0 36px; background:#f5f5f5 url('../images/ico_arrow_down_s.png') no-repeat center right 6px / 36px;}
-.layer.privacy .layer_content div.select_wrap select {width:100%; height:48px; padding:0 20px; background-color:transparent; border:0 none; font-size:0.875em; line-height:2.4em; font-family:'Noto Sans KR';}
 
-.layer.privacy .layer_content .txt_content {margin-top:24px; padding:0 36px 36px; flex:1; color:#555; font-size:20px; line-height:1.6; overflow-y:auto;}
-.layer.privacy .layer_footer {display:flex; width:100%; padding:16px 20px calc(var(--safe-bottom) + 16px);}
-.layer.privacy .layer_footer button.btn_next {width:100%; height:56px; border-radius:12px; background-color:var(--primary-color); color: #fff; font-size:16px; font-weight:600; cursor:pointer;}
-.layer.privacy .layer_footer button.btn_next span {display:block; color:inherit; font-size:inherit; font-weight:inherit; line-height:1em;}
-@media screen and (max-width:786px) {
-	.layer.privacy {top:0; left:0; width:100%; height:100dvh; transform:unset; z-index:20}
-	.layer.privacy .layer_header h2 {height:48px; font-size:16px; line-height:48px;}
-	.layer.privacy .inner {display:flex; flex-direction:column; justify-content:space-between; width:100%; height:100%;}
-	
-	.layer.privacy .layer_content {flex:1; height:auto; max-height:unset; padding:0; border:0; overflow-y:auto;}
-	.layer.privacy .layer_content div.select_wrap {margin:24px 24px 0;}
-	.layer.privacy .layer_content .txt_content {padding:0 24px 24px; font-size:0.875em;}
-}
-/* // 서비스 이용약관, 개인정보 처리방침용 팝업 */
-
-table {
-	border-collapse: collapse;
-    border-spacing: 0;
-    width: 100%;
-}
-
-table, td, th {
-	border: 1px solid #333;
-}
-
-</style>
 <div class="layer privacy" id="privacy01" style="display: none;">
 	<div class="inner">
 		<div class="layer_header">
@@ -995,34 +612,6 @@ table, td, th {
 
 
 
-<style>
-/* 가입 안내 팝업 */
-.layer.signUp_kt .layer_inner {
-	min-width:280px; max-width:420px; width:90%;
-	position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background-color:#fff; border-radius:24px; color:inherit; z-index:1000; overflow-y:auto; box-shadow:0 1px 2px rgba(0,0,0,0.2);
-}
-.layer.signUp_kt .layer_inner .layer_content {display:flex; flex-direction:column; gap:10px; padding:36px 18px; text-align:center;}
-.layer.signUp_kt .layer_inner .layer_content strong.tit {color:var(--primary-color); font-size:18px; line-height:28px; font-weight:700;}
-.layer.signUp_kt .layer_inner .layer_content div.tit {color:#000; font-size:16px; line-height:1.55555em; font-weight:700;}
-.layer.signUp_kt .layer_inner .layer_content div.box {margin-top:0.4em; padding:1em; border-radius:12px; background-color:#f2f2f2; border:0.5px solid #ddd;}
-.layer.signUp_kt .layer_inner .layer_content div.txt {color:#000; font-size:14px; line-height:1.3em; font-weight:400; word-break:keep-all; letter-spacing:-0.04em;}
-.layer.signUp_kt .layer_inner .layer_content div.txt em {color:var(--text-error-red); font-weight:500;}
-.layer.signUp_kt .btn_group {display:flex; width:100%;}
-.layer.signUp_kt .btn_group div {width:100%;}
-.layer.signUp_kt .btn_group div button {width:100%; height:72px;}
-.layer.signUp_kt .btn_group div button.next {background-color:var(--primary-color); color:#fff; letter-spacing:-0.04em;}
-.layer.signUp_kt .btn_group div button.next strong {display:block; color:#fff; font-size:14px; line-height:1.3em; font-weight:bold;}
-.layer.signUp_kt .btn_group div button.next span {display:block; color:#fff; font-size:14px; line-height:1.3em; font-weight:500;}
-.layer.signUp_kt .btn_group div button.btn_cancel {background-color:#d9d9d9;}
-.layer.signUp_kt .btn_group div button.btn_cancel span {color:#444; font-size:16px; font-weight:500;}
-.layer.signUp_kt .btn_close {position:absolute; top:18px; right:18px; width:24px; height:24px; background-color:transparent;}
-.layer.signUp_kt .btn_close span {display:block; width:100%; height:100%; color:transparent;}
-.layer.signUp_kt .btn_close::before,
-.layer.signUp_kt .btn_close::after {content:""; display:block; position:absolute; top:50%; left:50%; width:1.5px; height:90%; background-color:var(--text-label);}
-.layer.signUp_kt .btn_close::before {transform:translate(-50%,-50%) rotate(45deg);}
-.layer.signUp_kt .btn_close::after {transform:translate(-50%,-50%) rotate(-45deg);}
-/* // 가입 안내 팝업 */
-</style>
 <!-- 통신사가 kt인 경우에는 최종 가입 전에 팝업 띄움 -->
 <div class="layer signUp_kt" style="display: none;">
 	<div class="layer_inner">
@@ -1060,6 +649,30 @@ table, td, th {
 
 
 <script>
+	// greCaptcha 로드 콜백 및 전역 함수 설정
+	var onloadCallback = function() {
+		if (document.getElementById('greCaptcha')) {
+			grecaptcha.render(
+				'greCaptcha', {
+					'sitekey' : "6LfQHq4UAAAAALRMMx1RbrsoU_XdapEc8Ocv5fHM",
+					'size' : 'invisible',
+					'callback' : executePhoneAuthLogic,
+					'badge' : 'inline'
+				}
+			);
+		}
+	};
+
+	// 1초 서버 통신 시뮬레이션용 로딩 스피너
+	function showLoading(callback) {
+		const loadingOverlay = document.getElementById('loadingOverlay');
+		if (loadingOverlay) loadingOverlay.classList.add('active');
+		setTimeout(() => {
+			if (loadingOverlay) loadingOverlay.classList.remove('active');
+			if (callback) callback();
+		}, 1000);
+	}
+
 	/**
 	 * 요소 선택 및 전역 변수 설정
 	 */
@@ -1089,6 +702,8 @@ table, td, th {
 	 */
 	// 휴대폰 번호 입력: 숫자만 허용 및 자리수에 따른 확인 버튼 활성화 제어
 	phoneInput.addEventListener('input', function() {
+		if (isAuthRequested && timeLeft > 0) return; // 인증 요청 후 재요청 가능 전까지 입력 방지
+
 		this.value = this.value.replace(/[^0-9]/g, '');
 		if (this.value.length === 11) {
 			btnPhoneConfirm.classList.add('active');
@@ -1100,6 +715,8 @@ table, td, th {
 	// 주민등록번호 입력: 숫자만 추출 및 자동 하이픈(-) 포맷팅 (6자리-1자리)
 	if (juminInput) {
 		juminInput.addEventListener('input', function() {
+			if (isAuthRequested && timeLeft > 0) return; // 인증 요청 후 재요청 가능 전까지 입력 방지
+
 			let val = this.value.replace(/[^0-9]/g, '');
 			if (val.length > 6) {
 				val = val.substring(0, 6) + '-' + val.substring(6, 7);
@@ -1206,7 +823,7 @@ table, td, th {
 			if (phoneInput.value.length === 0) {
 				showToast("휴대폰 번호를 입력해 주세요.");
 			} else {
-				showToast("휴대폰 번호를 정확히 입력해 주세요.");
+				showToast("휴대폰 번호를 확인해주세요.");
 			}
 			return;
 		}
@@ -1216,8 +833,10 @@ table, td, th {
 			if (timeLeft > 0) {
 				showToast("인증번호(3분) 만료 후 인증번호 재요청이 가능합니다.");
 			} else {
-				startTimer();
-				showToast("인증번호가 재발송되었습니다.");
+				showLoading(() => {
+					startTimer();
+					showToast("인증번호가 재발송되었습니다.");
+				});
 			}
 			return;
 		}
@@ -1239,49 +858,88 @@ table, td, th {
 		// SKT 선택 시 주민등록번호 유효성 확인
 		const isSktSelected = document.querySelector('input[name="telCdRadio"]:checked').value === 'SKT';
 		if (isSktSelected && juminInput && juminInput.value.length < 8) {
-			showToast("주민등록번호를 정확히 입력해 주세요.");
+			showToast("주민등록번호를 확인해주세요.");
 			return;
 		}
 
 		// 휴대폰 번호 유효 자리수 재확인
 		if (phoneInput.value.length < 11) {
-			showToast("휴대폰 번호를 정확히 입력해 주세요.");
+			showToast("휴대폰 번호를 확인해주세요.");
 			return;
 		}
 
-		// 임시: 010으로 시작하지 않는 경우 실패 팝업 노출
+		// 010으로 시작하지 않는 경우 팝업 노출
 		if (!phoneInput.value.startsWith('010')) {
-			const authFailPopup = document.getElementById('authFailPopup');
-			if (authFailPopup) {
-				authFailPopup.classList.add('active');
+			showToast('010으로 시작하는 번호만 입력이 가능합니다.');
+			return;
+		}
+
+		// reCAPTCHA 실행 (검증 완료되면 executePhoneAuthLogic 콜백 호출)
+		try {
+			grecaptcha.execute();
+		} catch(e) {
+			console.error("reCAPTCHA 실행 오류:", e);
+			// 스크립트가 로드되지 않았거나 기타 오류 발생 시 바로 콜백 실행 (테스트/로컬 환경 대응)
+			executePhoneAuthLogic("mock-token");
+		}
+	}
+
+	window.executePhoneAuthLogic = function(token) {
+		if (token === "") {
+			showToast("자동 입력 방지 검증에 실패했습니다. 다시 시도해주세요.");
+			return;
+		}
+
+		// 로딩 화면(서버통신 1초) 보여준 후 로직 실행
+		showLoading(() => {
+			try { grecaptcha.reset(); } catch(e) {} // 콜백 후 리셋 처리
+
+			// 010으로 시작하지만 정상적인 번호가 아닌 경우 인증번호 발송 실패 팝업 노출
+			if (phoneInput.value !== '01012341234') {
+				const authFailPopup = document.getElementById('authFailPopup');
+				if (authFailPopup) {
+					authFailPopup.classList.add('active');
+					document.querySelector('.dim').style.display = 'block';
+				}
+				return;
+			}
+
+			// 인증 상태 초기화 및 인증번호 입력창 표시
+			isAuthRequested = true;
+			btnPhoneConfirm.querySelector('span').textContent = '재요청'; // 버튼 텍스트 변경
+			phoneInput.readOnly = true; // 휴대폰번호 입력 창 읽기 전용으로 변경
+			phoneInput.style.opacity = '0.5'; // 시각적으로 비활성화된 느낌 부여
+			if (juminInput) {
+				juminInput.readOnly = true;
+				juminInput.style.opacity = '0.5';
+			}
+			
+			// 통신사 선택 비활성화
+			telecomRadios.forEach(radio => radio.disabled = true);
+			document.querySelector('.telecom').classList.add('disabled');
+
+			// 약관동의 비활성화
+			agreeAll.disabled = true;
+			agrees.forEach(chk => chk.disabled = true);
+			document.querySelector('.terms-agree').classList.add('disabled');
+
+			auth_wrap.classList.add("active");
+			
+			const tempDisplay = helpTooltip.style.display;
+			helpTooltip.style.display = "none";
+			auth_wrap.style.height = `${auth_wrap.scrollHeight}px`;
+			helpTooltip.style.display = tempDisplay;
+			
+			startTimer(); // 타이머 시작
+			
+			// 인증번호 발송 완료 팝업 노출
+			const authSuccessPopup = document.getElementById('authSuccessPopup');
+			if (authSuccessPopup) {
+				authSuccessPopup.classList.add('active');
 				document.querySelector('.dim').style.display = 'block';
 			}
-			return;
-		}
-
-		// 인증 상태 초기화 및 인증번호 입력창 표시
-		isAuthRequested = true;
-		btnPhoneConfirm.querySelector('span').textContent = '재요청'; // 버튼 텍스트 변경
-		
-		// 통신사 선택 비활성화
-		telecomRadios.forEach(radio => radio.disabled = true);
-		document.querySelector('.telecom').classList.add('disabled');
-
-		// 약관동의 비활성화
-		agreeAll.disabled = true;
-		agrees.forEach(chk => chk.disabled = true);
-		document.querySelector('.terms-agree').classList.add('disabled');
-
-		auth_wrap.classList.add("active");
-		
-		const tempDisplay = helpTooltip.style.display;
-		helpTooltip.style.display = "none";
-		auth_wrap.style.height = `${auth_wrap.scrollHeight}px`;
-		helpTooltip.style.display = tempDisplay;
-		
-		startTimer(); // 타이머 시작
-		showToast("입력하신 번호로 인증번호가 발송되었습니다.");
-	}
+		});
+	};
 
 	// 사이드 팝업 (약관동의 유도) 이벤트 핸들링
 	const sidePopup = document.getElementById('sidePopup');
@@ -1315,11 +973,24 @@ table, td, th {
 		});
 	}
 
+	// 인증번호 발송 완료 팝업 닫기
+	const btnAuthSuccessConfirm = document.getElementById('btnAuthSuccessConfirm');
+	if (btnAuthSuccessConfirm) {
+		btnAuthSuccessConfirm.addEventListener('click', function() {
+			document.getElementById('authSuccessPopup').classList.remove('active');
+			document.querySelector('.dim').style.display = 'none';
+		});
+	}
+
 	// 하단 최종 '전화번호 안심로그인 유료가입' 버튼 클릭 이벤트
 	primaryBtn.addEventListener("click", function(){
 		// 먼저 번호 확인 과정을 거쳤는지 확인
 		if (!isAuthRequested) {
-			showToast(`휴대폰번호를 입력해서 인증을 해주세요.`);
+			if (phoneInput.value.length > 0) {
+				showToast("확인 버튼을 눌러 인증을 진행해주세요.");
+			} else {
+				showToast(`휴대폰번호를 입력해서 인증을 해주세요.`);
+			}
 			return;
 		}
 
@@ -1356,33 +1027,35 @@ table, td, th {
 			}
 		}
 
-		// 통신사 확인
-		const selectedTelecom = document.querySelector('input[name="telCdRadio"]:checked').value;
-		
-		if (selectedTelecom === 'KT') {
-			// KT인 경우 안내 팝업 노출
-			const ktPopup = document.querySelector('.layer.signUp_kt');
-			ktPopup.style.display = 'block';
-			document.querySelector('.dim').style.display = 'block';
+		showLoading(() => {
+			// 통신사 확인
+			const selectedTelecom = document.querySelector('input[name="telCdRadio"]:checked').value;
+			
+			if (selectedTelecom === 'KT') {
+				// KT인 경우 안내 팝업 노출
+				const ktPopup = document.querySelector('.layer.signUp_kt');
+				ktPopup.style.display = 'block';
+				document.querySelector('.dim').style.display = 'block';
 
-			// 팝업 내 확인 버튼(유료가입) 클릭 시
-			ktPopup.querySelector('.next').onclick = function() {
-				ktPopup.style.display = 'none';
-				document.querySelector('.dim').style.display = 'none';
+				// 팝업 내 확인 버튼(유료가입) 클릭 시
+				ktPopup.querySelector('.next').onclick = function() {
+					ktPopup.style.display = 'none';
+					document.querySelector('.dim').style.display = 'none';
+					completeJoin();
+				};
+
+				// 팝업 내 취소/닫기 버튼 클릭 시
+				const closeKtPopup = function() {
+					ktPopup.style.display = 'none';
+					document.querySelector('.dim').style.display = 'none';
+				};
+				ktPopup.querySelector('.btn_cancel').onclick = closeKtPopup;
+				ktPopup.querySelector('.btn_close').onclick = closeKtPopup;
+			} else {
+				// KT가 아닌 경우 바로 완료 처리
 				completeJoin();
-			};
-
-			// 팝업 내 취소/닫기 버튼 클릭 시
-			const closeKtPopup = function() {
-				ktPopup.style.display = 'none';
-				document.querySelector('.dim').style.display = 'none';
-			};
-			ktPopup.querySelector('.btn_cancel').onclick = closeKtPopup;
-			ktPopup.querySelector('.btn_close').onclick = closeKtPopup;
-		} else {
-			// KT가 아닌 경우 바로 완료 처리
-			completeJoin();
-		}
+			}
+		});
 	});
 
 	/**
@@ -1409,6 +1082,16 @@ table, td, th {
 		const m = Math.floor(timeLeft / 60);
 		const s = timeLeft % 60;
 		timerDisplay.textContent = `0${m}:${s < 10 ? '0' : ''}${s}`;
+
+		// 시간이 만료되면 재입력 가능하도록 활성화
+		if (timeLeft <= 0) {
+			phoneInput.readOnly = false;
+			phoneInput.style.opacity = '1';
+			if (juminInput) {
+				juminInput.readOnly = false;
+				juminInput.style.opacity = '1';
+			}
+		}
 	}
 
 
