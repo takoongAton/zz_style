@@ -128,6 +128,8 @@
 		const carrierValue = selectedTelecom.value;
 		const stplat4Text = document.getElementById('stplat4Text');
 		const stplatSkt = document.getElementById('stplatSkt');
+		const stplatSktAdd1 = document.getElementById('stplatSktAdd1');
+		const stplatSktAdd2 = document.getElementById('stplatSktAdd2');
 		
 		const serviceTypeText = document.getElementById('serviceTypeText');
 
@@ -156,11 +158,15 @@
 			juminFieldGroup.style.display = 'block';
 			if (stplat4Text) stplat4Text.innerText = 'SKT개인정보 제3자 제공동의';
 			if (stplatSkt) stplatSkt.style.display = '';
+			if (stplatSktAdd1) stplatSktAdd1.style.display = '';
+			if (stplatSktAdd2) stplatSktAdd2.style.display = '';
 			if (serviceTypeText) serviceTypeText.innerText = '통신사 제휴 유료 부가서비스';
 			if (serviceBnr) serviceBnr.style.display = '';
 		} else {
 			juminFieldGroup.style.display = 'none';
 			if (stplatSkt) stplatSkt.style.display = 'none';
+			if (stplatSktAdd1) stplatSktAdd1.style.display = 'none';
+			if (stplatSktAdd2) stplatSktAdd2.style.display = 'none';
 			if (carrierValue === 'KT') {
 				if (stplat4Text) stplat4Text.innerText = 'KT개인정보 제3자 제공동의';
 				if (serviceTypeText) serviceTypeText.innerText = '이통사 제휴 유료 부가서비스';
@@ -281,6 +287,18 @@
 		const stplatSkt = document.getElementById('stplatSkt');
 		if (chkSkt && stplatSkt && stplatSkt.style.display !== 'none') {
 			currentRequiredAgrees.push(chkSkt);
+		}
+		
+		const chkSktAdd1 = document.getElementById("chkSktAdd1");
+		const stplatSktAdd1 = document.getElementById('stplatSktAdd1');
+		if (chkSktAdd1 && stplatSktAdd1 && stplatSktAdd1.style.display !== 'none') {
+			currentRequiredAgrees.push(chkSktAdd1);
+		}
+
+		const chkSktAdd2 = document.getElementById("chkSktAdd2");
+		const stplatSktAdd2 = document.getElementById('stplatSktAdd2');
+		if (chkSktAdd2 && stplatSktAdd2 && stplatSktAdd2.style.display !== 'none') {
+			currentRequiredAgrees.push(chkSktAdd2);
 		}
 		
 		const requiredChecked = currentRequiredAgrees.every(chk => chk && chk.checked);
