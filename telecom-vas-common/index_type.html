@@ -61,6 +61,9 @@
 		#btn-confirm_test.typeC {position:absolute; top:13px; right:17px; width:auto; margin-top:0; z-index:1;}
 		#btn-confirm_test.typeC button {min-width:62px; min-height:40px; padding:8px 12px; border-radius:12px;}
 		#btn-confirm_test.typeC button span {font-size:13px; font-weight:bold;}
+
+		/* testToggle: 순서 변경 CSS */
+		.signUp_form.reorder .terms-agree { order: 1; }
 	</style>
 </head>
 <body>
@@ -79,7 +82,7 @@
 			<section id="sectionInput">
 				
 				<!--GDN 배너-->
-				<div class="signUp_bnr">
+				<div class="signUp_bnr" id="testToggle">
 					<picture>
 						<source srcset="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_web_260204.png" media="(min-width:720px)" />
 						<img src="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_mobile_260204.png" alt="배너" />

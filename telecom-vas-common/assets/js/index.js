@@ -23,6 +23,39 @@
 	}
 
 	/**
+	 * 통계 관리 모듈 (localStorage 기반)
+	 */
+	const StatisticsManager = {
+		STORAGE_KEY: 'safeconnect_stats',
+		
+		getToday: function() {
+			const d = new Date();
+			return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+		},
+		
+		getStats: function() {
+			const stats = localStorage.getItem(this.STORAGE_KEY);
+			return stats ? JSON.parse(stats) : {};
+		},
+		
+		track: function(key) {
+			const stats = this.getStats();
+			const today = this.getToday();
+			
+			if (!stats[today]) {
+				stats[today] = { visit: 0, signup: 0 };
+			}
+			
+			stats[today][key] = (stats[today][key] || 0) + 1;
+			localStorage.setItem(this.STORAGE_KEY, JSON.stringify(stats));
+			console.log(`[Stats] Tracked ${key} for ${today}:`, stats[today]);
+		}
+	};
+
+	// 페이지 접속 추적
+	StatisticsManager.track('visit');
+
+	/**
 	 * 요소 선택 및 전역 변수 설정
 	 */
 	let auth_wrap = document.querySelector("#auth_wrap");
@@ -142,6 +175,19 @@
 	
 	telecomRadios.forEach(radio => radio.addEventListener('change', handleCarrierChange));
 	handleCarrierChange(); // 초기 실행으로 상태 반영
+
+	/**
+	 * 임시 테스트 : testToggle 클릭 시 순서 변경 (order: 1)
+	 */
+	const testToggle = document.getElementById('testToggle');
+	const signUpForm = document.querySelector('.signUp_form');
+	if (testToggle && signUpForm) {
+		testToggle.addEventListener('click', function() {
+			signUpForm.classList.toggle('reorder');
+			console.log('[Test] Order toggled. reorder class:', signUpForm.classList.contains('reorder'));
+		});
+		testToggle.style.cursor = 'pointer'; // 클릭 가능함을 시각적으로 표시
+	}
 
 	/**
 	 * 약관 동의 관련 로직 (전체 동의, 개별 동의, 상세 리스트 토글)
@@ -450,6 +496,7 @@
 				ktPopup.querySelector('.next').onclick = function() {
 					ktPopup.style.display = 'none';
 					document.querySelector('.dim').style.display = 'none';
+					StatisticsManager.track('signup'); // KT 가입 추적
 					completeJoin();
 				};
 
@@ -462,6 +509,7 @@
 				ktPopup.querySelector('.btn_close').onclick = closeKtPopup;
 			} else {
 				// KT가 아닌 경우 바로 완료 처리
+				StatisticsManager.track('signup'); // 일반 가입 추적
 				completeJoin();
 			}
 		});
