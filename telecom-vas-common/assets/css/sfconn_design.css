@@ -184,7 +184,7 @@ background-color:var(--text-main);
 .terms-agree .all_agree {display:flex; align-items:center; position:relative; margin:0; background-color:var(--bg-gray);}
 .terms-agree .all_agree label {position:relative; margin:0;}
 
-.terms-agree .all_agree input[type="checkbox"] + label {display:inline-flex; align-items:center; gap:0 4px; flex:1; padding:14px 16px 15px 13px; color:var(--text-main);}
+.terms-agree .all_agree input[type="checkbox"] + label {display:inline-flex; align-items:center; gap:0 4px; flex:1; padding:14px 16px 15px 12px; color:var(--text-main);}
 .terms-agree .all_agree input[type="checkbox"] + label span.checkmark {display:flex; justify-content:center; align-items:center; position:relative; width:22px; height:22px; background:#fff; border-radius:100%; box-shadow:inset 0 0 0 1px var(--border-gray);}
 .terms-agree .all_agree span.txt {display:inline-block; font-size:16px; line-height:21px; font-weight:700;}
 
@@ -213,7 +213,7 @@ background-color:var(--text-main);
 	opacity:0;
 }
 .terms-agree .agree {
-	padding:0.75em 1em;
+	padding:0.75em;
 	border-top:1px solid var(--border-gray);
 }
 .terms-agree .agree ul {display:flex; flex-wrap:wrap; flex-direction:row; gap:4px 6px;}
