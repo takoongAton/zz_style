@@ -13,11 +13,8 @@
 
 	<link rel="icon" href="favicon.ico" type="image/x-icon" sizes="any" />
 	<link rel="stylesheet" type="text/css" href="../css/sfconn_design.css" />
-	
-	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 
 	<style>
-		.grecaptcha-badge {display: none;}
 	</style>
 
 <style>
@@ -36,208 +33,239 @@
 				</div>
 			</header>
 
-			<section>
-				<!--GDN 배너-->
-				<div class="signUp_bnr">
-					<picture>
-						<source srcset="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_web_260204.png" media="(min-width:720px)" />
-						<img src="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_mobile_260204.png" alt="배너" />
-					</picture>
-				</div>
-				<!-- // signUp_bnr -->
+			<main class="vas-content">
 
-				<div class="signUp_form">
-					<div class="telecom">
-						<!-- <p>통신사</p> -->
-						<ul class="radio">
-							<li class="w20 mR0">
-								<input type="radio" id="divide01" name="telCdRadio" checked="" value="SKT" class="telCdRadioSkt">
-								<label class="fs20" for="divide01"><span>SKT</span></label>
-							</li>
-							<li class="mR0">
-								<input type="radio" id="divide02" name="telCdRadio" value="KT" class="telCdRadioKt">
-								<label class="fs20" for="divide02"><span>KT</span></label>
-							</li>
-							<li>
-								<input type="radio" id="divide03" name="telCdRadio" value="LGT" class="telCdRadioLgt">
-								<label class="fs20" for="divide03"><span>LG U+</span></label>
-							</li>
-						</ul>
-					</div>
-					<!-- // telecom -->
-
-
-					<!-- 기본: 약관 먼저 -->
-					<div class="terms-agree">
-						<div class="all_agree" id="all_agree">
-							<input type="checkbox" id="chk6" name="chk6" class="agreeAll">
-							<label for="chk6" class="bold ftS19">
-								<span class="checkmark">
-									<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
-										<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
-									</svg>
-								</span>
-								<span class="txt">약관 전체 동의하기</span>
-							</label><!-- 필요시 span.checkmark -->
-							<button type="button" class="btn-toggle-agree" aria-label="약관 리스트 토글">
-								<svg viewBox="0 0 16 16"><path d="m11.34 6.96c-.01 0-.02.01-.02.02l-2.95 2.95c-.11.11-.26.17-.42.17s-.31-.06-.42-.17l-2.95-2.95c-.23-.23-.24-.6-.02-.84.23-.23.6-.24.84-.02 0 .01.01.02.02.02l2.53 2.54 2.53-2.54c.23-.23.6-.24.84-.02.23.23.24.6.02.84z"></path></svg>
-							</button>
-						</div>
-
-						<div class="list-agree">
-							<div class="agree">
-								<ul class="check">
-									<li>
-										<input type="checkbox" id="chk1" name="chk1" class="agree">
-										<label for="chk1">
-											<span class="checkmark">
-														<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
-															<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
-														</svg>
-													</span>
-											<a href="javascript:privacyPopOpen('0001');">이용약관</a>
-										</label>
-									</li>
-									<li id="stplat2">
-										<input type="checkbox" id="chk2" name="chk2" class="agree">
-										<label for="chk2">
-											<span class="checkmark">
-												<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
-													<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
-												</svg>
-											</span>
-											<a href="javascript:privacyPopOpen('0003');">개인정보 제3자 제공동의</a>
-										</label>
-									</li>
-									<li>
-										<input type="checkbox" id="chk3" name="chk3" class="agree">
-										<label for="chk3">
-											<span class="checkmark">
-												<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
-													<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
-												</svg>
-											</span>
-											<a href="javascript:privacyPopOpen('0002');">개인정보수집 및 이용동의</a>
-										</label>
-									</li>
-									<li id="stplat4">
-										<input type="checkbox" id="chk4" name="chk4" class="agree">
-										<label for="chk4">
-											<span class="checkmark">
-												<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
-													<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
-												</svg>
-											</span>
-											<a href="javascript:privacyPopOpen('0006');">
-												<cl id="stplat4Text">SKT개인정보 제3자 제공동의</cl>
-											</a>
-										</label>
-									</li>
-									<li id="stplat5">
-										<input type="checkbox" id="chk5" name="chk5" class="agree">
-										<label for="chk5">
-											<span class="checkmark">
-												<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
-													<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
-												</svg>
-											</span>
-											<a href="javascript:privacyPopOpen('0009');">
-												<cl id="stplat5Text">고객 혜택 제공을 위한 정보 수집 및 이용 동의(선택)</cl>
-											</a>
-										</label>
-									</li>
-									<li id="stplat7">
-										<input type="checkbox" id="chk7" name="chk7" class="agree">
-										<label for="chk7">
-											<span class="checkmark">
-												<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
-													<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
-												</svg>
-											</span>
-											<a href="javascript:privacyPopOpen('0036');">
-												<cl id="stplat7Text">혜택 정보 · 광고 수신 동의(선택)</cl>
-											</a>
-										</label>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div class="g-recaptcha" id="greCaptcha"></div>
-					</div>
-					<!-- // terms-agree -->
-					 
-
-					<div class="auth-form">
-						<div class="field-group" id="phoneFieldGroup">
-							<div class="input-box input-box--with-btn">
-								<div class="input-content">
-									<label class="input-label" for="cellNumber">휴대폰번호</label>
-									<input type="tel" class="input-element" id="cellNumber" placeholder="휴대폰번호 입력" value="" maxlength="11" inputmode="numeric" autocomplete="tel" pattern="[0-9]*">
-								</div>
-								<button type="button" class="btn-sub-action btn-phone-confirm"><span>확인</span></button>
-							</div>
-						</div>
-
-						<div class="field-group" id="juminFieldGroup" style="display:none; margin-top:16px;">
-							<div class="input-box">
-								<div class="input-content">
-									<label class="input-label" for="juminNumber">주민등록번호 7자리</label>
-									<div class="input-row">
-										<input type="tel" id="juminNumber" class="input-element" placeholder="710304-0●●●●●●" value="" maxlength="8" inputmode="numeric" pattern="[0-9]*">
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="field-group" id="auth_wrap">
-							<div class="input-box input-box--with-btn">
-								<div class="input-content">
-									<label class="input-label" for="authNumber">인증번호</label>
-									<input type="text" class="input-element" id="authNumber" placeholder="인증번호 6자리" maxlength="6" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" />
-								</div>
-								<!-- <button type="button" class="btn-sub-action">재요청</button> -->
-								<div class="input-info" style="position:relative;">
-									<span class="timer">03:00</span>
-									<button type="button" class="btn-help">?</button>
-									<div class="help-tooltip">
-										수신된 인증번호 6자리를 입력해 주세요.
-									</div>
-								</div>
-								<!-- // input-info -->
-							</div>
-						</div>
-
-						<!-- <div class="field-group" id="btn-confirm_test" style="width:100%; margin-top:16px;">
-							<button type="button" class="btn-sub-action btn-phone-confirm" style="width:100%; height:56px;"><span style="font-size:16px;">확인</span></button>
-						</div> -->
-					</div>
-					<!-- // auth-form -->
-
-					
-				</div>
-				<!-- // signUp_form -->
-
-				<div style="display:flex; flex-direction:column; gap:20px; width:100%;">
-					<footer class="auth-footer">
-						<button type="button" class="btn-primary"><span>전화번호 안심로그인 유료가입</span></button>
-					</footer>
-					<!-- // auth-footer -->
-
-					<div class="service_bnr" id="serviceBnr">
+				<section class="signup-request" id="signupRequest">
+					<!--GDN 배너-->
+					<div class="signUp_bnr">
 						<picture>
-							<source srcset="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_web_bottom.png" media="(min-width:720px)" />
-							<img src="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_mobile_bottom.png" alt="배너" />
+							<source srcset="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_web_260204.png" media="(min-width:720px)" />
+							<img src="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_mobile_260204.png" alt="배너" />
 						</picture>
 					</div>
-					<!-- // service_bnr -->
+					<!-- // signUp_bnr -->
 
-					<div class="charge_txt">
-						<p><strong>매월 부가세 포함 1,100원이 휴대전화 요금에 합산 청구됩니다.</strong></p>
-						<div><button type="button" id="exitBtn"><span>다음에 이용하기</span></button></div>
+					<div class="signUp_form">
+						<div class="telecom">
+							<!-- <p>통신사</p> -->
+							<ul class="radio">
+								<li class="w20 mR0">
+									<input type="radio" id="divide01" name="telCdRadio" checked="" value="SKT" class="telCdRadioSkt">
+									<label class="fs20" for="divide01"><span>SKT</span></label>
+								</li>
+								<li class="mR0">
+									<input type="radio" id="divide02" name="telCdRadio" value="KT" class="telCdRadioKt">
+									<label class="fs20" for="divide02"><span>KT</span></label>
+								</li>
+								<li>
+									<input type="radio" id="divide03" name="telCdRadio" value="LGT" class="telCdRadioLgt">
+									<label class="fs20" for="divide03"><span>LG U+</span></label>
+								</li>
+							</ul>
+						</div>
+						<!-- // telecom -->
+
+
+						<!-- 기본: 약관 먼저 -->
+						<div class="terms-agree">
+							<div class="all_agree" id="all_agree">
+								<input type="checkbox" id="chk6" name="chk6" class="agreeAll">
+								<label for="chk6" class="bold ftS19">
+									<span class="checkmark">
+										<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
+											<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
+										</svg>
+									</span>
+									<span class="txt">약관 전체 동의하기</span>
+								</label><!-- 필요시 span.checkmark -->
+								<button type="button" class="btn-toggle-agree" aria-label="약관 리스트 토글">
+									<svg viewBox="0 0 16 16"><path d="m11.34 6.96c-.01 0-.02.01-.02.02l-2.95 2.95c-.11.11-.26.17-.42.17s-.31-.06-.42-.17l-2.95-2.95c-.23-.23-.24-.6-.02-.84.23-.23.6-.24.84-.02 0 .01.01.02.02.02l2.53 2.54 2.53-2.54c.23-.23.6-.24.84-.02.23.23.24.6.02.84z"></path></svg>
+								</button>
+							</div>
+
+							<div class="list-agree">
+								<div class="agree">
+									<ul class="check">
+										<li>
+											<input type="checkbox" id="chk1" name="chk1" class="agree">
+											<label for="chk1">
+												<span class="checkmark">
+															<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
+																<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
+															</svg>
+														</span>
+												<a href="javascript:privacyPopOpen('0001');">이용약관</a>
+											</label>
+										</li>
+										<li id="stplat2">
+											<input type="checkbox" id="chk2" name="chk2" class="agree">
+											<label for="chk2">
+												<span class="checkmark">
+													<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
+														<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
+													</svg>
+												</span>
+												<a href="javascript:privacyPopOpen('0003');">개인정보 제3자 제공동의</a>
+											</label>
+										</li>
+										<li>
+											<input type="checkbox" id="chk3" name="chk3" class="agree">
+											<label for="chk3">
+												<span class="checkmark">
+													<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
+														<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
+													</svg>
+												</span>
+												<a href="javascript:privacyPopOpen('0002');">개인정보수집 및 이용동의</a>
+											</label>
+										</li>
+										<li id="stplat4">
+											<input type="checkbox" id="chk4" name="chk4" class="agree">
+											<label for="chk4">
+												<span class="checkmark">
+													<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
+														<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
+													</svg>
+												</span>
+												<a href="javascript:privacyPopOpen('0006');">
+													<cl id="stplat4Text">SKT개인정보 제3자 제공동의</cl>
+												</a>
+											</label>
+										</li>
+										<li id="stplat5">
+											<input type="checkbox" id="chk5" name="chk5" class="agree">
+											<label for="chk5">
+												<span class="checkmark">
+													<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
+														<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
+													</svg>
+												</span>
+												<a href="javascript:privacyPopOpen('0009');">
+													<cl id="stplat5Text">고객 혜택 제공을 위한 정보 수집 및 이용 동의(선택)</cl>
+												</a>
+											</label>
+										</li>
+										<li id="stplat7">
+											<input type="checkbox" id="chk7" name="chk7" class="agree">
+											<label for="chk7">
+												<span class="checkmark">
+													<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
+														<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
+													</svg>
+												</span>
+												<a href="javascript:privacyPopOpen('0036');">
+													<cl id="stplat7Text">혜택 정보 · 광고 수신 동의(선택)</cl>
+												</a>
+											</label>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!-- // terms-agree -->
+						
+
+						<div class="auth-form">
+							<div class="field-group" id="phoneFieldGroup">
+								<div class="input-box input-box--with-btn">
+									<div class="input-content">
+										<label class="input-label" for="cellNumber">휴대폰번호</label>
+										<input type="tel" class="input-element" id="cellNumber" placeholder="휴대폰번호 입력" value="" maxlength="11" inputmode="numeric" autocomplete="tel" pattern="[0-9]*">
+									</div>
+									<button type="button" class="btn-sub-action btn-phone-confirm"><span>확인</span></button>
+								</div>
+							</div>
+
+							<div class="field-group" id="juminFieldGroup" style="display:none; margin-top:16px;">
+								<div class="input-box">
+									<div class="input-content">
+										<label class="input-label" for="juminNumber">주민등록번호 7자리</label>
+										<div class="input-row">
+											<input type="tel" id="juminNumber" class="input-element" placeholder="710304-0●●●●●●" value="" maxlength="8" inputmode="numeric" pattern="[0-9]*">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="field-group" id="auth_wrap">
+								<div class="input-box input-box--with-btn">
+									<div class="input-content">
+										<label class="input-label" for="authNumber">인증번호</label>
+										<input type="text" class="input-element" id="authNumber" placeholder="인증번호 6자리" maxlength="6" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" />
+									</div>
+									<!-- <button type="button" class="btn-sub-action">재요청</button> -->
+									<div class="input-info" style="position:relative;">
+										<span class="timer">03:00</span>
+										<button type="button" class="btn-help">?</button>
+										<div class="help-tooltip">
+											수신된 인증번호 6자리를 입력해 주세요.
+										</div>
+									</div>
+									<!-- // input-info -->
+								</div>
+							</div>
+
+							<!-- <div class="field-group" id="btn-confirm_test" style="width:100%; margin-top:16px;">
+								<button type="button" class="btn-sub-action btn-phone-confirm" style="width:100%; height:56px;"><span style="font-size:16px;">확인</span></button>
+							</div> -->
+						</div>
+						<!-- // auth-form -->
+
+						
 					</div>
-					<!-- // charge_txt -->
-				</div>
+					<!-- // signUp_form -->
 
+					<div style="display:flex; flex-direction:column; gap:20px; width:100%;">
+						<footer class="auth-footer">
+							<button type="button" class="btn-primary"><span>전화번호 안심로그인 유료가입</span></button>
+						</footer>
+						<!-- // auth-footer -->
+
+						<div class="service_bnr" id="serviceBnr">
+							<picture>
+								<source srcset="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_web_bottom.png" media="(min-width:720px)" />
+								<img src="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_mobile_bottom.png" alt="배너" />
+							</picture>
+						</div>
+						<!-- // service_bnr -->
+
+						<div class="charge_txt">
+							<p><strong>매월 부가세 포함 1,100원이 휴대전화 요금에 합산 청구됩니다.</strong></p>
+							<div><button type="button" id="exitBtn"><span>다음에 이용하기</span></button></div>
+						</div>
+						<!-- // charge_txt -->
+					</div>
+				</section>
+
+
+				<section class="signup-complete" id="signupComplete" style="display:none;">
+					<!-- 웹가입 완료 -->
+					<div class="signUp_section">
+						<div class="popup_cont">
+							<div class="eventBannerDiv" style="height:0%;">
+								<img src="https://safeconnect.co.kr/sfconn/resources/safeconnect/img/integrated/temp/bnr_sample_complate.png" alt="">
+							</div>
+							<div class="inwrap">
+								<div class="tit_wrap">
+									<dl class="txt">
+										<dt>전화번호안심로그인 서비스 가입이 완료되었습니다.</dt>
+										<dd>전화번호안심로그인은 이통사 유료 부가서비스로 <i class="pc"></i>매월 부가세포함 1,100원이 이통신사 요금에 포함하여 청구 됩니다.</dd>
+										<dd>전화번호로 안전하게 로그인하시려면<i class="pc"></i>구글플레이스토어 또는 앱스토어에서 전화번호안심로그인 앱을 설치하세요.</dd>
+									</dl>
+								</div>
+								<div class="success_btn"><button type="button" class="exitBtn_complete">페이지 나가기</button></div>
+							</div>
+						</div><!-- // #popupCont05 -->
+
+					</div><!-- // signUp_section -->
+
+				</section>
+				<!-- // signup-complete -->
+			</main>
+
+			
+
+			<footer>
 				<div class="footer_info"><!-- footer_info :text-align:left -->
 					<ul>
 						<li>본 서비스는 <strong>SKT,KT,LGU+</strong>와 제휴하여 ㈜아톤이 운영합니다.</li>
@@ -245,7 +273,7 @@
 					</ul>
 				</div>
 
-				<div class="hide-setting">
+				<!-- <div class="hide-setting">
 					<input type="checkbox" id="chkHide7">
 					<label for="chkHide7">
 						<span class="checkmark">
@@ -255,9 +283,8 @@
 						</span>
 					</label>
 					<span class="txt" id="btnHide7Action">7일간 보이지 않기</span>
-				</div>
-
-			</section>
+				</div> -->
+			</footer>
 
 			
 
@@ -265,142 +292,6 @@
 		<!-- // safeconnect_container -->
 	</div>
 	<!-- // safeconnect_wrap_new -->
-
-	<div class="safeconnect_wrap"><!-- strict, flexible -->
-
-		<section class="content_wrap">
-
-			<div class="signUp_wrap">
-
-
-				<!-- KT 가입완료전 모달 -->
-				<div id="ktModal" style="display: none;">
-					<div class="modal-header">
-						<h3>전화번호안심로그인 서비스 가입 안내</h3>
-					</div>
-					<div class="modal-body">
-						<p>사이트의 아이디/비밀번호를 스마트폰 USIM에 보관하고, 전화번호로 인증하여 안전하게 로그인할 수 있는 유료 부가서비스에 가입되었습니다.</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" id="ktModalConfirm" class="btn-confirm">확인</button>
-					</div>
-				</div>
-
-				<!-- 웹가입 완료 -->
-				<div class="signUp_section" id="popupCont05" style="display:none;">
-					<div class="popup_cont">
-						<div class="eventBannerDiv" style="height:0%;">
-							<img src="https://safeconnect.co.kr/sfconn/resources/safeconnect/img/integrated/temp/bnr_sample_complate.png" alt="">
-						</div>
-						<div class="inwrap">
-							<div class="tit_wrap">
-								<dl class="txt">
-									<dt>전화번호안심로그인 서비스 가입이 완료되었습니다.</dt>
-									<dd>전화번호안심로그인은 이통사 유료 부가서비스로 <i class="pc"></i>매월 부가세포함 1,100원이 이통신사 요금에 포함하여 청구 됩니다.</dd>
-									<dd>전화번호로 안전하게 로그인하시려면<i class="pc"></i>구글플레이스토어 또는 앱스토어에서 전화번호안심로그인 앱을 설치하세요.</dd>
-								</dl>
-							</div>
-							<div class="success_btn"><button type="button" class="exitBtn_complete">페이지 나가기</button></div>
-						</div>
-					</div><!-- // #popupCont05 -->
-
-				</div><!-- // signUp_section -->
-
-				<!-- 웹가입 완료2-->
-				<div class="signUp_section" id="popupCont09" style="display:none;">
-					<div class="popup_cont">
-						<div class="eventBannerDiv" style="height:0%;">
-							<img src="https://safeconnect.co.kr/sfconn/resources/safeconnect/img/integrated/temp/bnr_sample_complate.png" alt="">
-						</div>
-						<div class="inwrap">
-							<div class="tit_wrap">
-								<dl class="txt">
-									<dt>서비스 가입이 완료 되었습니다.</dt>
-									<dd><i class="pc"></i></dd>
-								</dl>
-							</div>
-							<div class="success_btn"><button type="button" class="exitBtn_complete">페이지 나가기</button></div>
-						</div>
-					</div><!-- // #popupCont09 -->
-
-				</div>
-
-				<!-- 웹가입개선 Android -->
-				<div class="signUp_section" id="popupCont06" style="display:none;">
-					<div class="popup_cont">
-						<div class="inwrap">
-
-							<div class="tit_wrap">
-								<dl class="txt2">
-									<dt>문자를 발송하였습니다.</dt>
-									<dd><span>URL을 클릭</span>하고 인증을 계속 진행하세요!</dd>
-								</dl>
-							</div>
-
-							<div class="step">
-								<div><span>1단계</span><p>발송된 문자의 URL 클릭</p><button type="button" class="btn_sms sendSMS">문자 다시 받기</button></div>
-								<div><span>2단계</span><p>앱 설치 후 아래 인증번호 입력</p></div>
-							</div>
-
-							<div class="cont3">
-								<p class="auth2_text">*앱 실행 후 아래 가입 인증번호를 입력하세요.</p>
-								<div class="auth2">
-									<p class="num_text">인증번호</p>
-									<p class="num" id="authNo5"></p>
-								</div>
-							</div>
-
-							<div class="success_btn"><button type="button" class="checkAuth">전화번호 안심 로그인 유료가입</button></div>
-
-							<div class="charge_txt">
-								<dl>
-									<dt>매월 부가세포함 1,100원</dt>
-									<dd><p>전화번호안심로그인은 SKT, KT, LGU+ 통신요금에 매월 자동으로 부과됩니다.</p></dd>
-								</dl>
-							</div><!-- // charge_txt -->
-						</div>
-					</div><!-- // #popupCont06 -->
-				</div><!-- // signUp_section -->
-
-				<!-- 웹가입개선 iOS -->
-				<div class="signUp_section" id="popupCont07" style="display:none;">
-					<div class="popup_cont">
-						<div class="inwrap">
-							<div class="tit_wrap">
-								<dl class="txt2">
-									<dt>문자를 발송하였습니다.</dt>
-									<dd><span>URL을 클릭</span>하고 인증을 계속 진행하세요!</dd>
-								</dl>
-							</div>
-
-							<div class="step">
-								<div><span>1단계</span><p>발송된 문자의 URL 클릭</p><button type="button" class="btn_sms sendSMS">문자 다시 받기</button></div>
-								<div><span>2단계</span><p>앱 설치 후 안내에 따라 가입 완료</p></div>
-							</div>
-
-							<div class="success_btn"><button type="button" class="checkAuth">전화번호 안심 로그인 유료가입</button></div>
-
-							<div class="charge_txt">
-								<dl>
-									<dt>매월 부가세포함 1,100원</dt>
-									<dd><p>전화번호안심로그인은 SKT, KT, LGU+ 통신요금에 매월 자동으로 부과됩니다.</p></dd>
-								</dl>
-							</div><!-- // charge_txt -->
-						</div>
-					</div><!-- // #popupCont07 -->
-
-				</div><!-- // signUp_section -->
-
-			</div><!-- // signUp_wrap -->
-
-		</section><!-- // content_wrap -->
-
-
-
-		
-	</div><!-- // safeconnect_wrap -->
-
-
 
 
 
@@ -649,20 +540,6 @@
 
 
 <script>
-	// greCaptcha 로드 콜백 및 전역 함수 설정
-	var onloadCallback = function() {
-		if (document.getElementById('greCaptcha')) {
-			grecaptcha.render(
-				'greCaptcha', {
-					'sitekey' : "6LfQHq4UAAAAALRMMx1RbrsoU_XdapEc8Ocv5fHM",
-					'size' : 'invisible',
-					'callback' : executePhoneAuthLogic,
-					'badge' : 'inline'
-				}
-			);
-		}
-	};
-
 	// 1초 서버 통신 시뮬레이션용 로딩 스피너
 	function showLoading(callback) {
 		const loadingOverlay = document.getElementById('loadingOverlay');
@@ -875,13 +752,7 @@
 		}
 
 		// reCAPTCHA 실행 (검증 완료되면 executePhoneAuthLogic 콜백 호출)
-		try {
-			grecaptcha.execute();
-		} catch(e) {
-			console.error("reCAPTCHA 실행 오류:", e);
-			// 스크립트가 로드되지 않았거나 기타 오류 발생 시 바로 콜백 실행 (테스트/로컬 환경 대응)
-			executePhoneAuthLogic("mock-token");
-		}
+		executePhoneAuthLogic("mock-token");
 	}
 
 	window.executePhoneAuthLogic = function(token) {
@@ -892,8 +763,6 @@
 
 		// 로딩 화면(서버통신 1초) 보여준 후 로직 실행
 		showLoading(() => {
-			try { grecaptcha.reset(); } catch(e) {} // 콜백 후 리셋 처리
-
 			// 010으로 시작하지만 정상적인 번호가 아닌 경우 인증번호 발송 실패 팝업 노출
 			if (phoneInput.value !== '01012341234') {
 				const authFailPopup = document.getElementById('authFailPopup');
@@ -1016,14 +885,16 @@
 				sidePopup2.classList.add('active');
 				document.querySelector('.dim').style.display = 'block';
 				
-				// 확인 버튼 클릭 시 결과 페이지(popupCont05) 표시
+				// 확인 버튼 클릭 시 결과 페이지(signupComplete) 표시
 				document.getElementById('btnSideConfirm2').onclick = function() {
 					sidePopup2.classList.remove('active');
 					document.querySelector('.dim').style.display = 'none';
-					document.getElementById('popupCont05').style.display = 'block';
+					document.getElementById('signupRequest').style.display = 'none';
+					document.getElementById('signupComplete').style.display = 'block';
 				};
 			} else {
-				document.getElementById('popupCont05').style.display = 'block';
+				document.getElementById('signupRequest').style.display = 'none';
+				document.getElementById('signupComplete').style.display = 'block';
 			}
 		}
 
@@ -1149,11 +1020,16 @@
 		}
 	});
 
-	// '가입 완료' 등의 섹션/팝업 내 닫기 버튼 공통 연동
+	// '가입 완료' 섹션 내 닫기 버튼 클릭 시 해당 섹션만 숨김
 	const exitCompleteBtns = document.querySelectorAll('.exitBtn_complete');
 	exitCompleteBtns.forEach(btn => {
 		btn.addEventListener('click', function() {
-			this.closest('.signUp_section').style.display = 'none';
+			const completeSection = document.getElementById('signupComplete');
+			if (completeSection) {
+				completeSection.style.display = 'none';
+				// 가입 폼을 다시 보여줄지 여부는 정책에 따라 다르지만, 
+				// 현재는 완료 화면만 닫고 푸터는 그대로 유지됨
+			}
 		});
 	});
 

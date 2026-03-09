@@ -12,7 +12,6 @@
 	<!-- <link rel="stylesheet" type="text/css" href="../css/sfconn_design.css" /> -->
 
 	<style>
-		.grecaptcha-badge {display: none;}
 	</style>
 
 <style>
@@ -518,7 +517,6 @@ div.dim {display:none; position:fixed; top:0; right:0; bottom:0; left:0; width:1
 								</ul>
 							</div>
 						</div>
-						<div class="g-recaptcha" id="greCaptcha"></div>
 					</div>
 					<!-- // terms-agree -->
 					 
@@ -1078,11 +1076,9 @@ table, td, th {
 	</div>
 	<!-- // layer_inner -->
 </div>
-
-
 <script>
 	/**
-	 * 요소 선택 및 전역 변수 설정
+	 * 입력 필드 이벤트 핸들링 (휴대폰 번호, 주민등록번호, 인증번호)
 	 */
 	let auth_wrap = document.querySelector("#auth_wrap");
 	const phoneInput = document.querySelector('input[type="tel"]:not(#juminNumber)');
@@ -1261,6 +1257,7 @@ table, td, th {
 
 	// 실제 인증번호 발송 프로세스 분리
 	function processPhoneAuth() {
+		// SKT 선택 시 주민등록번호 유효성 확인
 		// SKT 선택 시 주민등록번호 유효성 확인
 		const isSktSelected = document.querySelector('input[name="telCdRadio"]:checked').value === 'SKT';
 		if (isSktSelected && juminInput && juminInput.value.length < 8) {
