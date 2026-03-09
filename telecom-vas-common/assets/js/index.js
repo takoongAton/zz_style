@@ -117,20 +117,25 @@
 			}
 		}
 		
+		const serviceBnr = document.getElementById('serviceBnr');
+		
 		if (carrierValue === 'SKT') {
 			juminFieldGroup.style.display = 'block';
 			if (stplat4Text) stplat4Text.innerText = 'SKT개인정보 제3자 제공동의';
 			if (stplatSkt) stplatSkt.style.display = '';
 			if (serviceTypeText) serviceTypeText.innerText = '통신사 제휴 유료 부가서비스';
+			if (serviceBnr) serviceBnr.style.display = '';
 		} else {
 			juminFieldGroup.style.display = 'none';
 			if (stplatSkt) stplatSkt.style.display = 'none';
 			if (carrierValue === 'KT') {
 				if (stplat4Text) stplat4Text.innerText = 'KT개인정보 제3자 제공동의';
 				if (serviceTypeText) serviceTypeText.innerText = '이통사 제휴 유료 부가서비스';
+				if (serviceBnr) serviceBnr.style.display = 'none';
 			} else if (carrierValue === 'LGT') {
 				if (stplat4Text) stplat4Text.innerText = 'LGU+ 및 LGU+ MVNO 개인정보 제3자 제공동의';
 				if (serviceTypeText) serviceTypeText.innerText = '이통사 유료 부가서비스';
+				if (serviceBnr) serviceBnr.style.display = '';
 			}
 		}
 	}
