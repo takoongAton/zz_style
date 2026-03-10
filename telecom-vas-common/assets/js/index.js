@@ -739,12 +739,22 @@
 	checkInitialVisibility();
 
 	/**
-	 * 스크롤 위치 표시 기능
+	 * iOS Safari WebView Input Focus 이슈 해결
+	 * 포커스가 해제될 때(focusout) 화면을 강제로 스크롤 위로 올려서(scrollTo) 
+	 * 뷰포트 좌표가 틀어져 버튼이 안 눌리는 현상을 방지합니다.
 	 */
-	window.addEventListener('scroll', function() {
-		const scrollValue = window.scrollY || document.documentElement.scrollTop;
-		const scrollHeightElem = document.querySelector('.scrollheight');
-		if (scrollHeightElem) {
-			scrollHeightElem.textContent = Math.floor(scrollValue);
+	document.addEventListener('focusout', function(e) {
+		const target = e.target;
+		const isInput = ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName);
+		
+		if (isInput) {
+			// iOS 환경 체크 (필요한 경우 강화 가능)
+			const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+			
+			if (isIOS) {
+				setTimeout(() => {
+					window.scrollTo(0, window.scrollY || document.documentElement.scrollTop);
+				}, 50);
+			}
 		}
 	});
