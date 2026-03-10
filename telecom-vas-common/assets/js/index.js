@@ -595,7 +595,7 @@
 				const toastRect = toast.getBoundingClientRect();
 				// 상단 여백(toastRect.top)만큼 하단에도 추가하여 전체 높이 설정
 				const dimHeight = toastRect.bottom + toastRect.top + toastRect.height / 2;
-				toastDim.style.height = dimHeight + 'px';
+				// toastDim.style.height = dimHeight + 'px';
 			}, 0);
 		}
 
