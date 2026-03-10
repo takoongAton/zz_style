@@ -146,6 +146,8 @@ input.input-element:-webkit-autofill:active {
 .btn-sub-action {min-width:64px; min-height:42px; background-color:var(--primary-color); border:none; border-radius:12px; color:#fff; font-size:13px; line-height:1em; font-weight:bold; cursor:pointer; text-shadow:0 0 1px rgba(0, 0, 0, 0.16);
 background-color:var(--text-main);
 }
+.btn-sub-action.is-sent {background-color:#ccc; text-shadow:none;}
+.btn-sub-action.is-sent span {color:#fff}
 .btn-sub-action span {display:inline-block; font-size:15px; font-weight:bold; line-height:1em;}
 /* .btn-sub-action.active {background-color:var(--primary-color); color:#fff; font-weight:bold; cursor:pointer; text-shadow:0 0 1px rgba(0, 0, 0, 0.16);} */
 

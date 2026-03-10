@@ -80,6 +80,23 @@
 	if (btnRetry) btnRetry.classList.add('disabled');
 
 	/**
+	 * 버튼 활성화 상태 업데이트 (휴대폰 번호, 주민등록번호)
+	 */
+	function updatePhoneConfirmBtnState() {
+		const selectedTelecom = document.querySelector('input[name="telCdRadio"]:checked');
+		const isSktSelected = selectedTelecom && selectedTelecom.value === 'SKT';
+		let isValid = phoneInput && phoneInput.value.length === 11;
+		if (isSktSelected) {
+			isValid = isValid && juminInput && juminInput.value.length === 8;
+		}
+		if (isValid) {
+			btnPhoneConfirm.classList.add('active');
+		} else {
+			btnPhoneConfirm.classList.remove('active');
+		}
+	}
+
+	/**
 	 * 입력 필드 이벤트 핸들링 (휴대폰 번호, 주민등록번호, 인증번호)
 	 */
 	// 휴대폰 번호 입력: 숫자만 허용 및 자리수에 따른 확인 버튼 활성화 제어
@@ -87,11 +104,7 @@
 		if (isAuthRequested && timeLeft > 0) return; // 인증 요청 후 재요청 가능 전까지 입력 방지
 
 		this.value = this.value.replace(/[^0-9]/g, '');
-		if (this.value.length === 11) {
-			btnPhoneConfirm.classList.add('active');
-		} else {
-			btnPhoneConfirm.classList.remove('active');
-		}
+		updatePhoneConfirmBtnState();
 	});
 
 	// 주민등록번호 입력: 숫자만 추출 및 자동 하이픈(-) 포맷팅 (6자리-1자리)
@@ -104,6 +117,7 @@
 				val = val.substring(0, 6) + '-' + val.substring(6, 7);
 			}
 			this.value = val;
+			updatePhoneConfirmBtnState();
 		});
 	}
 
@@ -156,7 +170,6 @@
 		
 		if (carrierValue === 'SKT') {
 			juminFieldGroup.style.display = 'block';
-			if (!isAuthRequested) juminFieldGroup.classList.add('active'); // 인증 전 active 추가
 			if (stplat4Text) stplat4Text.innerText = 'SKT개인정보 제3자 제공동의';
 			if (stplatSkt) stplatSkt.style.display = '';
 			if (stplatSktAdd1) stplatSktAdd1.style.display = '';
@@ -165,7 +178,6 @@
 			if (serviceBnr) serviceBnr.style.display = '';
 		} else {
 			juminFieldGroup.style.display = 'none';
-			juminFieldGroup.classList.remove('active'); // 타사 선택 시 제거
 			if (stplatSkt) stplatSkt.style.display = 'none';
 			if (stplatSktAdd1) stplatSktAdd1.style.display = 'none';
 			if (stplatSktAdd2) stplatSktAdd2.style.display = 'none';
@@ -178,6 +190,10 @@
 				if (serviceTypeText) serviceTypeText.innerText = '이통사 유료 부가서비스';
 				if (serviceBnr) serviceBnr.style.display = '';
 			}
+		}
+
+		if (typeof updatePhoneConfirmBtnState === 'function') {
+			updatePhoneConfirmBtnState();
 		}
 	}
 	
@@ -262,10 +278,14 @@
 	btnPhoneConfirm.addEventListener('click', function() {
 		// 활성 상태(자리수 만족) 확인
 		if (!this.classList.contains('active')) {
+			const selectedTelecom = document.querySelector('input[name="telCdRadio"]:checked');
+			const isSktSelected = selectedTelecom && selectedTelecom.value === 'SKT';
 			if (phoneInput.value.length === 0) {
 				showToast("휴대폰 번호를 입력해 주세요.");
-			} else {
+			} else if (phoneInput.value.length < 11) {
 				showToast("휴대폰 번호를 확인해주세요.");
+			} else if (isSktSelected && juminInput && juminInput.value.length < 8) {
+				showToast("주민등록번호를 확인해주세요.");
 			}
 			return;
 		}
@@ -273,11 +293,11 @@
 		// 재요청 모드인 경우 (인증번호가 이미 발송된 상태)
 		if (isAuthRequested) {
 			if (timeLeft > 0) {
-				showToast("인증번호(3분) 만료 후 인증번호 재요청이 가능합니다.");
+				showToast("입력시간 만료 후 인증번호 발송이 가능합니다.");
 			} else {
 				showLoading(() => {
 					startTimer();
-					showToast("인증번호가 재발송되었습니다.");
+					showToast("인증번호가 발송되었습니다.");
 				});
 			}
 			return;
@@ -372,8 +392,8 @@
 
 			// 인증 상태 초기화 및 인증번호 입력창 표시
 			isAuthRequested = true;
-			if (juminFieldGroup) juminFieldGroup.classList.remove('active'); // 인증 요청 시 active 제거
-			btnPhoneConfirm.querySelector('span').textContent = '재요청'; // 버튼 텍스트 변경
+			// btnPhoneConfirm.querySelector('span').textContent = '재요청'; // [삭제] 버튼 텍스트 변경 안함
+			btnPhoneConfirm.classList.add('is-sent'); // [추가] 인증번호 발송 상태 클래스 추가
 			phoneInput.readOnly = true; // 휴대폰번호 입력 창 읽기 전용으로 변경
 			phoneInput.style.opacity = '0.5'; // 시각적으로 비활성화된 느낌 부여
 			if (juminInput) {
@@ -453,10 +473,15 @@
 	primaryBtn.addEventListener("click", function(){
 		// 먼저 번호 확인 과정을 거쳤는지 확인
 		if (!isAuthRequested) {
-			if (phoneInput.value.length > 0) {
-				showToast("확인 버튼을 눌러 인증을 진행해주세요.");
+			const selectedTelecom = document.querySelector('input[name="telCdRadio"]:checked');
+			const isSktSelected = selectedTelecom && selectedTelecom.value === 'SKT';
+			const isPhoneFilled = phoneInput.value.length > 0;
+			const isJuminFilled = isSktSelected ? (juminInput && juminInput.value.length > 0) : true;
+			
+			if (isPhoneFilled && isJuminFilled) {
+				showToast("확인 버튼을 눌러 진행해주세요.");
 			} else {
-				showToast(`휴대폰번호를 입력해서 인증을 해주세요.`);
+				showToast(`필수 정보를 모두 입력해주세요.`);
 			}
 			return;
 		}
