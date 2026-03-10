@@ -156,6 +156,7 @@
 		
 		if (carrierValue === 'SKT') {
 			juminFieldGroup.style.display = 'block';
+			if (!isAuthRequested) juminFieldGroup.classList.add('active'); // 인증 전 active 추가
 			if (stplat4Text) stplat4Text.innerText = 'SKT개인정보 제3자 제공동의';
 			if (stplatSkt) stplatSkt.style.display = '';
 			if (stplatSktAdd1) stplatSktAdd1.style.display = '';
@@ -164,6 +165,7 @@
 			if (serviceBnr) serviceBnr.style.display = '';
 		} else {
 			juminFieldGroup.style.display = 'none';
+			juminFieldGroup.classList.remove('active'); // 타사 선택 시 제거
 			if (stplatSkt) stplatSkt.style.display = 'none';
 			if (stplatSktAdd1) stplatSktAdd1.style.display = 'none';
 			if (stplatSktAdd2) stplatSktAdd2.style.display = 'none';
@@ -370,6 +372,7 @@
 
 			// 인증 상태 초기화 및 인증번호 입력창 표시
 			isAuthRequested = true;
+			if (juminFieldGroup) juminFieldGroup.classList.remove('active'); // 인증 요청 시 active 제거
 			btnPhoneConfirm.querySelector('span').textContent = '재요청'; // 버튼 텍스트 변경
 			phoneInput.readOnly = true; // 휴대폰번호 입력 창 읽기 전용으로 변경
 			phoneInput.style.opacity = '0.5'; // 시각적으로 비활성화된 느낌 부여
