@@ -353,7 +353,7 @@ background-color:var(--text-main);
 /* 레이어 팝업 */
 div.dim {display:none; position:fixed; top:0; right:0; bottom:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:10000;}
 
-.layer.alert {display: none; position:fixed; top:50%; left:50%; width:284px; background-color:#fff; border-radius:6px; overflow:hidden; transform:translate(round(to-zero, -50%, 1px),round(to-zero, -50%, 1px)); z-index:1000;}
+.layer.alert {display: none; position:fixed; top:50%; left:50%; width:284px; background-color:#fff; border-radius:6px; overflow:hidden; transform:translate(round(to-zero, -50%, 1px),round(to-zero, -50%, 1px)); z-index:10001;}
 .layer.alert .layer_content {display:flex; flex-direction:column; gap:12px; padding:36px 18px; text-align:center;}
 .layer.alert .layer_content div.tit {color:#000; font-size:18px; line-height:27px; font-weight:700;}
 .layer.alert .layer_content p.txt {color:#000; font-size:14px; line-height:21px; font-weight:400; word-break:keep-all;}
@@ -398,7 +398,7 @@ div.dim {display:none; position:fixed; top:0; right:0; bottom:0; left:0; width:1
 
 
 /* 서비스 이용약관, 개인정보 처리방침용 팝업 */
-.layer.privacy {position:fixed; top:50%; left:50%; width:100%; max-width:960px; transform:translate(-50%,-50%); background-color:#fff; z-index:11;}
+.layer.privacy {position:fixed; top:50%; left:50%; width:100%; max-width:960px; transform:translate(-50%,-50%); background-color:#fff; z-index:10001;}
 .layer.privacy .layer_header {display:flex; justify-content:space-between; align-items:center; position:relative; background-color:#333;}
 .layer.privacy .layer_header h2 {height:72px; padding:0 24px; color:#fff; font-size:20px; line-height:72px; text-align:left;}
 .layer.privacy .layer_header button.btn_close {position:absolute; top:50%; right:24px; width:36px; height:36px; background-color:transparent; color:transparent; transform:translateY(-50%); cursor:pointer;}
@@ -416,7 +416,7 @@ div.dim {display:none; position:fixed; top:0; right:0; bottom:0; left:0; width:1
 .layer.privacy .layer_footer button.btn_next {width:100%; height:56px; border-radius:12px; background-color:var(--primary-color); color: #fff; font-size:16px; font-weight:600; cursor:pointer;}
 .layer.privacy .layer_footer button.btn_next span {display:block; color:inherit; font-size:inherit; font-weight:inherit; line-height:1em;}
 @media screen and (max-width:786px) {
-	.layer.privacy {top:0; left:0; width:100%; height:100dvh; transform:unset; z-index:20}
+	.layer.privacy {top:0; left:0; width:100%; height:100dvh; transform:unset; z-index:10001}
 	.layer.privacy .layer_header h2 {height:48px; font-size:16px; line-height:48px;}
 	.layer.privacy .inner {display:flex; flex-direction:column; justify-content:space-between; width:100%; height:100%;}
 	
