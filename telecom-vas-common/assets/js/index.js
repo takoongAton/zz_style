@@ -737,3 +737,14 @@
 
 	// 실행
 	checkInitialVisibility();
+
+	/**
+	 * 스크롤 위치 표시 기능
+	 */
+	window.addEventListener('scroll', function() {
+		const scrollValue = window.scrollY || document.documentElement.scrollTop;
+		const scrollHeightElem = document.querySelector('.scrollheight');
+		if (scrollHeightElem) {
+			scrollHeightElem.textContent = Math.floor(scrollValue);
+		}
+	});
