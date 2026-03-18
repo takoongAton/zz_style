@@ -124,7 +124,7 @@ header h1 span {color:#ff0000; line-height:1em;}
 
 .input-box--with-btn {display:flex; justify-content:space-between; align-items:center;}
 
-.input-label {display:block; height:14px; margin-bottom:4px; color:var(--text-label); font-size:12px; line-height:1em; font-weight:600;}
+.input-label {display:block; height:14px; margin-bottom:4px; color:var(--text-label); color:var(--text-main); font-size:12px; line-height:1em; font-weight:600;}
 
 input.input-element {height:22px; border:none; background:transparent; /* font-size:18px; */ font-size:16px; font-weight:500; color:var(--text-main); width:100%; outline:none;}
 input.input-element:focus {color:transparent; text-shadow:0 0 0 #000; transition:all 0.1s ease;}
