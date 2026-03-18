@@ -63,7 +63,8 @@ body {font-family:-apple-system, "BlinkMacSystemFont", "Roboto", sans-serif, sys
 -moz-osx-font-smoothing: grayscale;
 }
 
-.safeconnect_wrap_new {max-width:720px; margin:0 auto;}
+.safeconnect_container {max-width:720px; margin:0 auto;}
+/* .safeconnect_wrap_new {max-width:720px; margin:0 auto;} */
 
 /* 상단 */
 header {display:flex; justify-content:space-between; align-items:center; position:relative; border-bottom:1px solid #ebebeb;}
@@ -245,7 +246,7 @@ background-color:var(--text-main);
 	.terms-agree a {font-size:14px;}
 	.terms-agree .all_agree input[type="checkbox"] + label {gap:0 12px; padding:14px 32px 13px;}
 	.terms-agree .all_agree span.txt {font-size:18px; line-height:27px;}
-	.terms-agree .agree {padding:15px 2em;}
+	.terms-agree .agree {padding:15px 1em;}
 	.terms-agree .agree li label {gap:0 6px;}
 }
 .terms-agree.disabled {opacity:0.6; /* pointer-events:none; */ filter:grayscale(100%); transition:opacity 0.3s ease;}
