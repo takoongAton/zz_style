@@ -171,7 +171,7 @@ background-color:var(--text-main);
 }
 #auth_wrap.active {opacity:1; margin-top:16px; overflow:visible;}
 
-.signUp_form {display:flex; flex-direction:column; gap:16px; padding:20px;}
+.signUp_form {display:flex; flex-direction:column; gap:18px; padding:20px;}
 
 /* 약관 동의 */
 .terms-agree {border:1px solid var(--border-gray); border-radius:14px; overflow:hidden; opacity:1;}
