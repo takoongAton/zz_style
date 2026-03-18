@@ -124,9 +124,9 @@ header h1 span {color:#ff0000; line-height:1em;}
 
 .input-box--with-btn {display:flex; justify-content:space-between; align-items:center;}
 
-.input-label {display:block; margin-bottom:4px; font-size:12px; color:var(--text-label); font-weight:500;}
+.input-label {display:block; height:14px; margin-bottom:4px; color:var(--text-label); font-size:12px; line-height:1em; font-weight:600;}
 
-input.input-element {height:21px; border:none; background:transparent; /* font-size:18px; */ font-size:16px; font-weight:500; color:var(--text-main); width:100%; outline:none;}
+input.input-element {height:22px; border:none; background:transparent; /* font-size:18px; */ font-size:16px; font-weight:500; color:var(--text-main); width:100%; outline:none;}
 input.input-element:focus {color:transparent; text-shadow:0 0 0 #000; transition:all 0.1s ease;}
 input.input-element::placeholder {color:inherit; font-size:inherit; opacity:0.3; transition:all 0.1s ease;}
 input.input-element:focus::placeholder {color:transparent; opacity:0;}
