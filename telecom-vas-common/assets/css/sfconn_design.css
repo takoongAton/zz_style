@@ -456,19 +456,19 @@ table, td, th {
 	position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background-color:#fff; border-radius:24px; color:inherit; z-index:10001; overflow-y:auto; box-shadow:0 1px 2px rgba(0,0,0,0.2);
 }
 .layer.signUp_kt .layer_inner .layer_content {display:flex; flex-direction:column; gap:10px; padding:36px 18px; text-align:center;}
-.layer.signUp_kt .layer_inner .layer_content strong.tit {color:var(--primary-color); font-size:18px; line-height:28px; font-weight:700;}
-.layer.signUp_kt .layer_inner .layer_content div.tit {color:#000; font-size:16px; line-height:1.55555em; font-weight:700;}
+.layer.signUp_kt .layer_inner .layer_content strong.tit {color:var(--primary-color); font-size:20px; line-height:28px; font-weight:700;}
+.layer.signUp_kt .layer_inner .layer_content div.tit {color:#000; font-size:18px; line-height:1.55555em; font-weight:700;}
 .layer.signUp_kt .layer_inner .layer_content div.box {margin-top:0.4em; padding:1em; border-radius:12px; background-color:#f2f2f2; border:0.5px solid #ddd;}
-.layer.signUp_kt .layer_inner .layer_content div.txt {color:#000; font-size:14px; line-height:1.3em; font-weight:400; word-break:keep-all; letter-spacing:-0.04em;}
+.layer.signUp_kt .layer_inner .layer_content div.txt {color:#000; font-size:16px; line-height:1.3em; font-weight:400; word-break:keep-all; letter-spacing:-0.04em;}
 .layer.signUp_kt .layer_inner .layer_content div.txt em {color:var(--text-error-red); font-weight:500;}
 .layer.signUp_kt .btn_group {display:flex; width:100%;}
 .layer.signUp_kt .btn_group div {width:100%;}
 .layer.signUp_kt .btn_group div button {width:100%; height:72px;}
-.layer.signUp_kt .btn_group div button.next {background-color:var(--primary-color); color:#fff; letter-spacing:-0.04em;}
-.layer.signUp_kt .btn_group div button.next strong {display:block; color:#fff; font-size:14px; line-height:1.3em; font-weight:bold;}
-.layer.signUp_kt .btn_group div button.next span {display:block; color:#fff; font-size:14px; line-height:1.3em; font-weight:500;}
+.layer.signUp_kt .btn_group div button.next {padding:0 10px; background-color:var(--primary-color); color:#fff; letter-spacing:-0.04em;}
+.layer.signUp_kt .btn_group div button.next strong {display:block; color:#fff; font-size:16px; line-height:1.3em; font-weight:bold;}
+.layer.signUp_kt .btn_group div button.next span {display:block; color:#fff; font-size:16px; line-height:1.3em; font-weight:700;}
 .layer.signUp_kt .btn_group div button.btn_cancel {background-color:#d9d9d9;}
-.layer.signUp_kt .btn_group div button.btn_cancel span {color:#444; font-size:16px; font-weight:500;}
+.layer.signUp_kt .btn_group div button.btn_cancel span {color:#444; font-size:16px; font-weight:700;}
 .layer.signUp_kt .btn_close {position:absolute; top:18px; right:18px; width:24px; height:24px; background-color:transparent;}
 .layer.signUp_kt .btn_close span {display:block; width:100%; height:100%; color:transparent;}
 .layer.signUp_kt .btn_close::before,
