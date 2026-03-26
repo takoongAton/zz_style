@@ -327,10 +327,16 @@
 	 */
 	// 휴대폰 번호 옆 '확인' 버튼 클릭 시 인증번호 발송 요청
 	btnPhoneConfirm.addEventListener('click', function() {
+		// 통신사 선택 여부 확인 (최우선 체크)
+		const selectedTelecom = document.querySelector('input[name="telCdRadio"]:checked');
+		if (!selectedTelecom) {
+			showToast("통신사를 선택해 주세요.");
+			return;
+		}
+
 		// 활성 상태(자리수 만족) 확인
 		if (!this.classList.contains('active')) {
-			const selectedTelecom = document.querySelector('input[name="telCdRadio"]:checked');
-			const isSktSelected = selectedTelecom && selectedTelecom.value === 'SKT';
+			const isSktSelected = selectedTelecom.value === 'SKT';
 			if (phoneInput.value.length === 0) {
 				showToast("휴대폰 번호를 입력해 주세요.");
 			} else if (phoneInput.value.length < 11) {
