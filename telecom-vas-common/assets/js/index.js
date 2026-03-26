@@ -157,12 +157,63 @@
 			if (carrierValue === 'SKT') {
 				btnConfirmTest.classList.add('typeA');
 				if (authForm) authForm.classList.add('typeA');
+
+				// SKT: #juminFieldGroup 내 .input-box의 실측 위치/크기를 inline style로 적용
+				// juminFieldGroup은 SKT 선택 직후 display:block 처리 후 계산해야 정확하므로
+				// 이 시점에서는 display 변경 전이라 rAF로 다음 렌더 프레임에 계산
+				requestAnimationFrame(function() {
+					const juminInputBox = juminFieldGroup ? juminFieldGroup.querySelector('.input-box') : null;
+					if (juminInputBox && authForm) {
+						// authForm(position:relative) 기준의 .input-box top 계산
+						// offsetParent 체인을 따라 authForm까지의 누적 offsetTop
+						let el = juminInputBox;
+						let topVal = 0;
+						while (el && el !== authForm) {
+							topVal += el.offsetTop;
+							el = el.offsetParent;
+						}
+						const heightVal = juminInputBox.offsetHeight;
+
+						// CSS 변수 --button-width 읽기
+						const buttonWidth = getComputedStyle(document.documentElement)
+							.getPropertyValue('--button-width').trim() || '76px';
+
+						btnConfirmTest.style.top    = topVal + 'px';
+						btnConfirmTest.style.height = heightVal + 'px';
+						btnConfirmTest.style.width  = 'var(--button-width)';
+					}
+				});
 			} else if (carrierValue === 'KT') {
 				btnConfirmTest.classList.add('typeB');
 				if (authForm) authForm.classList.add('typeB');
+
+				// KT: #phoneFieldGroup 내 .input-box의 실측 위치/크기를 inline style로 적용
+				// (주민등록 입력란 없음 → 휴대폰 번호 input-box 기준)
+				requestAnimationFrame(function() {
+					const phoneFieldGroup = document.getElementById('phoneFieldGroup');
+					const phoneInputBox = phoneFieldGroup ? phoneFieldGroup.querySelector('.input-box') : null;
+					if (phoneInputBox && authForm) {
+						// authForm(position:relative) 기준의 .input-box top 계산
+						let el = phoneInputBox;
+						let topVal = 0;
+						while (el && el !== authForm) {
+							topVal += el.offsetTop;
+							el = el.offsetParent;
+						}
+						const heightVal = phoneInputBox.offsetHeight;
+
+						btnConfirmTest.style.top    = topVal + 'px';
+						btnConfirmTest.style.height = heightVal + 'px';
+						btnConfirmTest.style.width  = 'var(--button-width)';
+					}
+				});
 			} else if (carrierValue === 'LGT') {
 				btnConfirmTest.classList.add('typeC');
 				if (authForm) authForm.classList.add('typeC');
+				// SKT 외: inline style 초기화 (CSS 클래스 스타일을 따름)
+				btnConfirmTest.style.top    = '';
+				btnConfirmTest.style.height = '';
+				btnConfirmTest.style.width  = '';
 			}
 		}
 		
