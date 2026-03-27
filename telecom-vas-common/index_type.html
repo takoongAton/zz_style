@@ -18,19 +18,26 @@
 	<link rel="icon" href="favicon.ico" type="image/x-icon" sizes="any" />
 	<link rel="stylesheet" type="text/css" href="./assets/css/sfconn_design.css" />
 	
+	<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+	<!-- <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" /> -->
+	<!-- <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" /> -->
+	
 	<!-- <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script> -->
 
 	<style>
 		.grecaptcha-badge {display: none;}
 
+		/* 가입 완료 화면에 적용 */
 		html.complete {height:100%;}
 		html.complete body {height:100%;}
-
 		html.complete body .safeconnect_container {display:flex; flex-direction:column; height:100%;}
 		html.complete body .safeconnect_container main {flex:1;}
 		html.complete body .safeconnect_container section {display:flex; flex-direction:column; height:100%;}
 		html.complete body .safeconnect_container section .popup_cont {flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:20px;}
+		/* // 가입 완료 화면에 적용 */
 
+		/* 가입 완료화면 */
 		.completion-icon {display:flex; justify-content:center;}
 		.completion-icon .check-circle {display:flex; align-items:center; justify-content:center; width:80px; height:80px; border-radius:50%;}
 		.completion-text {display:flex; flex-direction:column; gap:20px; padding:0 20px; text-align:center;}
@@ -46,6 +53,7 @@
 			from { stroke-dasharray: 50; stroke-dashoffset: 50; }
 			to { stroke-dashoffset: 0; }
 		}
+		/* //가입 완료화면 */
 
 
 		.auth-form.typeA {position:relative;}
@@ -74,7 +82,45 @@
 		#btn-confirm_test.typeC button span {}
 
 		/* testToggle: 순서 변경 CSS */
-		.signUp_form.reorder .terms-agree { order: 1; }
+		.signUp_form.reorder .terms-agree { order: 1; }/* 컬쳐랜드 상단 안내문구(사용안함) */
+
+/* 컬쳐랜드 상단 안내문구(사용안함) */
+		.client_info {padding:0.5em 1em; background-color:var(--bg-gray);}
+.client_info p {color:var(--text-gray-dark); font-size:11px; line-height:1em; font-weight:500; letter-spacing:-0.025em; text-align:center;}
+.client_info p strong {color:#ff0000; font-weight:500;}
+/* // 컬쳐랜드 상단 안내문구(사용안함) */
+
+
+/* 휴대폰안심에서 사용(배너가 없는 경우 보이는 서비스 소개) */
+.service_intro {padding:1em; background-color:#fff; text-align:center;}
+.service_intro h2 { color:#333; font-size:20px; line-height:1.5em; font-weight:700}
+.service_intro div.txt_wrap { margin-top:.5em}
+.service_intro p.txt { color:#545454; font-size:14px; line-height:1.5em; font-weight:700; word-break:keep-all}
+.service_intro p.price { margin-top:.25em; color:red; font-size:12px; line-height:1.5em; font-weight:700;}
+/* // 휴대폰안심에서 사용(배너가 없는 경우 보이는 서비스 소개) */
+
+
+
+	/* 스탁 전용 추가 */
+.stock_service_features ul {display:flex; justify-content: space-around;}
+.stock_service_features ul li {display:flex; flex-direction:column; align-items:center; gap:4px 0; width:100%; text-align:center;}
+.stock_service_features ul li span {display:inline-block; width:36px; height:36px;}
+.stock_service_features ul li p {color:var(--text-main); font-size:13px; line-height:19px; font-weight:500; letter-spacing:-0.025em;}
+@media screen and (min-width:540px) {
+	.stock_service_features ul li span {width:48px; height:48px;}
+	.stock_service_features ul li p {font-size:15px; line-height:22px;}
+}
+/* // 스탁 전용 추가 */
+
+
+
+		/* 확인(인증번호 전송) 버튼 */
+		#btn-confirm_test {width:100%; margin-top:var(--row-gap);}
+		#btn-confirm_test {}
+		#btn-confirm_test .btn-sub-action.btn-phone-confirm {width:100%; min-height:50px; height:100%;}
+		#btn-confirm_test .btn-sub-action.btn-phone-confirm span {font-size:16px;}
+		#btn-confirm_test.typeC button.btn-sub-action.btn-phone-confirm {min-height:40px; height:40px;}
+		/* // 확인(인증번호 전송) 버튼 */
 	</style>
 </head>
 <body>
@@ -83,6 +129,10 @@
 <!-- End Google Tag Manager (noscript) -->
 
 	<div class="safeconnect_container">
+
+		<div class="client_info">
+			<p>본 서비스는 (주)아톤 <strong>유료 가입 광고</strong>로, 컬쳐랜드 서비스와는 무관합니다.</p>
+		</div>
 		<header>
 			<div class="pTop">
 				<h1><strong>전화번호 안심로그인</strong> <span id="serviceTypeText">통신사 제휴 유료 부가서비스</span></h1>
@@ -90,15 +140,22 @@
 		</header>
 
 		<main>
-
-			
 			<section id="sectionInput">
+
 				<div class="service_info">
 					<p class="notice telecom_item" id="notice_skt">
 						<em>주식정보</em> 서비스는 검증된 빅데이터 분석을 통한 유망종목 추천, 투자 성향에 따라 다양한 유형의 포트폴리오 제공, 증권사 추천주 및 주요 공시 요약을 한 번에 확인할 수 있는 종합 주식 정보 서비스입니다.<br>
 						<strong class="price">* 매월 부가세 포함 11,000원</strong>
 					</p>
 				</div>
+				<div class="service_intro">
+					<h2>휴대폰안심</h2>
+					<div class="txt_wrap">
+						<p class="txt">각종 피싱 및 스미싱의 위협으로부터 내 휴대폰을 안전하게 보호해주는 서비스입니다.</p>
+						<p class="price">부가세포함 월 3,300원의 이용료가 발생합니다.</p>
+					</div>
+				</div>
+				<!-- // service_intro -->
 				
 				<!--GDN 배너-->
 				<div class="signUp_bnr" id="testToggle">
@@ -302,7 +359,7 @@
 									<span class="timer">03:00</span>
 									<button type="button" class="btn-help">?</button>
 									<div class="help-tooltip">
-										수신된 인증번호 6자리를 입력해 주세요.
+										문자로 수신된 인증번호 6자리를 입력해 주세요.
 									</div>
 								</div>
 								<!-- // input-info -->
@@ -314,6 +371,24 @@
 						</div>
 					</div>
 					<!-- // auth-form -->
+
+					<div class="stock_service_features">
+						<ul>
+							<li>
+								<span class="ico"><img src="./assets/images/temp/ico_ai.png" alt="아이콘"></span>
+								<p>AI추천<br>로보 포트폴리오</p>
+							</li>
+							<li>
+								<span class="ico"><img src="./assets/images/temp/ico_pop.png" alt="아이콘"></span>
+								<p>요즘 뜨는<br>인기 테마주</p>
+							</li>
+							<li>
+								<span class="ico"><img src="./assets/images/temp/ico_focus.png" alt="아이콘"></span>
+								<p>오늘 주목할만한<br>특징주</p>
+							</li>
+						</ul>
+					</div>
+					<!-- // stock_service_features -->
 
 				</div>
 				<!-- // signUp_form -->
@@ -391,14 +466,15 @@
 		</main>
 
 		<footer class="footer">
-			<div class="footer_info">
-				<ul>
-					<li>본 서비스는 <strong>SKT,KT,LGU+</strong>와 제휴하여 ㈜아톤이 운영합니다.</li>
-					<li>고객센터(이용/해지) : 1670-4273 / <a href="#" class="email">safeconnect@atoncorp.com</a></li>
+			<div class="footer_group">
+				<!-- <strong class="footer_tit">[안내사항]</strong> -->
+				<ul class="footer_cont">
+					<li><p>본 서비스는 <strong>SKT,KT,LGU+</strong>와 제휴하여 ㈜아톤이 운영합니다.</p></li>
+					<li><p>고객센터(이용/해지) : 1670-4273 / <a href="#" class="email">safeconnect@atoncorp.com</a></p></li>
 				</ul>
 			</div>
 
-			<!-- <div class="hide-setting">
+			<div class="hide-setting">
 				<input type="checkbox" id="chkHide7">
 				<label for="chkHide7">
 					<span class="checkmark">
@@ -408,7 +484,7 @@
 					</span>
 				</label>
 				<span class="txt" id="btnHide7Action">7일간 보이지 않기</span>
-			</div> -->
+			</div>
 		</footer>
 	</div><!-- // safeconnect_container -->
 

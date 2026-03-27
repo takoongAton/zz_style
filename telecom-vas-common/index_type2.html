@@ -28,14 +28,16 @@
 	<style>
 		.grecaptcha-badge {display: none;}
 
+		/* 가입 완료 화면에 적용 */
 		html.complete {height:100%;}
 		html.complete body {height:100%;}
-
 		html.complete body .safeconnect_container {display:flex; flex-direction:column; height:100%;}
 		html.complete body .safeconnect_container main {flex:1;}
 		html.complete body .safeconnect_container section {display:flex; flex-direction:column; height:100%;}
 		html.complete body .safeconnect_container section .popup_cont {flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:20px;}
+		/* // 가입 완료 화면에 적용 */
 
+		/* 가입 완료화면 */
 		.completion-icon {display:flex; justify-content:center;}
 		.completion-icon .check-circle {display:flex; align-items:center; justify-content:center; width:80px; height:80px; border-radius:50%;}
 		.completion-text {display:flex; flex-direction:column; gap:20px; padding:0 20px; text-align:center;}
@@ -51,6 +53,7 @@
 			from { stroke-dasharray: 50; stroke-dashoffset: 50; }
 			to { stroke-dashoffset: 0; }
 		}
+		/* //가입 완료화면 */
 
 
 		.auth-form.typeA {position:relative;}
@@ -86,14 +89,76 @@
 
 		input.input-element {height:24px;}
 
-svg {color:inherit}
-
 .terms-agree .agree ul {flex-direction:column;}
 .terms-agree .agree ul li label span.txt {color:#888;}
-.terms-agree .agree ul li button.btn-agree-detail {display:flex; align-items:center; position:relative; width:40px; min-width:40px; height:20px; background-color:#fff; color:#888; text-align:left; cursor:pointer;}
+.terms-agree .agree ul li button.btn-agree-detail {display:flex; align-items:center; position:relative; width:40px; min-width:40px; height:20px; color:#888; text-align:left; cursor:pointer; background-color:transparent;}
 .terms-agree .agree ul li button.btn-agree-detail span.txt {color:inherit; white-space:nowrap;}
 .terms-agree .agree ul li button.btn-agree-detail span.ico {display:block; width:20px; height:20px;line-height:1; color:inherit;}
 .terms-agree .agree ul li button.btn-agree-detail svg {width:20px; height:20px; fill:currentColor; transform:rotate(-90deg);}
+
+
+/* 컬쳐랜드 상단 안내문구(사용안함) */
+.client_info {padding:0.5em 1em; background-color:var(--bg-gray);}
+.client_info p {color:var(--text-gray-dark); font-size:11px; line-height:1em; font-weight:500; letter-spacing:-0.025em; text-align:center;}
+.client_info p strong {color:#ff0000; font-weight:500;}
+/* // 컬쳐랜드 상단 안내문구(사용안함) */
+
+
+/* 휴대폰안심에서 사용(배너가 없는 경우 보이는 서비스 소개) */
+.service_intro {padding:1em; background-color:#fff; text-align:center;}
+.service_intro h2 { color:#333; font-size:20px; line-height:1.5em; font-weight:700}
+.service_intro div.txt_wrap { margin-top:.5em}
+.service_intro p.txt { color:#545454; font-size:14px; line-height:1.5em; font-weight:700; word-break:keep-all}
+.service_intro p.price { margin-top:.25em; color:red; font-size:12px; line-height:1.5em; font-weight:700;}
+/* // 휴대폰안심에서 사용(배너가 없는 경우 보이는 서비스 소개) */
+
+
+
+/* 스탁 전용 추가 */
+.stock_service_features ul {display:flex; justify-content: space-around;}
+.stock_service_features ul li {display:flex; flex-direction:column; align-items:center; gap:4px 0; width:100%; text-align:center;}
+.stock_service_features ul li span {display:inline-block; width:36px; height:36px;}
+.stock_service_features ul li p {color:var(--text-main); font-size:13px; line-height:19px; font-weight:500; letter-spacing:-0.025em;}
+@media screen and (min-width:540px) {
+	.stock_service_features ul li span {width:48px; height:48px;}
+	.stock_service_features ul li p {font-size:15px; line-height:22px;}
+}
+/* // 스탁 전용 추가 */
+
+
+
+/* 확인(인증번호 전송) 버튼 */
+#btn-confirm_test {width:100%; margin-top:var(--row-gap);}
+#btn-confirm_test::before,
+#btn-confirm_test::after {content:""; display:block; position:absolute; bottom:0; left:50%; transform:translate(-50%, 100%);}
+#btn-confirm_test::before {
+width: 90%;   /* 밑변 너비 */
+  height: 15%;    /* 높이 */
+  margin:0 auto;
+  background-color: #3498db;
+  background-color:var(--text-main);
+  /* 좌상단(10px), 우상단(110px), 우하단(120px), 좌하단(0px) 순서로 점을 찍음 */
+  /* clip-path: polygon(10px 0%, calc(100% - 20%) 0%, 10`0% 100%, 0% 100%); */
+  clip-path: polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%);
+  background:linear-gradient(0deg, rgba(255, 255, 255, 0.5) 0%, rgba(0, 0, 0, 1) 100%);
+  filter: blur(20px);
+  -webkit-filter: blur(20px);
+  /* opacity:0.5; */
+  /* backdrop-filter: blur(5px); */
+}
+#btn-confirm_test::after {
+width: 90%;   /* 밑변 너비 */
+  height: 30%;    /* 높이 */
+  margin:0 auto;
+  backdrop-filter: blur(3px);
+  z-index: 1
+  ;
+}
+#btn-confirm_test {}
+#btn-confirm_test .btn-sub-action.btn-phone-confirm {position:relative; width:100%; min-height:50px; height:100%; z-index: 1;}
+#btn-confirm_test .btn-sub-action.btn-phone-confirm span {font-size:16px;}
+#btn-confirm_test.typeC button.btn-sub-action.btn-phone-confirm {min-height:40px; height:40px;}
+/* // 확인(인증번호 전송) 버튼 */
 	</style>
 </head>
 <body>
@@ -102,11 +167,7 @@ svg {color:inherit}
 <!-- End Google Tag Manager (noscript) -->
 
 	<div class="safeconnect_container">
-<style>
-.client_info {padding:0.5em 1em; background-color:var(--bg-gray);}
-.client_info p {color:var(--text-gray-dark); font-size:11px; line-height:1em; font-weight:500; letter-spacing:-0.025em; text-align:center;}
-.client_info p strong {color:#ff0000; font-weight:500;}
-</style>
+
 		<div class="client_info">
 			<p>본 서비스는 (주)아톤 <strong>유료 가입 광고</strong>로, 컬쳐랜드 서비스와는 무관합니다.</p>
 		</div>
@@ -125,13 +186,6 @@ svg {color:inherit}
 						<strong class="price">* 매월 부가세 포함 11,000원</strong>
 					</p>
 				</div>
-<style>
-.service_intro { padding:1em; text-align:center}
-.service_intro h2 { color:#333; font-size:20px; line-height:1.5em; font-weight:700}
-.service_intro div.txt_wrap { margin-top:.5em}
-.service_intro p.txt { color:#545454; font-size:14px; line-height:1.5em; font-weight:700; word-break:keep-all}
-.service_intro p.price { margin-top:.25em; color:red; font-size:12px; line-height:1.5em; font-weight:700;}
-</style>
 				<div class="service_intro">
 					<h2>휴대폰안심</h2>
 					<div class="txt_wrap">
@@ -413,14 +467,7 @@ svg {color:inherit}
 								<!-- // input-info -->
 							</div>
 						</div>
-<style>
-/* 확인(인증번호 전송) 버튼 */
-#btn-confirm_test {width:100%; margin-top:var(--row-gap);}
-#btn-confirm_test .btn-sub-action.btn-phone-confirm {width:100%; height:50px;}
-#btn-confirm_test .btn-sub-action.btn-phone-confirm span {font-size:16px;}
-#btn-confirm_test.typeC button.btn-sub-action.btn-phone-confirm {min-height:40px; height:40px;}
-/* // 확인(인증번호 전송) 버튼 */
-</style>
+
 						<div class="field-group" id="btn-confirm_test">
 							<button type="button" class="btn-sub-action btn-phone-confirm"><span>확인</span></button>
 						</div>
@@ -448,20 +495,6 @@ svg {color:inherit}
 				</div>
 				<!-- // signUp_form -->
 
-
-				<style>
-				/* 스탁 전용 추가 */
-				.stock_service_features ul {display:flex; justify-content: space-around;}
-				.stock_service_features ul li {display:flex; flex-direction:column; align-items:center; gap:4px 0; width:100%; text-align:center;}
-				.stock_service_features ul li span {display:inline-block; width:36px; height:36px;}
-				.stock_service_features ul li p {color:var(--text-main); font-size:13px; line-height:19px; font-weight:500; letter-spacing:-0.025em;}
-				@media screen and (min-width:540px) {
-					.stock_service_features ul li span {width:48px; height:48px;}
-					.stock_service_features ul li p {font-size:15px; line-height:22px;}
-				}
-				/* // 스탁 전용 추가 */
-				</style>
-				
 
 				<div style="display:flex; flex-direction:column; gap:16px; width:100%;">
 					<div class="auth-footer">
@@ -537,16 +570,29 @@ svg {color:inherit}
 		</main>
 
 		<footer class="footer">
-			<div class="footer_info">
-				<ul>
-					<li>본 서비스는 <strong>SKT,KT,LGU+</strong>와 제휴하여 ㈜아톤이 운영합니다.</li>
-					<li>고객센터(이용/해지) : 1670-4273 / <a href="#" class="email">safeconnect@atoncorp.com</a></li>
+			<div class="footer_group">
+				<strong class="footer_tit">[쿠폰 상세 설명]</strong>
+				<ul class="footer_cont">
+					<li>
+						<p>
+							<strong>본 서비스는 가입 즉시 서비스가 개시되는 상품으로 청약철회가 불가능합니다.(전자상거래 등에서의 소비자보호에 관한 법률 제17조 2항 5호에 따라 디지털 콘텐츠의 제공이 개시된 경우 청약철회를 제공하지 않습니다.)</strong>
+						</p>
+					</li>
+					<li>
+						<p>본 서비스는 <strong>SKT,KT,LGU+</strong>와 제휴하여 ㈜아톤이 운영합니다.</p>
+					</li>
+					<li>
+						<p>고객센터(이용/해지) : 1670-4273 / <a href="#" class="email">safeconnect@atoncorp.com</a>s</p>
+					</li>
 				</ul>
+			</div>
 
-				<ul>
-					<li>본 서비스는 가입 즉시 서비스가 개시되는 상품으로 청약철회가 불가능합니다.(전자상거래 등에서의 소비자보호에 관한 법률 제17조 2항 5호에 따라 디지털 콘텐츠의 제공이 개시된 경우 청약철회를 제공하지 않습니다.)</li>
-					<li>본 서비스는 휴대폰 안심 앱에서 이용 가능합니다. (LG U+ 고객은 PASS 앱에서도 이용 가능합니다.</li>
-					<li>가입/해지문의 : 1800-1637(휴대폰안심 고객센터), 평일 09시~18시 (점심시간 : 12:00~13:00)</li>
+			<div class="footer_group">
+				<strong class="footer_tit">[유의사항]</strong>
+				<ul class="footer_cont">
+					<li><p>본 서비스는 가입 즉시 서비스가 개시되는 상품으로 청약철회가 불가능합니다.(전자상거래 등에서의 소비자보호에 관한 법률 제17조 2항 5호에 따라 디지털 콘텐츠의 제공이 개시된 경우 청약철회를 제공하지 않습니다.)</p></li>
+					<li><p>본 서비스는 휴대폰 안심 앱에서 이용 가능합니다. (LG U+ 고객은 PASS 앱에서도 이용 가능합니다.</p></li>
+					<li><p>가입/해지문의 : 1800-1637(휴대폰안심 고객센터), 평일 09시~18시 (점심시간 : 12:00~13:00)</p></li>
 				</ul>
 			</div>
 
