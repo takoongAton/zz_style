@@ -141,7 +141,7 @@ header h1 span {color:#ff0000; line-height:1em;}
 
 
 .telecom ul.radio li input[type=radio] + label::before,
-.telecom ul.radio li input[type=radio] + label::after {content:""; display:block; position:absolute; bottom:0; left:50%; transform:translate(-50%, calc(100% + 2px)); transition:all 0.4s ease-in-out;}
+.telecom ul.radio li input[type=radio] + label::after {content:""; display:block; position:absolute; bottom:0; left:50%; transform:translate(-50%, calc(100% + 2px)); transition:all 0.1s ease-in-out;}
 .telecom ul.radio li input[type=radio] + label::before {
 	width: 90%;   /* 밑변 너비 */
   height:0%;
@@ -154,7 +154,7 @@ header h1 span {color:#ff0000; line-height:1em;}
   -webkit-filter: blur(20px);
 }
 .telecom ul.radio li input[type=radio]:checked + label::after {
-	width: 90%;   /* 밑변 너비 */
+	width: 100%;   /* 밑변 너비 */
   height: 20%;    /* 높이 */
   margin:0 auto;
   backdrop-filter: blur(3px);
