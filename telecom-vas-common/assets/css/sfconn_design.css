@@ -82,6 +82,16 @@ body {font-family: "Pretendard", -apple-system, "BlinkMacSystemFont", "Roboto", 
 .safeconnect_container {max-width:720px; margin:0 auto;}
 /* .safeconnect_wrap_new {max-width:720px; margin:0 auto;} */
 
+
+
+/* 컬쳐랜드 상단 안내문구(사용안함) */
+.client_info {padding:0.5em 1em; background-color:var(--bg-gray);}
+.client_info p {color:var(--text-gray-dark); font-size:11px; line-height:1em; font-weight:500; letter-spacing:-0.025em; text-align:center;}
+.client_info p strong {color:#ff0000; font-weight:500;}
+/* // 컬쳐랜드 상단 안내문구(사용안함) */
+
+
+
 /* 상단 */
 header {display:flex; justify-content:space-between; align-items:center; position:relative; padding:0.65em 1em; border-bottom:1px solid #ebebeb; background-color:#fff;}
 header h1 {display:flex; justify-content:flex-start; align-items:center; width:100%; gap:0.25em 0.5em; font-size:12px; font-weight:700; letter-spacing:-0.025em;}
@@ -92,10 +102,22 @@ header h1 span {color:#ff0000; line-height:1em;}
 }
 
 
+
+/* 휴대폰안심에서 사용(배너가 없는 경우 보이는 서비스 소개) */
+.service_intro {padding:1em; background-color:#fff; text-align:center;}
+.service_intro h2 { color:#333; font-size:20px; line-height:1.5em; font-weight:700}
+.service_intro div.txt_wrap { margin-top:.5em}
+.service_intro p.txt { color:#545454; font-size:14px; line-height:1.5em; font-weight:700; word-break:keep-all}
+.service_intro p.price { margin-top:.25em; color:red; font-size:12px; line-height:1.5em; font-weight:700;}
+/* // 휴대폰안심에서 사용(배너가 없는 경우 보이는 서비스 소개) */
+
+
+
 /* 상단 배너 */
 .signUp_bnr picture {display:block; font-size:0;}
 .signUp_bnr img {width:100%; height:auto;}
 @media screen and (min-width:720px) {
+	.signUp_bnr {margin:18px 18px 0; border-radius:12px; overflow:hidden; box-shadow:0 0 2px rgba(0,0,0,0.2);}
 	.signUp_cont {flex:1}
 }
 /* // 상단 배너 */
@@ -204,6 +226,24 @@ input.input-element:-webkit-autofill:active {
 }
 
 
+
+
+/* 확인(인증번호 전송) 버튼 */
+#btn-confirm_test {width:100%; margin-top:var(--row-gap);}
+#btn-confirm_test .btn-sub-action.btn-phone-confirm {position:relative; width:100%; min-height:50px; height:100%; z-index: 1;}
+#btn-confirm_test .btn-sub-action.btn-phone-confirm span {font-size:16px;}
+#btn-confirm_test.typeC button.btn-sub-action.btn-phone-confirm {min-height:40px; height:40px;}
+
+/* 버튼 하단 그림자 효과 */
+#btn-confirm_test::before,
+#btn-confirm_test::after {content:""; display:block; position:absolute; bottom:0; left:50%; transform:translate(-50%, 100%);}
+#btn-confirm_test::before { width:90%; height:15%; margin:0 auto; background-color:var(--text-main); clip-path:polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%); background:linear-gradient(0deg, rgba(255, 255, 255, 0.5) 0%, rgba(0, 0, 0, 1) 100%); filter:blur(20px); -webkit-filter:blur(20px);}
+#btn-confirm_test::after {width:90%; height:30%; margin:0 auto; backdrop-filter:blur(3px); z-index:1;}
+/* // 버튼 하단 그림자 효과 */
+/* // 확인(인증번호 전송) 버튼 */
+
+
+
 /* 인증번호 타이머 및 버튼 */
 .btn-sub-action {min-width:64px; min-height:42px; background-color:var(--primary-color); border:none; border-radius:12px; color:#fff; font-size:13px; line-height:1em; font-weight:bold; cursor:pointer; text-shadow:0 0 1px rgba(0, 0, 0, 0.16);
 background-color:var(--text-main);
@@ -234,6 +274,8 @@ background-color:var(--text-main);
 #auth_wrap.active {opacity:1; margin-top:var(--row-gap); overflow:visible;}
 
 .signUp_form {display:flex; flex-direction:column; gap:var(--row-gap); padding:18px;}
+/* testToggle: 순서 변경 CSS */
+		.signUp_form.reorder .terms-agree { order: 1; }
 
 /* 약관 동의 */
 .terms-agree {border:1px solid var(--border-gray); border-radius:14px; overflow:hidden; opacity:1;}
@@ -264,8 +306,6 @@ background-color:var(--text-main);
 .terms-agree .all_agree span.txt {display:inline-block; font-size:16px; line-height:21px; font-weight:700;}
 
 .terms-agree .all_agree input[type="checkbox"]:checked + label span.checkmark {border:none;}
-/* .terms-agree .all_agree input[type="checkbox"]:checked + label span.checkmark svg {fill:#fff;} */
-/* .terms-agree .all_agree input[type="checkbox"]:checked + label span.checkmark {background-color:var(--primary-color); border:none; box-shadow:none;} */
 
 .btn-toggle-agree {display:flex; justify-content:center; align-items:center; width:40px; height:40px; margin-right:8px; background:transparent; color:var(--text-label); transition:transform 0.3s ease; cursor:pointer; transform:rotate(180deg);}
 .btn-toggle-agree svg {width:24px; height:24px; fill:currentColor;}
@@ -277,10 +317,17 @@ background-color:var(--text-main);
 .terms-agree .agree ul {display:flex; flex-wrap:wrap; flex-direction:row; gap:4px 6px;}
 .terms-agree .agree ul li {display:flex; justify-content:space-between; gap:10px; position:relative; min-width:calc(50% - 3px);}
 .terms-agree .agree ul li label {gap:0 4px;}
+.terms-agree .agree ul li label span.txt {color:#888;}
 .terms-agree .agree input[type="checkbox"] + label span.checkmark {width:17px; min-width:17px; height:20px;}
 .terms-agree .agree input[type="checkbox"] + label span.checkmark svg {fill:var(--border-gray)}
 .terms-agree .agree input[type="checkbox"]:checked + label span.checkmark svg {fill:var(--primary-color)}
 .terms-agree .agree label ~ span.txt {display:inline-block; margin-left:21px; line-height:20px; color:#888; cursor:pointer;}
+
+
+.terms-agree .agree ul li button.btn-agree-detail {display:flex; align-items:center; position:relative; width:40px; min-width:40px; height:20px; color:#888; text-align:left; cursor:pointer; background-color:transparent;}
+.terms-agree .agree ul li button.btn-agree-detail span.txt {color:inherit; white-space:nowrap;}
+.terms-agree .agree ul li button.btn-agree-detail span.ico {display:block; width:20px; height:20px;line-height:1; color:inherit;}
+.terms-agree .agree ul li button.btn-agree-detail svg {width:20px; height:20px; fill:currentColor; transform:rotate(-90deg);}
 
 @media screen and (min-width:360px ) {
 	.terms-agree .agree ul {flex-direction:row;}
@@ -295,13 +342,28 @@ background-color:var(--text-main);
 .terms-agree.disabled {opacity:0.6; /* pointer-events:none; */ filter:grayscale(100%); transition:opacity 0.3s ease;}
 /* 약관동의 끝 */
 
-/* 토스트 팝업 (iOS style) - 하단 */
-.toast-popup {position:fixed; bottom:calc(30px + env(safe-area-inset-bottom, 0px)); left:50%; transform:translateX(-50%) translateY(100%) scale(0.85); background:rgba(40, 40, 40, 1); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); color:#fff; padding:12px 20px; border-radius:50px; font-size:14px; font-weight:500; box-shadow:0 4px 16px rgba(0, 0, 0, 0.15); z-index:9999; opacity:0; visibility:hidden; transition:all 0.4s var(--bounce-bezier); white-space:nowrap;}
-.toast-popup.show {transform:translateX(-50%) translateY(0) scale(1); opacity:1; visibility:visible;}
 
-/* 토스트용 Dim (하단 흰색 그라데이션) */
-.toast-dim {position:fixed; bottom:0; left:0; width:100%; height:0; background:linear-gradient(0deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.75) 50%, rgba(255, 255, 255, 0) 100%); z-index:9998; /* 토스트(9999) 바로 아래 */ opacity:0; visibility:hidden; transition:opacity 0.4s ease, visibility 0.4s ease; pointer-events:none;}
-.toast-dim.show {height:122px; opacity:1; visibility:visible;}
+
+
+
+
+/* 스탁 전용 추가 */
+.stock_service_features ul {display:flex; justify-content: space-around;}
+.stock_service_features ul li {display:flex; flex-direction:column; align-items:center; gap:4px 0; width:100%; text-align:center;}
+.stock_service_features ul li span {display:inline-block; width:36px; height:36px;}
+.stock_service_features ul li p {color:var(--text-main); font-size:13px; line-height:19px; font-weight:500; letter-spacing:-0.025em;}
+@media screen and (min-width:540px) {
+	.stock_service_features ul li span {width:48px; height:48px;}
+	.stock_service_features ul li p {font-size:15px; line-height:22px;}
+}
+/* // 스탁 전용 추가 */
+
+
+
+
+
+
+
 
 /* 툴팁 팝업 */
 .help-tooltip {position:absolute; top:calc(100% + 8px); right:0; width:180px; background:#fff; border:1px solid var(--border-gray); border-radius:8px; padding:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); font-size:12px; color:var(--text-main); line-height:1.4; z-index:10; opacity:0; visibility:hidden; transform:translateY(-8px); transition:all 0.2s ease;}
@@ -337,6 +399,7 @@ footer.footer .footer_group .footer_cont li::before {content:"\00B7"; display:in
 footer.footer .footer_group .footer_cont li a {color:inherit; text-decoration:none;}
 /* // 하위 정보 */
 
+
 /* 7일간 보이지 않기 */
 .hide-setting {display:flex; justify-content:flex-end; align-items:center; gap:8px;}
 .hide-setting label {display:inline-flex; align-items:center; cursor:pointer; -webkit-user-select:none; user-select:none;}
@@ -346,6 +409,35 @@ footer.footer .footer_group .footer_cont li a {color:inherit; text-decoration:no
 .hide-setting input[type="checkbox"]:checked + label .checkmark {background-color:var(--primary-color); border-color:var(--primary-color);}
 .hide-setting input[type="checkbox"]:checked + label .checkmark svg {fill:#fff;}
 .hide-setting .txt {font-size:13px; color:var(--text-gray); font-weight:500; cursor:pointer; -webkit-user-select:none; user-select:none;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 토스트 팝업 (iOS style) - 하단 */
+.toast-popup {position:fixed; bottom:calc(30px + env(safe-area-inset-bottom, 0px)); left:50%; transform:translateX(-50%) translateY(100%) scale(0.85); background:rgba(40, 40, 40, 1); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); color:#fff; padding:12px 20px; border-radius:50px; font-size:14px; font-weight:500; box-shadow:0 4px 16px rgba(0, 0, 0, 0.15); z-index:9999; opacity:0; visibility:hidden; transition:all 0.4s var(--bounce-bezier); white-space:nowrap;}
+.toast-popup.show {transform:translateX(-50%) translateY(0) scale(1); opacity:1; visibility:visible;}
+
+/* 토스트용 Dim (하단 흰색 그라데이션) */
+.toast-dim {position:fixed; bottom:0; left:0; width:100%; height:0; background:linear-gradient(0deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.75) 50%, rgba(255, 255, 255, 0) 100%); z-index:9998; /* 토스트(9999) 바로 아래 */ opacity:0; visibility:hidden; transition:opacity 0.4s ease, visibility 0.4s ease; pointer-events:none;}
+.toast-dim.show {height:122px; opacity:1; visibility:visible;}
+
+
+
+
+
+/* 이하 레이어 팝업 */
+
 
 /* 레이어 팝업 */
 div.dim {display:none; position:fixed; top:0; right:0; bottom:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:10000;}
@@ -470,3 +562,45 @@ table, td, th {
 .layer.signUp_kt .btn_close::before {transform:translate(-50%,-50%) rotate(45deg);}
 .layer.signUp_kt .btn_close::after {transform:translate(-50%,-50%) rotate(-45deg);}
 /* // KT 가입 안내 팝업 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* -------------------------------------- */
+
+
+/* 가입 완료 화면에 적용 */
+html.complete {height:100%;}
+html.complete body {height:100%;}
+html.complete body .safeconnect_container {display:flex; flex-direction:column; height:100%;}
+html.complete body .safeconnect_container main {flex:1;}
+html.complete body .safeconnect_container section {display:flex; flex-direction:column; height:100%;}
+html.complete body .safeconnect_container section .popup_cont {flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:20px;}
+/* // 가입 완료 화면에 적용 */
+
+/* 가입 완료화면 */
+.completion-icon {display:flex; justify-content:center;}
+.completion-icon .check-circle {display:flex; align-items:center; justify-content:center; width:80px; height:80px; border-radius:50%;}
+.completion-text {display:flex; flex-direction:column; gap:20px; padding:0 20px; text-align:center;}
+.completion-text div.tit {color:#ff4343;; font-size:22px; line-height:1.3em; font-weight:bold; word-break: keep-all;}
+.completion-text ul {display:flex; flex-direction:column; gap:10px;}
+.completion-text p.txt {color:var(--text-main); font-size:14px; line-height:1.3em; word-break:keep-all;}
+.completion-text p.txt br {}
+.completion-btn {}
+.completion-btn button {width:220px; height:56px; border-radius:12px; background-color:var(--text-main);}
+.completion-btn button span {display:block; color:#fff; font-size:16px; line-height:1; font-weight:bold;}
+
+@keyframes check-draw {
+	from { stroke-dasharray: 50; stroke-dashoffset: 50; }
+	to { stroke-dashoffset: 0; }
+}
+/* //가입 완료화면 */
