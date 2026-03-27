@@ -133,7 +133,7 @@ header h1 span {color:#ff0000; line-height:1em;}
 	border-radius:10px;
 	font-size:0; cursor:pointer;
 }
-.telecom ul.radio li input[type=radio]:checked + label {border-color:#ff3245; border-width:1.5px; z-index:1;}
+.telecom ul.radio li input[type=radio]:checked + label {border-color:#ff3245; border-width:1.5px; z-index:1; box-shadow:0 1px 2px rgba(255,0,0,0.2);}
 /* .telecom ul.radio li input[type=radio]:checked + label::before {content:""; position:absolute; top:5px; left:5px; display:block; width:4px; height:4px; border-radius:100%; background-color: #ff3245; overflow:hidden;} */
 .telecom ul.radio li input.telCdRadioSkt + label {background-image:url('../images/SKT_ON.png');} /* 이미지 색상 변경 요청시 _OFF로 교체후 하단 주석 제거 */
 .telecom ul.radio li input.telCdRadioKt + label {background-image:url('../images/KT_ON.png');}
@@ -141,7 +141,7 @@ header h1 span {color:#ff0000; line-height:1em;}
 
 
 .telecom ul.radio li input[type=radio] + label::before,
-.telecom ul.radio li input[type=radio] + label::after {content:""; display:block; position:absolute; bottom:0; left:50%; transform:translate(-50%, calc(100% + 2px)); transition:all 0.1s ease-in-out;}
+.telecom ul.radio li input[type=radio] + label::after {content:""; display:block; position:absolute; bottom:0; left:50%; transform:translate(-50%, calc(100% + 2px));}
 .telecom ul.radio li input[type=radio] + label::before {
 	width: 90%;   /* 밑변 너비 */
   height:0%;
