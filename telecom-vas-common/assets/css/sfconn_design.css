@@ -269,7 +269,7 @@ background-color:var(--text-main);
 .toast-popup.show {transform:translateX(-50%) translateY(0) scale(1); opacity:1; visibility:visible;}
 
 /* 토스트용 Dim (하단 흰색 그라데이션) */
-.toast-dim {position:fixed; bottom:0; left:0; width:100%; height:0; background:linear-gradient(0deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.75) 75%, rgba(255, 255, 255, 0) 100%); z-index:9998; /* 토스트(9999) 바로 아래 */ opacity:0; visibility:hidden; transition:opacity 0.4s ease, visibility 0.4s ease; pointer-events:none;}
+.toast-dim {position:fixed; bottom:0; left:0; width:100%; height:0; background:linear-gradient(0deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.75) 50%, rgba(255, 255, 255, 0) 100%); z-index:9998; /* 토스트(9999) 바로 아래 */ opacity:0; visibility:hidden; transition:opacity 0.4s ease, visibility 0.4s ease; pointer-events:none;}
 .toast-dim.show {height:122px; opacity:1; visibility:visible;}
 
 /* 툴팁 팝업 */
@@ -289,7 +289,8 @@ background-color:var(--text-main);
 /* // 서비스 요금 안내 */
 
 /* 하위 정보 */
-.footer_info {padding:20px; background-color:var(--bg-gray); letter-spacing:-0.05em;}
+.footer_info {padding:1em; background-color:var(--bg-gray); letter-spacing:-0.05em;}
+.footer_info ul {display:flex; flex-direction:column; gap:4px; width:100%;}
 .footer_info ul li {position:relative; padding-left:0.75em; color:var(--text-label); font-size:11px; letter-spacing:-0.05em;}
 .footer_info ul li::before {content:"⋅"; display:inline-block; position:absolute; top:0; left:0; color:inherit; font-size:inherit; line-height:inherit; font-weight:700; text-align:center;}
 .footer_info ul li a {color:inherit; text-decoration:none; border-bottom:1px solid var(--text-label);}
