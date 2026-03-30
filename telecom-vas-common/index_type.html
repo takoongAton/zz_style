@@ -27,19 +27,16 @@
 
 	<style>
 		.grecaptcha-badge {display: none;}
-		.auth-form {position:relative;}
 		
-		.auth-form.typeA #juminFieldGroup {margin-top:var(--row-gap); margin-right:calc(var(--col-gap) + var(--button-width));}
-		.auth-form.typeB #phoneFieldGroup {margin-right:calc(var(--col-gap) + var(--button-width));}
-
-
-		#btn-confirm_test.typeC {position:absolute; top:12px; right:14px; width:auto; margin-top:0; z-index:1;}
+		
 		
 
-#btn-confirm_test.typeA,
-#btn-confirm_test.typeB,
-#btn-confirm_test.typeC {position:absolute; right:0; margin:0;}
+
+		
+		
+
 #btn-confirm_test.typeC {right:14px;}
+#btn-confirm_test.typeC {position:absolute; top:12px; right:14px; width:auto; margin-top:0; z-index:1;}
 </style>
 </head>
 <body>
@@ -312,7 +309,7 @@
 				</div>
 				<!-- // signUp_form -->
 
-				<div style="display:flex; flex-direction:column; gap:20px; width:100%;">
+				<div style="display:flex; flex-direction:column; gap:16px; width:100%;">
 					<div class="auth-footer">
 						<button type="button" class="btn-primary"><span>전화번호 안심로그인 유료가입</span></button>
 					</div>
@@ -432,17 +429,17 @@
 </div>
 
 <!-- 1. 확인만 있는 alert -->
-<div class="layer alert" id="alert">
+<!-- <div class="layer alert" id="alert">
 	<div class="layer_content">
 		<p class="txt">팝업 내용</p>
 	</div>
 	<div class="btn_group">
 		<button type="button" class="btn_next"><span>확인</span></button>
 	</div>
-</div>
+</div> -->
 
 <!-- 2. 취소/확인 있는 confirm -->
-<div class="layer alert" id="confirm">
+<!-- <div class="layer alert" id="confirm">
 	<div class="layer_content">
 		<p class="txt">팝업 내용</p>
 	</div>
@@ -450,10 +447,10 @@
 		<button type="button" class="btn_cancel"><span>취소</span></button>
 		<button type="button" class="btn_next"><span>확인</span></button>
 	</div>
-</div>
+</div> -->
 
 <!-- 3. 타이틀 있는 alert -->
-<div class="layer alert" id="title">
+<!-- <div class="layer alert" id="title">
 	<div class="layer_content">
 		<div class="tit">팝업 타이틀</div>
 		<p class="txt">팝업 내용</p>
@@ -461,7 +458,7 @@
 	<div class="btn_group">
 		<button type="button" class="btn_next"><span>확인</span></button>
 	</div>
-</div>
+</div> -->
 <!-- // 레이어팝업 샘플 -->
 
 
