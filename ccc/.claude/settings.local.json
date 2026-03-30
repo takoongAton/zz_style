@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m markitdown ATON_Security_Summit_2026_Guide_.pptx)",
+      "Bash(python3 -m markitdown /Users/takoong/work_test/ccc/ATON_Security_Summit_2026_Guide_.pptx)",
+      "Bash(pip3 install:*)",
+      "Bash(python3 -c \"from markitdown import MarkItDown; md = MarkItDown\\(\\); result = md.convert\\(''''/Users/takoong/work_test/ccc/ATON_Security_Summit_2026_Guide_.pptx''''\\); print\\(result.text_content\\)\")",
+      "Bash(pip3 --version)",
+      "Bash(brew list:*)",
+      "Read(//usr/local/**)",
+      "Read(//opt/homebrew/**)",
+      "Bash(python3 -c \":*)"
+    ]
+  }
+}
