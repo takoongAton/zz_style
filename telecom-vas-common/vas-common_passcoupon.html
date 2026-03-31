@@ -11,9 +11,9 @@
 	
 	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"> -->
 
-	<title>서비스명 - 통신사 제휴 부가서비스</title>
-	<meta name="description" content="계속 되는 개인정보 유출 사고로 인해 개인 정보를 안전하게 보호하기 위한 통신사 제휴 부가서비스" />
-	<meta name="keywords" content="통신사 제휴 부가서비스, 개인정보 보호" />
+	<title>쿠폰팩 - 통신사 제휴 부가서비스</title>
+	<meta name="description" content="편의점, 영화관, 쇼핑몰 등 원하는 할인쿠폰을 골라 받고, 내가 가진 상품권, 쿠폰까지 모아모아 똑똑하게 소비하고, 특별한 나만의 혜택을 즐길 수 있는 서비스" />
+	<meta name="keywords" content="편의점, 영화관, 쇼핑몰, 쿠폰, 할인쿠폰, 상품권, 쿠폰팩" />
 
 	<link rel="icon" href="favicon.ico" type="image/x-icon" sizes="any" />
 	<link rel="stylesheet" type="text/css" href="./assets/css/reset.css" />
@@ -29,7 +29,7 @@
 		.grecaptcha-badge {display: none;}
 
 		:root {
-			--service-color:#3fb200;
+			--service-color:#0069ff;
 		}
 	</style>
 </head>
@@ -40,37 +40,19 @@
 
 	<div class="vas-container">
 
-		<div class="advertiser-notice">
-			<p>본 서비스는 (주)아톤 <strong>유료 가입 광고</strong>로, 컬쳐랜드 서비스와는 무관합니다.</p>
-		</div>
 		<div class="vas-header">
-			<h1><strong>서비스명</strong> <span id="serviceTypeText">통신사 제휴 유료 부가서비스</span></h1>
+			<h1><strong>PASS쿠폰팩</strong> <span id="serviceTypeText">통신사 제휴 유료 부가서비스</span></h1>
 		</div>
 
 		<main class="vas-content">
 			
 			<section id="sectionInput">
-
-				<div class="service-desc">
-					<p class="notice carrier-item" id="notice_skt">
-						<em>주식정보</em> 서비스는 검증된 빅데이터 분석을 통한 유망종목 추천, 투자 성향에 따라 다양한 유형의 포트폴리오 제공, 증권사 추천주 및 주요 공시 요약을 한 번에 확인할 수 있는 종합 주식 정보 서비스입니다.<br>
-						<strong class="price">* 매월 부가세 포함 11,000원</strong>
-					</p>
-				</div>
-				<div class="service-intro">
-					<h2>서비스명</h2>
-					<div class="intro-text">
-						<p class="txt">각종 피싱 및 스미싱의 위협으로부터 내 휴대폰을 안전하게 보호해주는 서비스입니다.</p>
-						<p class="price">부가세포함 월 3,300원의 이용료가 발생합니다.</p>
-					</div>
-				</div>
-				<!-- // service_intro -->
 				
 				<!--GDN 배너-->
 				<div class="subscription-banner" id="testToggle">
 					<picture>
-						<source srcset="./assets/images/banners/bnr_pc_top.png" media="(min-width:720px)" />
-						<img src="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_mobile_260204.png" alt="배너" />
+						<!-- <source srcset="./assets/images/banners/bnr_pc_top.png" media="(min-width:720px)" /> -->
+						<img src="https://d3szj8pcan4x2x.cloudfront.net/dev/images/booknlife_gs25.png" alt="쿠폰팩으로 알차게 할인받기!!">
 					</picture>
 				</div>
 				<!-- // subscription-banner -->
@@ -126,7 +108,7 @@
 												</svg>
 											</span>
 											<!-- <a href="javascript:void(0);" onclick="privacyPopOpen('0001');" class="txt">이용약관</a> -->
-											<span class="txt">이용약관</span>
+											<span class="txt">(필수) 서비스 이용약관(유료)</span>
 										</label>
 										<!-- 약관 보기 버튼이 필요한 경우 추가 -->
 										<button type="button" class="btn-terms-view" onclick="privacyPopOpen('0001');">
@@ -282,7 +264,7 @@
 											<!-- <a href="javascript:privacyPopOpen('0036');">
 												<cl id="stplat7Text">혜택 정보 · 광고 수신 동의(선택)</cl>
 											</a> -->
-											<span class="txt" id="stplat7Text">혜택 정보 · 광고 수신 동의(선택)</span>
+											<span class="txt" id="stplat7Text">(선택) 고객 혜택 제공을 위한 정보 수집 및 이용 동의</span>
 										</label>
 										<button type="button" class="btn-terms-view" onclick="privacyPopOpen('0001');">
 											<span class="txt">보기</span>
@@ -291,6 +273,28 @@
 											</span>
 										</button>
 									</li>
+
+									<li class="indent">
+										<input type="checkbox" id="chk8" name="chk8" class="terms-check">
+										<label for="chk8">
+											<span class="checkmark">
+												<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
+													<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"/>
+												</svg>
+											</span>
+											<!-- <a href="javascript:privacyPopOpen('0036');">
+												<cl id="stplat7Text">혜택 정보 · 광고 수신 동의(선택)</cl>
+											</a> -->
+											<span class="txt" id="stplat7Text">혜택 정보 · 광고 수신 동의(선택)</span>
+										</label>
+										<!-- <button type="button" class="btn-terms-view" onclick="privacyPopOpen('0001');">
+											<span class="txt">보기</span>
+											<span class="ico">
+												<svg viewBox="0 0 16 16"><path d="m11.34 6.96c-.01 0-.02.01-.02.02l-2.95 2.95c-.11.11-.26.17-.42.17s-.31-.06-.42-.17l-2.95-2.95c-.23-.23-.24-.6-.02-.84.23-.23.6-.24.84-.02 0 .01.01.02.02.02l2.53 2.54 2.53-2.54c.23-.23.6-.24.84-.02.23.23.24.6.02.84z"></path></svg>
+											</span>
+										</button> -->
+									</li>
+
 								</ul>
 							</div>
 						</div>
@@ -340,50 +344,32 @@
 						</div>
 
 						<div class="field-group" id="phone-confirm-wrap">
-							<button type="button" class="btn-action btn-send-otp"><span>확인</span></button>
+							<button type="button" class="btn-action btn-send-otp"><span>인증번호 요청</span></button>
 						</div>
 					</div>
 					<!-- // phone-auth-form -->
-
-					<div class="service-features">
-						<ul>
-							<li>
-								<span class="ico"><img src="./assets/images/temp/ico_ai.png" alt="아이콘"></span>
-								<p>AI추천<br>로보 포트폴리오</p>
-							</li>
-							<li>
-								<span class="ico"><img src="./assets/images/temp/ico_pop.png" alt="아이콘"></span>
-								<p>요즘 뜨는<br>인기 테마주</p>
-							</li>
-							<li>
-								<span class="ico"><img src="./assets/images/temp/ico_focus.png" alt="아이콘"></span>
-								<p>오늘 주목할만한<br>특징주</p>
-							</li>
-						</ul>
-					</div>
-					<!-- // service-features -->
 
 				</div>
 				<!-- // subscription-form -->
 
 				<div class="subscription-bottom">
 					<div class="subscribe-footer">
-						<button type="button" class="btn-subscribe"><span>서비스명 유료가입</span></button>
+						<button type="button" class="btn-subscribe"><span>PASS쿠폰팩 유료가입</span></button>
 					</div>
 					<!-- // subscribe-footer -->
 
 
-					<div class="promo-banner" id="serviceBnr">
+					<!-- <div class="promo-banner" id="serviceBnr">
 						<picture>
 							<source srcset="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_web_bottom.png" media="(min-width:720px)" />
 							<img src="https://d2ctuakfggb1mt.cloudfront.net/prod/spdata/ufiles/bnr_mobile_bottom.png" alt="배너" />
 						</picture>
-					</div>
+					</div> -->
 					<!-- // promo-banner -->
 
 					<div class="billing-info">
-						<strong class="price">매월 부가세포함11,000원</strong>
-						<p class="price">매월 부가세 포함 1,100원이 휴대전화 요금에 합산 청구됩니다.</p>
+						<strong class="price">매월 부가세포함 9,900원</strong>
+						<p class="price">본 서비스는 LGU+ 통신요금에 <br />부가세포함 월 9,900원이 부과됩니다.</p>
 						<div><button type="button" id="exitBtn"><span>다음에 이용하기</span></button></div>
 					</div>
 					<!-- // billing-info -->
@@ -404,38 +390,37 @@
 				
 				<div class="complete-panel">
 					<div class="complete-icon">
-						<div class="check-circle">
+						<!-- <div class="check-circle">
 							<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24">
 								<path d="M18.7,7.2c-0.4-0.4-1-0.4-1.4,0l-7.5,7.5l-3.1-3.1c0,0,0,0,0,0c-0.4-0.4-1-0.4-1.4,0c-0.4,0.4-0.4,1,0,1.4l3.8,3.8c0.2,0.2,0.4,0.3,0.7,0.3c0.3,0,0.5-0.1,0.7-0.3l8.2-8.2C19.1,8.2,19.1,7.6,18.7,7.2z"></path>
 							</svg>
 						</div>
-						<div class="check-service-logo"><img src="./assets/images/temp/app_icon.png" alt="서비스 아이콘"></div>
-						<div class="check-text">가입이 완료되었습니다.</div>
+						<div class="check-service-logo"><img src="./assets/images/temp/app_icon.png" alt="서비스 아이콘"></div> -->
+						<div class="check-text">PASS쿠폰팩 서비스 가입이 완료되었습니다.</div>
 					</div>
-					<div class="complete-message">
-						<div class="tit">전화번호안심로그인 서비스 가입이 완료되었습니다.</div>
+					<!-- <div class="complete-message">
+						<div class="tit">PASS쿠폰팩 서비스 가입이 완료되었습니다.</div>
 						<div class="complete-message-content">
-							<p class="txt">전화번호안심로그인은 이통사 유료 부가서비스로 <br />매월 부가세포함 1,100원이 이통신사 요금에 포함하여 청구 됩니다.</p>
-							<p class="txt">전화번호로 안전하게 로그인하시려면 <br />구글플레이스토어 또는 앱스토어에서 <br />전화번호안심로그인 앱을 설치하세요.</p>
+							<p class="txt">PASS쿠폰팩은 통신사 유료 부가서비스로 <br />매월 부가세포함 9,900원이 통신요금에 포함하여 청구 됩니다.</p>
 						</div>
-					</div>
+					</div> -->
 					<!-- // complete-message -->
 
-					<div class="app-download">
+					<!-- <div class="app-download">
 						<div class="app-download-title">앱 설치</div>
 						<div class="app-store-buttons">
 							<button type="button" class="btn-store-link"><span><img src="./assets/images/common/ico_download_aos.png" alt="Google Play"></span></button>
 							<button type="button" class="btn-store-link"><span><img src="./assets/images/common/ico_download_ios.png" alt="App Store"></span></button>
 						</div>
-					</div>
+					</div> -->
 					<!-- // app-download -->
 
 
 					<div class="complete-billing-info">
 						<p class="txt">
-							전화번호안심로그인 서비스는 이통사 유료 부가서비스로<br>
-							<strong class="price">매월 부가세 포함 3,300</strong>원이<br>
-							통신사 요금에 포함하여 청구됩니다.
+							PASS쿠폰팩 서비스는 통신사 유료 부가서비스로<br>
+							<strong class="price">매월 부가세 포함 9,900원</strong>이<br>
+							통신요금에 포함하여 청구됩니다.
 						</p>
 					</div>
 					<!-- // complete-billing-info -->
@@ -450,28 +435,49 @@
 
 		<footer class="vas-footer">
 			<div class="footer-section">
+				<ul class="footer-section-list">
+					<li><p><strong>본 서비스는 가입 즉시 서비스가 개시되는 상품으로 청약철회가 불가능합니다. (전자상거래 등에서의 소비자보호에 관한 법률 제17조 2항 5호에 따라 디지털 콘텐츠의 제공이 개시된 경우 청약철회를 제공하지 않습니다.)</strong></p></li>
+					<li><p>본 서비스는 PASS앱에서 이용 가능합니다.</p></li>
+					<li><p>본 서비스는 LG U+ 고객만 이용 가능합니다. </p></li>
+					<li><p>가입/해지 : PASS앱 또는 LG U+고객센터(114)혹은 080-869-4273</p></li>
+					<li><p>본 서비스의 쿠폰 발행은 ㈜스퀘어노트에서 대행합니다.</p></li>
+					<li><p>PASS쿠폰팩은 제휴혜택 유형의 패키지 상품으로 월 1회 선택된 상품의 혜택을 쿠폰으로 제공합니다.  </p></li>
+					<li><p>패키지 상품은 제휴 회사의 사정에 따라 변경될 수 있습니다. </p></li>
+				</ul>
+			</div>
+
+			<div class="footer-section">
 				<strong class="footer-section-title">[쿠폰 상세 설명]</strong>
 				<ul class="footer-section-list">
-					<li>
-						<p>
-							<strong>본 서비스는 가입 즉시 서비스가 개시되는 상품으로 청약철회가 불가능합니다.(전자상거래 등에서의 소비자보호에 관한 법률 제17조 2항 5호에 따라 디지털 콘텐츠의 제공이 개시된 경우 청약철회를 제공하지 않습니다.)</strong>
-						</p>
-					</li>
-					<li>
-						<p>본 서비스는 <strong>SKT,KT,LGU+</strong>와 제휴하여 ㈜아톤이 운영합니다.</p>
-					</li>
-					<li>
-						<p>고객센터(이용/해지) : 1670-4273 / <a href="#" class="email">safeconnect@atoncorp.com</a>s</p>
-					</li>
+					<li><p>제공 쿠폰 : GS25 모바일 상품권 3천원권 3매, GS25 모바일 상품권 2천원권 1매</p></li>
+					<li><p>쿠폰사용 방법 : 매장 방문 주문 시에만 사용 가능합니다.</p></li>
+					<li><p>본 쿠폰은 1일 1매 사용 가능합니다. (PASS쿠폰팩 쿠폰 중복 사용 불가)</p></li>
+					<li><p>본 쿠폰은 발행일로부터 30일까지 사용 가능합니다.</p></li>
+				</ul>
+			</div>
+
+			<div class="footer-section">
+				<strong class="footer-section-title">[이용방법]</strong>
+				<ul class="footer-section-list">
+					<li><p>상품바코드 스캔 〉 쿠폰바코드 스캔(바코드인식 안될 시 쿠폰번호 수기 입력) 〉 결제 완료</p></li>
+					<li><p>주의사항 : GS25 편의점 외 기타 사용처(ex GS칼텍스, GS shop 등)에서는 사용이 불가능합니다. </p></li>
+					<li><p>구매불가상품 : 담배/택배/로또/토토/교통카드/기프트카드/프리페이드상품/쓰레기봉투 및 상품권류/공과금 및 세금납부 (주류는 구매 가능)</p></li>
+					<li><p>사 용 처 : 전국 GS25 매장 중 일부 특수 점포를 제외하고 사용이 가능합니다. (불가매장: 군부대 PX점포 및 고속도로 휴게소 점포 등 특수 점포)</p></li>
 				</ul>
 			</div>
 
 			<div class="footer-section">
 				<strong class="footer-section-title">[유의사항]</strong>
 				<ul class="footer-section-list">
-					<li><p>본 서비스는 가입 즉시 서비스가 개시되는 상품으로 청약철회가 불가능합니다.(전자상거래 등에서의 소비자보호에 관한 법률 제17조 2항 5호에 따라 디지털 콘텐츠의 제공이 개시된 경우 청약철회를 제공하지 않습니다.)</p></li>
-					<li><p>본 서비스는 휴대폰 안심 앱에서 이용 가능합니다. (LG U+ 고객은 PASS 앱에서도 이용 가능합니다.</p></li>
-					<li><p>가입/해지문의 : 1800-1637(휴대폰안심 고객센터), 평일 09시~18시 (점심시간 : 12:00~13:00)</p></li>
+					<li><p>본 쿠폰은 1일 1매 사용 가능합니다. (PASS쿠폰팩 쿠폰 중복 사용 불가)</p></li>
+					<li><p>사용제한 : 금액 내 여러 번 분할 사용 가능합니다.</p></li>
+					<li><p>현금/카드 등 타 결제수단과 복합 결제가 가능합니다.</p></li>
+					<li><p>잔액은 편의점 점포 근무자에게 문의 또는 구매 영수증에서 확인하실 수 있습니다.</p></li>
+					<li><p>본 쿠폰의 유효기간은 발행일로부터 30일입니다.</p></li>
+					<li><p>통신사 멤버십 할인, GS&POINT 적립, 현금 영수증 발행 가능합니다.</p></li>
+					<li><p>매장에서 구매한 상품은 구매 30일 이내로 영수증 지참하여 반품 시 금액이 재충전됩니다.</p></li>
+					<li><p>매장에서 잔액 환불은 불가합니다.</p></li>
+					<li><p>본 쿠폰에 대항 잔액 확인은 결제 후 영수증에서 확인 가능합니다.</p></li>
 				</ul>
 			</div>
 
@@ -577,11 +583,11 @@
 	<div class="modal-side__content">
 		<div class="modal-side__title">
 			<span>서비스 가입 완료</span>
-			<strong>전화번호안심로그인 서비스 가입 안내</strong>
+			<strong>PASS쿠폰팩 서비스 가입 안내</strong>
 		</div>
 		<div class="modal-side__desc">
 			<p class="txt">
-				사이트의 아이디/비밀번호를 스마트폰 USIM에 보관하고, 전화번호로 인증하여 안전하게 로그인할 수 있는 유료 부가서비스에 가입되었습니다.
+				편의점, 영화관, 쇼핑몰 등 원하는 할인쿠폰을 골라 받고, 내가 가진 상품권, 쿠폰까지 모아모아 똑똑하게 소비하고, 특별한 나만의 혜택을 즐길 수 있는 유료 부가서비스에 가입되었습니다.
 			</p>
 		</div>
 	</div>
@@ -710,11 +716,11 @@
 	<div class="layer_inner">
 		<div class="layer_content">
 			<strong class="tit">알림</strong>
-			<div class="tit">휴대폰안심 부가서비스 가입 안내</div>
+			<div class="tit">쿠폰팩<br /> 부가서비스 가입 안내</div>
 			<div class="box">
 				<div class="txt">
-					보이스피싱, 스미싱의 위협으로부터 내 휴대폰을 안전하게 보호하여 개인정보 유출을 사전에 방지할 수 있는 <br><br>
-					<em>월 3,300원(VAT 포함) 유료부가서비스</em>입니다. <br><br>
+					편의점, 영화관, 쇼핑몰 등 원하는 쿠폰을 골라서 할인받고 쿠폰과 상품권을 관리하는<br><br>
+					<em>월 9,900원(VAT 포함) 유료부가서비스</em>입니다.<br><br>
 					가입 진행하시겠습니까?
 				</div>
 			</div>
@@ -729,8 +735,8 @@
 			</div>
 			<div>
 				<button type="button" class="next">
-					<strong>휴대폰안심 유료가입</strong>
-					<span>(월 3,300원)</span>
+					<strong>PASS쿠폰팩 유료가입</strong>
+					<span>(월 9,900원)</span>
 				</button>
 			</div>
 		</div>
@@ -744,6 +750,10 @@
 
 <div class="g-recaptcha" id="greCaptcha"></div>
 
+<script>
+//  서비스별로 변경되는 값 (vas-common.js에 주석처리됨.)
+const AUTH_FORM_DEFAULT_STATE = true;
+</script>
 <script src="./assets/js/vas-common.js"></script>
 </body>
 </html>

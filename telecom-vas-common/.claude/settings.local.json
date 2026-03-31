@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc -l /Users/takoong/work/aton-local/telecom-vas-common/assets/css/*.css)",
+      "Bash(find /Users/takoong/work/aton-local/telecom-vas-common -not -path *.7z* -not -path */.DS_Store* -type f)",
+      "Bash(wc -l /Users/takoong/work/aton-local/telecom-vas-common/assets/js/*.js)",
+      "Bash(perl -i -pe \"s/querySelector\\\\\\(''\\\\.auth-form''\\\\\\)/querySelector\\(''.phone-auth-form''\\)/g;:*)",
+      "Bash(cd /Users/takoong/work/aton-local/telecom-vas-common __NEW_LINE_c596bbe8bd58aa80__ echo \"=== JS 최종 검사 ===\" grep -n \"carrier-select\\\\|telecom\\\\b\" assets/js/vas-common.js)",
+      "Bash(cd /Users/takoong/work/aton-local/telecom-vas-common grep -n \"btn-subscribe\\\\|service-features\\\\|billing-info\\\\|vas-footer\\\\|footer-section\\\\|otp-field-wrap\\\\|subscription-form\\\\|terms-panel\\\\|btn-terms-toggle\\\\|phone-auth-form\\\\|otp-tooltip\\\\|btn-otp-help\" assets/css/vas-common.css)",
+      "Bash(cd /Users/takoong/work/aton-local/telecom-vas-common grep -n \"terms-items\\\\|terms-check\\\\|phone-auth-form\\\\|otp-tooltip\\\\|service-features\\\\|billing-info\\\\|vas-footer\\\\|footer-section\\\\b\\\\|footer-section-title\\\\|footer-section-list\" assets/css/vas-common.css)",
+      "Bash(cd /Users/takoong/work/aton-local/telecom-vas-common grep -n \"vas-footer\\\\|footer-section\\\\b\\\\|footer-section-title\\\\|footer-section-list\" assets/css/vas-common.css)",
+      "Bash(__NEW_LINE_b62fd310ecbd7668__ echo:*)",
+      "Bash(__NEW_LINE_4e4f11940f489756__ echo:*)",
+      "Bash(__NEW_LINE_da4f003b3060d4b1__ echo:*)"
+    ]
+  }
+}

@@ -1,5 +1,5 @@
 // greCaptcha 로드 콜백 및 전역 함수 설정
-	var onloadCallback = function() {
+	const onloadCallback = function() {
 		if (document.getElementById('greCaptcha')) {
 			grecaptcha.render(
 				'greCaptcha', {
@@ -58,16 +58,18 @@
 	/**
 	 * 요소 선택 및 전역 변수 설정
 	 */
-	let auth_wrap = document.querySelector("#auth_wrap");
+	let auth_wrap = document.querySelector("#otp-field-wrap");
 	const phoneInput = document.querySelector('input[type="tel"]:not(#juminNumber)');
 	const juminInput = document.querySelector('#juminNumber');
-	const authInput = document.querySelector('#auth_wrap input');
-	const primaryBtn = document.querySelector('.btn-primary');
-	const timerDisplay = document.querySelector('.timer');
-	const btnRetry = document.querySelector('.btn-sub-action:not(.btn-phone-confirm)');
-	const btnPhoneConfirm = document.querySelector('.btn-phone-confirm');
-	const btnHelp = document.querySelector('.btn-help');
-	const helpTooltip = document.querySelector('.help-tooltip');
+	const authInput = document.querySelector('#otp-field-wrap input');
+	const primaryBtn = document.querySelector('.btn-subscribe');
+	const timerDisplay = document.querySelector(".otp-timer");
+	const btnRetry = document.querySelector('.btn-action:not(.btn-send-otp)');
+	const btnPhoneConfirm = document.querySelector('.btn-send-otp');
+	const btnHelp = document.querySelector(".btn-otp-help");
+	const helpTooltip = document.querySelector(".otp-tooltip");
+
+	const dimOverlay = document.querySelector('.dim'); // 딤 오버레이 공통 참조
 
 	let isAuthRequested = false; // 인증번호 요청 여부 플래그
 	let timerInterval = null;    // 타이머 인터벌 객체
@@ -100,7 +102,7 @@
 	 * 입력 필드 이벤트 핸들링 (휴대폰 번호, 주민등록번호, 인증번호)
 	 */
 	// 휴대폰 번호 입력: 숫자만 허용 및 자리수에 따른 확인 버튼 활성화 제어
-	phoneInput.addEventListener('input', function() {
+	phoneInput?.addEventListener('input', function() {
 		if (isAuthRequested && timeLeft > 0) return; // 인증 요청 후 재요청 가능 전까지 입력 방지
 
 		this.value = this.value.replace(/[^0-9]/g, '');
@@ -122,18 +124,82 @@
 	}
 
 	// 인증번호 입력: 숫자만 허용
-	authInput.addEventListener('input', function() {
+	authInput?.addEventListener('input', function() {
 		this.value = this.value.replace(/[^0-9]/g, '');
 	});
 
 
 
 	/**
+	 * 인증 폼 상태 정의
+	 * - DEFAULT      : 기본 상태 (통신사 미선택)
+	 * - WITH_JUMIN   : 주민등록번호 입력란 있는 상태 (SKT)
+	 * - WITHOUT_JUMIN: 주민등록번호 입력란 없는 상태 (KT, LGT)
+	 *
+	 * AUTH_FORM_DEFAULT_STATE
+	 * - true : 통신사 선택과 무관하게 항상 디폴트 상태 유지 (클래스 없음)
+	 * - false: 통신사 선택에 따라 with-jumin / without-jumin 상태 적용
+	 */
+	const AUTH_FORM_STATE = {
+		DEFAULT:       'default',
+		WITH_JUMIN:    'with-jumin',
+		WITHOUT_JUMIN: 'without-jumin'
+	};
+
+	// const AUTH_FORM_DEFAULT_STATE = false;
+
+	function setAuthFormState(state) {
+		const authForm = document.querySelector('.phone-auth-form');
+		const btnConfirmWrap = document.getElementById('phone-confirm-wrap');
+		if (!authForm || !btnConfirmWrap) return;
+
+		// 기존 상태 클래스 제거 및 inline style 초기화
+		authForm.classList.remove(AUTH_FORM_STATE.WITH_JUMIN, AUTH_FORM_STATE.WITHOUT_JUMIN);
+		btnConfirmWrap.classList.remove(AUTH_FORM_STATE.WITH_JUMIN, AUTH_FORM_STATE.WITHOUT_JUMIN);
+		btnConfirmWrap.style.top    = '';
+		btnConfirmWrap.style.height = '';
+		btnConfirmWrap.style.width  = '';
+
+		if (state === AUTH_FORM_STATE.WITH_JUMIN) {
+			// 주민등록번호 입력란 있는 상태: #juminFieldGroup 기준으로 버튼 위치 계산
+			authForm.classList.add(state);
+			btnConfirmWrap.classList.add(state);
+			requestAnimationFrame(function() {
+				const juminInputBox = juminFieldGroup ? juminFieldGroup.querySelector('.input-box') : null;
+				if (juminInputBox && authForm) {
+					let el = juminInputBox, topVal = 0;
+					while (el && el !== authForm) { topVal += el.offsetTop; el = el.offsetParent; }
+					btnConfirmWrap.style.top    = topVal + 'px';
+					btnConfirmWrap.style.height = juminInputBox.offsetHeight + 'px';
+					btnConfirmWrap.style.width  = 'var(--button-width)';
+				}
+			});
+
+		} else if (state === AUTH_FORM_STATE.WITHOUT_JUMIN) {
+			// 주민등록번호 입력란 없는 상태: #phoneFieldGroup 기준으로 버튼 위치 계산
+			authForm.classList.add(state);
+			btnConfirmWrap.classList.add(state);
+			requestAnimationFrame(function() {
+				const phoneFieldGroup = document.getElementById('phoneFieldGroup');
+				const phoneInputBox = phoneFieldGroup ? phoneFieldGroup.querySelector('.input-box') : null;
+				if (phoneInputBox && authForm) {
+					let el = phoneInputBox, topVal = 0;
+					while (el && el !== authForm) { topVal += el.offsetTop; el = el.offsetParent; }
+					btnConfirmWrap.style.top    = topVal + 'px';
+					btnConfirmWrap.style.height = phoneInputBox.offsetHeight + 'px';
+					btnConfirmWrap.style.width  = 'var(--button-width)';
+				}
+			});
+		}
+		// DEFAULT 상태는 클래스·스타일 없음
+	}
+
+	/**
 	 * 통신사 선택 관련 로직
 	 */
 	const telecomRadios = document.querySelectorAll('input[name="telCdRadio"]');
 	const juminFieldGroup = document.getElementById('juminFieldGroup');
-	
+
 	// 통신사 변경에 따른 주민번호 필드 노출 및 약관 텍스트 제어
 	function handleCarrierChange() {
 		const selectedTelecom = document.querySelector('input[name="telCdRadio"]:checked');
@@ -144,76 +210,15 @@
 		const stplatSkt = document.getElementById('stplatSkt');
 		const stplatSktAdd1 = document.getElementById('stplatSktAdd1');
 		const stplatSktAdd2 = document.getElementById('stplatSktAdd2');
-		
+
 		const serviceTypeText = document.getElementById('serviceTypeText');
 
-		// 임시 테스트 : btn-confirm_test 및 부모 요소 클래스 변경
-		const btnConfirmTest = document.getElementById('btn-confirm_test');
-		const authForm = document.querySelector('.auth-form');
-		if (btnConfirmTest) {
-			btnConfirmTest.classList.remove('typeA', 'typeB', 'typeC');
-			if (authForm) authForm.classList.remove('typeA', 'typeB', 'typeC');
-
+		// 통신사별 인증 폼 상태 설정 (AUTH_FORM_DEFAULT_STATE: true이면 항상 디폴트 유지)
+		if (!AUTH_FORM_DEFAULT_STATE) {
 			if (carrierValue === 'SKT') {
-				btnConfirmTest.classList.add('typeA');
-				if (authForm) authForm.classList.add('typeA');
-
-				// SKT: #juminFieldGroup 내 .input-box의 실측 위치/크기를 inline style로 적용
-				// juminFieldGroup은 SKT 선택 직후 display:block 처리 후 계산해야 정확하므로
-				// 이 시점에서는 display 변경 전이라 rAF로 다음 렌더 프레임에 계산
-				requestAnimationFrame(function() {
-					const juminInputBox = juminFieldGroup ? juminFieldGroup.querySelector('.input-box') : null;
-					if (juminInputBox && authForm) {
-						// authForm(position:relative) 기준의 .input-box top 계산
-						// offsetParent 체인을 따라 authForm까지의 누적 offsetTop
-						let el = juminInputBox;
-						let topVal = 0;
-						while (el && el !== authForm) {
-							topVal += el.offsetTop;
-							el = el.offsetParent;
-						}
-						const heightVal = juminInputBox.offsetHeight;
-
-						// CSS 변수 --button-width 읽기
-						const buttonWidth = getComputedStyle(document.documentElement)
-							.getPropertyValue('--button-width').trim() || '76px';
-
-						btnConfirmTest.style.top    = topVal + 'px';
-						btnConfirmTest.style.height = heightVal + 'px';
-						btnConfirmTest.style.width  = 'var(--button-width)';
-					}
-				});
-			} else if (carrierValue === 'KT') {
-				btnConfirmTest.classList.add('typeB');
-				if (authForm) authForm.classList.add('typeB');
-
-				// KT: #phoneFieldGroup 내 .input-box의 실측 위치/크기를 inline style로 적용
-				// (주민등록 입력란 없음 → 휴대폰 번호 input-box 기준)
-				requestAnimationFrame(function() {
-					const phoneFieldGroup = document.getElementById('phoneFieldGroup');
-					const phoneInputBox = phoneFieldGroup ? phoneFieldGroup.querySelector('.input-box') : null;
-					if (phoneInputBox && authForm) {
-						// authForm(position:relative) 기준의 .input-box top 계산
-						let el = phoneInputBox;
-						let topVal = 0;
-						while (el && el !== authForm) {
-							topVal += el.offsetTop;
-							el = el.offsetParent;
-						}
-						const heightVal = phoneInputBox.offsetHeight;
-
-						btnConfirmTest.style.top    = topVal + 'px';
-						btnConfirmTest.style.height = heightVal + 'px';
-						btnConfirmTest.style.width  = 'var(--button-width)';
-					}
-				});
-			} else if (carrierValue === 'LGT') {
-				btnConfirmTest.classList.add('typeC');
-				if (authForm) authForm.classList.add('typeC');
-				// SKT 외: inline style 초기화 (CSS 클래스 스타일을 따름)
-				btnConfirmTest.style.top    = '';
-				btnConfirmTest.style.height = '';
-				btnConfirmTest.style.width  = '';
+				setAuthFormState(AUTH_FORM_STATE.WITH_JUMIN);
+			} else {
+				setAuthFormState(AUTH_FORM_STATE.WITHOUT_JUMIN);
 			}
 		}
 		
@@ -249,13 +254,18 @@
 	}
 	
 	telecomRadios.forEach(radio => radio.addEventListener('change', handleCarrierChange));
+
+	// AUTH_FORM_DEFAULT_STATE: false이면 초기 상태를 without-jumin으로 우선 적용
+	if (!AUTH_FORM_DEFAULT_STATE) {
+		setAuthFormState(AUTH_FORM_STATE.WITHOUT_JUMIN);
+	}
 	handleCarrierChange(); // 초기 실행으로 상태 반영
 
 	/**
 	 * 임시 테스트 : testToggle 클릭 시 순서 변경 (order: 1)
 	 */
 	const testToggle = document.getElementById('testToggle');
-	const signUpForm = document.querySelector('.signUp_form');
+	const signUpForm = document.querySelector(".subscription-form");
 	if (testToggle && signUpForm) {
 		testToggle.addEventListener('click', function() {
 			signUpForm.classList.toggle('reorder');
@@ -268,9 +278,9 @@
 	 * 약관 동의 관련 로직 (전체 동의, 개별 동의, 상세 리스트 토글)
 	 */
 	const agreeAll = document.querySelector(".agreeAll");
-	const agrees = document.querySelectorAll(".terms-agree .agree input[type='checkbox']");
-	const agreeContainer = document.querySelector(".terms-agree .list-agree");
-	const btnToggleAgree = document.querySelector(".btn-toggle-agree");
+	const agrees = document.querySelectorAll(".terms-panel .terms-items input[type='checkbox']");
+	const agreeContainer = document.querySelector(".terms-panel .terms-list");
+	const btnToggleAgree = document.querySelector(".btn-terms-toggle");
 
 	// 필수 약관 ID 배열
 	const requiredAgrees = [
@@ -296,12 +306,12 @@
 	}
 
 	// 약관 우측 토글 버튼 클릭 이벤트
-	btnToggleAgree.addEventListener('click', function() {
+	btnToggleAgree?.addEventListener('click', function() {
 		setAgreeContainerCollapse(!agreeContainer.classList.contains("collapsed"));
 	});
 
 	// 애니메이션 종료 후 높이값 처리 (유연한 레이아웃 보장)
-	agreeContainer.addEventListener('transitionend', function(e) {
+	agreeContainer?.addEventListener('transitionend', function(e) {
 		if (e.propertyName === 'height' && !this.classList.contains('collapsed')) {
 			this.style.height = 'auto';
 		}
@@ -309,6 +319,7 @@
 
 	// 개별 체크박스 상태 변경 시 전체 동의 체크박스 상태 업데이트
 	function updateSubmitBtn() {
+		if (!agreeAll) return;
 		const allChecked = Array.from(agrees).every(chk => chk.checked);
 		if (agreeAll.checked !== allChecked) {
 			agreeAll.checked = allChecked;
@@ -316,7 +327,7 @@
 	}
 
 	// 전체 동의 체크박스 클릭 시 하위 항목 일괄 제어
-	agreeAll.addEventListener("change", function() {
+	agreeAll?.addEventListener("change", function() {
 		agrees.forEach(chk => chk.checked = this.checked);
 	});
 
@@ -326,7 +337,7 @@
 	 * 본인인증 및 회원가입 진행 로직
 	 */
 	// 휴대폰 번호 옆 '확인' 버튼 클릭 시 인증번호 발송 요청
-	btnPhoneConfirm.addEventListener('click', function() {
+	btnPhoneConfirm?.addEventListener('click', function() {
 		// 통신사 선택 여부 확인 (최우선 체크)
 		const selectedTelecom = document.querySelector('input[name="telCdRadio"]:checked');
 		if (!selectedTelecom) {
@@ -384,7 +395,7 @@
 		if (!requiredChecked) {
 			// 필수 약관 미동의 시 커스텀 팝업 노출
 			document.getElementById('sidePopup').classList.add('active');
-			document.querySelector('.dim').style.display = 'block';
+			dimOverlay.style.display = 'block';
 			return;
 		}
 
@@ -394,7 +405,8 @@
 	// 실제 인증번호 발송 프로세스 분리
 	function processPhoneAuth() {
 		// SKT 선택 시 주민등록번호 유효성 확인
-		const isSktSelected = document.querySelector('input[name="telCdRadio"]:checked').value === 'SKT';
+		const checkedCarrier = document.querySelector('input[name="telCdRadio"]:checked');
+		const isSktSelected = checkedCarrier ? checkedCarrier.value === 'SKT' : false;
 		if (isSktSelected && juminInput && juminInput.value.length < 8) {
 			showToast("주민등록번호를 확인해주세요.");
 			return;
@@ -437,15 +449,15 @@
 		showLoading(() => {
 			try { grecaptcha.reset(); } catch(e) {} // 콜백 후 리셋 처리
 
-			// 010으로 시작하지만 정상적인 번호가 아닌 경우 인증번호 발송 실패 팝업 노출
-			if (phoneInput.value !== '01012341234') {
-				const authFailPopup = document.getElementById('authFailPopup');
-				if (authFailPopup) {
-					authFailPopup.classList.add('active');
-					document.querySelector('.dim').style.display = 'block';
-				}
-				return;
-			}
+			// TODO: 서버 응답에 따라 인증번호 발송 실패 처리 (실제 서버 응답값으로 아래 조건 대체 필요)
+			// if (serverResponse.result !== 'success') {
+			// 	const authFailPopup = document.getElementById('authFailPopup');
+			// 	if (authFailPopup) {
+			// 		authFailPopup.classList.add('active');
+			// 		dimOverlay.style.display = 'block';
+			// 	}
+			// 	return;
+			// }
 
 			// 인증 상태 초기화 및 인증번호 입력창 표시
 			isAuthRequested = true;
@@ -460,12 +472,12 @@
 			
 			// 통신사 선택 비활성화
 			telecomRadios.forEach(radio => radio.disabled = true);
-			document.querySelector('.telecom').classList.add('disabled');
+			document.querySelector(".carrier-select").classList.add('disabled');
 
 			// 약관동의 비활성화
 			agreeAll.disabled = true;
 			agrees.forEach(chk => chk.disabled = true);
-			document.querySelector('.terms-agree').classList.add('disabled');
+			document.querySelector('.terms-panel').classList.add('disabled');
 
 			auth_wrap.classList.add("active");
 			
@@ -480,7 +492,7 @@
 			const authSuccessPopup = document.getElementById('authSuccessPopup');
 			if (authSuccessPopup) {
 				authSuccessPopup.classList.add('active');
-				document.querySelector('.dim').style.display = 'block';
+				dimOverlay.style.display = 'block';
 			}
 		});
 	};
@@ -490,19 +502,19 @@
 	const btnSideCancel = document.getElementById('btnSideCancel');
 	const btnSideConfirm = document.getElementById('btnSideConfirm');
 
-	btnSideCancel.addEventListener('click', function() {
+	btnSideCancel?.addEventListener('click', function() {
 		sidePopup.classList.remove('active');
-		document.querySelector('.dim').style.display = 'none';
+		dimOverlay.style.display = 'none';
 	});
 
-	btnSideConfirm.addEventListener('click', function() {
+	btnSideConfirm?.addEventListener('click', function() {
 		// 1. 모든 약관 체크 처리
 		agreeAll.checked = true;
 		agrees.forEach(chk => chk.checked = true);
 		
 		// 2. 팝업 및 딤 닫기
 		sidePopup.classList.remove('active');
-		document.querySelector('.dim').style.display = 'none';
+		dimOverlay.style.display = 'none';
 		
 		// 3. 인증 프로세스 진행
 		processPhoneAuth();
@@ -513,7 +525,7 @@
 	if (btnAuthFailConfirm) {
 		btnAuthFailConfirm.addEventListener('click', function() {
 			document.getElementById('authFailPopup').classList.remove('active');
-			document.querySelector('.dim').style.display = 'none';
+			dimOverlay.style.display = 'none';
 		});
 	}
 
@@ -522,12 +534,12 @@
 	if (btnAuthSuccessConfirm) {
 		btnAuthSuccessConfirm.addEventListener('click', function() {
 			document.getElementById('authSuccessPopup').classList.remove('active');
-			document.querySelector('.dim').style.display = 'none';
+			dimOverlay.style.display = 'none';
 		});
 	}
 
 	// 하단 최종 '전화번호 안심로그인 유료가입' 버튼 클릭 이벤트
-	primaryBtn.addEventListener("click", function(){
+	primaryBtn?.addEventListener("click", function(){
 		// 먼저 번호 확인 과정을 거쳤는지 확인
 		if (!isAuthRequested) {
 			const selectedTelecom = document.querySelector('input[name="telCdRadio"]:checked');
@@ -572,12 +584,12 @@
 			const sidePopup2 = document.getElementById('sidePopup2');
 			if (sidePopup2) {
 				sidePopup2.classList.add('active');
-				document.querySelector('.dim').style.display = 'block';
+				dimOverlay.style.display = 'block';
 				
 				// 확인 버튼 클릭 시 결과 페이지(popupCont05) 표시
 				document.getElementById('btnSideConfirm2').onclick = function() {
 					sidePopup2.classList.remove('active');
-					document.querySelector('.dim').style.display = 'none';
+					dimOverlay.style.display = 'none';
 					document.getElementById('popupCont05').style.display = 'block';
 				};
 			} else {
@@ -587,18 +599,18 @@
 
 		showLoading(() => {
 			// 통신사 확인
-			const selectedTelecom = document.querySelector('input[name="telCdRadio"]:checked').value;
+			const selectedTelecom = document.querySelector('input[name="telCdRadio"]:checked')?.value;
 			
 			if (selectedTelecom === 'KT') {
 				// KT인 경우 안내 팝업 노출
 				const ktPopup = document.querySelector('.layer.signUp_kt');
 				ktPopup.style.display = 'block';
-				document.querySelector('.dim').style.display = 'block';
+				dimOverlay.style.display = 'block';
 
 				// 팝업 내 확인 버튼(유료가입) 클릭 시
 				ktPopup.querySelector('.next').onclick = function() {
 					ktPopup.style.display = 'none';
-					document.querySelector('.dim').style.display = 'none';
+					dimOverlay.style.display = 'none';
 					StatisticsManager.track('signup'); // KT 가입 추적
 					completeJoin();
 				};
@@ -606,7 +618,7 @@
 				// 팝업 내 취소/닫기 버튼 클릭 시
 				const closeKtPopup = function() {
 					ktPopup.style.display = 'none';
-					document.querySelector('.dim').style.display = 'none';
+					dimOverlay.style.display = 'none';
 				};
 				ktPopup.querySelector('.btn_cancel').onclick = closeKtPopup;
 				ktPopup.querySelector('.btn_close').onclick = closeKtPopup;
@@ -676,7 +688,8 @@
 			setTimeout(() => {
 				const toastRect = toast.getBoundingClientRect();
 				// 상단 여백(toastRect.top)만큼 하단에도 추가하여 전체 높이 설정
-				const dimHeight = toastRect.bottom + toastRect.top + toastRect.height / 2;
+				// 토스트 팝업의 높이값이 유동적인 경우 아래 주석을 해제하여 사용
+				// const dimHeight = toastRect.bottom + toastRect.top + toastRect.height / 2;
 				// toastDim.style.height = dimHeight + 'px';
 			}, 0);
 		}
@@ -697,7 +710,7 @@
 	}
 
 	// 도움말 아이콘(?) 클릭 시 툴팁 토글
-	btnHelp.addEventListener('click', function(e) {
+	btnHelp?.addEventListener('click', function(e) {
 		e.stopPropagation();
 		helpTooltip.classList.toggle('active');
 	});
@@ -710,7 +723,7 @@
 	});
 
 	// '가입 완료' 등의 섹션/팝업 내 닫기 버튼 공통 연동
-	const exitCompleteBtns = document.querySelectorAll('.exitBtn_complete');
+	const exitCompleteBtns = document.querySelectorAll('.btn-page-exit');
 	exitCompleteBtns.forEach(btn => {
 		btn.addEventListener('click', function() {
 			this.closest('.signUp_section').style.display = 'none';
@@ -724,19 +737,19 @@
 			const exitPopup = document.getElementById('exitPopup');
 			if (exitPopup) {
 				exitPopup.classList.add('active');
-				document.querySelector('.dim').style.display = 'block';
+				dimOverlay.style.display = 'block';
 				
 				// 확인 버튼 클릭 시
 				document.getElementById('btnExitConfirm').onclick = function() {
 					exitPopup.classList.remove('active');
-					document.querySelector('.dim').style.display = 'none';
+					dimOverlay.style.display = 'none';
 					// 여기에 실제 종료 또는 이전 페이지 이동 로직 추가 가능
 				};
 				
 				// 취소 버튼 클릭 시
 				document.getElementById('btnExitCancel').onclick = function() {
 					exitPopup.classList.remove('active');
-					document.querySelector('.dim').style.display = 'none';
+					dimOverlay.style.display = 'none';
 				};
 			}
 		});
@@ -750,7 +763,7 @@
 		const privacyPopup = document.getElementById('privacy01');
 		if (privacyPopup) {
 			privacyPopup.style.display = 'block';
-			document.querySelector('.dim').style.display = 'block';
+			dimOverlay.style.display = 'block';
 		}
 	};
 
@@ -762,7 +775,7 @@
 		document.getElementById('privacy01').style.display = 'none';
 		// 만약 사이드 팝업이나 다른 알럿이 떠있는 상태가 아니라면 dim도 같이 닫기
 		if (!sidePopup.classList.contains('active')) {
-			document.querySelector('.dim').style.display = 'none';
+			dimOverlay.style.display = 'none';
 		}
 	}
 
@@ -787,7 +800,7 @@
 			const now = new Date().getTime();
 			if (now < parseInt(hideUntil)) {
 				// 숨김 처리 (전체 래퍼를 숨기거나 페이지를 이탈시킴)
-				document.querySelector('.safeconnect_wrap_new').style.display = 'none';
+				document.querySelector('.vas-container').style.display = 'none';
 				console.log("7일간 보이지 않기 기능이 활성화되어 있습니다.");
 			} else {
 				// 기간 만료 시 데이터 삭제
@@ -809,7 +822,7 @@
 				
 				// 설정 즉시 페이지 숨김 처리 (사용자 경험에 따라 다를 수 있음)
 				setTimeout(() => {
-					document.querySelector('.safeconnect_wrap_new').style.display = 'none';
+					document.querySelector('.vas-container').style.display = 'none';
 				}, 1500);
 			} else {
 				showToast("먼저 체크박스를 선택해 주세요.");
