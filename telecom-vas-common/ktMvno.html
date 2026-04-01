@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- End Google Tag Manager -->
+	<meta http-equiv="Content-Type"    content="text/html; charset=utf-8" />
+	<meta http-equiv="Cache-Control"   content="No-Cache" />
+	<meta http-equiv="Pragma" 		   content="No-Cache" />
+	<meta http-equiv="Expires" 		   content="now" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, viewport-fit=contain, user-scalable=no" />
+	<title>KT MVNO(알뜰폰) 약관 동의</title>
+</head>
+<body>
+	
+
+<script type="text/javascript">
+	// HTML 문서의 렌더링이 완료된 후 실행됩니다.
+	document.addEventListener('DOMContentLoaded', function() {
+		
+		// 1. 'X' 닫기 버튼 클릭 시 부모 창(index_type.html)의 팝업 직접 닫기
+		document.getElementById('closeBtn').addEventListener('click', function() {
+			if (window.parent && window.parent.document) {
+				// 부모 창의 #mvnoModal 숨기기
+				const mvnoModal = window.parent.document.getElementById('mvnoModal');
+				if (mvnoModal) {
+					mvnoModal.style.display = 'none';
+				}
+				
+				// 부모 창의 .dim 숨기기 (다른 팝업이 활성화되어 있지 않을 경우에만)
+				const sidePopup = window.parent.document.getElementById('sidePopup');
+				if (!sidePopup || !sidePopup.classList.contains('active')) {
+					const dim = window.parent.document.querySelector('.dim');
+					if (dim) {
+						dim.style.display = 'none';
+					}
+				}
+			}
+		});
+
+		// 2. 하단 '동의 후 인증번호 요청' 버튼 클릭 이벤트
+		var submitBtn = document.getElementById('submitBtn');
+		if (submitBtn) {
+			submitBtn.addEventListener('click', function() {
+				// MVNO 약관 체크 여부 확인 (필수 전제 조건)
+				var chk = document.getElementById('chk');
+				if (chk && !chk.checked) {
+					alert("KT MVNO 개인정보 3자 제공에 동의해주세요.");
+					return;
+				}
+
+				if (window.parent && window.parent.document) {
+					// 부모 창의 팝업을 먼저 닫습니다.
+					const parentCloseBtn = window.parent.document.getElementById('btnKtMvnoClose');
+					if (parentCloseBtn) {
+						parentCloseBtn.click();
+					}
+					
+					// 부모 창(index.js)에 전역으로 정의된 인증번호 발송 함수(executePhoneAuthLogic)를 실행합니다.
+					// 원래 '확인' 버튼을 눌렀을 때 진행되는 인증 프로세스를 우회 없이 정상적으로 이어받아 진행하게 됩니다.
+					if (typeof window.parent.executePhoneAuthLogic === 'function') {
+						window.parent.executePhoneAuthLogic("mock-token");
+					}
+				}
+			});
+		}
+	});
+</script>
+
+<div class="safeconnect_wrap"><!-- strict, flexible -->
+<head>
+	<style>
+		* {box-sizing: border-box; margin: 0; padding: 0;}
+		html, body, .safeconnect_wrap, #popup_warp {height: 100%;}
+		body {background-color: #f5f5f5; font-family: Arial, sans-serif;}
+		#popup_warp {padding: 0; display: flex; flex-direction: column; height: 100%;}
+		.p_con {display: flex; flex-direction: column; height: 100%;}
+		ul {list-style: none;}
+
+		.top-area {
+			position: relative;
+			background-color: #f5f5f5;
+			padding: 20px;
+			padding-right: 50px; /* X 버튼을 위한 공간 */
+			border-bottom: 1px solid #ddd;
+		}
+
+		.tit_wrap111 h2 {
+			font-size: 18px;
+			line-height: 1.4;
+		}
+
+		.checkbox-wrap {
+			display: flex;
+			align-items: center;
+			margin-bottom: 20px;
+		}
+
+		input[type="checkbox"] {
+			appearance: none;
+			-webkit-appearance: none;
+			width: 20px;
+			height: 20px;
+			border: 2px solid #ff4343;
+			border-radius: 4px;
+			margin-right: 10px;
+			position: relative;
+			background-color: #ff4343;
+		}
+
+		input[type="checkbox"]:checked::before {
+			content: '✓';
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			color: #FFFFFF;
+			font-size: 14px;
+		}
+
+		label {font-size: 14px;}
+
+		.termsContents {
+			border: 1px solid #ddd;
+			padding: 15px;
+			background-color: #fff;
+			font-size: 14px;
+			line-height: 1.6;
+			max-height: 50vh;
+			overflow-y: auto;
+		}
+
+		.termsContents p {margin-bottom: 10px;}
+
+		.close-btn {
+			position: absolute;
+			right: 10px;
+			top: 10px;
+			width: 40px;
+			height: 40px;
+			font-size: 24px;
+			background: none;
+			border: none;
+			color: #333;
+			cursor: pointer;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.close-btn strong {
+			display: inline-block;
+			transform: scale(1.3, 1);
+			font-weight: 100;
+		}
+
+		.certify_wrap {
+			position: sticky;
+			bottom: 0;
+			width: 100%;
+			padding: 20px;
+			background-color: #f5f5f5;
+			border-top: 1px solid #ddd;
+		}
+
+		#auth_no_btn_section {
+			width: 100%;
+		}
+
+		#auth_no_btn_section button {
+			width: 100%;
+			height: 50px;
+			background-color: #222222;
+			border: none;
+			border-radius: 4px;
+			color: #fff;
+			font-size: 16px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+
+		.content-area {
+			padding: 20px;
+			flex: 1 1 auto;
+			padding-bottom: 90px; /* 버튼 높이 + 패딩 */
+			height: auto;
+			min-height: 0;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="popup_warp" style="width:auto;">
+		<div class="p_con">
+			<div class="top-area">
+				<button id="closeBtn" class="close-btn"><strong>X</strong></button>
+				<div class="tit_wrap111">
+					<h2>KT MVNO(알뜰폰) 이용 고객은 추가 약관 동의가 필요합니다.<br/>아래 약관 확인 후 동의해 주세요.</h2>
+				</div>
+			</div>
+
+			<div class="content-area">
+				 <p class="checkbox-wrap">
+					<input type="checkbox" id="chk" name="chk" class="agree" checked onclick="return false;">
+						<label for ="chk">KT MVNO 개인정보 3자 제공 동의</label>
+				 </p>
+
+				<div class="termsContents">
+				
+					<p class="" style="vertical-align: middle; margin: 0cm 0cm 8pt; color: rgb(68, 68, 68); text-align: justify; line-height: 14.2667px; font-size: 10pt; font-family: &quot;맑은 고딕&quot;;"><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">KT MVNO&nbsp;</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">협정사업자는 전화번호안심로그인 서비스의 원활한 진행을 위해 다음과 같은 정보를 ㈜아톤에 제공합니다</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">.&nbsp;</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">회사는 아래의 정보와 목적 외에는 이용자의 정보를 제공하지 않으며</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">,&nbsp;</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">서비스 이용을 위한 목적 외에는 고객정보를 활용하지 않습니다</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">.<o:p style="vertical-align: middle;"></o:p></span></p><p class="" style="vertical-align: middle; margin: 0cm 0cm 8pt; color: rgb(68, 68, 68); text-align: justify; line-height: 14.2667px; font-size: 10pt; font-family: &quot;맑은 고딕&quot;;"><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">- KT MVNO&nbsp;</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">협정사업자</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">&nbsp;: (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">니즈페이</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">더원플랫폼</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">,&nbsp;</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">드림라인</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">(</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">), (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">이동의즐거움</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">,&nbsp;</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">롯데이노베이트</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">(</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">),&nbsp;</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">토스모바일</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">(</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">),<span style="vertical-align: middle; font-size: 9pt; font-family: 돋움, Dotum;">&nbsp;</span>(</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">미니게이트</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">스테이지파이브</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">씨엔커뮤니케이션</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">아이디스파워텔</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">아이즈비전</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">앤알커뮤니케이션</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">에넥스텔레콤</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">,&nbsp;</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">니오라코리아</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">에이프러스</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">오케이포스</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">와이엘랜드</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">위너스텔</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">유니컴즈</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">,&nbsp;</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">장성모바일한국</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">케이티스카이라이프</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">케이티엠모바일</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">,&nbsp;</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">케이티텔레캅</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">코드모바일</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">큰사람커넥트</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">파인디지털</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">프리텔레콤</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">한국케이블텔레콤</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">,&nbsp;</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">한국피엠오</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">(</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">), (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">스마텔</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">국민은행</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">한국이텔레콤</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">인스코리아</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">더피엔엘</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">고고팩토리</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">에르엘</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">핀샷</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">친구아이앤씨</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">, (</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">한패스인터내셔널</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">,&nbsp;</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">스피츠모바일</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">(</span><span style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">주</span><span lang="EN-US" style="vertical-align: middle; font-family: 돋움, Dotum; font-size: 9pt;">)</span></p><table class="__se_tbl" border="0" cellpadding="0" cellspacing="0" _se2_tbl_template="4" style="border: 1px solid rgb(199, 199, 199);"><tbody>
+<tr><td width="519" style="padding: 3px 4px 2px; background-color: rgb(243, 243, 243); color: rgb(102, 102, 102); border-right: 1px solid rgb(231, 231, 231); text-align: left; font-weight: normal;"><p>&nbsp;개인정보를 제공받는 자</p></td>
+<td width="519" style="padding: 3px 4px 2px; background-color: rgb(243, 243, 243); color: rgb(102, 102, 102); border-right: 1px solid rgb(231, 231, 231); text-align: left; font-weight: normal;"><p style="margin-left: 0px;">제공받는 자의 이용목적</p></td>
+<td width="519" style="padding: 3px 4px 2px; background-color: rgb(243, 243, 243); color: rgb(102, 102, 102); border-right: 1px solid rgb(231, 231, 231); text-align: left; font-weight: normal;"><p>&nbsp;제공하는 개인정보의 항목</p></td>
+<td width="519" style="padding: 3px 4px 2px; background-color: rgb(243, 243, 243); color: rgb(102, 102, 102); border-right: 1px solid rgb(231, 231, 231); text-align: left; font-weight: normal;"><p>&nbsp;개인정보 보유 및 이용 기간</p></td>
+</tr>
+<tr><td width="519" style="padding: 3px 4px 2px; background-color: rgb(255, 255, 255); border-top: 1px solid rgb(231, 231, 231); border-right: 1px solid rgb(231, 231, 231); color: rgb(102, 102, 102);"><p>&nbsp;㈜아톤</p></td>
+<td width="519" style="padding: 3px 4px 2px; background-color: rgb(255, 255, 255); border-top: 1px solid rgb(231, 231, 231); border-right: 1px solid rgb(231, 231, 231); color: rgb(102, 102, 102);"><p>&nbsp;전화번호안심로그인서비스 가입 및 해지, 서비스 제공, 고객문의 처리</p></td>
+<td width="519" style="padding: 3px 4px 2px; background-color: rgb(255, 255, 255); border-top: 1px solid rgb(231, 231, 231); border-right: 1px solid rgb(231, 231, 231); color: rgb(102, 102, 102);"><p>&nbsp;휴대폰번호, 회선가입상태, 전화번호안심로그인 가입상태</p></td>
+<td width="519" style="padding: 3px 4px 2px; background-color: rgb(255, 255, 255); border-top: 1px solid rgb(231, 231, 231); border-right: 1px solid rgb(231, 231, 231); color: rgb(102, 102, 102);"><p>&nbsp;정보 제공일부터 서비스 해지 또는 제공 계약 종료일 중 먼저 도래하는 시점까지 이용하며, 이용 기간이 종료한 시점에 파기. 단, 다른 법령에 특별한 규정이 있을 경우 관련 법령에 따라 보관.</p></td>
+</tr>
+</tbody>
+</table><p><br></p><p>정보주체는 개인정보 제3자 제공에 동의하지 않을 권리가 있으며, 동의를 거부할 경우 서비스 가입에 제한을 받을 수 있습니다.</p>
+				</div>
+			</div>
+
+			<div class="certify_wrap">
+				<div id="auth_no_btn_section" class="type3">
+					<button type="button" class="btn06" id="submitBtn">동의 후 인증번호 요청</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</div>

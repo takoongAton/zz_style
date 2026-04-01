@@ -58,12 +58,7 @@
 	/* background-color: rgb(from var(--primary-color) r g b / 0.9); */
 }
 
-body {font-family: "Pretendard", -apple-system, "BlinkMacSystemFont", "Roboto", sans-serif, system-ui, "Noto Sans KR","Noto Sans CJK","Apple SD Gothic Neo";
-
-
--webkit-font-smoothing: antialiased;
--moz-osx-font-smoothing: grayscale;
-}
+body {font-family: "Pretendard", -apple-system, "BlinkMacSystemFont", "Roboto", sans-serif, system-ui, "Noto Sans KR","Noto Sans CJK","Apple SD Gothic Neo"; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
 
 
 
@@ -211,6 +206,12 @@ body {font-family: "Pretendard", -apple-system, "BlinkMacSystemFont", "Roboto", 
 .terms-panel .terms-items input[type="checkbox"]:checked + label span.checkmark svg {fill:var(--primary-color)}
 .terms-panel .terms-items label ~ span.txt {display:inline-block; margin-left:21px; line-height:20px; color:#888; cursor:pointer;}
 
+/* checkmark에 svg를 사용하지 않는 경우 적용 */
+/* .terms-panel .terms-items input[type="checkbox"] + label span.checkmark {width:17px; min-width:17px; height:20px; text-align:center;}
+.terms-panel .terms-items input[type="checkbox"] + label span.checkmark::before {content:"✓"; font-size:1em; color:var(--border-gray);}
+.terms-panel .terms-items input[type="checkbox"] + label span.checkmark svg {display:none; fill:var(--border-gray)}
+.terms-panel .terms-items input[type="checkbox"]:checked + label span.checkmark::before {color:var(--primary-color)} */
+/* // checkmark에 svg를 사용하지 않는 경우 적용 */
 
 .terms-panel .terms-items ul li button.btn-terms-view {display:flex; align-items:center; position:relative; width:40px; min-width:40px; height:20px; color:#888; text-align:left; cursor:pointer; background-color:transparent;}
 .terms-panel .terms-items ul li button.btn-terms-view span.txt {color:inherit; white-space:nowrap;}
@@ -236,6 +237,8 @@ body {font-family: "Pretendard", -apple-system, "BlinkMacSystemFont", "Roboto", 
 .field-group--split .input-box { flex: 1; }
 
 .input-box {/* background:var(--bg-gray); */ background-color:#fff; border:1px solid var(--border-gray); border-radius:14px; padding:12px 16px; transition:border-color 0.2s;}
+.input-box .input-content {width:100%;}
+
 
 .input-box--with-btn {display:flex; justify-content:space-between; align-items:center;}
 
@@ -499,38 +502,38 @@ table, td, th {border:1px solid #333;}
 /* 서비스 이용약관 테이블 */
 
 /* 서비스 이용약관, 개인정보 처리방침용 팝업 */
-.layer.privacy {position:fixed; top:0; left:0; width:100%; height:100dvh; border-radius:0; background-color:#fff; z-index:10001; overflow:hidden;}
-.layer.privacy .layer_header {display:flex; justify-content:space-between; align-items:center; position:relative; background-color:#333;}
-.layer.privacy .layer_header h2 {height:48px; padding:0 24px; color:#fff; font-size:16px; line-height:48px; text-align:left;}
-.layer.privacy .layer_header button.btn_close {position:absolute; top:50%; right:24px; width:36px; height:36px; background-color:transparent; color:transparent; transform:translateY(-50%); cursor:pointer;}
-.layer.privacy .layer_header button.btn_close::before,
-.layer.privacy .layer_header button.btn_close::after {content:""; position:absolute; top:50%; left:50%; width:60%; height:1.5px; background-color:#fff;}
-.layer.privacy .layer_header button.btn_close::before {transform:translate(-50%,-50%) rotate(45deg);}
-.layer.privacy .layer_header button.btn_close::after {transform:translate(-50%,-50%) rotate(-45deg);}
+.terms-layer {position:fixed; top:0; left:0; width:100%; height:100dvh; border-radius:0; background-color:#fff; z-index:10001; overflow:hidden;}
+.terms-layer__header {display:flex; justify-content:space-between; align-items:center; position:relative; background-color:#333;}
+.terms-layer__title {height:48px; padding:0 24px; color:#fff; font-size:16px; line-height:48px; text-align:left;}
+.terms-layer__close {position:absolute; top:50%; right:24px; width:36px; height:36px; background-color:transparent; color:transparent; transform:translateY(-50%); cursor:pointer;}
+.terms-layer__close::before,
+.terms-layer__close::after {content:""; position:absolute; top:50%; left:50%; width:60%; height:1.5px; background-color:#fff;}
+.terms-layer__close::before {transform:translate(-50%,-50%) rotate(45deg);}
+.terms-layer__close::after {transform:translate(-50%,-50%) rotate(-45deg);}
 
-.layer.privacy .inner {display:flex; flex-direction:column; justify-content:space-between; width:100%; height:100%;}
+.terms-layer__inner {display:flex; flex-direction:column; justify-content:space-between; width:100%; height:100%;}
 
-.layer.privacy .layer_content {flex:1; display:flex; flex-direction:column; position:relative; width:100%; height:auto; max-height:unset; padding:0; border:0; overflow-y:auto;}
-.layer.privacy .layer_content::before,
-.layer.privacy .layer_content::after {content:""; display:block; position:absolute; left:0; width:100%; height:24px; background:linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%); z-index:1;}
-.layer.privacy .layer_content::before {top:0; transform: rotate(180deg);}
-.layer.privacy .layer_content::after {bottom:0;}
-.layer.privacy .layer_content div.select_wrap {margin:24px 24px 0; background:#f5f5f5 url('../images/ico_arrow_down_s.png') no-repeat center right 6px / 36px;}
-.layer.privacy .layer_content div.select_wrap select {width:100%; height:48px; padding:0 20px; background-color:transparent; border:0 none; font-size:0.875em; line-height:2.4em; font-family:'Noto Sans KR';}
+.terms-layer__body {flex:1; display:flex; flex-direction:column; position:relative; width:100%; height:auto; max-height:unset; padding:0; border:0; overflow-y:auto;}
+.terms-layer__body::before,
+.terms-layer__body::after {content:""; display:block; position:absolute; left:0; width:100%; height:24px; background:linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%); z-index:1;}
+.terms-layer__body::before {top:0; transform: rotate(180deg);}
+.terms-layer__body::after {bottom:0;}
+.terms-layer__body .terms-layer__select {margin:24px 24px 0; background:#f5f5f5 url('../images/ico_arrow_down_s.png') no-repeat center right 6px / 36px;}
+.terms-layer__body .terms-layer__select select {width:100%; height:48px; padding:0 20px; background-color:transparent; border:0 none; font-size:0.875em; line-height:2.4em; font-family:'Noto Sans KR';}
 
-.layer.privacy .layer_content .txt_content {position:relative; padding:24px 18px; flex:1; color:#555; font-size:0.875em; line-height:1.5; overflow-y:auto;}
-.layer.privacy .layer_content .txt_content::before,
-.layer.privacy .layer_content .txt_content::after {content:""; display:block; position:absolute; top:0; left:0; width:100%; height:20px;}
-.layer.privacy .layer_footer {display:flex; width:100%; padding:0 18px calc(var(--safe-bottom) + 20px);}
-.layer.privacy .layer_footer button.btn_next {width:100%; height:56px; border-radius:12px; background-color:var(--primary-color); color: #fff; font-size:16px; font-weight:700; cursor:pointer;}
-.layer.privacy .layer_footer button.btn_next span {display:block; color:inherit; font-size:inherit; font-weight:inherit; line-height:1em;}
+.terms-layer__content {position:relative; padding:24px 18px; flex:1; color:#555; font-size:0.875em; line-height:1.5; overflow-y:auto;}
+.terms-layer__content::before,
+.terms-layer__content::after {content:""; display:block; position:absolute; top:0; left:0; width:100%; height:20px;}
+.terms-layer__footer {display:flex; width:100%; padding:0 18px calc(var(--safe-bottom) + 20px);}
+.terms-layer__btn-confirm {width:100%; height:56px; border-radius:12px; background-color:var(--primary-color); color: #fff; font-size:16px; font-weight:700; cursor:pointer;}
+.terms-layer__btn-confirm span {display:block; color:inherit; font-size:inherit; font-weight:inherit; line-height:1em;}
 @media screen and (min-width:787px) {
-	.layer.privacy {top:50%; left:50%; width:100%; max-width:720px; height:auto; border-radius:32px; transform:translate(-50%,-50%);}
-	.layer.privacy .layer_header h2 {height:72px; font-size:20px; line-height:72px;}
-	.layer.privacy .inner {height:auto;}
-	.layer.privacy .layer_content {height:100%; max-height:60vh;}
-	.layer.privacy .layer_content div.select_wrap {margin:0 36px;}
-	.layer.privacy .layer_content .txt_content {padding:36px; font-size:14px;}
+	.terms-layer {top:50%; left:50%; width:100%; max-width:720px; height:auto; border-radius:32px; transform:translate(-50%,-50%);}
+	.terms-layer__title {height:72px; font-size:20px; line-height:72px;}
+	.terms-layer__inner {height:auto;}
+	.terms-layer__body {height:100%; max-height:60vh;}
+	.terms-layer__body .terms-layer__select {margin:0 36px;}
+	.terms-layer__content {padding:36px; font-size:14px;}
 }
 /* // 서비스 이용약관, 개인정보 처리방침용 팝업 */
 
@@ -560,3 +563,46 @@ table, td, th {border:1px solid #333;}
 .layer.signUp_kt .btn_close::before {transform:translate(-50%,-50%) rotate(45deg);}
 .layer.signUp_kt .btn_close::after {transform:translate(-50%,-50%) rotate(-45deg);}
 /* // KT 가입 안내 팝업 */
+
+
+
+
+
+/* KT MVNO 약관 동의 팝업 */
+#kt-mvno-layer {display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:10002;}
+#kt-mvno-layer.active {display:flex; flex-direction:column;}
+.kt-mvno-inner {display:flex; flex-direction:column; height:100%; background-color:#f5f5f5;}
+.kt-mvno-header {position:relative; background-color:#f5f5f5; padding:20px 50px 20px 20px; border-bottom:1px solid #ddd;}
+.kt-mvno-title h2 {font-size:18px; line-height:1.4;}
+
+.kt-mvno-close {display:flex; justify-content:center; align-items:center; position:absolute; top:10px; right:10px; width:40px; height:40px; color:#333;}
+.kt-mvno-close::before,
+.kt-mvno-close::after {content:""; position:absolute; top:50%; left:50%; width:60%; height:1.5px; background-color:#333;}
+.kt-mvno-close::before {transform:translate(-50%,-50%) rotate(45deg);}
+.kt-mvno-close::after {transform:translate(-50%,-50%) rotate(-45deg);}
+.kt-mvno-close span {display:inline-block; color:transparent;}
+
+
+.kt-mvno-body {display:flex; flex-direction:column; padding:20px; flex:1 1 auto; height:auto; min-height:0; overflow-y:auto;}
+.kt-mvno-checkbox {display:flex; align-items:center; margin-bottom:1em; padding-left:0.25em;}
+.kt-mvno-checkbox input[type="checkbox"] {appearance:none; -webkit-appearance:none; width:20px; height:20px; border-radius:4px; margin-right:10px; position:relative; flex-shrink:0; background-color:var(--service-color);}
+.kt-mvno-checkbox input[type="checkbox"]:checked::before {content:'✓'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#fff; font-size:14px;}
+.kt-mvno-checkbox label {font-size:14px;}
+.kt-mvno-terms {position:relative; padding:15px; border:1px solid #ddd; border-radius:0.5em; background-color:#fff; overflow-y:auto; overflow-x:hidden;}
+.kt-mvno-terms table {margin:1em 0;}
+.kt-mvno-terms table,
+.kt-mvno-terms table th,
+.kt-mvno-terms table td {padding:0.5em; border: 1px solid #ddd; color:var(--text-gray-dark); font-size:12px; line-height:1.5em;}
+.kt-mvno-terms table th {background-color:var(--bg-gray);}
+.kt-mvno-terms p {color:var(--text-gray-dark); font-size:12px; line-height:1.5em;}
+.kt-mvno-footer {width:100%; padding:20px; background-color:#f5f5f5; border-top:1px solid #ddd;}
+.kt-mvno-actions {width:100%;}
+.btn-kt-mvno-submit {width:100%; height:52px; background-color:var(--text-main); border:none; border-radius:12px; color:#fff; font-size:16px; font-weight:bold; cursor:pointer;}
+.btn-kt-mvno-submit span {color:#fff;}
+/* // KT MVNO 약관 동의 팝업 */
+
+@media screen and (min-width: 787px) {
+	#kt-mvno-layer {top:50%; left:50%; width:100%; max-width:720px; height:auto; border-radius:32px; transform:translate(-50%, -50%); overflow:hidden;}
+	#kt-mvno-layer .kt-mvno-body {min-height:60vh;}
+}
+/* // KT MVNO 약관 동의 팝업 */
