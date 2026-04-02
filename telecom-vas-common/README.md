@@ -168,6 +168,67 @@ KT 통신사 선택 후 인증번호 발송 직전에 자동으로 노출됩니�
 </div>
 ```
 
+---
+
+### `.modal-side` — 확인/알림 팝업 (BEM 컴포넌트)
+
+약관 유도, 가입 완료 안내, 종료 확인, 인증 결과 등 다목적 소형 팝업.
+`label`(카테고리)과 `title`(제목)은 필수, `desc`(설명)는 선택적으로 사용합니다.
+
+```html
+<!-- desc 없는 경우 (label + title만) -->
+<div class="modal-side" id="exitPopup">
+    <div class="modal-side__content">
+        <p class="modal-side__label">개인정보 보호 서비스</p>
+        <p class="modal-side__title">가입 진행을 종료하시겠습니까?</p>
+    </div>
+    <div class="modal-side__footer">
+        <button type="button" class="btn modal-side__btn-cancel" id="btnExitCancel"><span>취소</span></button>
+        <button type="button" class="btn modal-side__btn-confirm" id="btnExitConfirm"><span>확인</span></button>
+    </div>
+</div>
+
+<!-- desc 있는 경우 (label + title + desc) -->
+<div class="modal-side" id="sidePopup2">
+    <div class="modal-side__content">
+        <p class="modal-side__label">서비스 가입 완료</p>
+        <p class="modal-side__title">서비스명 서비스 가입 안내</p>
+        <p class="modal-side__desc">사이트의 아이디/비밀번호를 스마트폰 USIM에 보관하고...</p>
+    </div>
+    <div class="modal-side__footer">
+        <button type="button" class="btn modal-side__btn-confirm" id="btnSideConfirm2"><span>확인</span></button>
+    </div>
+</div>
+```
+
+| 요소 | 클래스 | 필수 여부 |
+|------|--------|-----------|
+| 컴포넌트 루트 | `.modal-side` | 필수 |
+| 콘텐츠 래퍼 | `.modal-side__content` | 필수 |
+| 카테고리 라벨 | `.modal-side__label` | 필수 |
+| 제목 | `.modal-side__title` | 필수 |
+| 설명 | `.modal-side__desc` | 선택 |
+| 버튼 영역 | `.modal-side__footer` | 필수 |
+| 취소 버튼 | `.modal-side__btn-cancel` | 선택 |
+| 확인 버튼 | `.modal-side__btn-confirm` | 필수 |
+
+팝업 활성화 시 `.active` 클래스를 추가합니다:
+```js
+document.getElementById('exitPopup').classList.add('active');
+```
+
+**프로젝트 내 사용 팝업 목록**
+
+| ID | label | title | desc |
+|----|-------|-------|------|
+| `#sidePopup` | 서비스 이용 | 필수 약관 동의 후 다음 단계를 진행하겠습니까? | ✗ |
+| `#sidePopup2` | 서비스 가입 완료 | 서비스명 서비스 가입 안내 | ✓ (서비스별 상이) |
+| `#exitPopup` | 개인정보 보호 서비스 | 가입 진행을 종료하시겠습니까? | ✗ |
+| `#authFailPopup` | 인증번호 발송 실패 | 통신사 또는 휴대폰 번호를 확인해주세요. | ✗ |
+| `#authSuccessPopup` | 인증번호 발송 완료 | 입력하신 번호로 인증번호가 발송되었습니다. | ✗ |
+
+---
+
 ## ⚙️ 인증 폼 상태 관리
 
 통신사에 따라 주민등록번호 입력란 유무가 달라지며, `AUTH_FORM_STATE` 상수로 3가지 상태를 관리합니다.

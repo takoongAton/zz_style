@@ -88,8 +88,9 @@
 		const selectedTelecom = document.querySelector('input[name="telCdRadio"]:checked');
 		const isSktSelected = selectedTelecom && selectedTelecom.value === 'SKT';
 		let isValid = phoneInput && phoneInput.value.length === 11;
-		if (isSktSelected) {
-			isValid = isValid && juminInput && juminInput.value.length === 8;
+		if (isSktSelected && juminInput) {
+			// juminFieldGroup이 DOM에 있는 경우에만 주민등록번호 유효성 검사
+			isValid = isValid && juminInput.value.length === 8;
 		}
 		if (isValid) {
 			btnPhoneConfirm.classList.add('active');
@@ -149,6 +150,11 @@
 	// const AUTH_FORM_DEFAULT_STATE = false;
 
 	function setAuthFormState(state) {
+		// [Option B] juminFieldGroup이 DOM에 없으면 WITH_JUMIN → WITHOUT_JUMIN 자동 전환
+		if (state === AUTH_FORM_STATE.WITH_JUMIN && !juminFieldGroup) {
+			state = AUTH_FORM_STATE.WITHOUT_JUMIN;
+		}
+
 		const authForm = document.querySelector('.phone-auth-form');
 		const btnConfirmWrap = document.getElementById('phone-confirm-wrap');
 		if (!authForm || !btnConfirmWrap) return;
@@ -215,7 +221,8 @@
 
 		// 통신사별 인증 폼 상태 설정 (AUTH_FORM_DEFAULT_STATE: true이면 항상 디폴트 유지)
 		if (!AUTH_FORM_DEFAULT_STATE) {
-			if (carrierValue === 'SKT') {
+			// [Option A] juminFieldGroup이 DOM에 없으면 SKT여도 WITHOUT_JUMIN 적용
+			if (carrierValue === 'SKT' && juminFieldGroup) {
 				setAuthFormState(AUTH_FORM_STATE.WITH_JUMIN);
 			} else {
 				setAuthFormState(AUTH_FORM_STATE.WITHOUT_JUMIN);
@@ -225,7 +232,7 @@
 		const serviceBnr = document.getElementById('serviceBnr');
 		
 		if (carrierValue === 'SKT') {
-			juminFieldGroup.style.display = 'block';
+			if (juminFieldGroup) juminFieldGroup.style.display = 'block';
 			if (stplat4Text) stplat4Text.innerText = 'SKT개인정보 제3자 제공동의';
 			if (stplatSkt) stplatSkt.style.display = '';
 			if (stplatSktAdd1) stplatSktAdd1.style.display = '';
@@ -233,7 +240,7 @@
 			if (serviceTypeText) serviceTypeText.innerText = '통신사 제휴 유료 부가서비스';
 			if (serviceBnr) serviceBnr.style.display = '';
 		} else {
-			juminFieldGroup.style.display = 'none';
+			if (juminFieldGroup) juminFieldGroup.style.display = 'none';
 			if (stplatSkt) stplatSkt.style.display = 'none';
 			if (stplatSktAdd1) stplatSktAdd1.style.display = 'none';
 			if (stplatSktAdd2) stplatSktAdd2.style.display = 'none';
