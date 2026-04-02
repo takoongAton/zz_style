@@ -238,23 +238,40 @@ document.getElementById('exitPopup').classList.add('active');
 | 상수 | 클래스 | 적용 조건 |
 |------|--------|-----------|
 | `AUTH_FORM_STATE.DEFAULT` | _(없음)_ | 기본 상태 |
-| `AUTH_FORM_STATE.WITH_JUMIN` | `with-jumin` | SKT 선택 시 |
-| `AUTH_FORM_STATE.WITHOUT_JUMIN` | `without-jumin` | KT / LGU+ 선택 시 |
+| `AUTH_FORM_STATE.WITH_JUMIN` | `with-jumin` | SKT 선택 + `#juminFieldGroup` DOM 존재 시 |
+| `AUTH_FORM_STATE.WITHOUT_JUMIN` | `without-jumin` | KT / LGU+ 선택 시, 또는 `#juminFieldGroup` 없을 때 |
 
 ### 초기 상태 설정
 
+각 HTML 파일 하단 `<script>` 블록에서 선언합니다.
+
 ```js
 // true: 초기 디폴트 상태 유지 (클래스 없음)
-// false: 초기부터 without-jumin 상태 적용
-const AUTH_FORM_DEFAULT_STATE = true;
+// false: 통신사 선택에 따라 with-jumin / without-jumin 상태 적용
+const AUTH_FORM_DEFAULT_STATE = false;
 ```
+
+### 주민등록번호 필드 유무에 따른 자동 분기
+
+`#juminFieldGroup`을 HTML에서 주석 처리하면 JS가 DOM 존재 여부를 감지하여 자동으로 분기합니다.
+별도 플래그 변수 없이 동작하며, `safeconnect_01.html`이 이 방식을 사용합니다.
+
+| 파일 | `#juminFieldGroup` | SKT 선택 시 상태 | 확인 버튼 활성 조건 |
+|---|---|---|---|
+| `safeconnect_01.html` | ❌ 주석 처리 | `WITHOUT_JUMIN` | 전화번호 11자리 |
+| `safeconnect_02.html` | ✅ 있음 | `WITH_JUMIN` | 전화번호 11자리 + 주민번호 8자리 |
+
+**JS 처리 원칙 (vas-common.js)**
+- `handleCarrierChange()`: SKT 선택이더라도 `juminFieldGroup`이 null이면 `WITHOUT_JUMIN` 적용
+- `setAuthFormState()`: `WITH_JUMIN` 요청 시 `juminFieldGroup`이 null이면 `WITHOUT_JUMIN`으로 자동 전환 (방어 처리)
+- `updatePhoneConfirmBtnState()`: `juminFieldGroup`이 null이면 주민번호 유효성 검사 생략
 
 ### 스크립트에서 직접 상태 변경
 
 ```js
 setAuthFormState(AUTH_FORM_STATE.DEFAULT);        // 기본 상태
-setAuthFormState(AUTH_FORM_STATE.WITH_JUMIN);     // 주민등록번호 입력란 표시 (SKT)
-setAuthFormState(AUTH_FORM_STATE.WITHOUT_JUMIN);  // 주민등록번호 입력란 없음 (KT, LGU+)
+setAuthFormState(AUTH_FORM_STATE.WITH_JUMIN);     // 주민등록번호 입력란 표시 (SKT, juminFieldGroup 있을 때)
+setAuthFormState(AUTH_FORM_STATE.WITHOUT_JUMIN);  // 주민등록번호 입력란 없음 (KT, LGU+, 또는 juminFieldGroup 없을 때)
 ```
 
 ## 🔄 인증번호 발송 플로우

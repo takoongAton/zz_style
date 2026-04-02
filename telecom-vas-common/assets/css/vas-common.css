@@ -19,23 +19,26 @@
 
 	--primary-color: var(--service-color, #000000);
 
-	--bg-gray-light: #fafafa;
-	--bg-gray: #f4f4f4;
-	--bg-gray-dark: #e5e5e5;
+	--bg-gray:#f4f4f4;
+	--bg-gray-light:#fafafa;
+	--bg-gray-dark:#e5e5e5;
 
-	--border-gray: #e5e5e5;
-	--border-gray-light: #e5e5e5;
+	--border-gray:#e5e5e5;
+	--border-gray-light:#e5e5e5;
 	--border-gray-dark: #e5e5e5;
 
-    --text-label: #666;
+    --text-label:#666;
 
-    --text-main: #242424;
-    --text-error: #FF5A5F;
-    --text-error-red: #ff0000;
+    --text-main:#242424;
+    --text-error:#FF5A5F;
+    --text-error-red:#ff0000;
+
 	--text-warning: #ff0000;
 	--text-warning-light: rgba(255, 0, 0, 0.5);
 	--text-warning-dark: rgba(255, 0, 0, 1);
-	--text-gray: #999;
+
+	--text-gray:#999;
+	--text-gray-light:#999;
 	--text-gray-dark:#545454;
 	--bounce-bezier:cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
@@ -167,7 +170,7 @@ table, td, th {border:1px solid #333;}
 .terms-list .txt {display:inline-flex; align-items:center; min-height:20px; font-size:13px; line-height:20px; letter-spacing:-0.025em; word-break:keep-all;}
 .terms-panel label a.txt {display:inline-block; width:auto; text-decoration:none; cursor:pointer;}
 
-.btn-terms-view {display:flex; justify-content:center; align-items:center; position:relative; width:18px; height:18px; background-color:var(--border-gray);}
+
 
 .terms-panel input[type="checkbox"] {position:absolute; top:0; left:0; width:0; height:0; margin:0; padding:0; border:0; vertical-align:top;}
 .terms-panel input[type="checkbox"] + label {display:inline-flex; gap:4px; position:relative; top:auto; width:auto; margin:0;}
@@ -209,7 +212,7 @@ table, td, th {border:1px solid #333;}
 .terms-panel .terms-items input[type="checkbox"] + label span.checkmark svg {display:none; fill:var(--border-gray)}
 .terms-panel .terms-items input[type="checkbox"]:checked + label span.checkmark::before {color:var(--primary-color)} */
 /* // checkmark에 svg를 사용하지 않는 경우 수정 적용 */
-.terms-panel .terms-items ul li button.btn-terms-view {display:flex; align-items:center; position:relative; width:40px; min-width:40px; height:20px; color:#888; text-align:left; cursor:pointer; background-color:transparent;}
+.terms-panel .terms-items ul li button.btn-terms-view {display:flex; justify-content:center; align-items:center; position:relative; width:40px; min-width:40px; height:20px; color:#888; text-align:left; cursor:pointer; background-color:transparent;}
 .terms-panel .terms-items ul li button.btn-terms-view span.txt {color:inherit; white-space:nowrap;}
 .terms-panel .terms-items ul li button.btn-terms-view span.ico {display:block; width:20px; height:20px;line-height:1; color:inherit;}
 .terms-panel .terms-items ul li button.btn-terms-view svg {width:20px; height:20px; fill:currentColor; transform:rotate(-90deg);}
@@ -375,7 +378,6 @@ html.complete body .vas-container section {display:flex; flex-direction:column; 
 /* // 완료 화면의 앱 설치 링크 */
 
 /* 가입 완료 화면에서 이용료 표시 */
-.complete-billing-info {}
 .complete-billing-info p.txt {color:var(--text-gray-dark); font-size:12px; line-height:1.5em;}
 .complete-billing-info p.txt strong {color:var(--text-error-red); font-weight:600;}
 .complete-billing-info p.txt strong ~ br {display:none;}
@@ -477,7 +479,7 @@ div.dim {display:none; position:fixed; top:0; right:0; bottom:0; left:0; width:1
 .layer.alert .btn_group button.btn_cancel span {color:#000;}
 .layer.alert .btn_group button.btn_next {background-color:#000;}
 .layer.alert .btn_group button.btn_next span {color:#fff;}
-/* 레이어 팝업 */
+/* // 레이어 팝업 */
 
 
 
